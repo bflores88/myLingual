@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinalConfirmComponent } from './final-confirm.component';
+import { NoPictureComponent } from './no-picture-card.component';
 
-describe('FinalConfirmComponent', () => {
-  let component: FinalConfirmComponent;
-  let fixture: ComponentFixture<FinalConfirmComponent>;
+describe('NoPictureComponent', () => {
+  let component: NoPictureComponent;
+  let fixture: ComponentFixture<NoPictureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FinalConfirmComponent ]
+      declarations: [ NoPictureComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FinalConfirmComponent);
+    fixture = TestBed.createComponent(NoPictureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
