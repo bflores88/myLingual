@@ -3,7 +3,20 @@
 :root {
   --bgColor: 	hsl(0, 0%, 100%);
   --headerColor: 	hsl(197, 65%, 55%);
+  --headerFontColor: 	hsl(0, 0%, 100%);
   --navColor: 	hsl(197, 65%, 55%);
+  --activeLinkColor: 	hsl(197, 65%, 25%);
+  --hoverLinkColor: 	hsl(181, 83%, 58%);
+
+}
+
+a:link {
+  text-decoration: none;
+  color: var(--activeLinkColor);
+}
+
+a:hover {
+  color: var(--hoverLinkColor);
 }
 
 html {
