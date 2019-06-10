@@ -20,7 +20,7 @@ import { ForumsComponent } from './pages/forums/forums.component';
 import { ImageCaptureComponent } from './pages/image-capture/image-capture.component';
 import { NoPictureComponent } from './pages/no-picture-card/no-picture-card.component';
 import { ConfirmCompletedCardComponent } from './pages/confirm-completed-card/confirm-completed-card.component';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -44,7 +44,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ImageCaptureComponent,
     NoPictureComponent,
     ConfirmCompletedCardComponent,
-    SettingsComponent,
+    UserSettingsComponent,
     EditCardComponent,
     FooterComponent
   ],
