@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --bgColor: 	hsl(0, 0%, 100%);
+  --headerColor: 	hsl(197, 65%, 55%);
+  --navColor: 	hsl(197, 65%, 55%);
+}
+
 html {
   box-sizing: border-box;
 }
@@ -8,4 +15,17 @@ html {
 
 body {
   margin: 0;
+  background-color: var(--bgColor);
+}
+
+.header {
+   background-color: var(--headerColor);
+}
+
+.header.dark-theme {
+  --headerColor: hsl(197, 65%, 25%);
+}
+
+.nav { 
+  background-color: var(--navColor);
 }
