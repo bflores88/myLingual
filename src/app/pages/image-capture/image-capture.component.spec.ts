@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContinuePageComponent } from './continue-page.component';
+import { ImageCaptureComponent } from './image-capture.component';
 
-describe('ContinuePageComponent', () => {
-  let component: ContinuePageComponent;
-  let fixture: ComponentFixture<ContinuePageComponent>;
+describe('ImageCaptureComponent', () => {
+  let component: ImageCaptureComponent;
+  let fixture: ComponentFixture<ImageCaptureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContinuePageComponent ]
+      declarations: [ ImageCaptureComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContinuePageComponent);
+    fixture = TestBed.createComponent(ImageCaptureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
