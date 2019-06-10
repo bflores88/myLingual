@@ -22,7 +22,7 @@ import { ContinuePageComponent } from './pages/continue-page/continue-page.compo
 import { FinalConfirmComponent } from './pages/final-confirm/final-confirm.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
