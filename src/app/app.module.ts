@@ -16,6 +16,7 @@ import { DeckComponent } from './pages/deck/deck.component';
 import { FlashcardComponent } from './pages/flashcard/flashcard.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
+import { ForumsComponent } from './pages/forums/forums.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AddCardComponent } from './pages/add-card/add-card.component';
     DeckComponent,
     FlashcardComponent,
     MessagesComponent,
-    AddCardComponent
+    AddCardComponent,
+    ForumsComponent
   ],
   imports: [
     BrowserModule,

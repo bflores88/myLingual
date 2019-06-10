@@ -5,6 +5,10 @@ import { SplashComponent } from './pages/splash/splash.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { DeckComponent } from './pages/deck/deck.component';
+import { AddCardComponent } from './pages/add-card/add-card.component';
+import { MessagesComponent } from './pages/messages/messages.component';
+import { ForumsComponent } from './pages/forums/forums.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -12,6 +16,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'decks', component: DeckComponent },
+  { path: 'add-card', component: AddCardComponent },
+  { path: 'messages', component: MessagesComponent },
+  { path: 'forums', component: ForumsComponent },
 ];
 
 @NgModule({
