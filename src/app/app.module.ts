@@ -17,6 +17,11 @@ import { FlashcardComponent } from './pages/flashcard/flashcard.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
 import { ForumsComponent } from './pages/forums/forums.component';
+import { CameraViewComponent } from './pages/camera-view/camera-view.component';
+import { ContinuePageComponent } from './pages/continue-page/continue-page.component';
+import { FinalConfirmComponent } from './pages/final-confirm/final-confirm.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { EditCardComponent } from './pages/edit-card/edit-card.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { ForumsComponent } from './pages/forums/forums.component';
     FlashcardComponent,
     MessagesComponent,
     AddCardComponent,
-    ForumsComponent
+    ForumsComponent,
+    CameraViewComponent,
+    ContinuePageComponent,
+    FinalConfirmComponent,
+    SettingsComponent,
+    EditCardComponent
   ],
   imports: [
     BrowserModule,
