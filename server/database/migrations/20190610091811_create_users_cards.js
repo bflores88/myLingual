@@ -1,20 +1,21 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('decks_cards', (table) => {
+  return knex.schema.createTable('users_cards', (table) => {
     table.increments();
     table
-      .integer('users_cards_id')
+      .integer('user_id')
       .notNull()
       .references('id')
-      .inTable('users_cards');
+      .inTable('users');
     table
-      .integer('deck_id')
+      .integer('card_id')
       .notNull()
       .references('id')
-      .inTable('decks');
+      .inTable('cards');
+    table.boolean('success').notNull();
     table.timestamps(true, true);
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('decks_cards');
+  return knex.schema.dropTable('questions');
 };
