@@ -20,9 +20,9 @@ import { ForumsComponent } from './pages/forums/forums.component';
 import { CameraViewComponent } from './pages/camera-view/camera-view.component';
 import { ContinuePageComponent } from './pages/continue-page/continue-page.component';
 import { FinalConfirmComponent } from './pages/final-confirm/final-confirm.component';
-import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
