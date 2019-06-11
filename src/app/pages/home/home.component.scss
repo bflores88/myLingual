@@ -69,4 +69,27 @@
             }
         }
     }
+
+    #allDecks {
+        padding-top: 2em;
+        #deckRow {
+            display: flex;
+            justify-content: flex-start;
+            border: 1px solid #000000;
+            flex-direction: row;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            margin-top: 1em;
+            .decks {
+                min-width: 200px;
+                min-height: 300px;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                margin-left: 20px;
+            }
+        }
+    }
 }
