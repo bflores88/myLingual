@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       .integer('forum_topic_id')
       .notNull()
       .references('id')
-      .inTable('forum_topic');
+      .inTable('forum_topics');
     table
       .integer('created_by')
       .notNull()
