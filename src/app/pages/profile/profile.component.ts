@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  user: {
+    id: number;
+    name: string;
+    username: string;
+    primaryLanguage: string;
+    learningLanguages: string;
+    imageLink: string;
+  };
+
   constructor() { }
 
   ngOnInit() {
