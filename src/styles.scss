@@ -38,11 +38,15 @@ a:hover {
 .small-btn {
   padding: 10px 15px;
   border-radius: 6px;
-  width: 300px;
+  width: 100%;
   font-size: 16px;
   color: var(--buttonFontColor);
   background-color: var(--buttonBgColor);
   border: var(--buttonBorder);
+
+  @media only screen and (min-width: 768px) {
+    width: 60%;
+  }
 
   &:hover {
     background-color: var(--buttonHoverColor);
