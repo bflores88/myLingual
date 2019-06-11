@@ -8,6 +8,8 @@ require('./Post');
 require('./Reply');
 require('./Deck');
 require('./Card');
+require('./UserLanguage');
+require('./Contact');
 class User extends bookshelf.Model {
   get tableName() {
     return 'users';
@@ -46,6 +48,18 @@ class User extends bookshelf.Model {
 
   created_cards() {
     return this.hasMany('Card', 'created_by');
+  }
+
+  languages() {
+    return this.belongsTo('UserLanguage', 'user_id');
+  }
+
+  requests_sent() {
+    return this.hasMany('Contact', 'requestor');
+  }
+
+  invites_received() {
+    return this.hasMany('Contact', 'invitee');
   }
 }
 

@@ -1,6 +1,7 @@
 const bookshelf = require('../bookshelf');
 
 require('./User');
+require('./DeckCard');
 class Deck extends bookshelf.Model {
   get tableName() {
     return 'decks';
@@ -15,6 +16,9 @@ class Deck extends bookshelf.Model {
   }
 
   // add hasMany
+  decks_cards() {
+    return this.hasMany('DeckCard', 'deck_id');
+  }
 }
 
 module.exports = bookshelf.model('Deck', Deck);

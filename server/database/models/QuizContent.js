@@ -1,7 +1,7 @@
 const bookshelf = require('../bookshelf');
 
-// require('./User');
-// require('./Card');
+require('./UserCard');
+require('./Quiz');
 class QuizContent extends bookshelf.Model {
   get tableName() {
     return 'quiz_contents';
@@ -9,6 +9,14 @@ class QuizContent extends bookshelf.Model {
 
   get hasTimestamps() {
     return true;
+  }
+
+  users_cards() {
+    return this.belongsTo('UserCard', 'users_cards_id');
+  }
+
+  quizzes() {
+    return this.belongsTo('Quiz', 'quiz_id');
   }
 
   // add hasMany

@@ -11,13 +11,16 @@ class Language extends bookshelf.Model {
     return true;
   }
 
-  // add hasMany
   spanish_translations() {
     return this.hasMany('SpanishTranslation', 'language_id');
   }
 
   italian_translations() {
     return this.hasMany('ItalianTranslation', 'language_id');
+  }
+
+  users() {
+    return this.hasMany('UserLanguage', 'language_id');
   }
 }
 

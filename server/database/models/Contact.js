@@ -1,7 +1,6 @@
 const bookshelf = require('../bookshelf');
 
-// require('./User');
-// require('./Card');
+require('./User');
 class Contact extends bookshelf.Model {
   get tableName() {
     return 'contacts';
@@ -11,7 +10,13 @@ class Contact extends bookshelf.Model {
     return true;
   }
 
-  // add hasMany
+  requesters() {
+    return this.belongsTo('User', 'requestor');
+  }
+
+  invitees() {
+    return this.belongsTo('User', 'invitee');
+  }
 }
 
 module.exports = bookshelf.model('Contact', Contact);

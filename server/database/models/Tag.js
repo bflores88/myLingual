@@ -1,7 +1,6 @@
 const bookshelf = require('../bookshelf');
 
-// require('./User');
-// require('./Card');
+require('./UserCard');
 class Tag extends bookshelf.Model {
   get tableName() {
     return 'tags';
@@ -9,6 +8,10 @@ class Tag extends bookshelf.Model {
 
   get hasTimestamps() {
     return true;
+  }
+
+  users_cards() {
+    return this.belongsTo('UserCard', 'users_cards_id');
   }
 
   // add hasMany
