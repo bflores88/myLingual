@@ -6,7 +6,7 @@
   #generalTopic {
     border: 1px solid black;
     .fas fa-comments {
-        border: 1px solid black;
+      border: 1px solid black;
     }
   }
   #randomTopic {
@@ -21,4 +21,21 @@
   #italianTopic {
     border: 1px solid black;
   }
+}
+.forum-container {
+  color: var(--headerColor);
+  font-family: 'B612', sans-serif;
+}
+
+.forum-topic-box {
+  background-color: hsl(197, 56%, 69%);
+  color: hsl(0, 0%, 100%);
+  border-radius: 10px;
+  margin: 1em;
+  padding: 1em;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  // font-family: var(--textFont);
+  font-family: 'B612', sans-serif;
 }
