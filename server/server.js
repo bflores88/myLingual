@@ -8,6 +8,9 @@ require('dotenv').config({path: '../.env'});
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 
+const cards = require('./routes/cards');
+const decks = require('./routes/decks');
+const users = require('./routes/users');
 
 app.use(bodyParser.json());
 app.use(
@@ -17,10 +20,13 @@ app.use(
 );
 app.use(express.static('public'));
 
+app.use('/api/cards', cards);
+app.use('/api/decks', decks);
+app.use('/api/users', users);
+
 app.use('/', (req, res) => {
   res.send('smoke test')
 })
-
 
 app.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);
