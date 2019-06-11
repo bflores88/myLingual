@@ -4,6 +4,6 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('roles').insert([{ name: 'user' }, { name: 'moderator' }, { name: 'admin' }]);
+      return knex('roles').insert([{ name: 'admin' }, { name: 'moderator' }, { name: 'user' }]);
     });
 };

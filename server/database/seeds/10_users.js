@@ -1,24 +1,6 @@
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
 
-table.increments();
-table.boolean('active').notNull();
-table
-  .integer('role_id')
-  .notNull()
-  .references('id')
-  .inTable('roles');
-table
-  .string('username', 20)
-  .notNull()
-  .unique();
-table.string('password', 100).notNull();
-table.string('name', 100);
-table.string('email', 100);
-table.string('profile_image_url', 255);
-
-table.timestamps(true, true);
-
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('users')

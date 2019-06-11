@@ -4,6 +4,6 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('quizzes').insert([{ quiz_type: 'test' }, { quiz_type: 'learn' }, { quiz_type: 'test' }]);
+      return knex('quizzes').insert([{ quiz_type: 'learn' }, { quiz_type: 'test' }, { quiz_type: 'test' }]);
     });
 };
