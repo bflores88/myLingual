@@ -1,7 +1,8 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('languages', (table) => {
     table.increments();
-    table.string('name', 50).notNull();
+    table.string('english_name', 50).notNull();
+    table.string('native_name', 50).notNull();
     table.timestamps(true, true);
   });
 };
