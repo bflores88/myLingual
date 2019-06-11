@@ -1,7 +1,24 @@
+@import '../../../styles.scss';
+
 .header {
   width: 100%;
   border-bottom: 1px solid black;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: var(--headerColor);
+  color: var(--headerFontColor);
+}
+
+.header.dark-theme {
+  --headerColor: hsl(197, 65%, 25%);
+}
+
+#appName {
+  font-family: var(--logoFont);
+}
+
+#appLogo {
+  padding-left: 10px;
+  padding-top: 12px;
 }
