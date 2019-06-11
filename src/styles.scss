@@ -10,6 +10,20 @@
   --activeLinkColor: 	hsl(197, 65%, 25%);
   --hoverLinkColor: 	hsl(181, 83%, 58%);
 
+  --buttonBgColor: 	hsl(32, 65%, 55%);
+  --buttonHoverColor: hsl(32, 65%, 35%);
+  --buttonBorder: 1px solid hsl(31, 82%, 30%);
+  --buttonFontColor: white;
+
+  --ratingColor: 	hsl(52, 100%, 50%);
+
+  --fontAwesomeUserSetting: 	hsl(0, 0%, 70%);
+
+}
+
+h1 {
+  text-align: center;
+  margin: 0px;
 }
 
 a:link {
@@ -19,6 +33,21 @@ a:link {
 
 a:hover {
   color: var(--hoverLinkColor);
+}
+
+.small-btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  width: 300px;
+  font-size: 16px;
+  color: var(--buttonFontColor);
+  background-color: var(--buttonBgColor);
+  border: var(--buttonBorder);
+
+  &:hover {
+    background-color: var(--buttonHoverColor);
+    cursor: pointer;
+  }
 }
 
 html {
