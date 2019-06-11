@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
       .integer('language_id')
       .notNull()
       .references('id')
-      .inTable('users');
+      .inTable('languages');
     table.string('language_type', 15).notNull();
     table.timestamps(true, true);
   });
