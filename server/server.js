@@ -13,6 +13,7 @@ const PORT = process.env.EXPRESS_CONTAINER_PORT;
 const cards = require('./routes/cards');
 const decks = require('./routes/decks');
 const users = require('./routes/users');
+const forums = require('./routes/forums');
 const conversations = require('./routes/conversations');
 
 app.use(bodyParser.json());
@@ -26,6 +27,7 @@ app.use(express.static('public'));
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
 app.use('/api/users', users);
+app.use('/api/forums', forums);
 app.use('/api/conversations', conversations);
 
 http.listen(PORT, () => {
