@@ -13,3 +13,12 @@
 .header.dark-theme {
   --headerColor: hsl(197, 65%, 25%);
 }
+
+#appName {
+  font-family: var(--logoFont);
+}
+
+#appLogo {
+  padding-left: 10px;
+  padding-top: 12px;
+}

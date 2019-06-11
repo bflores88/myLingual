@@ -12,3 +12,12 @@
     bottom: 0;
     background-color: var(--navColor);
   }
+
+  #appName {
+    font-family: var(--logoFont);
+  }
+  
+  #appLogo {
+    padding-left: 10px;
+    padding-top: 12px;
+  }
