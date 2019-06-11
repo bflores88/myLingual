@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('users_conversations', (table) => {
     table.increments();
     table
-      .integer('received_by')
+      .integer('user_id')
       .notNull()
       .references('id')
       .inTable('users');

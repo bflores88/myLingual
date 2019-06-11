@@ -1,13 +1,16 @@
-
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
+  return knex('contacts')
+    .del()
+    .then(function() {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex('contacts').insert([
+        { requester: 1, invitee: 2, accepted: true },
+        { requester: 1, invitee: 3, accepted: true },
+        { requester: 1, invitee: 4, accepted: false },
+        { requester: 2, invitee: 3, accepted: true },
+        { requester: 2, invitee: 4, accepted: true },
+        { requester: 3, invitee: 5, accepted: true },
       ]);
     });
 };
