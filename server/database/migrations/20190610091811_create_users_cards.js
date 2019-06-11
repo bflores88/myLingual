@@ -1,22 +1,22 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('quiz_contents', (table) => {
+  return knex.schema.createTable('users_cards', (table) => {
     table.increments();
     table
-      .integer('users_cards_id')
+      .integer('user_id')
       .notNull()
       .references('id')
-      .inTable('users_cards');
+      .inTable('users');
     table
-      .integer('quiz_id')
+      .integer('card_id')
       .notNull()
       .references('id')
-      .inTable('quizzes');
-    table.integer('attempts').notNull();
+      .inTable('cards');
     table.integer('successes').notNull();
+    table.integer('attempts').notNull();
     table.timestamps(true, true);
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('quiz_contents');
+  return knex.schema.dropTable('users_cards');
 };
