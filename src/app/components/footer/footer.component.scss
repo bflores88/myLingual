@@ -1,7 +1,14 @@
+@import '../../../styles.scss';
+
 .footer {
     width: 100%;
     border-top: 1px solid black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-top: 1px solid black;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: var(--navColor);
   }
