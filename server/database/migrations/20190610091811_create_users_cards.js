@@ -11,11 +11,12 @@ exports.up = function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('cards');
-    table.boolean('success').notNull();
+    table.integer('successes').notNull();
+    table.integer('attempts').notNull();
     table.timestamps(true, true);
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('questions');
+  return knex.schema.dropTable('users_cards');
 };
