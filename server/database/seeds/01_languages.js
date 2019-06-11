@@ -7,6 +7,7 @@ exports.seed = function(knex, Promise) {
       return knex('languages').insert([
         { english_name: 'spanish', native_name: 'espanol' },
         { english_name: 'italian', native_name: 'italiano' },
+        {english_name: 'english', native_name: 'english'}
       ]);
     });
 };
