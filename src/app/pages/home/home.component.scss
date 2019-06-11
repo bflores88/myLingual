@@ -1,2 +1,72 @@
 @import '../../../styles.scss';
 
+#recentlyViewedCards {
+    padding-top: 2em;
+    #recentCardsRow {
+        display: flex;
+        justify-content: flex-start;
+        border: 1px solid #000000;
+        flex-direction: row;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        margin-top: 1em;
+        .recentCards {
+            min-width: 200px;
+            min-height: 300px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            margin-left: 20px;
+        }
+    }
+}
+
+#allDecks {
+    padding-top: 2em;
+    #deckRow {
+        display: flex;
+        justify-content: flex-start;
+        border: 1px solid #000000;
+        flex-direction: row;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        margin-top: 1em;
+        .decks {
+            min-width: 200px;
+            min-height: 300px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            margin-left: 20px;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #recentlyViewedCards {
+        padding-top: 2em;
+        #recentCardsRow {
+            display: flex;
+            justify-content: flex-start;
+            border: 1px solid #000000;
+            flex-direction: row;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            margin-top: 1em;
+            .recentCards {
+                min-width: 180px;
+                min-height: 300px;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                margin-left: 10px;
+            }
+        }
+    }
+}
