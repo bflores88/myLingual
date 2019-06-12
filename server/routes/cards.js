@@ -20,6 +20,14 @@ router
       });
   });
 
+router.route('/:id').get((req, res) => {
+  new Card('id', req.params.id)
+    .fetch({ withRelated: ['words', 'card_themes'] })
+    .then((result) => {
+    return
+  })
+})
+
 router.route('/search/:term').get((req, res) => {
   let search = req.params.term;
   let lowerSearch = search.toLowerCase();
@@ -60,6 +68,9 @@ router.route('/search/:term').get((req, res) => {
           }
 
           res.json(newResult);
+        })
+        .catch((err) => {
+          console.log('error', err)
         });
     });
 });
