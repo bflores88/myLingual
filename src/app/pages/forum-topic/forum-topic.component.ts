@@ -17,9 +17,10 @@ export class ForumTopicComponent implements OnInit {
   }[] = [];
 
   ngOnInit() {
-    this.backend.getForumTopics().then((data: any) => {
-      console.log(data);
-      this.forum_topics = data;
-    });
+    console.log();
+    // this.backend.getSpecificForum().then((data: any) => {
+    //   console.log(data);
+    //   this.forum_topics = data;
+    // });
   }
 }

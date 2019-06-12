@@ -22,4 +22,8 @@ export class BackendService {
   getForumTopics(): Promise<object> {
     return this.http.get('/api/forums').toPromise();
   }
+
+  getSpecificForum(id): Promise<object> {
+    return this.http.get(`/api/forums/${id}`).toPromise();
+  }
 }
