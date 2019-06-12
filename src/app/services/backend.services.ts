@@ -34,4 +34,9 @@ export class BackendService {
   getUserProfile(id): Promise<object> {
     return this.http.get(`/api/users/${id}`).toPromise();
   }
+  
+  getSpecificPost(id): Promise<object> {
+    console.log('get specific');
+    return this.http.get(`/api/posts/${id}`).toPromise();
+  }
 }

@@ -13,7 +13,7 @@ router
     new User()
       .fetchAll({ withRelated: ['roles'] })
       .then((result) => {
-        return res.send(result.toJSON());
+        return res.json(result.toJSON());
       })
       .catch((err) => {
         console.log('error', err);
@@ -53,7 +53,7 @@ router.route('/:id/cards').get((req, res) => {
     })
     .then((result) => {
       const newResult = assembleUserCards(result.toJSON());
-      return res.send(newResult);
+      return res.json(newResult);
     })
     .catch((err) => {
       console.log('error', err);
@@ -100,7 +100,6 @@ function assembleUserData(result) {
   // assemble languages
   let native_languages = [];
   let target_languages = [];
-
   result.languages.forEach((language) => {
     if (language.language_type === 'native') {
       native_languages.push(language.languages.english_name);
@@ -179,7 +178,8 @@ function assembleUserDecks(result) {
       users_cards_id: deck.users_cards_id,
       created_at: deck.created_at,
       updated_at: deck.updated_at,
-    };
+      name: deck.name,
+    }
 
     // assemble cards in deck
     const deckCards = deck.decks_cards.map((card) => {
