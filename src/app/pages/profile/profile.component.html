@@ -8,7 +8,7 @@
     </div>
 
     <div class="profile-info-div">
-      <p>Username</p>
+      <p><span [hidden]="user.username">Username</span><span [hidden]="!user.username">{{user.username}}</span></p>
       <p>Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
 
     </div>

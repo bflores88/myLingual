@@ -1,24 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --bgColor: 	hsl(0, 0%, 100%);
-  --headerColor: 	hsl(197, 65%, 55%);
-  --headerFontColor: 	hsl(0, 0%, 100%);
-  --navColor: 	hsl(197, 65%, 55%);
+  --bgColor: hsl(0, 0%, 100%);
+  --headerColor: hsl(197, 65%, 55%);
+  --headerFontColor: hsl(0, 0%, 100%);
+  --navColor: hsl(197, 65%, 55%);
   --accentColor: hsl(197, 56%, 69%);
 
-  --activeLinkColor: 	hsl(197, 65%, 25%);
-  --hoverLinkColor: 	hsl(181, 83%, 58%);
+  --splashColor: hsl(197, 65%, 55%);
 
-  --buttonBgColor: 	hsl(32, 65%, 55%);
+  --activeLinkColor: hsl(197, 65%, 25%);
+  --hoverLinkColor: hsl(181, 83%, 58%);
+
+  --buttonBgColor: hsl(32, 65%, 55%);
   --buttonHoverColor: hsl(32, 65%, 35%);
   --buttonBorder: 1px solid hsl(31, 82%, 30%);
   --buttonFontColor: white;
 
-  --ratingColor: 	hsl(52, 100%, 50%);
+  --ratingColor: hsl(52, 100%, 50%);
 
-  --fontAwesomeUserSetting: 	hsl(0, 0%, 50%);
-
+  --fontAwesomeUserSetting: hsl(0, 0%, 50%);
 }
 
 h1 {
@@ -59,7 +60,9 @@ a:hover {
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -69,13 +72,13 @@ body {
 }
 
 .header {
-   background-color: var(--headerColor);
+  background-color: var(--headerColor);
 }
 
 .header.dark-theme {
   --headerColor: hsl(197, 65%, 25%);
 }
 
-.nav { 
+.nav {
   background-color: var(--navColor);
 }

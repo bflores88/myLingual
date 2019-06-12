@@ -1,1 +1,22 @@
 @import '../../../styles.scss';
+
+.splash {
+  position: fixed;
+  margin: 0;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(-65deg, var(--splashColor), var(--activeLinkColor));
+  width: 100vw;
+  height: 100vh;
+  padding-top: 200px;
+  text-align: center;
+
+  color: var(--bgColor);
+
+  .appName {
+    font-family: var(--logoFont);
+    font-size:50px;
+  }
+
+
+}

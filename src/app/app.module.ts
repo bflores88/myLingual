@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
@@ -17,12 +17,14 @@ import { FlashcardComponent } from './pages/flashcard/flashcard.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
 import { ForumsComponent } from './pages/forums/forums.component';
+
 import { ImageCaptureComponent } from './pages/image-capture/image-capture.component';
 import { NoPictureComponent } from './pages/no-picture-card/no-picture-card.component';
 import { ConfirmCompletedCardComponent } from './pages/confirm-completed-card/confirm-completed-card.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 
 @NgModule({
   declarations: [
@@ -46,13 +48,11 @@ import { FooterComponent } from './components/footer/footer.component';
     ConfirmCompletedCardComponent,
     UserSettingsComponent,
     EditCardComponent,
-    FooterComponent
+    FooterComponent,
+    ForumTopicComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
