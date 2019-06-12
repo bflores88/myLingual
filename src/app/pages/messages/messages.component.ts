@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-messages',
@@ -7,13 +8,14 @@ import { BackendService } from '../../services/backend.services';
   styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-  conversations: any = {};
+  messages: any = {};
 
-  constructor(private backend: BackendService) {}
+  constructor(private backend: BackendService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.backend.getConversations().then((data: any) => {
-      this.conversations = data;
+    const id = this.route.snapshot.paramMap.get('id');
+    this.backend.getMessages(id).then((data: any) => {
+      this.messages = data;
     });
   }
 }
