@@ -30,4 +30,8 @@ export class BackendService {
   getSpecificForum(id): Promise<object> {
     return this.http.get(`/api/forums/${id}`).toPromise();
   }
+
+  getUserProfile(id): Promise<object> {
+    return this.http.get(`/api/users/${id}`).toPromise();
+  }
 }
