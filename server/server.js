@@ -2,6 +2,8 @@
 
 const express = require('express');
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 
 require('dotenv').config({ path: '../.env' });
@@ -12,7 +14,11 @@ const cards = require('./routes/cards');
 const decks = require('./routes/decks');
 const users = require('./routes/users');
 const forums = require('./routes/forums');
+
 const posts = require('./routes/posts');
+=======
+const conversations = require('./routes/conversations');
+
 
 app.use(bodyParser.json());
 app.use(
@@ -26,12 +32,12 @@ app.use('/api/cards', cards);
 app.use('/api/decks', decks);
 app.use('/api/users', users);
 app.use('/api/forums', forums);
+
 app.use('/api/posts', posts);
+=======
+app.use('/api/conversations', conversations);
 
-app.use('/', (req, res) => {
-  res.send('smoke test');
-});
 
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);
 });
