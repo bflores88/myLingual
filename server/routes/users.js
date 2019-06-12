@@ -13,7 +13,7 @@ router
     new User()
       .fetchAll({ withRelated: ['roles'] })
       .then((result) => {
-        return res.json(result.toJSON());
+        return res.send(result.toJSON());
       })
       .catch((err) => {
         console.log('error', err);
@@ -24,7 +24,6 @@ router.route('/:id').get((req, res) => {
   new User('id', req.params.id)
     .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
     .then((result) => {
-      console.log(result.toJSON())
       const newResult = assembleUserData(result.toJSON());
       return res.json(newResult);
     })
@@ -53,7 +52,7 @@ router.route('/:id/cards').get((req, res) => {
     })
     .then((result) => {
       const newResult = assembleUserCards(result.toJSON());
-      return res.json(newResult);
+      return res.send(newResult);
     })
     .catch((err) => {
       console.log('error', err);
@@ -73,8 +72,8 @@ router.route('/:id/decks').get((req, res) => {
       ],
     })
     .then((result) => {
-      const newResult = assembleUserDecks(result.toJSON());
-      res.send(newResult);
+      const newResult = assembleUserDecks(result.toJSON())
+      return res.json(newResult);
     })
     .catch((err) => {
       console.log('error', err);
