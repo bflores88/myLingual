@@ -71,6 +71,7 @@ router.route('/:id/decks').get((req, res) => {
       ],
     })
     .then((result) => {
+      console.log(result.toJSON())
       const newResult = assembleUserDecks(result.toJSON())
       res.send(newResult);
     })
@@ -143,6 +144,7 @@ function assembleUserDecks(result) {
       users_cards_id: deck.users_cards_id,
       created_at: deck.created_at,
       updated_at: deck.updated_at,
+      name: deck.name,
     }
 
     // assemble cards in deck
