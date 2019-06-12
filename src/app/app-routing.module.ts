@@ -13,6 +13,7 @@ import { ForumsComponent } from './pages/forums/forums.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
+
 const routes: Routes = [
   { path: '', component: SplashComponent },
   { path: 'home', component: HomeComponent },

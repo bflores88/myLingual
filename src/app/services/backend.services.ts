@@ -44,7 +44,7 @@ export class BackendService {
   getUserProfile(id): Promise<object> {
     return this.http.get(`/api/users/${id}`).toPromise();
   }
-  
+
   getSpecificPost(id): Promise<object> {
     // console.log('get specific');
     return this.http.get(`/api/posts/${id}`).toPromise();
@@ -57,5 +57,10 @@ export class BackendService {
   addPost(id: number, body: string, title: string): Promise<object> {
     const newPost = { body, title };
     return this.http.post(`/api/forums/${id}`, newPost).toPromise();
+  }
+
+  getUserDecks(): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/decks`).toPromise();
   }
 }
