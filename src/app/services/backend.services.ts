@@ -36,7 +36,12 @@ export class BackendService {
   }
 
   getSpecificPost(id): Promise<object> {
-    console.log('get specific');
+    // console.log('get specific');
     return this.http.get(`/api/posts/${id}`).toPromise();
+  }
+
+  addReply(id: number, body: string, sent_by: number): Promise<object> {
+    const newPost = { body, sent_by };
+    return this.http.post(`/api/posts/${id}`, newPost).toPromise();
   }
 }

@@ -25,6 +25,14 @@ export class ForumPostComponent implements OnInit {
     body: string;
   }[] = [];
 
+  newReply: {
+    body: string;
+    sent_by: number;
+  } = {
+    body: '',
+    sent_by: 1,
+  };
+
   ngOnInit() {
     // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('post_id');
@@ -35,5 +43,15 @@ export class ForumPostComponent implements OnInit {
       this.post_title.created_by = data[0].created_by;
       this.post_replies = data[0].replies;
     });
+  }
+
+  postReply() {
+    console.log(this.newReply);
+    this.backend.addReply(
+      parseInt(this.activated.snapshot.paramMap.get('post_id')),
+      this.newReply.body,
+      this.newReply.sent_by,
+    );
+    this.newReply.body = '';
   }
 }
