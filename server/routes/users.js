@@ -22,9 +22,10 @@ router
 
 router.route('/:id').get((req, res) => {
   new User('id', req.params.id)
-    .fetch({ withRelated: ['roles', 'cards', 'decks', 'languages'] })
+    .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
     .then((result) => {
-      return res.send(result.toJSON());
+      const newResult = assembleUserData(result.toJSON());
+      return res.json(newResult);
     })
     .catch((err) => {
       console.log('error', err);
@@ -78,6 +79,39 @@ router.route('/:id/decks').get((req, res) => {
       console.log('error', err);
     });
 });
+
+function assembleUserData(result) {
+  const data = {
+    id: result.id,
+    active: result.active,
+    role_id: result.role_id,
+    role: result.roles.name,
+    username: result.username,
+    name: result.name,
+    email: result.email,
+    profile_image_url: result.profile_image_url,
+    created_at: result.created_at,
+    cards_owned: result.cards.length,
+    cards_created: result.created_cards.length,
+    decks: result.decks.length,
+  };
+
+  // assemble languages
+  let native_languages = [];
+  let target_languages = [];
+  result.languages.forEach((language) => {
+    if (language.language_type === 'native') {
+      native_languages.push(language.languages.english_name);
+    } else {
+      target_languages.push(language.languages.english_name);
+    }
+  });
+
+  data.native_languages = native_languages;
+  data.target_languages = target_languages;
+
+  return data;
+}
 
 function assembleUserCards(result) {
   const data = {
@@ -133,7 +167,7 @@ function assembleUserCards(result) {
 }
 
 function assembleUserDecks(result) {
-  const data = {}
+  const data = {};
 
   let UserDecks = [];
 
@@ -166,17 +200,16 @@ function assembleUserDecks(result) {
         italian_translations: card.users_cards.cards.words.italian_translations.italian_word,
         card_theme_id: card.users_cards.cards.card_themes.id,
         card_theme: card.users_cards.cards.card_themes.name,
-      }
-      return deck_card
-    })
+      };
+      return deck_card;
+    });
 
     thisDeck.deckCards = deckCards;
 
     UserDecks.push(thisDeck);
-  })
+  });
 
   return UserDecks;
-
 }
 
 module.exports = router;

@@ -20,6 +20,8 @@
   --ratingColor: hsl(52, 100%, 50%);
 
   --fontAwesomeUserSetting: hsl(0, 0%, 50%);
+
+  --textFont: 'Raleway', sans-serif;
 }
 
 h1 {
@@ -69,6 +71,7 @@ html {
 body {
   margin: 0;
   background-color: var(--bgColor);
+  font-family: var(--textFont);
 }
 
 .header {
