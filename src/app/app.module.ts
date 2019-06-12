@@ -58,7 +58,13 @@ import { ForumPostComponent } from './pages/forum-post/forum-post.component';
     ForumTopicComponent,
     ForumPostComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+    
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
