@@ -5,13 +5,13 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex('decks').insert([
-        { user_id: 1 },
-        { user_id: 2 },
-        { user_id: 3 },
-        { user_id: 4 },
-        { user_id: 5 },
-        { user_id: 1 },
-        { user_id: 6 },
+        { user_id: 1, name: 'test1' },
+        { user_id: 2, name: 'test2' },
+        { user_id: 3, name: 'test3' },
+        { user_id: 4, name: 'test4' },
+        { user_id: 5, name: 'test5' },
+        { user_id: 1, name: 'test6' },
+        { user_id: 6, name: 'test7' },
       ]);
     });
 };
