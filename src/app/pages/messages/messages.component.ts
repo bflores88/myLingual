@@ -7,13 +7,14 @@ import { BackendService } from '../../services/backend.services';
   styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-  conversations: any = {};
+  messages: any = {};
+  id: number;
 
   constructor(private backend: BackendService) {}
 
   ngOnInit() {
-    this.backend.getConversations().then((data: any) => {
-      this.conversations = data;
+    this.backend.getMessages(this.id).then((data: any) => {
+      this.messages = data;
     });
   }
 }

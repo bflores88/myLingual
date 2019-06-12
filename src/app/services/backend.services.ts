@@ -23,6 +23,10 @@ export class BackendService {
     return this.http.get('/api/conversations').toPromise();
   }
 
+  getMessages(id) {
+    return this.http.get(`/api/conversations/${id}`).toPromise();
+  }
+
   getForumTopics(): Promise<object> {
     console.log('backendforum');
     return this.http.get('/api/forums').toPromise();

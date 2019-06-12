@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { DeckComponent } from './pages/deck/deck.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { ConversationsComponent } from './pages/conversations/conversations.component';
 import { ForumsComponent } from './pages/forums/forums.component';
 
 const routes: Routes = [
@@ -19,11 +20,12 @@ const routes: Routes = [
   { path: 'decks', component: DeckComponent },
   { path: 'add-card', component: AddCardComponent },
   { path: 'messages', component: MessagesComponent },
+  { path: 'conversations', component: ConversationsComponent },
   { path: 'forums', component: ForumsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

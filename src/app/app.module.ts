@@ -23,6 +23,7 @@ import { ConfirmCompletedCardComponent } from './pages/confirm-completed-card/co
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ConversationsComponent } from './pages/conversations/conversations.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FooterComponent } from './components/footer/footer.component';
     UserSettingsComponent,
     EditCardComponent,
     FooterComponent,
+    ConversationsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
