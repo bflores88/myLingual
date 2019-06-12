@@ -4,14 +4,14 @@ exports.up = function(knex, Promise) {
     table.boolean('active').notNull();
     table
       .integer('role_id')
-      .notNull()
       .references('id')
       .inTable('roles');
     table
       .string('username', 20)
       .notNull()
       .unique();
-    table.string('password', 100).notNull();
+    table.string('oauth_token', 255);
+    table.string('password', 100);
     table.string('name', 100);
     table.string('email', 100);
     table.string('profile_image_url', 255);

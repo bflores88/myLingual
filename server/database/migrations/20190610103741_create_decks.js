@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('users');
+    table.string('name', 30).notNull();
     table.timestamps(true, true);
   });
 };

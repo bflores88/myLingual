@@ -10,10 +10,16 @@ import { Router } from '@angular/router';
 export class ForumsComponent implements OnInit {
   constructor(private backend: BackendService) {}
 
+  forum_topics: {
+    id: number;
+    name: string;
+    posts: any;
+  }[] = [];
+
   ngOnInit() {
-    console.log('init');
     this.backend.getForumTopics().then((data: any) => {
       console.log(data);
+      this.forum_topics = data;
     });
   }
 }
