@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface UserResponse {
   id: number;
@@ -26,7 +26,7 @@ interface UserResponse {
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  userID = 4;
+  userID = 1;
 
   user: {
     id: number;
@@ -49,14 +49,23 @@ export class ProfileComponent implements OnInit {
   constructor(
     private backend: BackendService,
     private router: Router,
+    private activated: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    return this.getUser();
+    if (this.activated.snapshot.paramMap.get('user_id')) {
+      let searchId = parseInt(this.activated.snapshot.paramMap.get('user_id'))
+
+      return this.getUser(searchId);
+    } else {
+      return this.getUser(1);
+
+    }
+    
   }
 
-  getUser() {
-    this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
+  getUser(id) {
+    this.backend.getUserProfile(id).then((data: UserResponse) => {
       this.user = data;
 
       console.log(data);
