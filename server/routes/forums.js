@@ -36,10 +36,11 @@ router.route('/:post_id').get((req, res) => {
 // add new post to specific forum
 
 router.route('/:id').post((req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   new Post({
     forum_topic_id: req.params.id,
-    created_by: req.body.created_by,
+    // created_by: req.body.created_by,
+    created_by: 2,
     body: req.body.body,
     title: req.body.title,
   })

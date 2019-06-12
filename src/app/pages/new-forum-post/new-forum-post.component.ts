@@ -8,14 +8,14 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./new-forum-post.component.scss'],
 })
 export class NewForumPostComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute) {}
+  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {}
 
   newPost: {
     body: string;
-    sent_by: number;
+    title: string;
   } = {
     body: '',
-    sent_by: 1,
+    title: '',
   };
 
   ngOnInit() {
@@ -32,4 +32,13 @@ export class NewForumPostComponent implements OnInit {
   //   );
   //   this.newReply.body = '';
   // }
+
+  createPost() {
+    let routeId = parseInt(this.activated.snapshot.paramMap.get('id'));
+    console.log(routeId);
+    this.backend.addPost(routeId, this.newPost.body, this.newPost.title);
+    this.newPost.body = '';
+    this.newPost.title = '';
+    this.router.navigateByUrl(`/forums/${routeId}`);
+  }
 }

@@ -49,4 +49,8 @@ export class BackendService {
     const newPost = { body, sent_by };
     return this.http.post(`/api/posts/${id}`, newPost).toPromise();
   }
+  addPost(id: number, body: string, title: string): Promise<object> {
+    const newPost = { body, title };
+    return this.http.post(`/api/forums/${id}`, newPost).toPromise();
+  }
 }
