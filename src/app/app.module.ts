@@ -60,7 +60,13 @@ import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.com
     ForumPostComponent,
     NewForumPostComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+    
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

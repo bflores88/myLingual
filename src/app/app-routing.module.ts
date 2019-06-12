@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'profile/:user_id', component: ProfileComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'decks', component: DeckComponent },
   { path: 'add-card', component: AddCardComponent },

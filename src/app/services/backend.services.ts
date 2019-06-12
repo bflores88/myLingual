@@ -12,6 +12,7 @@ export class BackendService {
   }
 
   login(data) {
+    console.log('backend', data);
     return this.http.post('/api/login', data).toPromise();
   }
 
@@ -40,6 +41,10 @@ export class BackendService {
     return this.http.get(`/api/forums/${id}`).toPromise();
   }
 
+  getUserProfile(id): Promise<object> {
+    return this.http.get(`/api/users/${id}`).toPromise();
+  }
+  
   getSpecificPost(id): Promise<object> {
     // console.log('get specific');
     return this.http.get(`/api/posts/${id}`).toPromise();
