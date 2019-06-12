@@ -22,7 +22,7 @@ router
 
 router.route('/:id').get((req, res) => {
   new Card('id', req.params.id)
-    .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users'] })
+    .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users.tags'] })
     .then((result) => {
       const newResult = result.toJSON();
       newResult.english_word = newResult.words.english_word;
