@@ -37,6 +37,13 @@ exports.seed = function(knex, Promise) {
           body:
             'I had a Grande DORITOS® Cool Ranch XXL Chalupa BorderBlast™ for breakfast, and now my insides feel like they are waging civil war against each other. Anyone have some remedies for this timeless conundrum?',
         },
+        {
+          forum_topic_id: 1,
+          created_by: 2,
+          title: 'To those learning English: why?',
+          body:
+            "This entire app is english. I bet you don't even know what I'm saying, do you? Either way, I applaud your effort.",
+        },
       ]);
     });
 };
