@@ -19,6 +19,6 @@ export class ConversationsComponent implements OnInit {
   }
 
   viewConversation() {
-    this.router.navigate(['/messages']);
+    this.router.navigate([`/messages/${this.conversations.id}`]);
   }
 }

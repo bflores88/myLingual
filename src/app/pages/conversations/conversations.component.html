@@ -1,9 +1,9 @@
 <div class="page">
   <div *ngFor="let conversation of conversations">
-    <div (click)="viewConversation(conversation.id)">
+    <a routerLink="{{ conversation.id }}">
       <p>{{ conversation.user_list }}</p>
       <p>{{ conversation.last_message }}</p>
       <p>{{ conversation.last_message_ts }}</p>
-    </div>
+    </a>
   </div>
 </div>

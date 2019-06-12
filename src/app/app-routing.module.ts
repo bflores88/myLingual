@@ -19,8 +19,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'decks', component: DeckComponent },
   { path: 'add-card', component: AddCardComponent },
-  { path: 'messages', component: MessagesComponent },
-  { path: 'conversations', component: ConversationsComponent },
+  { path: 'messages', component: ConversationsComponent },
+  { path: 'messages/:id', component: MessagesComponent },
   { path: 'forums', component: ForumsComponent },
 ];
 
