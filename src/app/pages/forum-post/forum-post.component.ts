@@ -52,5 +52,6 @@ export class ForumPostComponent implements OnInit {
       this.newReply.body,
       this.newReply.sent_by,
     );
+    this.newReply.body = '';
   }
 }
