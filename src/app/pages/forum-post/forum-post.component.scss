@@ -19,6 +19,24 @@
   padding: 1em;
 }
 
+#reply-form-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+#input-reply {
+  // width: 60%;
+  width: 100%;
+  resize: none;
+  border: 2px solid hsl(197, 56%, 69%);
+}
+#submit-reply-button-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 // .forum-topic-box {
 //   background-color: hsl(197, 56%, 69%);
 //   color: hsl(0, 0%, 100%);

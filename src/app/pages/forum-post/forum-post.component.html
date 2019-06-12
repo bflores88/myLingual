@@ -12,5 +12,16 @@
         <div>{{ reply.body }}</div>
       </div>
     </div>
+    <div id="reply-form-box">
+      <form action="">
+        <p>Did someone say something stupid? Correct them here:</p>
+
+        <textarea name="body" id="input-reply" cols="50" rows="8" [(ngModel)]="newReply.body"></textarea>
+        <!-- <input type="text" name="body" [(ngModel)]="newContact.github" /> -->
+        <div id="submit-reply-button-box">
+          <button (click)="postReply()" class="small-btn" id="submit-reply-button">Submit Reply</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
