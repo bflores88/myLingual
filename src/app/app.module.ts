@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
 import { NavMobileComponent } from './components/nav-mobile/nav-mobile.component';
@@ -30,6 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ConversationsComponent } from './pages/conversations/conversations.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
+import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ForumPostComponent } from './pages/forum-post/forum-post.component';
     ConversationsComponent,
     ForumTopicComponent,
     ForumPostComponent,
+    NewForumPostComponent,
   ],
   imports: [
     BrowserModule,

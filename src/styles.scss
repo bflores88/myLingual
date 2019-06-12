@@ -47,7 +47,8 @@ a:hover {
   font-size: 16px;
   color: var(--buttonFontColor);
   background-color: var(--buttonBgColor);
-  border: var(--buttonBorder);
+  // border: var(--buttonBorder);
+  border: none;
 
   @media only screen and (min-width: 768px) {
     width: 60%;

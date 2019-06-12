@@ -25,6 +25,7 @@
 .forum-container {
   color: var(--headerColor);
   font-family: 'B612', sans-serif;
+  margin-bottom: 4em;
 }
 
 .forum-topic-box {
@@ -41,4 +42,25 @@
 }
 .forum-topic-box:hover {
   background-color: var(--headerColor);
+}
+
+.new-post-btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  // width: 100%;
+  // width: 25%;
+  font-size: 16px;
+  color: var(--buttonFontColor);
+  background-color: var(--buttonBgColor);
+  // border: var(--buttonBorder);
+  border: none;
+  font-size: 1.2em;
+  @media only screen and (min-width: 768px) {
+    width: 20%;
+  }
+
+  &:hover {
+    background-color: var(--buttonHoverColor);
+    cursor: pointer;
+  }
 }

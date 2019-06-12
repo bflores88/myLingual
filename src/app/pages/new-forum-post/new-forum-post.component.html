@@ -1,0 +1,22 @@
+<div class="page">
+  <div class="forum-container">
+    <h2>Add New Post</h2>
+
+    <form>
+      <!-- <textarea name="body" id="input-reply" cols="50" rows="8" [(ngModel)]="newReply.body"></textarea> -->
+
+      <div class="input-box">
+        <label class="input-label" for="title">Title</label>
+        <input name="title" type="text" [(ngModel)]="newPost.title" />
+      </div>
+      <div class="input-box">
+        <label class="input-label" for="body">Body</label>
+        <input name="body" type="text" [(ngModel)]="newPost.body" />
+      </div>
+
+      <div id="submit-reply-button-box">
+        <button (click)="createPost()" class="small-btn" id="submit-reply-button">Submit Reply</button>
+      </div>
+    </form>
+  </div>
+</div>
