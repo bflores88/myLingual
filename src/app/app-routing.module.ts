@@ -12,6 +12,7 @@ import { ConversationsComponent } from './pages/conversations/conversations.comp
 import { ForumsComponent } from './pages/forums/forums.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
+import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 const routes: Routes = [
   { path: '', component: SplashComponent },
   { path: 'home', component: HomeComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'messages/:id', component: MessagesComponent },
   { path: 'forums', component: ForumsComponent },
   { path: 'forums/:id', component: ForumTopicComponent },
+  { path: 'forums/new/:id', component: NewForumPostComponent },
   { path: 'forums/posts/:post_id', component: ForumPostComponent },
 ];
 
