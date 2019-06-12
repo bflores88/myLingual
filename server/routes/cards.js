@@ -13,7 +13,7 @@ router
     new Card()
       .fetchAll({ withRelated: ['users', 'words', 'card_themes', 'created_by'] })
       .then((results) => {
-        return res.json(results.toJSON());
+        return res.send(results.toJSON());
       })
       .catch((err) => {
         console.log('error', err);
@@ -77,7 +77,7 @@ router.route('/search/:term').get((req, res) => {
             cards: filterUpdateCards
           }
 
-          res.json(newResult);
+          return res.json(newResult);
         })
         .catch((err) => {
           console.log('error', err)
