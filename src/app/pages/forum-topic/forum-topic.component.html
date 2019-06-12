@@ -1,5 +1,10 @@
 <div class="page">
   <div class="forum-container">
+    <div>
+      <a routerLink="/forums/new/{{ forum_name.id }}">
+        <button class="new-post-btn"><i class="fas fa-plus-circle"></i></button>
+      </a>
+    </div>
     <h1>{{ forum_name.name }} Forum</h1>
 
     <div *ngFor="let post of forum_posts">

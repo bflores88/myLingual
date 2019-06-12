@@ -12,6 +12,7 @@ export class BackendService {
   }
 
   login(data) {
+    console.log('backend', data);
     return this.http.post('/api/login', data).toPromise();
   }
 
@@ -52,5 +53,9 @@ export class BackendService {
   addReply(id: number, body: string, sent_by: number): Promise<object> {
     const newPost = { body, sent_by };
     return this.http.post(`/api/posts/${id}`, newPost).toPromise();
+  }
+  addPost(id: number, body: string, title: string): Promise<object> {
+    const newPost = { body, title };
+    return this.http.post(`/api/forums/${id}`, newPost).toPromise();
   }
 }

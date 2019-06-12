@@ -29,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ConversationsComponent } from './pages/conversations/conversations.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
+import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +57,15 @@ import { ForumPostComponent } from './pages/forum-post/forum-post.component';
     ConversationsComponent,
     ForumTopicComponent,
     ForumPostComponent,
+    NewForumPostComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+    
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

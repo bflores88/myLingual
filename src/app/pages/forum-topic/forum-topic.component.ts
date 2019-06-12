@@ -12,8 +12,10 @@ export class ForumTopicComponent implements OnInit {
 
   forum_name: {
     name: string;
+    id: number;
   } = {
     name: '',
+    id: 0,
   };
   forum_posts: {
     id: number;
@@ -28,6 +30,7 @@ export class ForumTopicComponent implements OnInit {
       // console.log(data);
       this.forum_posts = data[0].posts;
       this.forum_name.name = data[0].name;
+      this.forum_name.id = data[0].id;
     });
   }
 }

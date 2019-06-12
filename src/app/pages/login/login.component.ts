@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,8 +8,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  formData: {
+    username: string;
+    password: string;
+  } = {
+    username: '',
+    password: '',
+  };
 
-  constructor() { }
+
+  constructor(private auth: AuthService, private router: Router) { }
+
+  login() {
+    console.log(this.formData);
+    this.auth
+      .login(this.formData)
+      .then((response) => {
+        const { redirectUrl } = this.auth;
+        if (redirectUrl) {
+          this.router.navigate([redirectUrl]);
+          this.auth.redirectUrl = '';
+        } else {
+          //redirects to the home page
+          this.router.navigate(['/home']);
+        }
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+  }
 
   ngOnInit() {
   }
