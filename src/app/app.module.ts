@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
+import { ActivatedRoute } from '@angular/router';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
 import { NavMobileComponent } from './components/nav-mobile/nav-mobile.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -25,6 +26,7 @@ import { UserSettingsComponent } from './pages/user-settings/user-settings.compo
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
+import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
     EditCardComponent,
     FooterComponent,
     ForumTopicComponent,
+    ForumPostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

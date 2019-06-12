@@ -12,6 +12,7 @@ const cards = require('./routes/cards');
 const decks = require('./routes/decks');
 const users = require('./routes/users');
 const forums = require('./routes/forums');
+const posts = require('./routes/posts');
 
 app.use(bodyParser.json());
 app.use(
@@ -25,6 +26,7 @@ app.use('/api/cards', cards);
 app.use('/api/decks', decks);
 app.use('/api/users', users);
 app.use('/api/forums', forums);
+app.use('/api/posts', posts);
 
 app.use('/', (req, res) => {
   res.send('smoke test');

@@ -26,4 +26,9 @@ export class BackendService {
   getSpecificForum(id): Promise<object> {
     return this.http.get(`/api/forums/${id}`).toPromise();
   }
+
+  getSpecificPost(id): Promise<object> {
+    console.log('get specific');
+    return this.http.get(`/api/posts/${id}`).toPromise();
+  }
 }

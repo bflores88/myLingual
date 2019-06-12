@@ -1,0 +1,14 @@
+<div class="page">
+  <div class="forum-container">
+    <div class="post-info-box">
+      <h2>{{ post_title.title }}</h2>
+      <p>{{ post_title.body }}</p>
+    </div>
+
+    <div *ngFor="let reply of post_replies">
+      <div class="post-reply-box">
+        <div>{{ reply.body }}</div>
+      </div>
+    </div>
+  </div>
+</div>

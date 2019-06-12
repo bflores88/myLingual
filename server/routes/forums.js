@@ -18,11 +18,11 @@ router.route('/').get((req, res) => {
     });
 });
 
-// get specific forum
+// get specific post
 
-router.route('/:id').get((req, res) => {
+router.route('/:post_id').get((req, res) => {
   new ForumTopic()
-    .where({ id: req.params.id })
+    .where({ id: req.params.post_id })
     .fetchAll({ withRelated: ['posts'] })
     .then((result) => {
       'forums/${}';

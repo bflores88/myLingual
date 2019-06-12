@@ -10,7 +10,7 @@ import { AddCardComponent } from './pages/add-card/add-card.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { ForumsComponent } from './pages/forums/forums.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
-
+import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 const routes: Routes = [
   { path: '', component: SplashComponent },
   { path: 'home', component: HomeComponent },
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent },
   { path: 'forums', component: ForumsComponent },
   { path: 'forums/:id', component: ForumTopicComponent },
+  { path: 'forums/posts/:post_id', component: ForumPostComponent },
 ];
 
 @NgModule({
