@@ -25,6 +25,7 @@ import { ConfirmCompletedCardComponent } from './pages/confirm-completed-card/co
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ConversationsComponent } from './pages/conversations/conversations.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 
@@ -51,6 +52,7 @@ import { ForumPostComponent } from './pages/forum-post/forum-post.component';
     UserSettingsComponent,
     EditCardComponent,
     FooterComponent,
+    ConversationsComponent,
     ForumTopicComponent,
     ForumPostComponent,
   ],
