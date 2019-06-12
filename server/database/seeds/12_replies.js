@@ -23,7 +23,7 @@ exports.seed = function(knex, Promise) {
           post_id: 5,
           sent_by: 1,
           body:
-            'cheee hee brah I get the same way after pounding one Zippys Family Pak with 20 piece chicken and 2 pound chili vat. best to strap in and get ready for the rodeo.',
+            'cheee hee brah I get the same way after pounding one Zippys Family Pak with 20 piece chicken and 2 gallon chili vat. best to strap in and get ready for the rodeo.',
         },
         { post_id: 5, sent_by: 4, body: 'it feels like there is a dark and terrible evil brewing inside me' },
         {

@@ -26,10 +26,9 @@ export class ForumPostComponent implements OnInit {
   }[] = [];
 
   ngOnInit() {
-    console.log('param', this.activated.snapshot.paramMap.get('post_id'));
+    // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('post_id');
     this.backend.getSpecificPost(routeId).then((data: any) => {
-      console.log(data);
       // this.forum_posts = data[0].posts;
       this.post_title.title = data[0].title;
       this.post_title.body = data[0].body;
