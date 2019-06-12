@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MessagesComponent implements OnInit {
   messages: any = {};
+  messageBody: string = '';
 
   constructor(private backend: BackendService, private route: ActivatedRoute) {}
 
@@ -16,6 +17,16 @@ export class MessagesComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.backend.getMessages(id).then((data: any) => {
       this.messages = data;
+    });
+  }
+
+  sendMessage() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.backend.sendMessage(id, this.messageBody).then((data: any) => {
+      this.backend.getMessages(id).then((data: any) => {
+        this.messages = data;
+        this.messageBody = '';
+      });
     });
   }
 }

@@ -4,4 +4,17 @@
     <p>{{ message.created_at }}</p>
     <p>{{ message.body }}</p>
   </div>
+
+  <form>
+    <label for="message"></label>
+    <div>
+      <input
+        type="text"
+        name="message"
+        [(ngModel)]="messageBody"
+        (click)="sendMessage(messages.conversation_id, messageBody)"
+      />
+    </div>
+    <button (click)="sendMessage(messages.conversation_id, messageBody)">Send Message</button>
+  </form>
 </div>
