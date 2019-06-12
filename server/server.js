@@ -10,6 +10,7 @@ require('dotenv').config({ path: '../.env' });
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 
+const login = require('./routes/login');
 const cards = require('./routes/cards');
 const decks = require('./routes/decks');
 const users = require('./routes/users');
@@ -28,6 +29,7 @@ app.use(
 );
 app.use(express.static('public'));
 
+app.use('/api/login', login);
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
 app.use('/api/users', users);
