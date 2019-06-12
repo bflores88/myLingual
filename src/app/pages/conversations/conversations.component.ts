@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./conversations.component.scss'],
 })
 export class ConversationsComponent implements OnInit {
-  conversations: any = {};
+  conversations: any = [];
 
   constructor(private backend: BackendService, private router: Router) {}
 

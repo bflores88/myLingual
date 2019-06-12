@@ -22,10 +22,10 @@ export class ForumTopicComponent implements OnInit {
   }[] = [];
 
   ngOnInit() {
-    console.log('param', this.activated.snapshot.paramMap.get('id'));
+    // console.log('param', this.activated.snapshot.paramMap.get('id'));
     let routeId = this.activated.snapshot.paramMap.get('id');
     this.backend.getSpecificForum(routeId).then((data: any) => {
-      console.log(data);
+      // console.log(data);
       this.forum_posts = data[0].posts;
       this.forum_name.name = data[0].name;
     });

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
 import { NavMobileComponent } from './components/nav-mobile/nav-mobile.component';

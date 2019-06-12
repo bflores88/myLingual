@@ -28,6 +28,11 @@ export class BackendService {
     return this.http.get(`/api/conversations/${id}`).toPromise();
   }
 
+  sendMessage(id, message) {
+    const newMessage = { body: message };
+    return this.http.post(`/api/conversations/${id}`, newMessage).toPromise();
+  }
+
   getForumTopics(): Promise<object> {
     return this.http.get('/api/forums').toPromise();
   }
@@ -36,8 +41,17 @@ export class BackendService {
     return this.http.get(`/api/forums/${id}`).toPromise();
   }
 
+  getUserProfile(id): Promise<object> {
+    return this.http.get(`/api/users/${id}`).toPromise();
+  }
+  
   getSpecificPost(id): Promise<object> {
-    console.log('get specific');
+    // console.log('get specific');
     return this.http.get(`/api/posts/${id}`).toPromise();
+  }
+
+  addReply(id: number, body: string, sent_by: number): Promise<object> {
+    const newPost = { body, sent_by };
+    return this.http.post(`/api/posts/${id}`, newPost).toPromise();
   }
 }
