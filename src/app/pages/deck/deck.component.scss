@@ -1,7 +1,7 @@
 @import '../../../styles.scss';
 
 .most-recent-deck-container {
-  width: 100%;
+  // width: 100%;
   display: flex;
   justify-content: center;
   margin: 1em;
@@ -10,6 +10,29 @@
   padding: 1em;
   background-color: var(--accentColor);
   border-radius: 10px;
+  // color: var(--headerFontColor);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  display: block;
+  &:hover {
+    background-color: var(--headerColor);
+    cursor: pointer;
+  }
+}
+.recent-title {
+  // width: 100%;
+}
+.deck-box {
+  min-width: 33%;
+  max-width: 33%;
+  margin: 1em;
+  padding: 1em;
+  background-color: var(--accentColor);
+  border-radius: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // display: flex;
+  // justify-content: center;
   // color: var(--headerFontColor);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   &:hover {

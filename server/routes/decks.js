@@ -30,4 +30,21 @@ router.route('/').get((req, res) => {
     });
 });
 
+// post new deck
+
+router.route('/').post((req, res) => {
+  // console.log(req.body);
+  new Deck({
+    user_id: req.user.id,
+    name: req.body.name,
+  })
+    .save()
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+});
+
 module.exports = router;

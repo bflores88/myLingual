@@ -4,8 +4,19 @@
       <h1>Your Decks</h1>
     </div>
     <div class="most-recent-deck-container">
-      <div class="most-recent-deck-box">
-        <h3>{{ decks[0].name }}</h3>
+      <div>
+        <h3 class="recent-title">Most Recent Deck</h3>
+        <div class="most-recent-deck-box">
+          <h3>{{ decks[0].name }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="all-decks-container">
+      <div *ngFor="let deck of decks">
+        <div class="deck-box">
+          {{ deck.name }}
+        </div>
       </div>
     </div>
   </div>
