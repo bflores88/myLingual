@@ -1,5 +1,12 @@
 <div class="page">
-  <div>
-    Forum Box
+  <div class="forum-container">
+    <h1>Choose a Topic</h1>
+    <div *ngFor="let forum of forum_topics">
+      <a routerLink="{{ forum.id }}">
+        <div class="forum-topic-box">
+          <h2>{{ forum.name }}</h2>
+        </div>
+      </a>
+    </div>
   </div>
 </div>

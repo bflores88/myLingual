@@ -7,7 +7,7 @@ const Deck = require('../database/models/Deck');
 router.route('/')
   .get((req, res) => {
     new Deck()
-      .fetchAll({ withRelated: ['users', 'decks_cards'] })
+      .fetchAll({ withRelated: ['users', 'decks_cards.users_cards'] })
       .then((result) => {
       return res.send(result.toJSON())
       })

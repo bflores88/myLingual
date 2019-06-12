@@ -17,6 +17,7 @@ import { FlashcardComponent } from './pages/flashcard/flashcard.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
 import { ForumsComponent } from './pages/forums/forums.component';
+
 import { ImageCaptureComponent } from './pages/image-capture/image-capture.component';
 import { NoPictureComponent } from './pages/no-picture-card/no-picture-card.component';
 import { ConfirmCompletedCardComponent } from './pages/confirm-completed-card/confirm-completed-card.component';
@@ -24,6 +25,7 @@ import { UserSettingsComponent } from './pages/user-settings/user-settings.compo
 import { EditCardComponent } from './pages/edit-card/edit-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ConversationsComponent } from './pages/conversations/conversations.component';
+import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { ConversationsComponent } from './pages/conversations/conversations.comp
     EditCardComponent,
     FooterComponent,
     ConversationsComponent,
+    ForumTopicComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

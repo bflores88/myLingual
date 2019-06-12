@@ -51,7 +51,7 @@ class User extends bookshelf.Model {
   }
 
   languages() {
-    return this.belongsTo('UserLanguage', 'user_id');
+    return this.hasMany('UserLanguage', 'user_id');
   }
 
   requests_sent() {
