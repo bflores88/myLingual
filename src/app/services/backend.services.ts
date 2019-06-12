@@ -27,6 +27,11 @@ export class BackendService {
     return this.http.get(`/api/conversations/${id}`).toPromise();
   }
 
+  sendMessage(id, message) {
+    const newMessage = { body: message };
+    return this.http.post(`/api/conversations/${id}`, newMessage).toPromise();
+  }
+
   getForumTopics(): Promise<object> {
     return this.http.get('/api/forums').toPromise();
   }
