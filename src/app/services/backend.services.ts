@@ -58,4 +58,12 @@ export class BackendService {
     const newPost = { body, title };
     return this.http.post(`/api/forums/${id}`, newPost).toPromise();
   }
+  translate(){
+    return this.http.post('/api/translate', 
+    {
+      text: 'hello',
+      target: 'no',
+    }
+    ).toPromise();
+  }
 }
