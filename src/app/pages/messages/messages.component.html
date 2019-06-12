@@ -1,7 +1,19 @@
 <div class="page">
   <div *ngFor="let message of messages">
     <p>{{ message.sent_by_username }}</p>
-    <p>{{ message.created_at }}</p>
+    <p>{{ message.created_at | date: 'medium' }}</p>
     <p>{{ message.body }}</p>
   </div>
+
+  <form>
+    <label for="message"></label>
+    <div>
+      <input
+        type="text"
+        name="message"
+        [(ngModel)]="messageBody"
+        (keyup)="$event.keyCode == 13 ? sendMessage(messages.conversation_id, messageBody) : null"
+      />
+    </div>
+  </form>
 </div>
