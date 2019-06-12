@@ -3,11 +3,15 @@ import { BackendService } from 'src/app/services/backend.services';
 import { Router } from '@angular/router';
 
 interface UserResponse {
+  id: number;
+  active: boolean;
+  role_id: number,
+  role: string,
   name: string;
   username: string;
   email: string;
   profileImageUrl: string;
-  id: number;
+
 }
 
 @Component({
