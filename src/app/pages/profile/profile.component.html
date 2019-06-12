@@ -25,7 +25,7 @@
       <p>Decks:&nbsp;&nbsp;{{ user.decks }}</p>
     </div>
 
-    <div class="profile-settings-div">
+    <div *ngIf="user.id === userID" class="profile-settings-div">
       <button class="small-btn"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;Settings</button>
     </div>
   </div>
