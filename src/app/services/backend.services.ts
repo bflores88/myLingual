@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BackendService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   register(data) {
     return this.http.post('/api/register', data).toPromise();
@@ -19,4 +19,12 @@ export class BackendService {
     return this.http.get('/api/logout').toPromise();
   }
 
+  getConversations() {
+    return this.http.get('/api/conversations').toPromise();
+  }
+
+  getForumTopics(): Promise<object> {
+    console.log('backendforum');
+    return this.http.get('/api/forums').toPromise();
+  }
 }

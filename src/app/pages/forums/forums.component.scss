@@ -1,1 +1,24 @@
 @import '../../../styles.scss';
+
+#forumContainer {
+  border: 1px solid #000000;
+  display: flex;
+  #generalTopic {
+    border: 1px solid black;
+    .fas fa-comments {
+        border: 1px solid black;
+    }
+  }
+  #randomTopic {
+    border: 1px solid black;
+  }
+  #englishTopic {
+    border: 1px solid black;
+  }
+  #spanishTopic {
+    border: 1px solid black;
+  }
+  #italianTopic {
+    border: 1px solid black;
+  }
+}
