@@ -22,10 +22,20 @@ router
 
 router.route('/:id').get((req, res) => {
   new Card('id', req.params.id)
-    .fetch({ withRelated: ['words', 'card_themes'] })
+    .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users'] })
     .then((result) => {
-    return
-  })
+      const newResult = result.toJSON();
+      newResult.english_word = newResult.words.english_word;
+      newResult.spanish_translations = newResult.words.spanish_translations.spanish_word;
+      newResult.italian_translations = newResult.words.italian_translations.italian_word;
+      newResult.card_theme = newResult.card_themes.name;
+      delete newResult.card_themes
+      delete newResult.words;
+    return res.json(newResult)
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
 })
 
 router.route('/search/:term').get((req, res) => {
