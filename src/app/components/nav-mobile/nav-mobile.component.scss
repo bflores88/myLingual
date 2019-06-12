@@ -10,8 +10,9 @@
   flex-direction: row;
   justify-content: space-evenly;
   height: 80px;
-  padding-top: 30px;
   background-color: var(--headerColor);
+  font-size: 35px;
+  padding-top: 20px;
   
   a:not(:last-child) {
     margin-right: 20px;
