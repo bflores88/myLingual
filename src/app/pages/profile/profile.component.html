@@ -1,21 +1,28 @@
 <div>
 
   <div class="profile">
-    <h1>User's Profile</h1>
 
     <div class="profile-photo-div">
-      User Image Here
+      <img src={{user.profile_image_url}} />
     </div>
 
     <div class="profile-info-div">
-      <p><span [hidden]="user.username">Username</span><span [hidden]="!user.username">{{user.username}}</span></p>
+      <p><span [hidden]="user.username">Username</span><span *ngIf="user.id===userID" [hidden]="!user.username">{{user.name}}</span><span *ngIf="user.id!==userID" [hidden]="!user.username">{{user.username}}</span></p>
       <p>Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
 
     </div>
 
     <div class="profile-language-div">
-      <p>Primary Language:</p>
-      <p>Languages Learning:</p>
+      <p>Primary Language:&nbsp;&nbsp;{{user.native_languages}}</p>
+      <p>Languages Learning:&nbsp;&nbsp;{{user.target_languages}}</p>
+    </div>
+
+    <div class="profile-language-div">
+      <ul>
+        <li>Cards Collected:&nbsp;&nbsp;{{user.cards_owned}}</li>
+        <li>Cards Created:&nbsp;&nbsp;{{user.cards_created}}</li>
+        <li>Decks:&nbsp;&nbsp;{{user.decks}}</li>
+      </ul>
     </div>
 
     <div class="profile-settings-div">

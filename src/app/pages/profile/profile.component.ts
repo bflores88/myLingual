@@ -10,7 +10,13 @@ interface UserResponse {
   name: string;
   username: string;
   email: string;
-  profileImageUrl: string;
+  profile_image_url: string;
+  created_at: string;
+  cards_owned: number;
+  cards_created: number;
+  decks: number;
+  native_languages: object;
+  target_languages: object;
 
 }
 
@@ -24,12 +30,21 @@ export class ProfileComponent implements OnInit {
 
   user: {
     id: number;
+    active: boolean;
+    role_id: number,
+    role: string,
     name: string;
     username: string;
-    primaryLanguage: string;
-    learningLanguages: string;
-    imageLink: string;
+    email: string;
+    profile_image_url: string;
+    created_at: string;
+    cards_owned: number;
+    cards_created: number;
+    decks: number;
+    native_languages: object;
+    target_languages: object;
   };
+
 
   constructor(
     private backend: BackendService,
@@ -37,11 +52,14 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    return this.getUser();
   }
 
   getUser() {
     this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
+      this.user = data;
 
+      console.log(data);
     })
   }
 

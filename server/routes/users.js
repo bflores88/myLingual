@@ -24,6 +24,7 @@ router.route('/:id').get((req, res) => {
   new User('id', req.params.id)
     .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
     .then((result) => {
+      console.log(result.toJSON())
       const newResult = assembleUserData(result.toJSON());
       return res.json(newResult);
     })
@@ -86,6 +87,7 @@ function assembleUserData(result) {
     active: result.active,
     role_id: result.role_id,
     role: result.roles.name,
+    username: result.username,
     name: result.name,
     email: result.email,
     profile_image_url: result.profile_image_url,
