@@ -3,11 +3,25 @@
   <div class="login">
     <h1>This is the login page!</h1>
 
-    <h2>Log In FORM Here....</h2>
+    <div class="login-container">
+        <form>
+          <div>
+            <input type="text" name="username" placeholder="username" [(ngModel)]="formData.username" />
+          </div>
+    
+          <div>
+            <input type="password" name="password" placeholder="password" [(ngModel)]="formData.password" />
+          </div>
+    
+          <div>
+            <button class="btn" (click)="login()">Login</button>
+          </div>
 
-    <p>Or create an account below:</p>
-    <a routerLink="/register"><button class="btn reg-btn">Register</button></a>
-    <h3>Google oAuth!</h3>
+        </form>
+
+        <h3>Google oAuth!</h3>
+      </div>
+
 
   </div>
 
