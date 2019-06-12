@@ -41,6 +41,7 @@ yarn-error.log
 testem.log
 /typings
 .env
+test-project-for-1560029325574-1346f28d52e3.json
 
 # System Files
 .DS_Store
