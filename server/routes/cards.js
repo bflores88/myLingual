@@ -13,12 +13,30 @@ router
     new Card()
       .fetchAll({ withRelated: ['users', 'words', 'card_themes', 'created_by'] })
       .then((results) => {
-        return res.json(results.toJSON());
+        return res.send(results.toJSON());
       })
       .catch((err) => {
         console.log('error', err);
       });
   });
+
+router.route('/:id').get((req, res) => {
+  new Card('id', req.params.id)
+    .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users.tags'] })
+    .then((result) => {
+      const newResult = result.toJSON();
+      newResult.english_word = newResult.words.english_word;
+      newResult.spanish_translations = newResult.words.spanish_translations.spanish_word;
+      newResult.italian_translations = newResult.words.italian_translations.italian_word;
+      newResult.card_theme = newResult.card_themes.name;
+      delete newResult.card_themes
+      delete newResult.words;
+    return res.json(newResult)
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+})
 
 router.route('/search/:term').get((req, res) => {
   let search = req.params.term;
@@ -59,7 +77,10 @@ router.route('/search/:term').get((req, res) => {
             cards: filterUpdateCards
           }
 
-          res.json(newResult);
+          return res.json(newResult);
+        })
+        .catch((err) => {
+          console.log('error', err)
         });
     });
 });

@@ -9,7 +9,7 @@ router.route('/')
     new Deck()
       .fetchAll({ withRelated: ['users', 'decks_cards.users_cards'] })
       .then((result) => {
-      return res.json(result.toJSON())
+      return res.send(result.toJSON())
       })
       .catch((err) => {
       console.log('error', err)

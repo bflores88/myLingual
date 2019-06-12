@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { DeckComponent } from './pages/deck/deck.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { ConversationsComponent } from './pages/conversations/conversations.component';
 import { ForumsComponent } from './pages/forums/forums.component';
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'decks', component: DeckComponent },
   { path: 'add-card', component: AddCardComponent },
-  { path: 'messages', component: MessagesComponent },
+  { path: 'messages', component: ConversationsComponent },
+  { path: 'messages/:id', component: MessagesComponent },
   { path: 'forums', component: ForumsComponent },
   { path: 'forums/:id', component: ForumTopicComponent },
   { path: 'forums/posts/:post_id', component: ForumPostComponent },
