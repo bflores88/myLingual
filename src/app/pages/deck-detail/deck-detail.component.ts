@@ -4,10 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-deck',
-  templateUrl: './deck.component.html',
-  styleUrls: ['./deck.component.scss'],
+  templateUrl: './deck-detail.component.html',
+  styleUrls: ['./deck-detail.component.scss'],
 })
-export class DeckComponent implements OnInit {
+export class DeckDetailComponent implements OnInit {
   constructor(private backend: BackendService, private activated: ActivatedRoute) {}
 
   decks: {
