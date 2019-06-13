@@ -14,11 +14,11 @@ export class AddCardComponent implements OnInit {
   }
 
   continue() {
-    return this.router.navigate(['/add-card/continue'])
+    return this.router.navigate(['add-card/continue'])
   }
 
   toImageUpload() {
-    return this.router.navigate(['/add-card/upload'])
+    return this.router.navigate(['add-card/upload'])
   }
 
 }

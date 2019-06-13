@@ -10,11 +10,15 @@ interface AddWordResponse {
 }
 
 @Component({
-  selector: 'app-add-card-no-image',
-  templateUrl: './add-card-no-image.component.html',
-  styleUrls: ['./add-card-no-image.component.scss'],
+  selector: 'app-add-card-upload',
+  templateUrl: './add-card-upload.component.html',
+  styleUrls: ['./add-card-upload.component.scss']
 })
-export class AddCardNoImageComponent implements OnInit {
+export class AddCardUploadComponent implements OnInit {
+  public imagePath;
+  imgURL: any;
+  public message: string;
+
   userId = 0;
   errorMessage = '';
 
@@ -26,7 +30,9 @@ export class AddCardNoImageComponent implements OnInit {
 
   constructor(private backend: BackendService, private session: SessionService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    return this.getUserSession();
+  }
 
   getUserSession() {
     let user = this.session.getSession();
@@ -36,7 +42,27 @@ export class AddCardNoImageComponent implements OnInit {
   submitWord() {
     const word = this.formData;
     this.backend.postFlashcard(word).then((data: AddWordResponse) => {
+      console.log(data);
       this.errorMessage = data.message;
     })
   }
+
+  preview(files) {
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
+  }
+
 }

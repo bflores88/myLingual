@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SessionService } from 'src/app/services/session.service';
 
 interface UserResponse {
   id: number;
   active: boolean;
-  role_id: number,
-  role: string,
+  role_id: number;
+  role: string;
   name: string;
   username: string;
   email: string;
@@ -17,22 +18,21 @@ interface UserResponse {
   decks: number;
   native_languages: object;
   target_languages: object;
-
 }
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  userID = 1;
+  userID = 0;
 
   user: {
     id: number;
     active: boolean;
-    role_id: number,
-    role: string,
+    role_id: number;
+    role: string;
     name: string;
     username: string;
     email: string;
@@ -45,31 +45,41 @@ export class ProfileComponent implements OnInit {
     target_languages: object;
   };
 
-
   constructor(
     private backend: BackendService,
     private router: Router,
     private activated: ActivatedRoute,
-  ) { }
+    private session: SessionService,
+  ) {}
 
   ngOnInit() {
+    this.getUserSession();
+
     if (this.activated.snapshot.paramMap.get('user_id')) {
-      let searchId = parseInt(this.activated.snapshot.paramMap.get('user_id'))
+      let searchId = parseInt(this.activated.snapshot.paramMap.get('user_id'));
 
-      return this.getUser(searchId);
+      return this.backend.getUserProfile(searchId).then((data: UserResponse) => {
+        this.user = data;
+      });
     } else {
-      return this.getUser(1);
-
+      return this.getUser();
     }
-    
   }
 
-  getUser(id) {
-    this.backend.getUserProfile(id).then((data: UserResponse) => {
+  getUserSession() {
+    let user = this.session.getSession();
+    this.userID = parseInt(user.id);
+  }
+
+  getUser() {
+    this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
       this.user = data;
 
       console.log(data);
-    })
+    });
   }
 
+  toUserSettings() {
+    return this.router.navigate(['settings']);
+  }
 }
