@@ -6,18 +6,22 @@
     <div class="most-recent-deck-container">
       <div>
         <h3 class="recent-title">Most Recent Deck</h3>
-        <div class="most-recent-deck-box">
-          <h3>{{ decks[0].name }}</h3>
-        </div>
+        <a routerLink="{{ decks[0].id }}">
+          <div class="most-recent-deck-box">
+            <h3>{{ decks[0].name }}</h3>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="all-decks-container">
       <div *ngFor="let deck of decks">
         <div class="deck-box-container">
-          <div class="deck-box">
-            {{ deck.name }}
-          </div>
+          <a routerLink="{{ deck.id }}">
+            <div class="deck-box">
+              {{ deck.name }}
+            </div>
+          </a>
         </div>
       </div>
     </div>
