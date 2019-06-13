@@ -51,7 +51,7 @@
   // width: 25%;
   font-size: 16px;
   color: var(--buttonFontColor);
-  background-color: var(--buttonBgColor);
+  background-color: #58368b;
   // border: var(--buttonBorder);
   border: none;
   font-size: 1.2em;
@@ -60,7 +60,7 @@
   }
 
   &:hover {
-    background-color: var(--buttonHoverColor);
+    background-color: var(--navColor);
     cursor: pointer;
   }
 }
