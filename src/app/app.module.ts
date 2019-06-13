@@ -64,6 +64,7 @@ import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.
     AddCardNoImageComponent,
     DeckDetailComponent,
     AddCardUploadComponent,
+
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
