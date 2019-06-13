@@ -31,8 +31,8 @@ import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
-import { AddCardImageUploadComponent } from './add-card-image-upload/add-card-image-upload.component';
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
+import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +62,8 @@ import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
     ForumPostComponent,
     NewForumPostComponent,
     AddCardNoImageComponent,
-    AddCardImageUploadComponent,
     DeckDetailComponent,
+    AddCardUploadComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
