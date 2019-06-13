@@ -31,6 +31,7 @@ import { ConversationsComponent } from './pages/conversations/conversations.comp
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
+import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 
 @NgModule({
   declarations: [
@@ -59,14 +60,9 @@ import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.com
     ForumTopicComponent,
     ForumPostComponent,
     NewForumPostComponent,
+    DeckDetailComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-    
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
