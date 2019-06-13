@@ -28,27 +28,30 @@ router
       .fetch()
       .then((wordResult) => {
 
-        // if word exists, look for the card & match to user
-        if (wordResult) {
+        if (!wordResult) {
+          return new Word().save({ english_word: req.body.english_word }).then((result) => {
+            return res.json(result);
+          });
+        } else {
           const newResult = wordResult.toJSON();
-          new Card('word_id', newResult.id).fetch().then((cardResult) => {
-            const newResult = cardResult.toJSON();
-            new UserCard('card_id', newResult.id).fetch().then((userCardResult) => {
+
+          return new Card('word_id', newResult.id)
+            .fetch()
+            .then((cardResult) => {
+              const newResult = cardResult.toJSON();
+
+              return new UserCard({ card_id: newResult.id, user_id: req.user.id }).fetch();
+            })
+            .then((userCardResult) => {
               const newResult = userCardResult.toJSON();
+
               if (newResult.id) {
                 return res.json({ message: 'You already own this card.' });
+              } else {
+                return res.json(userCardResult);
               }
-              return res.json(userCardResult);
             });
-          });
         }
-
-        // if word DOES NOT exist, add word
-        return new Word()
-          .save({ english_word: req.body.english_word })
-          .then((result) => {
-            return res.json(result);
-        })
       })
       .catch((err) => {
         console.log('error', err);
@@ -83,7 +86,7 @@ router.route('/search/:term').get((req, res) => {
       // check length to verify word exists
       if (!result.length) {
         return res.send('A flashcard has not been generated for this word.');
-      };
+      }
 
       return new Word('english_word', result[0].english_word)
         .fetch({
@@ -116,13 +119,13 @@ router.route('/search/:term').get((req, res) => {
         })
         .catch((err) => {
           console.log('error', err);
-    });
+        });
     });
 });
 
 // test upload to s3 image bucket working!!!
-router.route('/upload').post( singleUpload, (req, res) => {
-    return res.json({ 'imageUrl': req.file.location });
-  });
+router.route('/upload').post(singleUpload, (req, res) => {
+  return res.json({ imageUrl: req.file.location });
+});
 
 module.exports = router;

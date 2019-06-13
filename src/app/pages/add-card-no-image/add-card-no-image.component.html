@@ -5,6 +5,12 @@
     <p>2. Word will automatically translate if we have DB.  If not, query Google Translate API and word will show up here.</p>
     <p>3. Set card theme.</p>
     <p>4. Add to Deck?</p>
+
+    <form action="">
+      <input type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="new-card" />
+      <button type="submit" (click)="submitWord()">Submit</button>
+      <div [hidden]="!this.errorMessage">{{errorMessage}}</div>
+    </form>
   </div>
 
 </div>

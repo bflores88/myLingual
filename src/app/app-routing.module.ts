@@ -15,6 +15,7 @@ import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
 import { AddCardImageUploadComponent } from './add-card-image-upload/add-card-image-upload.component';
+import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:user_id', component: ProfileComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'settings', component: UserSettingsComponent },
   { path: 'decks', component: DeckComponent },
   { path: 'add-card', component: AddCardComponent },
   { path: 'add-card/continue', component: AddCardNoImageComponent },
