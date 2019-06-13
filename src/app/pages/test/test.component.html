@@ -1,0 +1,19 @@
+<div class="page">
+  <div class="forum-container">
+    <h2>Que es esto?</h2>
+    <h3>Question: {{ currentCard + 1 }} / {{ totalCards }}</h3>
+
+    <div class="test-container">
+      <img class="test-image" src="{{ cards[currentCard].image_link }}" alt="" />
+    </div>
+    <div class="question-english-box">
+      <p>{{ words[currentCard].english_word }}</p>
+    </div>
+
+    <div class="answer-input-container">
+      <input class="answer-input" type="text" spellcheck="false" />
+      <button class="submit-answer-button">Submit</button>
+    </div>
+    <br />
+  </div>
+</div>

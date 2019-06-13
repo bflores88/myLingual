@@ -35,7 +35,7 @@ import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-i
 import { AddCardImageUploadComponent } from './add-card-image-upload/add-card-image-upload.component';
 
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
-
+import { TestComponent } from './pages/test/test.component';
 
 @NgModule({
   declarations: [
@@ -67,9 +67,8 @@ import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 
     AddCardNoImageComponent,
     AddCardImageUploadComponent,
-
+    TestComponent,
     DeckDetailComponent,
-
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

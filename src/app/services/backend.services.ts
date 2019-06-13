@@ -68,4 +68,9 @@ export class BackendService {
     // console.log('get specific');
     return this.http.get(`/api/decks/${id}`).toPromise();
   }
+
+  getSpecificQuiz(id): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/quizzes/${id}`).toPromise();
+  }
 }
