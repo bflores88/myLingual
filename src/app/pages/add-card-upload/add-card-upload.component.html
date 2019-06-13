@@ -1,18 +1,11 @@
 <div class="page">
   <div class="image-upload">
+      <form [formGroup] = "uploadForm" (ngSubmit)="submitImage()">
     <span style="color:red;" *ngIf="message">{{ message }}</span>
-    <input #file type="file" accept="image/*" (change)="preview(file.files)" />
+    <input #file type="file" name="image" accept="image/*" (change)="preview(file.files)" />
     <img [src]="imgURL" height="auto" width="300" *ngIf="imgURL" />
     <br />
-    <form>
-      <input
-        type="text"
-        name="english_word"
-        [(ngModel)]="formData.english_word"
-        placeholder="new word"
-        class="new-card"
-      />
-      <button type="submit" (click)="submitWord()">Submit</button>
+      <button type="submit">Submit</button>
     </form>
   </div>
 </div>

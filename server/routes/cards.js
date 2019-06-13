@@ -9,6 +9,7 @@ const knex = require('../database/knex');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 const aws = require('aws-sdk');
+const visionApi = require('../services/vision-api');
 
 require('dotenv').config({ path: '../.env' });
 
@@ -19,8 +20,6 @@ aws.config.update({
 });
 
 const s3 = new aws.S3();
-
-
 
 router
   .route('/')
@@ -40,9 +39,7 @@ router
     new Word('english_word', req.body.english_word)
       .fetch()
       .then((wordResult) => {
-
         if (!wordResult) {
-
           // creates new row in Word table
           return new Word().save({ english_word: req.body.english_word }).then((result) => {
             return res.json(result);
@@ -58,18 +55,18 @@ router
               return new UserCard({ card_id: newResult.id, user_id: req.user.id }).fetch();
             })
             .then((userCardResult) => {
-
               // check if user already has a user_card with specific word
               if (!userCardResult) {
                 const newResult = userCardResult.toJSON();
 
                 // creates a new UserCard if they don't own card
-                new UserCard()
-                  .save({
-                    user_id: req.user.id,
-                    card_id
-                })
-                return res.json({ message: 'You already own this card.  Edit or delete your existing card before creating a new one!' });
+                new UserCard().save({
+                  user_id: req.user.id,
+                  card_id,
+                });
+                return res.json({
+                  message: 'You already own this card.  Edit or delete your existing card before creating a new one!',
+                });
               } else {
                 return res.json(userCardResult);
               }
@@ -147,22 +144,31 @@ router.route('/search/:term').get((req, res) => {
 });
 
 // test upload to s3 image bucket working!!!
-router.route('/upload').post(singleUpload, (req, res) => {
-  return res.json({ image_link: req.file.location });
-})
-  .delete((req, res) => {
+router
+  .route('/upload')
+  .post(singleUpload, (req, res) => {
+    // return res.json({ image_link: req.file.location });
+    visionApi(req.file.location)
+      .then((labels) => {
+        const topThree = labels.splice(0, 3).map((label) => {
+          return label.description
+        })
 
+        return res.json({ results: topThree });
+      })
+      .catch(console.error);
+  })
+  .delete((req, res) => {
     const params = {
-      Bucket: "mylingual-images", 
-      Key: "1560450624222"
-     };
-     s3.deleteObject(params, function(err, data) {
-       if (err) console.log(err, err.stack); 
-       else console.log(data);
-     
-     });
-  
-  res.json({ message: 'delete success!'})
-})
+      Bucket: 'mylingual-images',
+      Key: '1560450624222',
+    };
+    s3.deleteObject(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      else console.log(data);
+    });
+
+    res.json({ message: 'delete success!' });
+  });
 
 module.exports = router;

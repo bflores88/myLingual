@@ -1,18 +1,13 @@
 'use strict';
 
-const { Translate } = require('@google-cloud/translate');
 const projectId = 'mylingual';
-
-const translate = new Translate({
-  projectId: projectId,
-});
 
 require('dotenv').config();
 
 let labels;
 
 // [START vision_quickstart]
-async function quickstart() {
+async function quickstart(image_link) {
   // Imports the Google Cloud client library
   const vision = require('@google-cloud/vision');
 
@@ -22,13 +17,17 @@ async function quickstart() {
   // Performs label detection on the image file
   // const [result] = await client.labelDetection('./wave.jpg');
   const [result] = await client.labelDetection(
-    'https://images-na.ssl-images-amazon.com/images/I/81xQBb5jRzL._SY355_.jpg',
+    image_link,
   );
   labels = result.labelAnnotations;
-  console.log('Labels:');
-  labels.forEach((label) => console.log(label.description));
+  // console.log('Labels:');
+  // labels.forEach((label) => console.log(label.description));
+
+  return labels;
 }
 // [END vision_quickstart]
+
+module.exports = quickstart;
 
 quickstart()
   .then(() => {

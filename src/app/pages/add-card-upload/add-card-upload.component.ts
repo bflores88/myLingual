@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface AddWordResponse {
   message: string,
   english_word: string,
-  id: number
+  id: number,
+  image_link: string,
 }
 
 @Component({
@@ -15,22 +17,22 @@ interface AddWordResponse {
   styleUrls: ['./add-card-upload.component.scss']
 })
 export class AddCardUploadComponent implements OnInit {
+  uploadForm: FormGroup;
   public imagePath;
   imgURL: any;
   public message: string;
+  
+  image = '';
 
   userId = 0;
   errorMessage = '';
 
-  formData: {
-    english_word: string;
-  } = {
-    english_word: '',
-  };
-
-  constructor(private backend: BackendService, private session: SessionService) {}
+  constructor(private backend: BackendService, private session: SessionService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.uploadForm = this.formBuilder.group({
+      image: ['']
+    });
     return this.getUserSession();
   }
 
@@ -39,25 +41,37 @@ export class AddCardUploadComponent implements OnInit {
     this.userId = parseInt(user.id);
   }
 
-  submitWord() {
-    const word = this.formData;
-    this.backend.postFlashcard(word).then((data: AddWordResponse) => {
+  submitImage() {
+    console.log(this.uploadForm.value.image)
+    let formData = new FormData();
+    console.log(formData);
+    // formData.append('test', 'heeooo');
+    formData.append('image', this.uploadForm.value.image);
+
+    console.log(formData);
+
+    this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
       console.log(data);
       this.errorMessage = data.message;
     })
   }
 
   preview(files) {
+
     if (files.length === 0)
       return;
  
-    var mimeType = files[0].type;
+    const mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Only images are supported.";
       return;
     }
- 
-    var reader = new FileReader();
+
+    const file = files[0];
+    console.log(file)
+    this.uploadForm.get('image').setValue(file);
+
+    const reader = new FileReader();
     this.imagePath = files;
     reader.readAsDataURL(files[0]); 
     reader.onload = (_event) => { 
