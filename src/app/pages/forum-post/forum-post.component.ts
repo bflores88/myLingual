@@ -38,9 +38,10 @@ export class ForumPostComponent implements OnInit {
     let routeId = this.activated.snapshot.paramMap.get('post_id');
     this.backend.getSpecificPost(routeId).then((data: any) => {
       // this.forum_posts = data[0].posts;
+      console.log(data);
       this.post_title.title = data[0].title;
       this.post_title.body = data[0].body;
-      this.post_title.created_by = data[0].created_by;
+      this.post_title.created_by = data[0].created_by.name;
       this.post_replies = data[0].replies;
     });
   }
