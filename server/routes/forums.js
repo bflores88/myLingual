@@ -40,7 +40,7 @@ router.route('/:id').post((req, res) => {
   new Post({
     forum_topic_id: req.params.id,
     // created_by: req.body.created_by,
-    created_by: 2,
+    created_by: req.user.id,
     body: req.body.body,
     title: req.body.title,
   })
