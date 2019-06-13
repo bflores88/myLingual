@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
-// import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
 import { NavMobileComponent } from './components/nav-mobile/nav-mobile.component';
@@ -31,7 +30,12 @@ import { ConversationsComponent } from './pages/conversations/conversations.comp
 import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
+
+import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
+import { AddCardImageUploadComponent } from './add-card-image-upload/add-card-image-upload.component';
+
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -60,7 +64,12 @@ import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
     ForumTopicComponent,
     ForumPostComponent,
     NewForumPostComponent,
+
+    AddCardNoImageComponent,
+    AddCardImageUploadComponent,
+
     DeckDetailComponent,
+
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
