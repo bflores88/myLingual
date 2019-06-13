@@ -8,6 +8,19 @@ const UserCard = require('../database/models/UserCard');
 const knex = require('../database/knex');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
+const aws = require('aws-sdk');
+
+require('dotenv').config({ path: '../.env' });
+
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  region: 'us-west-2',
+});
+
+const s3 = new aws.S3();
+
+
 
 router
   .route('/')
@@ -29,6 +42,8 @@ router
       .then((wordResult) => {
 
         if (!wordResult) {
+
+          // creates new row in Word table
           return new Word().save({ english_word: req.body.english_word }).then((result) => {
             return res.json(result);
           });
@@ -43,10 +58,18 @@ router
               return new UserCard({ card_id: newResult.id, user_id: req.user.id }).fetch();
             })
             .then((userCardResult) => {
-              const newResult = userCardResult.toJSON();
 
-              if (newResult.id) {
-                return res.json({ message: 'You already own this card.' });
+              // check if user already has a user_card with specific word
+              if (!userCardResult) {
+                const newResult = userCardResult.toJSON();
+
+                // creates a new UserCard if they don't own card
+                new UserCard()
+                  .save({
+                    user_id: req.user.id,
+                    card_id
+                })
+                return res.json({ message: 'You already own this card.  Edit or delete your existing card before creating a new one!' });
               } else {
                 return res.json(userCardResult);
               }
@@ -125,7 +148,21 @@ router.route('/search/:term').get((req, res) => {
 
 // test upload to s3 image bucket working!!!
 router.route('/upload').post(singleUpload, (req, res) => {
-  return res.json({ imageUrl: req.file.location });
-});
+  return res.json({ image_link: req.file.location });
+})
+  .delete((req, res) => {
+
+    const params = {
+      Bucket: "mylingual-images", 
+      Key: "1560450624222"
+     };
+     s3.deleteObject(params, function(err, data) {
+       if (err) console.log(err, err.stack); 
+       else console.log(data);
+     
+     });
+  
+  res.json({ message: 'delete success!'})
+})
 
 module.exports = router;
