@@ -8,7 +8,7 @@
 
     <div *ngFor="let reply of post_replies">
       <div class="post-reply-box">
-        <h4>Posted By: {{ reply.sent_by }}</h4>
+        <h4>Posted By: {{ reply.created_by.name }}</h4>
         <div>{{ reply.body }}</div>
       </div>
     </div>
