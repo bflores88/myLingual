@@ -52,10 +52,12 @@
 .flip-card {
   display: inline-block;
   background-color: transparent;
-  width: 300px;
-  height: 200px;
+  width: 400px;
+  height: 300px;
   border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  margin: 1em;
+  // border-radius: 10px;
 }
 
 /* This container is needed to position the front and back side */
