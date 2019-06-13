@@ -28,8 +28,36 @@ export class TestComponent implements OnInit {
 
   currentAnswer: string = '';
 
+  currentInput: string = '';
+
+  currentQuizId: number = 0;
+
+  currentQuizContent: any = 0;
+
+  currentMessage: string = '';
+
   flipCard() {
     console.log(event.target);
+  }
+
+  submitAnswer() {
+    console.log(this.currentInput);
+
+    let answerBody = {
+      attempts: parseInt(this.currentQuizContent.attempts + 1),
+      successes: parseInt(this.currentQuizContent.successes),
+    };
+    if (this.currentInput == this.currentAnswer) {
+      this.currentQuizScore.push(true);
+      answerBody.successes += 1;
+    } else {
+      this.currentMessage = `Correct Answer: ${this.currentAnswer} `;
+    }
+
+    console.log('body', answerBody);
+    this.backend.answerQuestion(this.currentQuizId, answerBody).then((data: any) => {
+      this.currentCard += 1;
+    });
   }
 
   ngOnInit() {
@@ -58,7 +86,10 @@ export class TestComponent implements OnInit {
 
       // setting starting quiz state
       this.currentAnswer = this.translations[this.currentCard].spanish_word;
+      this.currentQuizId = this.quiz_contents[this.currentCard].id;
+      this.currentQuizContent = this.quiz_contents[this.currentCard];
       console.log(this.currentAnswer);
+      console.log(this.currentQuizContent);
     });
   }
 }

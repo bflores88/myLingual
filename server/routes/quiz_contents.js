@@ -6,7 +6,7 @@ const router = express.Router();
 const Reply = require('../database/models/Reply');
 const Quiz = require('../database/models/Quiz');
 const QuizContent = require('../database/models/QuizContent');
-// get specific quiz
+// get specific post
 
 router.route('/:id').get((req, res) => {
   new Quiz()
@@ -19,15 +19,14 @@ router.route('/:id').get((req, res) => {
       console.log('error', err);
     });
 });
-// post reply
-router.route('/:id').post((req, res) => {
+// edit quiz question
+router.route('/:id').put((req, res) => {
   console.log(req.body);
-  new Quiz({
-    post_id: req.params.id,
-    sent_by: req.body.sent_by,
-    body: req.body.body,
-  })
-    .save()
+  new QuizContent('id', req.params.id)
+    .save({
+      attempts: req.body.attempts,
+      successes: req.body.successes,
+    })
     .then((result) => {
       return res.json(result);
     })
