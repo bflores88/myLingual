@@ -1,5 +1,6 @@
 'use strict';
 
+const Language = require('../database/models/Language');
 const { TranslationServiceClient } = require('@google-cloud/translate').v3beta1;
 const translationClient = new TranslationServiceClient();
 const projectId = process.env.PROJECT_ID;
@@ -8,12 +9,11 @@ const router = express.Router();
 
 router.route('/')
 .post((req, res) => {
-  console.log('get request to root');
   const request = {
     parent: translationClient.locationPath(projectId, 'global'),
     contents: [req.body.text],
     mimeType: 'text/plain',
-    sourceLanguageCode: 'en-US',
+    sourceLanguageCode: req.body.source,
     targetLanguageCode: req.body.target,
   };
   translationClient.translateText(request)
@@ -24,6 +24,19 @@ router.route('/')
   .catch((error) => {
     return res.json(error);
   });
-});
+})
+
+.get((req, res) => {
+  new Language()
+  .fetchAll()
+  .then ((results) => {
+    return res.json(results);
+  })
+  .catch((error) => {
+    return res.json(error);
+  })
+})
+
+
 
 module.exports = router;

@@ -31,5 +31,28 @@
     <button class="small-btn"><i class="far fa-plus-square"></i>&nbsp;&nbsp;Add A New Deck</button>
   </div>
 
-  <button (click)="testFunction()">Click ME</button>
+  <div *ngIf="gotLanguages" class="translator-form">
+    <form>
+      <div>
+        <label for="sourceLanguageSelect">Source Language</label>
+        <select name="sourceLanguageSelect" [(ngModel)]="sourceLanguageChoice">
+          <option *ngFor="let language of languages" [value]="language.id">{{ language.english_name }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="targetlanguageSelect">Target Language</label>
+        <select name="targetlanguageSelect" [(ngModel)]="targetLanguageChoice">
+          <option *ngFor="let language of languages" [value]="language.id">{{ language.english_name }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="textToTranslate">Text To Translate</label>
+        <input type="text" name="textToTranslate" [(ngModel)]="text"/>
+      </div>
+      <button (click)="buttonFunction()">Translate</button>
+    </form>
+    In {{ targetLanguageName }}: {{ translation }}
+  </div>
 </div>
+
+<!-- (keyup)="onKey($event)" -->
