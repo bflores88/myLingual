@@ -34,7 +34,8 @@ export class TestComponent implements OnInit {
 
   currentQuizContent: any = 0;
 
-  currentMessage: string = '';
+  wrongMessage: string = '';
+  correctMessage: string = '';
 
   flipCard() {
     console.log(event.target);
@@ -42,6 +43,8 @@ export class TestComponent implements OnInit {
 
   submitAnswer() {
     console.log(this.currentInput);
+    this.wrongMessage = '';
+    this.correctMessage = '';
 
     let answerBody = {
       attempts: parseInt(this.currentQuizContent.attempts + 1),
@@ -50,13 +53,17 @@ export class TestComponent implements OnInit {
     if (this.currentInput == this.currentAnswer) {
       this.currentQuizScore.push(true);
       answerBody.successes += 1;
+      this.correctMessage = 'Correct!';
     } else {
-      this.currentMessage = `Correct Answer: ${this.currentAnswer} `;
+      this.wrongMessage = `Correct Answer: ${this.currentAnswer} `;
     }
 
     console.log('body', answerBody);
     this.backend.answerQuestion(this.currentQuizId, answerBody).then((data: any) => {
       this.currentCard += 1;
+      this.currentAnswer = this.translations[this.currentCard].spanish_word;
+      this.currentQuizId = this.quiz_contents[this.currentCard].id;
+      this.currentQuizContent = this.quiz_contents[this.currentCard];
     });
   }
 

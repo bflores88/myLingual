@@ -44,3 +44,15 @@
   width: 100%;
   justify-content: center;
 }
+
+.message-box {
+  height: 1em;
+  display: flex;
+  justify-content: center;
+  .wrong-answer-message {
+    color: red;
+  }
+  .correct-answer-message {
+    color: green;
+  }
+}

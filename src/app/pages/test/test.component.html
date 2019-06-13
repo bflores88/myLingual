@@ -2,7 +2,10 @@
   <div class="forum-container">
     <h2>Que es esto?</h2>
     <h3>Question: {{ currentCard + 1 }} / {{ totalCards }}</h3>
-    <h4>{{ currentMessage }}</h4>
+    <div class="message-box">
+      <h4 class="wrong-answer-message">{{ wrongMessage }}</h4>
+      <h4 class="correct-answer-message">{{ correctMessage }}</h4>
+    </div>
 
     <div class="test-container">
       <img class="test-image" src="{{ cards[currentCard].image_link }}" alt="" />
