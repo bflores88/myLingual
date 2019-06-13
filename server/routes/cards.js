@@ -4,7 +4,10 @@ const express = require('express');
 const router = express.Router();
 const Card = require('../database/models/Card');
 const Word = require('../database/models/Word');
+const UserCard = require('../database/models/UserCard');
 const knex = require('../database/knex');
+const upload = require('../services/image-upload');
+const singleUpload = upload.single('image');
 
 router
   .route('/')
@@ -14,6 +17,38 @@ router
       .fetchAll({ withRelated: ['users', 'words', 'card_themes', 'created_by'] })
       .then((results) => {
         return res.send(results.toJSON());
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+  })
+  .post((req, res) => {
+    // check if word exists
+    new Word('english_word', req.body.english_word)
+      .fetch()
+      .then((wordResult) => {
+
+        // if word exists, look for the card & match to user
+        if (wordResult) {
+          const newResult = wordResult.toJSON();
+          new Card('word_id', newResult.id).fetch().then((cardResult) => {
+            const newResult = cardResult.toJSON();
+            new UserCard('card_id', newResult.id).fetch().then((userCardResult) => {
+              const newResult = userCardResult.toJSON();
+              if (newResult.id) {
+                return res.json({ message: 'You already own this card.' });
+              }
+              return res.json(userCardResult);
+            });
+          });
+        }
+
+        // if word DOES NOT exist, add word
+        return new Word()
+          .save({ english_word: req.body.english_word })
+          .then((result) => {
+            return res.json(result);
+        })
       })
       .catch((err) => {
         console.log('error', err);
@@ -29,14 +64,14 @@ router.route('/:id').get((req, res) => {
       newResult.spanish_translations = newResult.words.spanish_translations.spanish_word;
       newResult.italian_translations = newResult.words.italian_translations.italian_word;
       newResult.card_theme = newResult.card_themes.name;
-      delete newResult.card_themes
+      delete newResult.card_themes;
       delete newResult.words;
-    return res.json(newResult)
+      return res.json(newResult);
     })
     .catch((err) => {
       console.log('error', err);
     });
-})
+});
 
 router.route('/search/:term').get((req, res) => {
   let search = req.params.term;
@@ -48,7 +83,7 @@ router.route('/search/:term').get((req, res) => {
       // check length to verify word exists
       if (!result.length) {
         return res.send('A flashcard has not been generated for this word.');
-      }
+      };
 
       return new Word('english_word', result[0].english_word)
         .fetch({
@@ -65,24 +100,29 @@ router.route('/search/:term').get((req, res) => {
             card.italian_translations = italian_translations;
             card.english_word = resultJSON.english_word;
             return card;
-          })
+          });
 
           // only send back approved, active, and public cards
           const filterUpdateCards = updateCards.filter((card) => {
             return card.approved && card.active && card.public;
-          })
+          });
 
           const newResult = {
             english_word: resultJSON.english_word,
-            cards: filterUpdateCards
-          }
+            cards: filterUpdateCards,
+          };
 
           return res.json(newResult);
         })
         .catch((err) => {
-          console.log('error', err)
-        });
+          console.log('error', err);
+    });
     });
 });
+
+// test upload to s3 image bucket working!!!
+router.route('/upload').post( singleUpload, (req, res) => {
+    return res.json({ 'imageUrl': req.file.location });
+  });
 
 module.exports = router;

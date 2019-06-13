@@ -79,7 +79,7 @@ router
       .save({
         body: req.body.body,
         conversation_id: parseInt(req.params.conversation_id),
-        sent_by: parseInt(1),
+        sent_by: req.user.id,
       })
       .then(() => {
         return knex.raw(

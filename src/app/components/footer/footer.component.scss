@@ -1,23 +1,24 @@
 @import '../../../styles.scss';
 
 .footer {
-    width: 100%;
-    border-top: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-top: 1px solid black;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    background-color: var(--navColor);
-  }
+  z-index: 1;
+  width: 100%;
+  border-top: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid black;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: var(--navColor);
+}
 
-  #appName {
-    font-family: var(--logoFont);
-  }
-  
-  #appLogo {
-    padding-left: 10px;
-    padding-top: 12px;
-  }
+#appName {
+  font-family: var(--logoFont);
+}
+
+#appLogo {
+  padding-left: 10px;
+  padding-top: 12px;
+}

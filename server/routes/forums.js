@@ -23,9 +23,9 @@ router.route('/').get((req, res) => {
 router.route('/:post_id').get((req, res) => {
   new ForumTopic()
     .where({ id: req.params.post_id })
-    .fetchAll({ withRelated: ['posts'] })
+    .fetchAll({ withRelated: ['posts.created_by'] })
     .then((result) => {
-      'forums/${}';
+      console.log('test');
       return res.send(result.toJSON());
     })
     .catch((err) => {
@@ -40,7 +40,7 @@ router.route('/:id').post((req, res) => {
   new Post({
     forum_topic_id: req.params.id,
     // created_by: req.body.created_by,
-    created_by: 2,
+    created_by: req.user.id,
     body: req.body.body,
     title: req.body.title,
   })

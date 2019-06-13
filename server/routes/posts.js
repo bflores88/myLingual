@@ -11,7 +11,7 @@ const Reply = require('../database/models/Reply');
 router.route('/:id').get((req, res) => {
   new Post()
     .where({ id: req.params.id })
-    .fetchAll({ withRelated: ['replies'] })
+    .fetchAll({ withRelated: ['replies.created_by', 'created_by'] })
     .then((result) => {
       'forums/${}';
       return res.send(result.toJSON());
