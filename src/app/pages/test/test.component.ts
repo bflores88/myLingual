@@ -22,7 +22,7 @@ export class TestComponent implements OnInit {
 
   // current quiz state
 
-  currentQuizScore: any = [];
+  currentQuizScore: number = 0;
 
   currentCard: number = 0;
 
@@ -36,6 +36,8 @@ export class TestComponent implements OnInit {
 
   wrongMessage: string = '';
   correctMessage: string = '';
+
+  quizPercentage: any = '';
 
   flipCard() {
     console.log(event.target);
@@ -51,7 +53,7 @@ export class TestComponent implements OnInit {
       successes: parseInt(this.currentQuizContent.successes),
     };
     if (this.currentInput == this.currentAnswer) {
-      this.currentQuizScore.push(true);
+      this.currentQuizScore += 1;
       answerBody.successes += 1;
       this.correctMessage = 'Correct!';
     } else {
@@ -61,9 +63,13 @@ export class TestComponent implements OnInit {
     console.log('body', answerBody);
     this.backend.answerQuestion(this.currentQuizId, answerBody).then((data: any) => {
       this.currentCard += 1;
-      this.currentAnswer = this.translations[this.currentCard].spanish_word;
-      this.currentQuizId = this.quiz_contents[this.currentCard].id;
-      this.currentQuizContent = this.quiz_contents[this.currentCard];
+      if (!(this.totalCards == this.currentCard + 1) && !(this.totalCards < this.currentCard)) {
+        this.currentAnswer = this.translations[this.currentCard].spanish_word;
+        this.currentQuizId = this.quiz_contents[this.currentCard].id;
+        this.currentQuizContent = this.quiz_contents[this.currentCard];
+      }
+      this.quizPercentage = eval(`${this.currentQuizScore}/${this.totalCards}`).toFixed(2);
+      console.log(this.quizPercentage);
     });
   }
 
