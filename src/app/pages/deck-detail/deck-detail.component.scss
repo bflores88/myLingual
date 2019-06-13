@@ -33,12 +33,12 @@
 .flip-card {
   display: inline-block;
   background-color: transparent;
-  width: 400px;
-  height: 300px;
-  border: 1px solid #f1f1f1;
+  width: 390px;
+  height: 250px;
+  // border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   margin: 1em 2em 1em 0em;
-  // border-radius: 10px;
+  border-radius: 10px;
 }
 
 /* This container is needed to position the front and back side */
@@ -79,6 +79,8 @@
 .flip-card-front {
   background-color: #eee;
   color: black;
+  border-radius: 10px;
+  font-size: 1.5em;
 }
 
 /* Style the back side */
@@ -86,4 +88,6 @@
   background-color: #eee;
   color: black;
   transform: rotateY(180deg);
+  border-radius: 10px;
+  font-size: 1.5em;
 }
