@@ -14,8 +14,10 @@
 
     <div class="all-decks-container">
       <div *ngFor="let deck of decks">
-        <div class="deck-box">
-          {{ deck.name }}
+        <div class="deck-box-container">
+          <div class="deck-box">
+            {{ deck.name }}
+          </div>
         </div>
       </div>
     </div>
