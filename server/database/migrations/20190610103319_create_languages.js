@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('english_name', 50).notNull();
     table.string('native_name', 50).notNull();
+    table.string('language_code', 50).notNull();
     table.timestamps(true, true);
   });
 };
