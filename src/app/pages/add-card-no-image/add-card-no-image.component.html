@@ -10,6 +10,7 @@
       <input type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="new-card" />
       <button type="submit" (click)="submitWord()">Submit</button>
       <div [hidden]="!this.errorMessage">{{errorMessage}}</div>
+      <button (click)="queryGTAPI()">If not, query Google Translate API</button>
     </form>
   </div>
 

@@ -26,6 +26,7 @@ const users = require('./routes/users');
 const forums = require('./routes/forums');
 const posts = require('./routes/posts');
 const conversations = require('./routes/conversations');
+const translate = require('./routes/translate');
 
 
 app.use(bodyParser.json());
@@ -125,6 +126,8 @@ app.use('/api/forums', forums);
 app.use('/api/posts', posts);
 
 app.use('/api/conversations', conversations);
+
+app.use('/api/translate', translate);
 
 
 http.listen(PORT, () => {

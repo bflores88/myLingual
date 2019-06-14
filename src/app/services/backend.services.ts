@@ -24,6 +24,10 @@ export class BackendService {
     return this.http.post('/api/cards', data).toPromise();
   }
 
+  translate(word: Object) {
+    return this.http.post('/api/translate', word).toPromise();
+  }
+
   getConversations() {
     return this.http.get('/api/conversations').toPromise();
   }
