@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-
+const Deck = require('../database/models/Deck');
 const Reply = require('../database/models/Reply');
 const Quiz = require('../database/models/Quiz');
 const QuizContent = require('../database/models/QuizContent');
@@ -24,13 +24,57 @@ router.route('/:id').get((req, res) => {
 router.route('/:id').post((req, res) => {
   console.log(req.body);
   new Quiz({
-    post_id: req.params.id,
-    sent_by: req.body.sent_by,
-    body: req.body.body,
+    deck_id: parseInt(req.params.id),
+    quiz_type: 'test',
   })
     .save()
     .then((result) => {
-      return res.json(result);
+      // console.log('result', result.attributes.id);
+
+      return result;
+    })
+    .then((quiz) => {
+      let newQuizId = quiz.attributes.id;
+      let deck_id = quiz.attributes.deck_id;
+      new Deck()
+        .where({ id: deck_id })
+        .fetchAll({ withRelated: ['decks_cards.users_cards.cards.words.spanish_translations'] })
+        .then((result) => {
+          // grab card ids
+          // console.log(
+          //   'userCARDS',
+          //   result.models[0].relations.decks_cards.models[0].relations.users_cards.attributes.id,
+          // );
+
+          let arrayUserCards = result.models[0].relations.decks_cards.models;
+          let arrayCardId = [];
+          // console.log(arrayUserCards);
+          arrayUserCards.forEach((element) => {
+            arrayCardId.push(element.relations.users_cards.attributes.id);
+          });
+          // console.log(arrayCardId);
+          arrayCardId.forEach((card) => {
+            new QuizContent({
+              users_cards_id: card,
+              quiz_id: newQuizId,
+              attempts: 0,
+              successes: 0,
+            }).save();
+            // .then((result) => {
+            //   return res.json(result);
+            // })
+            // .catch((err) => {
+            //   console.log('error', err);
+            // });
+          });
+          return newQuizId;
+        })
+        .then((quizId) => {
+          return res.json(quizId);
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
     })
     .catch((err) => {
       console.log('error', err);
