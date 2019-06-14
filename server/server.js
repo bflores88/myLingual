@@ -28,6 +28,7 @@ const posts = require('./routes/posts');
 const conversations = require('./routes/conversations');
 const quizzes = require('./routes/quizzes');
 const quiz_contents = require('./routes/quiz_contents');
+const contacts = require('./routes/contacts');
 
 app.use(bodyParser.json());
 app.use(
@@ -115,17 +116,16 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.use('/api/login', login);
-
+app.use('/api/logout', logout);
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
 app.use('/api/users', users);
 app.use('/api/forums', forums);
-
 app.use('/api/posts', posts);
-
 app.use('/api/conversations', conversations);
 app.use('/api/quizzes', quizzes);
 app.use('/api/quiz_contents', quiz_contents);
+app.use('/api/contacts', contacts);
 
 http.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);
