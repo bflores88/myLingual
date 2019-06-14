@@ -21,6 +21,8 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
+let pendingImage = '';
+
 router
   .route('/')
   // fetches all cards
@@ -147,16 +149,18 @@ router.route('/search/:term').get((req, res) => {
 router
   .route('/upload')
   .post(singleUpload, (req, res) => {
-    return res.json({ image_link: req.file.location });
-    // visionApi(req.file.location)
-    //   .then((labels) => {
-    //     const topThree = labels.splice(0, 3).map((label) => {
-    //       return label.description
-    //     })
+    // return res.json({ image_link: req.file.location });
+    pendingImage = req.file.location;
+    visionApi(req.file.location)
+      .then((labels) => {
+        const topThree = labels.splice(0, 3).map((label) => {
+          return label.description
+        })
 
-    //     return res.json({ results: topThree });
-      // })
-      // .catch(console.error);
+        console.log(pendingImage);
+        return res.json({ results: topThree });
+      })
+      .catch(console.error);
   })
   .delete((req, res) => {
     const params = {
