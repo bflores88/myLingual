@@ -1,18 +1,34 @@
 <div class="page">
   <div class="image-upload">
-    <span style="color:red;" *ngIf="message">{{ message }}</span>
-    <input #file type="file" accept="image/*" (change)="preview(file.files)" />
-    <img [src]="imgURL" height="auto" width="300" *ngIf="imgURL" />
-    <br />
-    <form>
-      <input
-        type="text"
-        name="english_word"
-        [(ngModel)]="formData.english_word"
-        placeholder="new word"
-        class="new-card"
-      />
-      <button type="submit" (click)="submitWord()">Submit</button>
-    </form>
+    <form [formGroup]="uploadForm" (ngSubmit)="submitImage()">
+      <span style="color:red;" *ngIf="message">{{ message }}</span>
+      <div *ngIf="selectImage" class="image-upload-holder">
+        <label class="input-file-label">
+          Upload Image
+          <input #file size="60" type="file" name="image" accept="image/*" (change)="preview(file.files)"
+        /></label>
+      </div>
+    
+
+    <div *ngIf="showPhoto" class="image-box">
+        <img [src]="imgURL" height="auto" width="300" *ngIf="imgURL" />
+      </div>
+
+    <div *ngIf="confirm" class="confirm-image">
+      <h2>Use This Image?</h2>
+      <div class="confirm-options">
+          <div class="yes-image option-confirm"><button type="submit">YES</button></div>
+        <div class="no-image option-confirm"><button (click)="cancelSubmit()">NO</button></div>
+      </div>
+    </div>
+
+  </form>
+
+    <div *ngIf="loading" class="loading">
+      <div class="loading-container">
+        L o a d i n g <br /><br />
+        <div class="lds-hourglass"></div>
+      </div>
+    </div>
   </div>
 </div>
