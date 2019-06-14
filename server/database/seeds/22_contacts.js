@@ -9,7 +9,7 @@ exports.seed = function(knex, Promise) {
         { requester: 1, invitee: 3, accepted: true, responded: true },
         { requester: 1, invitee: 4, accepted: false, responded: false },
         { requester: 2, invitee: 3, accepted: true, responded: true },
-        { requester: 2, invitee: 4, accepted: true, responded: true },
+        { requester: 2, invitee: 1, accepted: true, responded: true },
         { requester: 3, invitee: 5, accepted: true, responded: true },
       ]);
     });
