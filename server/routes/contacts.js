@@ -12,7 +12,7 @@ router.route('/').get((req, res) => {
     where: { requester: req.user.id, accepted: true },
     orWhere: { invitee: req.user.id, accepted: true },
   })
-    .fetchAll()
+    .fetchAll({ withRelated: ['requesters', 'invitees'] })
     .then((result) => {
       return res.json(result);
     })
