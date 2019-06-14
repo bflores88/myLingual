@@ -1,9 +1,6 @@
 'use strict';
 
 const { Translate } = require('@google-cloud/translate');
-// const { TranslationServiceClient } = require('@google-cloud/translate').v3beta1;
-// const translationClient = new TranslationServiceClient();
-
 const projectId = 'mylingual';
 
 const translate = new Translate({
@@ -13,14 +10,6 @@ const translate = new Translate({
 require('dotenv').config();
 
 let labels;
-
-// let request = {
-//   parent: translationClient.locationPath(projectId, 'global'),
-//   contents: '',
-//   mimeType: 'text/plain',
-//   sourceLanguageCode: 'en-US',
-//   targetLanguageCode: 'es',
-// };
 
 // [START vision_quickstart]
 async function quickstart() {
