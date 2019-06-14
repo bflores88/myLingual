@@ -22,4 +22,17 @@ router.route('/').get((req, res) => {
     });
 });
 
+// get a user's invites
+router.route('/invites').get((req, res) => {
+  Contact.where({ invitee: req.user.id, responded: false })
+    .fetchAll({ withRelated: ['requesters', 'invitees'] })
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error', err);
+      return res.status(500).send('Server error');
+    });
+});
+
 module.exports = router;
