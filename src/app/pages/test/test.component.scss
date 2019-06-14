@@ -70,3 +70,36 @@
   width: 100%;
   justify-content: center;
 }
+
+.letter-grade-box {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.a-grade {
+  color: rgb(0, 180, 0);
+}
+
+.b-grade {
+  color: rgb(1, 121, 1);
+}
+
+.c-grade {
+  color: rgb(202, 182, 0);
+}
+
+.d-grade {
+  color: orange;
+}
+.e-grade {
+  color: red;
+}
+
+.after-test-buttons-box {
+  margin-top: 4em;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

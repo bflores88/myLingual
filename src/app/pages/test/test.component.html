@@ -34,8 +34,32 @@
 
       <div class="grade-outer-box">
         <div class="grade-inner-box">
-          <h4>Your Score:</h4>
+          <h4 class>Your Score:</h4>
         </div>
+      </div>
+      <div class="letter-grade-box">
+        <div class="a-grade" *ngIf="quizPercentage == 100">
+          <h3>{{ quizPercentage }} % Great Job!</h3>
+        </div>
+        <div class="a-grade" *ngIf="quizPercentage >= 90 && quizPercentage != 100">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="b-grade" *ngIf="quizPercentage >= 80 && 90 > quizPercentage">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="c-grade" *ngIf="quizPercentage >= 70 && 80 > quizPercentage">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="d-grade" *ngIf="quizPercentage >= 60 && 70 > quizPercentage">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="e-grade" *ngIf="60 > quizPercentage">
+          <h3>{{ quizPercentage }} % Dude thats terrible....</h3>
+        </div>
+      </div>
+
+      <div class="after-test-buttons-box">
+        <button (click)="retakeTest()" class="submit-answer-button">Retake Test</button>
       </div>
     </div>
   </div>

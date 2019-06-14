@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./test.component.scss'],
 })
 export class TestComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute) {}
+  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {}
 
   quiz_contents: any = '';
 
@@ -60,17 +60,26 @@ export class TestComponent implements OnInit {
       this.wrongMessage = `Correct Answer: ${this.currentAnswer} `;
     }
 
-    console.log('body', answerBody);
+    // console.log('body', answerBody);
     this.backend.answerQuestion(this.currentQuizId, answerBody).then((data: any) => {
       this.currentCard += 1;
-      if (!(this.totalCards == this.currentCard + 1) && !(this.totalCards < this.currentCard)) {
+      if (!(this.totalCards < this.currentCard + 1)) {
         this.currentAnswer = this.translations[this.currentCard].spanish_word;
         this.currentQuizId = this.quiz_contents[this.currentCard].id;
         this.currentQuizContent = this.quiz_contents[this.currentCard];
       }
+      console.log('current score', this.currentQuizScore);
+      console.log('total cards', this.totalCards);
       this.quizPercentage = eval(`${this.currentQuizScore}/${this.totalCards}`).toFixed(2);
+      this.quizPercentage *= 100;
       console.log(this.quizPercentage);
+      this.currentInput = '';
     });
+  }
+
+  retakeTest() {
+    let routeId = this.activated.snapshot.paramMap.get('id');
+    this.router.navigateByUrl(`/test/${routeId}`);
   }
 
   ngOnInit() {
