@@ -15,6 +15,7 @@ exports.up = function(knex, Promise) {
     table.string('name', 100);
     table.string('email', 100);
     table.string('profile_image_url', 255);
+    table.integer('lingots').notNull();
 
     table.timestamps(true, true);
   });
