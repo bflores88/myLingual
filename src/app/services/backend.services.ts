@@ -81,4 +81,12 @@ export class BackendService {
     // console.log('get specific');
     return this.http.put(`/api/quiz_contents/${id}`, body).toPromise();
   }
+
+  createTestQuiz(id): Promise<object> {
+    // console.log('get specific');
+    let body = {
+      type: 'test',
+    };
+    return this.http.post(`/api/quizzes/${id}`, body).toPromise();
+  }
 }

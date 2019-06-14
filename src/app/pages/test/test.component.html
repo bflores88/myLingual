@@ -1,5 +1,5 @@
 <div class="page">
-  <div class="forum-container">
+  <div *ngIf="totalCards !== 0" class="forum-container">
     <div *ngIf="totalCards > currentCard">
       <h2>Que es esto?</h2>
       <h3>Question: {{ currentCard + 1 }} / {{ totalCards }}</h3>

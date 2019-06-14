@@ -22,10 +22,10 @@ router.route('/:id').get((req, res) => {
 
 // post reply
 router.route('/:id').post((req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   new Quiz({
     deck_id: parseInt(req.params.id),
-    quiz_type: 'test',
+    quiz_type: req.body.type,
   })
     .save()
     .then((result) => {
