@@ -13,11 +13,11 @@ router.route('/')
   .fetchAll()
   .then((results) => {
     const languages = results.toJSON().map((language) => {
-      return translationClient.translate(req.body.english_word, language.code)
+      return translationClient.translate(req.body.english_word, language.language_code)
       .then((result) => {
         return {
           translation: result[0],
-          languageCode: language.code, 
+          languageCode: language.language_code, 
         }
       })
       .catch((error) => {
