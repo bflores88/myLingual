@@ -21,11 +21,16 @@ export class BackendService {
   }
 
   postFlashcard(data) {
+    console.log('sdfkjsjfdskj')
     return this.http.post('/api/cards', data).toPromise();
   }
 
   translate(word: Object) {
     return this.http.post('/api/translate', word).toPromise();
+  }
+  
+  postFlashcardImageUpload(data) {
+    return this.http.post('/api/cards/upload', data).toPromise();
   }
 
   getConversations() {
@@ -75,5 +80,22 @@ export class BackendService {
   getSpecificDeck(id): Promise<object> {
     // console.log('get specific');
     return this.http.get(`/api/decks/${id}`).toPromise();
+  }
+
+  getSpecificQuiz(id): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/quizzes/${id}`).toPromise();
+  }
+  answerQuestion(id, body): Promise<object> {
+    // console.log('get specific');
+    return this.http.put(`/api/quiz_contents/${id}`, body).toPromise();
+  }
+
+  createTestQuiz(id): Promise<object> {
+    // console.log('get specific');
+    let body = {
+      type: 'test',
+    };
+    return this.http.post(`/api/quizzes/${id}`, body).toPromise();
   }
 }

@@ -28,6 +28,9 @@ const posts = require('./routes/posts');
 const conversations = require('./routes/conversations');
 const translate = require('./routes/translate');
 
+const quizzes = require('./routes/quizzes');
+const quiz_contents = require('./routes/quiz_contents');
+const contacts = require('./routes/contacts');
 
 app.use(bodyParser.json());
 app.use(
@@ -46,8 +49,6 @@ app.use(
     saveUninitialized: false,
   }),
 );
-
-
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -90,7 +91,7 @@ passport.use(
 
 passport.serializeUser(function(user, done) {
   console.log('serializing');
-  return done(null, { id: user.id, username: user.username});
+  return done(null, { id: user.id, username: user.username });
 });
 
 passport.deserializeUser(function(user, done) {
@@ -117,18 +118,20 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.use('/api/login', login);
-
+app.use('/api/logout', logout);
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
 app.use('/api/users', users);
 app.use('/api/forums', forums);
-
 app.use('/api/posts', posts);
 
 app.use('/api/conversations', conversations);
 
 app.use('/api/translate', translate);
 
+app.use('/api/quizzes', quizzes);
+app.use('/api/quiz_contents', quiz_contents);
+app.use('/api/contacts', contacts);
 
 http.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);

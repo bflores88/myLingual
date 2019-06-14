@@ -36,6 +36,7 @@ export class AddCardNoImageComponent implements OnInit {
   submitWord() {
     const word = this.formData;
     this.backend.postFlashcard(word).then((data: AddWordResponse) => {
+      console.log(data);
       this.errorMessage = data.message;
     })
   }
