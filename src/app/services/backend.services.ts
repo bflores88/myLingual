@@ -21,7 +21,7 @@ export class BackendService {
   }
 
   postFlashcard(data) {
-    console.log('sdfkjsjfdskj')
+    console.log('sdfkjsjfdskj');
     return this.http.post('/api/cards', data).toPromise();
   }
 
@@ -93,5 +93,10 @@ export class BackendService {
       type: 'test',
     };
     return this.http.post(`/api/quizzes/${id}`, body).toPromise();
+  }
+
+  getUserContacts(): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/contacts`).toPromise();
   }
 }
