@@ -1,9 +1,9 @@
 const CACHE_NAME = 'service-worker-demo-cache-v1';
 const cacheWhitelist = [CACHE_NAME];
 const urlsToCache = [ // used front end routes to write urls
-  '',
-  'home',
-  'login',
+  'mylingual.me',
+  '/home',
+  '/login',
   'register',
   'profile/:user_id',
   'profile',
