@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
-import { ActivatedRoute } from '@angular/router';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
 import { NavMobileComponent } from './components/nav-mobile/nav-mobile.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -19,7 +19,6 @@ import { FlashcardComponent } from './pages/flashcard/flashcard.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { AddCardComponent } from './pages/add-card/add-card.component';
 import { ForumsComponent } from './pages/forums/forums.component';
-
 import { ImageCaptureComponent } from './pages/image-capture/image-capture.component';
 import { NoPictureComponent } from './pages/no-picture-card/no-picture-card.component';
 import { ConfirmCompletedCardComponent } from './pages/confirm-completed-card/confirm-completed-card.component';
@@ -32,9 +31,7 @@ import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
-
 import { TestComponent } from './pages/test/test.component';
-
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 
 @NgModule({
@@ -65,14 +62,11 @@ import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.
     ForumPostComponent,
     NewForumPostComponent,
     AddCardNoImageComponent,
-
-    // AddCardImageUploadComponent,
     TestComponent,
     DeckDetailComponent,
-
     AddCardUploadComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
