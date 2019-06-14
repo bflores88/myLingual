@@ -25,6 +25,10 @@ export class BackendService {
     return this.http.post('/api/cards', data).toPromise();
   }
 
+  translate(word: Object) {
+    return this.http.post('/api/translate', word).toPromise();
+  }
+  
   postFlashcardImageUpload(data) {
     return this.http.post('/api/cards/upload', data).toPromise();
   }
