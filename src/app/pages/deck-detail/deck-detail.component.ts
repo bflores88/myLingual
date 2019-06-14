@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./deck-detail.component.scss'],
 })
 export class DeckDetailComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute) {}
+  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {}
 
   cards: any = '';
 
@@ -16,6 +16,15 @@ export class DeckDetailComponent implements OnInit {
 
   flipCard() {
     console.log(event.target);
+  }
+
+  createTest() {
+    let routeId = this.activated.snapshot.paramMap.get('id');
+
+    this.backend.createTestQuiz(routeId).then((data: any) => {
+      console.log(data);
+      this.router.navigate([`/test/${data}`]);
+    });
   }
 
   ngOnInit() {

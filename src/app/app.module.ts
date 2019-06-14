@@ -34,6 +34,7 @@ import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { TestComponent } from './pages/test/test.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 import { AddCardPhotoComponent } from './pages/add-card-photo/add-card-photo.component';
+import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { AddCardPhotoComponent } from './pages/add-card-photo/add-card-photo.com
     DeckDetailComponent,
     AddCardUploadComponent,
     AddCardPhotoComponent,
-
+    ProfileNavMobileComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [],

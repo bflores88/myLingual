@@ -36,7 +36,7 @@ router.route('/').get((req, res) => {
         GROUP BY c_list.id, c_list.user_list) c_lm_list
       INNER JOIN messages ON messages.id = c_lm_list.max_message_id
       ORDER BY c_lm_list.max_message_id DESC`,
-      [1],
+      [req.user.id],
     )
     .then((result) => {
       return res.json(result.rows);
@@ -64,7 +64,7 @@ router
         INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
         WHERE uc.user_id = ? AND messages.conversation_id = ?
         ORDER BY message_id`,
-        [1, req.params.conversation_id],
+        [req.user.id, req.params.conversation_id],
       )
       .then((result) => {
         return res.json(result.rows);
@@ -95,7 +95,7 @@ router
           INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
           WHERE uc.user_id = ? AND messages.conversation_id = ?
           ORDER BY message_id`,
-          [1, req.params.conversation_id],
+          [req.user.id, req.params.conversation_id],
         );
       })
       .then((result) => {

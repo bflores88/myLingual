@@ -15,6 +15,10 @@ class Quiz extends bookshelf.Model {
   quiz_contents() {
     return this.hasMany('QuizContent', 'quiz_id');
   }
+
+  decks() {
+    return this.belongsTo('Deck', 'deck_id');
+  }
 }
 
 module.exports = bookshelf.model('Quiz', Quiz);

@@ -14,11 +14,12 @@ import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
+
 import { TestComponent } from './pages/test/test.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
-
+import { ContactsComponent } from './pages/contacts/contacts.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:user_id', component: ProfileComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'contacts', component: ContactsComponent },
   { path: 'settings', component: UserSettingsComponent },
   { path: 'decks', component: DeckComponent },
   { path: 'decks/:id', component: DeckDetailComponent },
