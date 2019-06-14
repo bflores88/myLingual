@@ -28,8 +28,8 @@ Notification.requestPermission(function(status) {
 
 let isSubscribed = false;
 const applicationServerPublicKey =
-  'BK70L0dYWTJDzLDRWsUGhiayCA30kxP-ODVL-TNQrZFkRVzmHGYrDEo1H0WcvW-DrSL6PW1CLJEu5rBQMcTzxT4';
-
+  'BKHrm_G_hSUw0Djz3eRCivPZ17YaACw92IWVcC1J59j08-rLQB8UB1-Sdm8N-M2rZqy_l1kpyJr3J1Ccraw9j-s';
+// added new applicationServerPublicKey
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
