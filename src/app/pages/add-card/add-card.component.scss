@@ -1,0 +1,32 @@
+@import '../../../styles.scss';
+
+.add-card {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  vertical-align: middle;
+  margin: 0px;
+
+  .add-option {
+    background-color: var(--buttonBgColor);
+    color: white;
+    border-radius: 6px;
+    padding: 20px;
+    height: 28%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-shadow: 2px 2px 4px black;
+    margin-bottom: 15px;
+
+
+
+    &:hover {
+      background-color: var(--splashColor);
+    }
+
+  }
+}

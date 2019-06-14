@@ -1,1 +1,94 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --bgColor: hsl(0, 0%, 100%);
+  --headerColor: hsl(197, 65%, 55%);
+  --headerFontColor: hsl(0, 0%, 100%);
+  --navColor: hsl(197, 65%, 55%);
+  --accentColor: hsl(197, 56%, 69%);
+
+  --splashColor: hsl(197, 65%, 55%);
+
+  --activeLinkColor: hsl(197, 65%, 25%);
+  --hoverLinkColor: hsl(181, 83%, 58%);
+
+  --buttonBgColor: hsl(32, 65%, 55%);
+  --buttonHoverColor: hsl(32, 65%, 35%);
+  --buttonBorder: 1px solid hsl(31, 82%, 30%);
+  --buttonFontColor: white;
+
+  --ratingColor: hsl(52, 100%, 50%);
+
+  --fontAwesomeUserSetting: hsl(0, 0%, 50%);
+
+  --textFont: 'Raleway', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin: 0px;
+  --textFont: 'B612', sans-serif;
+  --logoFont: 'Satisfy', cursive;
+}
+
+a:link {
+  text-decoration: none;
+  color: var(--activeLinkColor);
+}
+
+a:hover {
+  color: var(--hoverLinkColor);
+}
+
+.small-btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 16px;
+  color: var(--buttonFontColor);
+  background-color: var(--buttonBgColor);
+  // border: var(--buttonBorder);
+  border: none;
+
+  @media only screen and (min-width: 768px) {
+    width: 60%;
+  }
+
+  &:hover {
+    background-color: var(--buttonHoverColor);
+    cursor: pointer;
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bgColor);
+  font-family: var(--textFont);
+}
+
+.header {
+  background-color: var(--headerColor);
+}
+
+.header.dark-theme {
+  --headerColor: hsl(197, 65%, 25%);
+}
+
+.nav {
+  background-color: var(--navColor);
+}
+
+.page {
+  // margin: 1em;
+  padding: 1em;
+  margin-bottom: 5em;
+}

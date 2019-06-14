@@ -1,0 +1,9 @@
+<div class="page">
+  <div *ngFor="let conversation of conversations">
+    <a routerLink="{{ conversation.id }}">
+      <p>{{ conversation.user_list }}</p>
+      <p>{{ conversation.last_message }}</p>
+      <p>{{ conversation.last_message_ts | date: 'medium' }}</p>
+    </a>
+  </div>
+</div>
