@@ -14,11 +14,15 @@ import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
+
 import { TestComponent } from './pages/test/test.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
+<<<<<<< HEAD
 import { ContactsComponent } from './pages/contacts/contacts.component';
+=======
+>>>>>>> 257b316f075f39d62025e4f478c447edf762d527
 
 const routes: Routes = [
   { path: '', component: SplashComponent },

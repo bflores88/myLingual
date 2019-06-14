@@ -22,11 +22,12 @@ router.route('/').get((req, res) => {
   new Contact()
     .query({
       where: { requester: req.user.id },
+      andWhere: { accepted: true },
       orWhere: { invitee: req.user.id },
       andWhere: { accepted: true },
     })
 
-    .fetchAll({ withRelated: ['requesters', 'invitees'] })
+    .fetchAll({ withRelated: ['invitees', 'requesters'] })
     .then((result) => {
       return res.send(result.toJSON());
     })
