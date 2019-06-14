@@ -20,6 +20,10 @@ export class BackendService {
     return this.http.get('/api/logout').toPromise();
   }
 
+  postFlashcard(data) {
+    return this.http.post('/api/cards', data).toPromise();
+  }
+
   getConversations() {
     return this.http.get('/api/conversations').toPromise();
   }

@@ -30,7 +30,23 @@ router.route('/:id').get((req, res) => {
     .catch((err) => {
       console.log('error', err);
     });
-});
+})
+  .put((req, res) => {
+    User.where('id', req.user.id)
+      .save({
+        active: req.body.active,
+        role_id: req.body.role_id,
+        name: req.body.name,
+        email: req.body.email,
+
+      })
+      .then((result) => {
+        return res.json(result);
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+})
 
 // fetches all cards owned by User
 router.route('/:id/cards').get((req, res) => {

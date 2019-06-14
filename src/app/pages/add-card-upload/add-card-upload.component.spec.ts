@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddCardImageUploadComponent } from './add-card-image-upload.component';
+import { AddCardUploadComponent } from './add-card-upload.component';
 
-describe('AddCardImageUploadComponent', () => {
-  let component: AddCardImageUploadComponent;
-  let fixture: ComponentFixture<AddCardImageUploadComponent>;
+describe('AddCardUploadComponent', () => {
+  let component: AddCardUploadComponent;
+  let fixture: ComponentFixture<AddCardUploadComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCardImageUploadComponent ]
+      declarations: [ AddCardUploadComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddCardImageUploadComponent);
+    fixture = TestBed.createComponent(AddCardUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
