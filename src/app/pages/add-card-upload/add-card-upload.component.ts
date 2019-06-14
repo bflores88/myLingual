@@ -21,9 +21,12 @@ export class AddCardUploadComponent implements OnInit {
   public imagePath;
   imgURL: any;
   public message: string;
-  
-  image = '';
 
+  selectImage = true;
+  confirm = false;
+  loading = false;
+  showPhoto = true;
+  
   userId = 0;
   errorMessage = '';
 
@@ -41,7 +44,15 @@ export class AddCardUploadComponent implements OnInit {
     this.userId = parseInt(user.id);
   }
 
+  cancelSubmit() {
+    this.confirm = false;
+    this.selectImage = true;
+    this.showPhoto = false;
+  }
+
   submitImage() {
+    this.loading = true;
+    this.confirm = false;
     console.log(this.uploadForm.value.image)
     let formData = new FormData();
     console.log(formData);
@@ -51,6 +62,7 @@ export class AddCardUploadComponent implements OnInit {
     console.log(formData);
 
     this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
+      this.loading = false;
       console.log(data);
       this.errorMessage = data.message;
     })
@@ -70,6 +82,9 @@ export class AddCardUploadComponent implements OnInit {
     const file = files[0];
     console.log(file)
     this.uploadForm.get('image').setValue(file);
+    this.selectImage = false;
+    this.confirm = true;
+    this.showPhoto = true;
 
     const reader = new FileReader();
     this.imagePath = files;

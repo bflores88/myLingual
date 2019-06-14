@@ -21,6 +21,7 @@ export class BackendService {
   }
 
   postFlashcard(data) {
+    console.log('sdfkjsjfdskj')
     return this.http.post('/api/cards', data).toPromise();
   }
 

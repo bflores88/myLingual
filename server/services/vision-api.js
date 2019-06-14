@@ -17,7 +17,7 @@ async function quickstart(image_link) {
   // Performs label detection on the image file
   // const [result] = await client.labelDetection('./wave.jpg');
   const [result] = await client.labelDetection(
-    image_link,
+    image_link
   );
   labels = result.labelAnnotations;
   // console.log('Labels:');
@@ -29,22 +29,22 @@ async function quickstart(image_link) {
 
 module.exports = quickstart;
 
-quickstart()
-  .then(() => {
-    const text = labels[0].description;
+// quickstart()
+//   .then(() => {
+//     const text = labels[0].description;
 
-    const target = 'no';
+//     const target = 'no';
 
-    translate
-      .translate(text, target)
-      .then((results) => {
-        const translation = results[0];
+//     translate
+//       .translate(text, target)
+//       .then((results) => {
+//         const translation = results[0];
 
-        console.log(`Text: ${text}`);
-        console.log(`Translation: ${translation}`);
-      })
-      .catch((err) => {
-        console.error('ERROR:', err);
-      });
-  })
-  .catch(console.error);
+//         console.log(`Text: ${text}`);
+//         console.log(`Translation: ${translation}`);
+//       })
+//       .catch((err) => {
+//         console.error('ERROR:', err);
+//       });
+//   })
+//   .catch(console.error);
