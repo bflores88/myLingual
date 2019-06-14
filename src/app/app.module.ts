@@ -37,7 +37,6 @@ import { TestComponent } from './pages/test/test.component';
 
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,13 +66,11 @@ import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.
     NewForumPostComponent,
     AddCardNoImageComponent,
 
-    AddCardImageUploadComponent,
+    // AddCardImageUploadComponent,
     TestComponent,
     DeckDetailComponent,
 
     AddCardUploadComponent,
-
-
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
