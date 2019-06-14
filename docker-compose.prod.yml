@@ -1,9 +1,9 @@
-version: "3"
+version: '3'
 services:
   my-lingual:
     image: ${DOCKERHUB_NAME}/${IMAGE_NAME}:${IMAGE_VERSION}
     ports:
-      - 80:3000
+      - 80:8080
     env_file: .env
     networks:
       - my-app-network
@@ -14,7 +14,7 @@ services:
     volumes:
       - pg-data-volume:/var/lib/postgresql/data
     ports:
-      - "${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}"
+      - '${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}'
     networks:
       - my-app-network
 

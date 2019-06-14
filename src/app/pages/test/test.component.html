@@ -1,0 +1,66 @@
+<div class="page">
+  <div class="forum-container">
+    <div *ngIf="totalCards > currentCard">
+      <h2>Que es esto?</h2>
+      <h3>Question: {{ currentCard + 1 }} / {{ totalCards }}</h3>
+      <div class="message-box">
+        <h4 class="wrong-answer-message">{{ wrongMessage }}</h4>
+        <h4 class="correct-answer-message">{{ correctMessage }}</h4>
+      </div>
+
+      <div class="test-container">
+        <img class="test-image" src="{{ cards[currentCard].image_link }}" alt="" />
+      </div>
+      <div class="question-english-box">
+        <p>{{ words[currentCard].english_word }}</p>
+      </div>
+
+      <div class="answer-input-container">
+        <input
+          (keyup.enter)="submitAnswer()"
+          [(ngModel)]="currentInput"
+          class="answer-input"
+          type="text"
+          spellcheck="false"
+        />
+        <button (click)="submitAnswer()" class="submit-answer-button">Submit</button>
+      </div>
+    </div>
+
+    <div *ngIf="!(totalCards > currentCard)">
+      <div class="test-over-header-box">
+        <h2>Test Complete!</h2>
+      </div>
+
+      <div class="grade-outer-box">
+        <div class="grade-inner-box">
+          <h4 class>Your Score:</h4>
+        </div>
+      </div>
+      <div class="letter-grade-box">
+        <div class="a-grade" *ngIf="quizPercentage == 100">
+          <h3>{{ quizPercentage }} % Great Job!</h3>
+        </div>
+        <div class="a-grade" *ngIf="quizPercentage >= 90 && quizPercentage != 100">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="b-grade" *ngIf="quizPercentage >= 80 && 90 > quizPercentage">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="c-grade" *ngIf="quizPercentage >= 70 && 80 > quizPercentage">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="d-grade" *ngIf="quizPercentage >= 60 && 70 > quizPercentage">
+          <h3>{{ quizPercentage }} %</h3>
+        </div>
+        <div class="e-grade" *ngIf="60 > quizPercentage">
+          <h3>{{ quizPercentage }} % Dude thats terrible....</h3>
+        </div>
+      </div>
+
+      <div class="after-test-buttons-box">
+        <button (click)="retakeTest()" class="submit-answer-button">Retake Test</button>
+      </div>
+    </div>
+  </div>
+</div>
