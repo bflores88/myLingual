@@ -38,14 +38,54 @@ router
   })
   .post((req, res) => {
     // check if word exists
-    new Word('english_word', req.body.english_word)
+    console.log('reached check if card exists')
+    const word = req.body.english_word.toLowerCase();
+    new Word('english_word', word)
       .fetch()
       .then((wordResult) => {
+        console.log('fetched word to check if exists');
         if (!wordResult) {
+          console.log('word does not exist; reached created word')
+          console.log('word', word)
           // creates new row in Word table
-          return new Word().save({ english_word: req.body.english_word }).then((result) => {
-            return res.json(result);
-          });
+          new Word()
+            .save({ english_word: word })
+            .then((result) => {
+              let newResult = result.toJSON();
+
+              console.log('create new card')
+              return new Card()
+                .save({
+                word_id: newResult.id,
+                card_theme_id: 1,
+                created_by: req.user.id,
+                image_link: pendingImage,
+                likes: 0,
+                shares: 0,
+                red_flagged: 0,
+                downloads: 0,
+                approved: true,
+                public: false,
+                active: true,
+              })
+            })
+            .then((result) => {
+              let newResult = result.toJSON();
+              console.log('create user-card', newResult)
+              return new UserCard()
+                .save({
+                user_id: req.user.id,
+                card_id: newResult.id,
+                attempts: 0,
+                successes: 0,
+                })
+            })
+            .then((result) => {
+              return res.json(result)
+            })
+            .catch((error) => (
+            console.log('error', error)
+          ))
         } else {
           const newResult = wordResult.toJSON();
 
@@ -64,9 +104,8 @@ router
                 // creates a new UserCard if they don't own card
                 new UserCard().save({
                   user_id: req.user.id,
-                  card_id,
+                  card_id: newResult.card_id,
                 });
-
               } else {
                 return res.json({
                   message: 'You already own this card.  Edit or delete your existing card before creating a new one!',
@@ -149,18 +188,20 @@ router.route('/search/:term').get((req, res) => {
 router
   .route('/upload')
   .post(singleUpload, (req, res) => {
-    // return res.json({ image_link: req.file.location });
     pendingImage = req.file.location;
-    visionApi(req.file.location)
-      .then((labels) => {
-        const topThree = labels.splice(0, 3).map((label) => {
-          return label.description
-        })
+    return res.json({ results: ['a', 'b', 'c'] });
+    // return res.json({ image_link: req.file.location });
+    
+    // visionApi(req.file.location)
+    //   .then((labels) => {
+    //     const topThree = labels.splice(0, 3).map((label) => {
+    //       return label.description
+    //     })
 
-        console.log(pendingImage);
-        return res.json({ results: topThree });
-      })
-      .catch(console.error);
+    //     console.log(pendingImage);
+    //     return res.json({ results: topThree });
+    //   })
+    //   .catch(console.error);
   })
   .delete((req, res) => {
     const params = {

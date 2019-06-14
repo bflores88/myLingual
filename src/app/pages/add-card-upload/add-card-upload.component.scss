@@ -6,17 +6,6 @@
   justify-content: center;
   align-items: center;
 
-  button {
-    color: white;
-    font-size: 30px;
-    background-color: transparent;
-    border: 0;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
   .image-upload-holder {
     margin-top: 100px;
     width: auto;
@@ -25,10 +14,9 @@
     padding: 25px;
     border-radius: 12px;
     color: white;
-    
-    .input-file-label {
 
-      input[type="file"] {
+    .input-file-label {
+      input[type='file'] {
         display: none;
       }
 
@@ -36,7 +24,6 @@
         cursor: pointer;
       }
     }
-
   }
 
   .image-box {
@@ -47,6 +34,17 @@
     text-align: center;
     width: 100%;
     margin-top: 20px;
+
+    button {
+      color: white;
+      font-size: 30px;
+      background-color: transparent;
+      border: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     h2 {
       margin: 0;
@@ -76,15 +74,12 @@
 
     .yes-image {
       background-color: var(--accentColor);
-
     }
 
     .no-image {
       background-color: red;
     }
   }
-
-
 
   .loading {
     display: flex;
@@ -93,7 +88,6 @@
     text-align: center;
     width: 100%;
     height: 200px;
-    
   }
 
   .loading-container {
@@ -107,10 +101,9 @@
     position: relative;
     width: auto;
     height: auto;
-
   }
   .lds-hourglass:after {
-    content: " ";
+    content: ' ';
     display: block;
     border-radius: 50%;
     width: 0;
@@ -134,7 +127,40 @@
       transform: rotate(1800deg);
     }
   }
-  
-  
-}
 
+
+  .select-word {
+    width: 100%;
+    text-align: center;
+
+    .word-confirm {
+      margin-top: 15px;
+    }
+
+    .type-word-option {
+      margin-top: 20px;
+    }
+
+    .type-word {
+      border: 0px;
+      background-color: lighten(lightgrey, 10%);
+      font-size: 30px;
+      height: 50px;
+      width: 100%;
+      border-radius: 12px;
+      padding: 10px 15px;
+      text-align: center;
+    }
+
+    .deck-select, .new-deck, .submit-word {
+      margin-top: 20px;
+
+      select {
+        width: 100%;
+        height: 40px;
+        font-size: 24px;
+        border-radius: 12px;
+      }
+    }
+  }
+}

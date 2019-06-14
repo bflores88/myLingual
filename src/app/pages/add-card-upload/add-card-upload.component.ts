@@ -9,6 +9,11 @@ interface AddWordResponse {
   english_word: string,
   id: number,
   image_link: string,
+  results: []
+}
+
+interface DeckResponse {
+  decks: [],
 }
 
 @Component({
@@ -22,11 +27,22 @@ export class AddCardUploadComponent implements OnInit {
   imgURL: any;
   public message: string;
 
+  decks: any;
+
+  results = [];
+  english_word = '';
+  add_to_deck = '';
+  new_deck_name = '';
+
   selectImage = true;
   confirm = false;
   loading = false;
   showPhoto = true;
-  
+  showWordConfirm = false;
+  newDeck = false;
+
+
+
   userId = 0;
   errorMessage = '';
 
@@ -36,7 +52,10 @@ export class AddCardUploadComponent implements OnInit {
     this.uploadForm = this.formBuilder.group({
       image: ['']
     });
-    return this.getUserSession();
+    this.backend.getUserDecks().then((data: DeckResponse) => {
+      this.decks = data;
+    })
+    return this.getUserSession()
   }
 
   getUserSession() {
@@ -53,16 +72,13 @@ export class AddCardUploadComponent implements OnInit {
   submitImage() {
     this.loading = true;
     this.confirm = false;
-    console.log(this.uploadForm.value.image)
     let formData = new FormData();
-    console.log(formData);
-    // formData.append('test', 'heeooo');
     formData.append('image', this.uploadForm.value.image);
-
-    console.log(formData);
 
     this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
       this.loading = false;
+      this.showWordConfirm = true;
+      this.results = data.results;
       console.log(data);
       this.errorMessage = data.message;
     })
@@ -92,6 +108,30 @@ export class AddCardUploadComponent implements OnInit {
     reader.onload = (_event) => { 
       this.imgURL = reader.result; 
     }
+  }
+
+  handleInputOnChange() {
+    // const value = e.currentTarget.value;
+    // const name = e.currentTarget.name;
+    console.log(this.add_to_deck)
+    if (this.add_to_deck === "new-deck") {
+      this.newDeck = true;
+    }
+  }
+
+  handleWordSelect(e) {
+    console.log(e.target.value);
+    this.english_word = e.target.value;
+  }
+
+  handleSubmitWord() {
+    const data = {
+      english_word: this.english_word
+    }
+
+    return this.backend.postFlashcard(data).then((data: AddWordResponse) => {
+      console.log(data)
+    })
   }
 
 }

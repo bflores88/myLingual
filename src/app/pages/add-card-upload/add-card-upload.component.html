@@ -26,9 +26,47 @@
 
     <div *ngIf="loading" class="loading">
       <div class="loading-container">
-        L o a d i n g <br /><br />
         <div class="lds-hourglass"></div>
+        <br />
+        L o a d i n g
       </div>
     </div>
+
+    <div *ngIf="showWordConfirm" class="select-word">
+      <h2>Please confirm word</h2>
+      <div *ngFor="let result of results" class="word-confirm">
+        <button class="small-btn" name="english_word" (click)="handleWordSelect($event)" value="{{result}}">{{result}}</button>
+        <br />
+      </div>
+
+      <div class="type-word-option">
+        <h2>Or type the word you'd like to translate.</h2>
+        <input type="text" name="english_word" [(ngModel)]="english_word" class="type-word" />
+      </div>
+
+      <div class="deck-select">
+        <select name="add_to_deck" [(ngModel)]="add_to_deck" (change)="handleInputOnChange()">
+          <option value="">Add Card To Deck</option>
+          <option *ngFor="let deck of decks" value="{{deck.id}}">{{deck.name}}</option>
+          <option value="new-deck">Create New Deck</option>
+        </select>
+      </div>
+
+      <div *ngIf="newDeck" class="new-deck">
+          <input type="text" name="new-deck-name" placeholder="deck name" class="type-word" />
+      </div>
+
+      <div class="submit-word">
+        <button class="small-btn" (click)="handleSubmitWord()">Submit</button>
+      </div>
+
+    </div>
+
+    <div class="success-card-generated">
+      <h1>Success!!!<br /></h1>
+      <h2>Check your decks to start studying!</h2>
+    </div>
+
+
   </div>
 </div>
