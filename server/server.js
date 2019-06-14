@@ -27,6 +27,7 @@ const forums = require('./routes/forums');
 const posts = require('./routes/posts');
 const conversations = require('./routes/conversations');
 const quizzes = require('./routes/quizzes');
+const contacts = require('./routes/contacts');
 const quiz_contents = require('./routes/quiz_contents');
 
 app.use(bodyParser.json());
@@ -122,7 +123,7 @@ app.use('/api/users', users);
 app.use('/api/forums', forums);
 
 app.use('/api/posts', posts);
-
+app.use('/api/contacts', contacts);
 app.use('/api/conversations', conversations);
 app.use('/api/quizzes', quizzes);
 app.use('/api/quiz_contents', quiz_contents);
