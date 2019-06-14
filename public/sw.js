@@ -1,17 +1,25 @@
 const CACHE_NAME = 'service-worker-demo-cache-v1';
 const cacheWhitelist = [CACHE_NAME];
-const urlsToCache = [
-  '/',
-  '/runtime-caching.html',
-  '/background-sync.html',
-  '/messaging.html',
-  '/push-notification.html',
-  '/js/index.js',
-  '/js/runtime-caching.js',
-  '/js/background-sync.js',
-  '/js/messaging.js',
-  '/js/push-notification.js',
-  '/css/styles.css',
+const urlsToCache = [ // used front end routes to write urls
+  '',
+  'home',
+  'login',
+  'register',
+  'profile/:user_id',
+  'profile',
+  'settings',
+  'decks',
+  'decks/:id',
+  'test/:id',
+  'add-card',
+  'add-card/continue',
+  'add-card/upload',
+  'messages',
+  'messages/:id',
+  'forums',
+  'forums/:id',
+  'forums/new/:id',
+  'forums/posts/:post_id'
 ];
 
 // https://developers.google.com/web/fundamentals/primers/service-workers/
