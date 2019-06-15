@@ -18,6 +18,7 @@ require('dotenv').config({ path: '../.env' });
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 
+const oauth = require('./routes/google_oauth');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const cards = require('./routes/cards');
@@ -118,7 +119,9 @@ passport.deserializeUser(function(user, done) {
     });
 });
 
+
 app.use('/api/login', login);
+app.use('/api/google_signin', oauth);
 app.use('/api/logout', logout);
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
