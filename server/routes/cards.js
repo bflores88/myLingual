@@ -21,7 +21,10 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
+// TEMPORARY ACCESS VARIABLES
 let pendingImage = '';
+let spanish = '';
+let italian = '';
 
 router
   .route('/')
@@ -38,22 +41,37 @@ router
   })
   .post((req, res) => {
     // check if word exists
-    console.log('reached check if card exists');
+
     const word = req.body.english_word.toLowerCase();
     new Word('english_word', word)
       .fetch()
       .then((wordResult) => {
-        console.log('fetched word to check if exists');
+
         if (!wordResult) {
-          console.log('word does not exist; reached created word');
-          console.log('word', word);
-          // creates new row in Word table
+
+          // ******************************************************
+          // IF A WORD DOES NOT EXIST, 
+          // SEND REQUEST TO THE TRANSLATE API 
+          // THERE SHOULD BE A WAY TO RESPOND BACK TO THE USER
+          // WHETHER THE WORD IS INVALID.  
+
+          // IF THE WORD IS VALID, SAVE THE TRANSLATED RESPONSES
+          // TO GLOBAL VARIABLES TO ACCESS AFTERWARD UNTIL THE WORD
+          // IS CREATED IN WORD TABLE (word_id REQUIRED IN translations)
+          // ******************************************************
+
+          // creates new word in Word table
           new Word()
             .save({ english_word: word })
             .then((result) => {
               let newResult = result.toJSON();
 
-              console.log('create new card');
+              // ****************************************************
+              // SINCE THE WORD IS NOW IN THE WORDS TABLE, THERE SHOULD ALSO
+              // BE A SERVICE TO UPDATE THE TRANSLATIONS TABLES FOR EACH LANGUAGE
+              // BY PASSING IN THE WORD ID & THE LANGUAGES STORED GLOBALLY
+              // **************************************************
+
               return new Card().save({
                 word_id: newResult.id,
                 card_theme_id: 1,
@@ -71,7 +89,7 @@ router
             .then((result) => {
               pendingImage = '';
               let newResult = result.toJSON();
-              console.log('create user-card', newResult);
+
               return new UserCard().save({
                 user_id: req.user.id,
                 card_id: newResult.id,
@@ -84,6 +102,7 @@ router
             })
             .catch((error) => console.log('error', error));
         } else {
+
           // if the word exists, create a new card for the user
           return new Card()
             .save({
@@ -102,7 +121,7 @@ router
             .then((result) => {
               pendingImage = '';
               let newResult = result.toJSON();
-              console.log('create user-card', newResult);
+
               return new UserCard().save({
                 user_id: req.user.id,
                 card_id: newResult.id,

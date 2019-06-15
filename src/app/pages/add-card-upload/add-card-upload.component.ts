@@ -112,7 +112,8 @@ export class AddCardUploadComponent implements OnInit {
       
       this.buttonDisabled = false;
     }
-
+    
+    console.log(this.add_to_deck)
     this.buttonDisabled = false;
   }
 
@@ -140,9 +141,6 @@ export class AddCardUploadComponent implements OnInit {
   }
 
   isInvalid() {
-    if (this.english_word.length === 0 && this.buttonDisabled) {
-      return true;
-    }
     return this.english_word.length === 0 || this.buttonDisabled;
   }
 }
