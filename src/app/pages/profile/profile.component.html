@@ -29,5 +29,14 @@
     <div *ngIf="user.id === userID" class="profile-settings-div">
       <button class="small-btn" (click)="toUserSettings()"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;Settings</button>
     </div>
+
+    <div *ngIf="user.id !== userID" class="profile-settings-div">
+      <button class="small-btn" (click)="sendInvite()">
+        <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Send Contact Invite
+      </button>
+      <div *ngIf="message !== ''">
+        {{ message }}
+      </div>
+    </div>
   </div>
 </div>

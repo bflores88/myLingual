@@ -15,9 +15,10 @@
         </div>
 
         <div class="right-side-inner">
-          <button class="reject-invite-button">Dismiss Invite</button>
+          <button (click)="rejectInvite(invite.id)" class="reject-invite-button">Dismiss Invite</button>
         </div>
       </div>
     </div>
+    <div *ngIf="invites.length === 0">You have no invites! hahahaha what a loser!</div>
   </div>
 </div>

@@ -58,6 +58,26 @@ export class InvitesComponent implements OnInit {
 
     this.backend.respondToInvite(id, body).then((data: any) => {
       console.log('reject', data);
+
+      this.invites = [];
+
+      this.backend.getUserInvites().then((data: any) => {
+        // this.contacts = data;
+        // console.log('invites', data);
+        data.forEach((invites) => {
+          let inviteObj = {
+            sent_at: '',
+            user: '',
+            id: '',
+          };
+          inviteObj.sent_at = invites.created_at;
+          inviteObj.user = invites.requesters;
+          inviteObj.id = invites.id;
+
+          this.invites.push(inviteObj);
+        });
+        console.log('invites', this.invites);
+      });
     });
   }
 
