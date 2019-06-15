@@ -1,31 +1,96 @@
 $flashcardWidth: 400px;
-$flashcardPadding: 10px;
+$flashcardPadding: 20px;
 $imageMargins: 10px;
 
+$heartIconSize: 20px;
+$fontOffset: 3px;
+$fontOffset_H2: 4px;
 
-.flashcard-page {
+#flashcard-page {
   display: flex;
   justify-content: center;
 
   padding: 40px;
 }
 
-.flashcard {
+#flashcard {
+  text-align: center;
+
+  background: whitesmoke;
   border: 1px solid black;
-  background: blue;
-  color: white;
+  border-radius: 10px;
+  color: black;
 
   padding: $flashcardPadding;
   width: $flashcardWidth;
+}
 
-  ul {
-    list-style: none;
+#translation-container {
+  margin-bottom: 30px;
+}
+
+#social-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid black;
+
+  margin: 0 10px 0 10px;
+  padding-top: 8px;
+}
+
+.social-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  font-size: $heartIconSize;
+
+  i {
+    padding-right: 10px;
   }
 
-  img {
-    align-self: center;
-    margin: $imageMargins;
-    width: $flashcardWidth - (($imageMargins + $flashcardPadding) * 2);
-    height: auto;
+  p {
+    margin: 0px;
+    font-size: $heartIconSize + $fontOffset;
   }
+}
+
+.translation-element {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background: white;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  border-bottom: 1px solid black;
+}
+
+h2 {
+  font-weight: bolder;
+  font-variant: all-small-caps;
+
+  border-bottom: 1px solid black;
+  margin: 10px 0 30px 0;
+}
+
+h3 {
+  font-variant: all-small-caps;
+  margin: 0;
+  padding-bottom: $fontOffset_H2;
+}
+
+img {
+  align-self: center;
+  width: $flashcardWidth - ($flashcardPadding * 2) - 2px;
+  height: auto;
+
+  border-radius: 20px;
+
+  margin-top: 30px;
 }

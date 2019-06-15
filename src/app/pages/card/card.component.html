@@ -1,14 +1,38 @@
-<div class="flashcard-page">
-  {{errorMessage}}
-  <div class="flashcard" *ngIf="hasFlashcard">
+<div id="flashcard-page">
+  <h1>{{errorMessage}}</h1>
+
+  <div id="flashcard" *ngIf="hasFlashcard">
     <h1>{{flashcard.english_word}}</h1>
     <img src = "{{flashcard.image_link}}"/>
-    <ul>
-      <li>
-        <h3>Translations: </h3>
-        <p>{{flashcard.italian_translations}}</p>
-        <p>{{flashcard.spanish_translations}}</p>
-      </li>
-    </ul>
+
+    <div id="translation-container">
+      <h2>Translations</h2>
+      <div class="translation-element">
+        <h3>Spanish </h3>
+        <h3>{{flashcard.spanish_translations}}</h3>
+      </div>
+      <div class="translation-element">
+        <h3>Italian</h3>
+        <h3>{{flashcard.italian_translations}}</h3>
+      </div>
+    </div>
+  
+    <div id="social-container">
+      <div class="social-element">
+        <i class="fas fa-heart"></i>
+        <p>{{flashcard.likes}}</p>
+      </div>
+
+      <div class="social-element">
+        <i class="fas fa-file-download"></i>
+        <p>{{flashcard.downloads}}</p>
+      </div>
+
+      <div class="social-element">
+        <i class="fas fa-share"></i>
+        <p>{{flashcard.shares}}</p>
+      </div>
+    </div>
+
   </div>
 </div>
