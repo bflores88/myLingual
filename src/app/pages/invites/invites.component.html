@@ -1,0 +1,23 @@
+<app-profile-nav-mobile></app-profile-nav-mobile>
+<div class="page">
+  <div class="forum-container">
+    <h1>Invites</h1>
+    <div class="invite-box" *ngFor="let invite of invites">
+      <div class="left-side-contact">
+        <a routerLink="/profile/{{ invite.user.id }}">
+          <img class="contact-image" src="{{ invite.user.profile_image_url }}" alt="" />
+          <h3>{{ invite.user.name }}</h3>
+        </a>
+      </div>
+      <div class="right-side-contact">
+        <div class="right-side-inner">
+          <button (click)="acceptInvite(invite.id)" class="accept-invite-button">Accept Invite</button>
+        </div>
+
+        <div class="right-side-inner">
+          <button class="reject-invite-button">Dismiss Invite</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
