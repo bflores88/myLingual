@@ -1,4 +1,5 @@
-<div>
+<app-profile-nav-mobile></app-profile-nav-mobile>
+<div class="profile-page">
   <div class="profile">
     <div class="profile-photo-div">
       <img src="{{ user.profile_image_url }}" />
@@ -9,7 +10,7 @@
         <span [hidden]="user.username">Username</span
         ><span *ngIf="user.id === userID" [hidden]="!user.username">{{ user.name }}</span
         ><span *ngIf="user.id !== userID" [hidden]="!user.username">{{ user.username }}</span>
-        </h2>
+      </h2>
       <p>Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
     </div>
 
@@ -27,6 +28,15 @@
 
     <div *ngIf="user.id === userID" class="profile-settings-div">
       <button class="small-btn" (click)="toUserSettings()"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;Settings</button>
+    </div>
+
+    <div *ngIf="user.id !== userID" class="profile-settings-div">
+      <button class="small-btn" (click)="sendInvite()">
+        <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Send Contact Invite
+      </button>
+      <div *ngIf="message !== ''">
+        {{ message }}
+      </div>
     </div>
   </div>
 </div>

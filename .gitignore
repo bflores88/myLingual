@@ -42,6 +42,7 @@ testem.log
 /typings
 .env
 cloud-vision.json
+service-account-key.json
 
 # System Files
 .DS_Store

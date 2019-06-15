@@ -1,18 +1,21 @@
 @import '../../../styles.scss';
 
-.nav-mobile {
+.profile-nav-mobile {
   width: 100%;
-  // border-top: 1px solid black;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  // border-top: 1px dotted black;
+  // position: fixed;
+  // left: 0;
+  // bottom: 0;
+
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  height: 80px;
-  background-color: var(--headerColor);
-  font-size: 35px;
+  height: 60px;
+  background-color: var(--buttonBgColor);
+  font-size: 20px;
   padding-top: 20px;
+  color: black;
+  // margin-bottom: 5em;
 
   a:not(:last-child) {
     margin-right: 20px;
@@ -22,3 +25,5 @@
     display: none;
   }
 }
+
+// profile-nav-mobile
