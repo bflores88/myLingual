@@ -48,11 +48,18 @@ export class ForumPostComponent implements OnInit {
 
   postReply() {
     console.log(this.newReply);
-    this.backend.addReply(
-      parseInt(this.activated.snapshot.paramMap.get('post_id')),
-      this.newReply.body,
-      this.newReply.sent_by,
-    );
+    this.backend
+      .addReply(parseInt(this.activated.snapshot.paramMap.get('post_id')), this.newReply.body, this.newReply.sent_by)
+      .then(() => {
+        let routeId = this.activated.snapshot.paramMap.get('post_id');
+        this.backend.getSpecificPost(routeId).then((data: any) => {
+          this.post_title.title = data[0].title;
+          this.post_title.body = data[0].body;
+          this.post_title.created_by = data[0].created_by.name;
+          this.post_title.created_by_id = data[0].created_by.id;
+          this.post_replies = data[0].replies;
+        });
+      });
     this.newReply.body = '';
   }
 }
