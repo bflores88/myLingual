@@ -6,11 +6,26 @@ $heartIconSize: 20px;
 $fontOffset: 3px;
 $fontOffset_H2: 4px;
 
+$arrowSize: 200px;
+$arrowColor: hsl(197, 65%, 55%);
+$arrowPadding: 100px;
+
 #flashcard-page {
   display: flex;
+  align-content: center;
+  flex-direction: column;
   justify-content: center;
 
   padding: 40px;
+  margin: 20px 0 100px 0;
+}
+
+#flashcard-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
 }
 
 #flashcard {
@@ -23,6 +38,10 @@ $fontOffset_H2: 4px;
 
   padding: $flashcardPadding;
   width: $flashcardWidth;
+
+  h1 {
+    border-bottom: 1px solid black;
+  }
 }
 
 #translation-container {
@@ -67,8 +86,16 @@ $fontOffset_H2: 4px;
   margin-bottom: 10px;
 }
 
-h1 {
-  border-bottom: 1px solid black;
+.fa-arrow-alt-circle-left::before {
+  font-size: $arrowSize;
+  color: $arrowColor;
+  padding-right: $arrowPadding;
+}
+
+.fa-arrow-alt-circle-right::before {
+  font-size: $arrowSize;
+  color: $arrowColor;
+  padding-left: $arrowPadding;
 }
 
 h2 {
@@ -93,4 +120,25 @@ img {
   border-radius: 20px;
 
   margin-top: 30px;
+}
+
+@media only screen and (max-width: 425px){
+  #flashcard-page {
+    margin: 0;
+    padding: 20px 0 100px 0;
+  }
+
+  #flashcard {
+    width: 350px;
+    margin: 0;
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
 }
