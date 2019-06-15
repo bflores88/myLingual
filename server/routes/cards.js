@@ -10,6 +10,7 @@ const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 const aws = require('aws-sdk');
 const visionApi = require('../services/vision-api');
+const translateApi = require('../services/translate-api');
 
 require('dotenv').config({ path: '../.env' });
 
@@ -49,28 +50,12 @@ router
 
         if (!wordResult) {
 
-          // ******************************************************
-          // IF A WORD DOES NOT EXIST, 
-          // SEND REQUEST TO THE TRANSLATE API 
-          // THERE SHOULD BE A WAY TO RESPOND BACK TO THE USER
-          // WHETHER THE WORD IS INVALID.  
-
-          // IF THE WORD IS VALID, SAVE THE TRANSLATED RESPONSES
-          // TO GLOBAL VARIABLES TO ACCESS AFTERWARD UNTIL THE WORD
-          // IS CREATED IN WORD TABLE (word_id REQUIRED IN translations)
-          // ******************************************************
-
-          // creates new word in Word table
           new Word()
             .save({ english_word: word })
             .then((result) => {
               let newResult = result.toJSON();
 
-              // ****************************************************
-              // SINCE THE WORD IS NOW IN THE WORDS TABLE, THERE SHOULD ALSO
-              // BE A SERVICE TO UPDATE THE TRANSLATIONS TABLES FOR EACH LANGUAGE
-              // BY PASSING IN THE WORD ID & THE LANGUAGES STORED GLOBALLY
-              // **************************************************
+              translateApi(word, newResult.id)
 
               return new Card().save({
                 word_id: newResult.id,
@@ -212,19 +197,17 @@ router
   .route('/upload')
   .post(singleUpload, (req, res) => {
     pendingImage = req.file.location;
-    return res.json({ results: ['a', 'b', 'c'] });
-    // return res.json({ image_link: req.file.location });
+    
+    visionApi(req.file.location)
+      .then((labels) => {
+        const topThree = labels.splice(0, 3).map((label) => {
+          return label.description
+        })
 
-    // visionApi(req.file.location)
-    //   .then((labels) => {
-    //     const topThree = labels.splice(0, 3).map((label) => {
-    //       return label.description
-    //     })
-
-    //     console.log(pendingImage);
-    //     return res.json({ results: topThree });
-    //   })
-    //   .catch(console.error);
+        console.log(pendingImage);
+        return res.json({ results: topThree });
+      })
+      .catch(console.error);
   })
   .delete((req, res) => {
     const params = {

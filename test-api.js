@@ -32,9 +32,9 @@ async function quickstart() {
 
 quickstart()
   .then(() => {
-    const text = labels[0].description;
+    const text = 'ksjd';
 
-    const target = 'no';
+    const target = 'es';
 
     translate
       .translate(text, target)
