@@ -33,6 +33,7 @@ import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-i
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { TestComponent } from './pages/test/test.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
+import { AddCardPhotoComponent } from './pages/add-card-photo/add-card-photo.component';
 import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
 
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
@@ -71,6 +72,7 @@ import { InvitesComponent } from './pages/invites/invites.component';
     TestComponent,
     DeckDetailComponent,
     AddCardUploadComponent,
+    AddCardPhotoComponent,
     ProfileNavMobileComponent,
 
     SearchBarComponent,
