@@ -28,7 +28,7 @@ export class BackendService {
   translate(word: Object) {
     return this.http.post('/api/translate', word).toPromise();
   }
-  
+
   postFlashcardImageUpload(data) {
     return this.http.post('/api/cards/upload', data).toPromise();
   }
@@ -102,5 +102,23 @@ export class BackendService {
   getUserContacts(): Promise<object> {
     // console.log('get specific');
     return this.http.get(`/api/contacts`).toPromise();
+  }
+
+  getUserInvites(): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/contacts/invites`).toPromise();
+  }
+
+  respondToInvite(id, body): Promise<object> {
+    // console.log('get specific');
+    return this.http.put(`/api/contacts/invites/${id}`, body).toPromise();
+  }
+
+  sendContactInvite(id): Promise<object> {
+    // console.log('get specific');
+    let body = {
+      invitee: id,
+    };
+    return this.http.post(`/api/contacts/invites`, body).toPromise();
   }
 }

@@ -71,6 +71,16 @@ exports.seed = function(knex, Promise) {
             'https://img1.ak.crunchyroll.com/i/spire2/b07e7c6942d8d007fdf3bc2c9838322b1559849807_full.png',
           lingots: 43,
         },
+        {
+          active: false,
+          role_id: 3,
+          username: 'User03',
+          password: bcrypt.hashSync('password', saltRounds),
+          name: 'Thay nose',
+          email: 'thaynosebear@balance.com',
+          profile_image_url: 'https://cdn.mos.cms.futurecdn.net/G7WyGoFb5oBptgkzTxrBFW.jpg',
+          lingots: 50,
+        },
       ]);
     });
 };

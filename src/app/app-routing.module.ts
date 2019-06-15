@@ -20,6 +20,7 @@ import { UserSettingsComponent } from './pages/user-settings/user-settings.compo
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
+import { InvitesComponent } from './pages/invites/invites.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'profile/:user_id', component: ProfileComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'contacts', component: ContactsComponent },
+  { path: 'invites', component: InvitesComponent },
   { path: 'settings', component: UserSettingsComponent },
   { path: 'decks', component: DeckComponent },
   { path: 'decks/:id', component: DeckDetailComponent },
