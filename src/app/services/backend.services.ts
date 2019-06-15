@@ -32,9 +32,13 @@ export class BackendService {
   translate(word: Object) {
     return this.http.post('/api/translate', word).toPromise();
   }
-  
+
   postFlashcardImageUpload(data) {
     return this.http.post('/api/cards/upload', data).toPromise();
+  }
+
+  postDeckCard(data) {
+    return this.http.post('/api/decks_cards', data).toPromise();
   }
 
   getConversations() {
@@ -103,8 +107,29 @@ export class BackendService {
     return this.http.post(`/api/quizzes/${id}`, body).toPromise();
   }
 
+  search(searchText: string): Promise<object> {
+    return this.http.get(`/api/searches/${searchText}`).toPromise();
+  }
   getUserContacts(): Promise<object> {
     // console.log('get specific');
     return this.http.get(`/api/contacts`).toPromise();
+  }
+
+  getUserInvites(): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/contacts/invites`).toPromise();
+  }
+
+  respondToInvite(id, body): Promise<object> {
+    // console.log('get specific');
+    return this.http.put(`/api/contacts/invites/${id}`, body).toPromise();
+  }
+
+  sendContactInvite(id): Promise<object> {
+    // console.log('get specific');
+    let body = {
+      invitee: id,
+    };
+    return this.http.post(`/api/contacts/invites`, body).toPromise();
   }
 }

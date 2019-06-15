@@ -10,6 +10,7 @@ const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 const aws = require('aws-sdk');
 const visionApi = require('../services/vision-api');
+const translateApi = require('../services/translate-api');
 
 require('dotenv').config({ path: '../.env' });
 
@@ -21,7 +22,10 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
+// TEMPORARY ACCESS VARIABLES
 let pendingImage = '';
+let spanish = '';
+let italian = '';
 
 router
   .route('/')
@@ -38,40 +42,83 @@ router
   })
   .post((req, res) => {
     // check if word exists
-    new Word('english_word', req.body.english_word)
+
+    const word = req.body.english_word.toLowerCase();
+    new Word('english_word', word)
       .fetch()
       .then((wordResult) => {
+
         if (!wordResult) {
-          // creates new row in Word table
-          return new Word().save({ english_word: req.body.english_word }).then((result) => {
-            return res.json(result);
-          });
-        } else {
-          const newResult = wordResult.toJSON();
 
-          return new Card('word_id', newResult.id)
-            .fetch()
-            .then((cardResult) => {
-              const newResult = cardResult.toJSON();
+          new Word()
+            .save({ english_word: word })
+            .then((result) => {
+              let newResult = result.toJSON();
 
-              return new UserCard({ card_id: newResult.id, user_id: req.user.id }).fetch();
+              translateApi(word, newResult.id)
+
+              return new Card().save({
+                word_id: newResult.id,
+                card_theme_id: 1,
+                created_by: req.user.id,
+                image_link: pendingImage,
+                likes: 0,
+                shares: 0,
+                red_flagged: 0,
+                downloads: 0,
+                approved: true,
+                public: false,
+                active: true,
+              });
             })
-            .then((userCardResult) => {
-              // check if user already has a user_card with specific word
-              if (!userCardResult) {
-                const newResult = userCardResult.toJSON();
+            .then((result) => {
+              pendingImage = '';
+              let newResult = result.toJSON();
 
-                // creates a new UserCard if they don't own card
-                new UserCard().save({
-                  user_id: req.user.id,
-                  card_id,
-                });
+              return new UserCard().save({
+                user_id: req.user.id,
+                card_id: newResult.id,
+                attempts: 0,
+                successes: 0,
+              });
+            })
+            .then((result) => {
+              return res.json(result);
+            })
+            .catch((error) => console.log('error', error));
+        } else {
 
-              } else {
-                return res.json({
-                  message: 'You already own this card.  Edit or delete your existing card before creating a new one!',
-                });
-              }
+          // if the word exists, create a new card for the user
+          return new Card()
+            .save({
+              word_id: wordResult.id,
+              card_theme_id: 1,
+              created_by: req.user.id,
+              image_link: pendingImage,
+              likes: 0,
+              shares: 0,
+              red_flagged: 0,
+              downloads: 0,
+              approved: true,
+              public: false,
+              active: true,
+            })
+            .then((result) => {
+              pendingImage = '';
+              let newResult = result.toJSON();
+
+              return new UserCard().save({
+                user_id: req.user.id,
+                card_id: newResult.id,
+                attempts: 0,
+                successes: 0,
+              });
+            })
+            .then((result) => {
+              return res.json(result);
+            })
+            .catch((error) => {
+              console.log('error', error);
             });
         }
       })
@@ -149,8 +196,8 @@ router.route('/search/:term').get((req, res) => {
 router
   .route('/upload')
   .post(singleUpload, (req, res) => {
-    // return res.json({ image_link: req.file.location });
     pendingImage = req.file.location;
+    
     visionApi(req.file.location)
       .then((labels) => {
         const topThree = labels.splice(0, 3).map((label) => {
