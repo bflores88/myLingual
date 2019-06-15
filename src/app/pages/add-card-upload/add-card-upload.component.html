@@ -53,16 +53,16 @@
       </div>
 
       <div *ngIf="newDeck" class="new-deck">
-          <input type="text" name="new-deck-name" placeholder="deck name" class="type-word" />
+          <input type="text" name="new-deck-name" [(ngModel)]="new_deck_name" placeholder="deck name" class="type-word" />
       </div>
 
       <div class="submit-word">
-        <button class="small-btn" (click)="handleSubmitWord()">Submit</button>
+        <button class="small-btn" [disabled]="isInvalid()" (click)="handleSubmitWord()">Submit</button>
       </div>
 
     </div>
 
-    <div class="success-card-generated">
+    <div *ngIf="showSuccess" class="success-card-generated">
       <h1>Success!!!<br /></h1>
       <h2>Check your decks to start studying!</h2>
     </div>

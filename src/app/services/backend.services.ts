@@ -29,6 +29,10 @@ export class BackendService {
     return this.http.post('/api/cards/upload', data).toPromise();
   }
 
+  postDeckCard(data) {
+    return this.http.post('/api/decks_cards', data).toPromise();
+  }
+
   getConversations() {
     return this.http.get('/api/conversations').toPromise();
   }
