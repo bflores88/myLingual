@@ -102,4 +102,8 @@ export class BackendService {
   search(searchText: string): Promise<object> {
     return this.http.get(`/api/searches/${searchText}`).toPromise();
   }
+  getUserContacts(): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/contacts`).toPromise();
+  }
 }

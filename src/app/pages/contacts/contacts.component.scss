@@ -1,1 +1,18 @@
 @import '../../../styles.scss';
+
+.contact-box {
+  background-color: var(--headerColor);
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.send-message-button {
+  background-color: var(--buttonBgColor);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+}
