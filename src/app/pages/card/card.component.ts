@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 
 interface ResponseData {
   errorMessage: string;
+  english_word: string;
+  spanish_translations: string;
+  italian_translations: string;
 }
 
 @Component({
@@ -28,8 +31,12 @@ export class CardComponent implements OnInit {
         this.hasFlashcard = false;
         this.errorMessage = response.errorMessage;
       } else {
+        const englishWordCaptial = response.english_word.slice(0, 1).toUpperCase();
+        const englishWordRemainder = response.english_word.slice(1);
+        response.english_word = englishWordCaptial + englishWordRemainder;
         this.hasFlashcard = true;
         this.flashcard = response;
+        console.log(this.flashcard);
       }
     })
     .catch(() => {
