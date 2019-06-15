@@ -1,30 +1,42 @@
 <div class="page">
   <app-search-bar></app-search-bar>
 
-  <div id="lastDeckDiv">
-    <div id="lastDeckHolder">
-      <a class="lastDeck">Last Deck Viewed</a>
-    </div>
-  </div>
-
-  <div class="savedDecks">
-    <div id="allDecks">
-      <div id="deckRow">
-        <a class="decks">Deck 1</a>
-        <a class="decks">Deck 2</a>
-        <a class="decks">Deck 3</a>
-        <a class="decks">Deck 4</a>
-        <a class="decks">Deck 5</a>
-        <a class="decks">Deck 6</a>
-        <a class="decks">Deck 7</a>
-        <a class="decks">Deck 8</a>
-        <a class="decks">Deck 9</a>
-        <a class="decks">Deck 10</a>
+  <div class="home-nav-box">
+    <a routerLink="/decks">
+      <div class="home-link-box">
+        My Decks
       </div>
-    </div>
-  </div>
+    </a>
+    <a routerLink="/add-card">
+      <div class="home-link-box">
+        Add Card
+      </div>
+    </a>
 
-  <div id="btn-div">
-    <button class="small-btn"><i class="far fa-plus-square"></i>&nbsp;&nbsp;Add A New Deck</button>
+    <a routerLink="/forums">
+      <div class="home-link-box">
+        Forums
+      </div>
+    </a>
+
+    <a routerLink="/messages">
+      <div class="home-link-box">
+        Messages
+      </div>
+    </a>
+
+    <a routerLink="/profile">
+      <div class="home-link-box">
+        Profile
+      </div>
+    </a>
+
+    <div class="home-link-box">
+      About
+    </div>
+
+    <div class="home-link-box">
+      Lingot Shop (Coming Soon!)
+    </div>
   </div>
 </div>
