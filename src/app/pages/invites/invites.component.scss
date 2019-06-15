@@ -1,0 +1,70 @@
+@import '../../../styles.scss';
+
+.invite-box {
+  background-color: var(--buttonBgColor);
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.accept-invite-button {
+  background-color: var(--headerColor);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  width: 70%;
+  margin: 1em;
+}
+.reject-invite-button {
+  background-color: red;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  width: 70%;
+  margin: 1em;
+}
+
+.contact-box {
+  background-color: var(--headerColor);
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-image {
+  width: 100px;
+  // height: auto;
+  max-height: 100px;
+  border-radius: 5px;
+}
+
+.send-message-button {
+  background-color: var(--buttonBgColor);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  height: 50%;
+  margin: 1em;
+}
+
+.left-side-contact {
+  width: 50%;
+}
+
+.right-side-contact {
+  width: 50%;
+  display: inline-block;
+
+  // justify-content: center;
+}
+.right-side-inner {
+  margin: 1em;
+  width: 100%;
+}

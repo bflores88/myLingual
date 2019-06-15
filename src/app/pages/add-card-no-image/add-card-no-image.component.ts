@@ -40,4 +40,16 @@ export class AddCardNoImageComponent implements OnInit {
       this.errorMessage = data.message;
     })
   }
+
+  queryGTAPI(){
+    if (this.formData.english_word.length > 0){
+      const word = this.formData;
+      this.errorMessage = '';
+      this.backend.translate(word).then((result) => {
+        console.log(result);
+      });
+    } else {
+      this.errorMessage = "No word provided";
+    }
+  }
 }

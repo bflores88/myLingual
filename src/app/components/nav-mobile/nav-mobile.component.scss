@@ -2,7 +2,7 @@
 
 .nav-mobile {
   width: 100%;
-  border-top: 1px solid black;
+  // border-top: 1px solid black;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -13,11 +13,10 @@
   background-color: var(--headerColor);
   font-size: 35px;
   padding-top: 20px;
-  
+
   a:not(:last-child) {
     margin-right: 20px;
   }
-  
 
   @media only screen and (min-width: 600px) {
     display: none;

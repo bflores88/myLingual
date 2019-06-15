@@ -5,12 +5,15 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex('contacts').insert([
-        { requester: 1, invitee: 2, accepted: true },
-        { requester: 1, invitee: 3, accepted: true },
-        { requester: 1, invitee: 4, accepted: false },
-        { requester: 2, invitee: 3, accepted: true },
-        { requester: 2, invitee: 4, accepted: true },
-        { requester: 3, invitee: 5, accepted: true },
+        { requester: 1, invitee: 2, accepted: true, responded: true },
+        { requester: 1, invitee: 3, accepted: true, responded: true },
+        { requester: 4, invitee: 1, accepted: false, responded: false },
+        { requester: 2, invitee: 3, accepted: true, responded: true },
+        { requester: 5, invitee: 1, accepted: true, responded: true },
+        { requester: 3, invitee: 5, accepted: true, responded: true },
+        { requester: 6, invitee: 1, accepted: false, responded: false },
+        { requester: 3, invitee: 2, accepted: false, responded: false },
+        { requester: 7, invitee: 1, accepted: false, responded: false },
       ]);
     });
 };
