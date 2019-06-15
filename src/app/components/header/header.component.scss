@@ -7,14 +7,14 @@
   justify-content: flex-end;
   background-color: var(--headerColor);
   color: var(--headerFontColor);
-  height: 80px;
+  height: 60px;
   border-bottom: 1px solid black;
   top: 0;
   position: fixed;
 }
 
 .title-holder {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 
@@ -42,7 +42,6 @@
 #appLogo {
   position: fixed;
   left: 0;
-  padding-top: 5px;
   padding-left: 10px;
   padding-bottom: 10px;
 
