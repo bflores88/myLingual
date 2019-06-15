@@ -36,6 +36,11 @@ import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.
 import { AddCardPhotoComponent } from './pages/add-card-photo/add-card-photo.component';
 import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
 
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+
+import { InvitesComponent } from './pages/invites/invites.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +74,11 @@ import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profi
     AddCardUploadComponent,
     AddCardPhotoComponent,
     ProfileNavMobileComponent,
+
+    SearchBarComponent,
+
+    InvitesComponent,
+
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [],

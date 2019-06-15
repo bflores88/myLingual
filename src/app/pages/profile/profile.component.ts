@@ -46,6 +46,8 @@ export class ProfileComponent implements OnInit {
     target_languages: object;
   };
 
+  message: string = '';
+
   constructor(
     private backend: BackendService,
     private router: Router,
@@ -76,6 +78,14 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
       this.user = data;
+
+      console.log(data);
+    });
+  }
+
+  sendInvite() {
+    this.backend.sendContactInvite(this.activated.snapshot.paramMap.get('user_id')).then((data) => {
+      this.message = 'Invite sent';
 
       console.log(data);
     });

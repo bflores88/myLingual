@@ -1,5 +1,36 @@
 @import '../../../styles.scss';
 
+.forum-container {
+  margin-top: 80px;
+}
+.invite-box {
+  background-color: var(--buttonBgColor);
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.accept-invite-button {
+  background-color: var(--headerColor);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  width: 70%;
+  margin: 1em;
+}
+.reject-invite-button {
+  background-color: red;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  width: 70%;
+  margin: 1em;
+}
+
 .contact-box {
   background-color: var(--headerColor);
   padding: 1em;
@@ -24,19 +55,8 @@
   padding: 0.5em;
   height: 50%;
   margin: 1em;
-  width: 70%;
 }
 
-.delete-contact-button {
-  background-color: red;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  padding: 0.5em;
-  height: 50%;
-  margin: 1em;
-  width: 70%;
-}
 .left-side-contact {
   width: 50%;
 }
