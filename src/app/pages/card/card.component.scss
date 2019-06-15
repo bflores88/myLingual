@@ -1,0 +1,13 @@
+.flashcard-page {
+  display: flex;
+  justify-content: center;
+
+  padding: 40px;
+
+  .flashcard {
+    border: 1px solid black;
+    background: blue;
+    color: white;
+    width: 400px;
+  }
+}

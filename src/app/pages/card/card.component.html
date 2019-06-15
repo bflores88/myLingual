@@ -1,0 +1,13 @@
+<div class="flashcard-page">
+  {{errorMessage}}
+  <div class="flashcard" *ngIf="hasFlashcard">
+    <h1>{{flashcard.english_word}}</h1>
+    <ul>
+      <li>
+        <h3>Translations: </h3>
+        <p>{{flashcard.italian_translations}}</p>
+        <p>{{flashcard.spanish_translations}}</p>
+      </li>
+    </ul>
+  </div>
+</div>
