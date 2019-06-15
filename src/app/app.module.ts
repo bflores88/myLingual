@@ -34,7 +34,11 @@ import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { TestComponent } from './pages/test/test.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
+
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+
 import { InvitesComponent } from './pages/invites/invites.component';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +72,11 @@ import { InvitesComponent } from './pages/invites/invites.component';
     DeckDetailComponent,
     AddCardUploadComponent,
     ProfileNavMobileComponent,
+
+    SearchBarComponent,
+
     InvitesComponent,
+
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [],
