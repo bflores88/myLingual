@@ -3,8 +3,11 @@
   <div class="forum-container">
     <h1>Contacts</h1>
     <div class="contacts-container">
-      <div *ngFor="let contact of contacts">
-        <h4>{{ contact.id }}</h4>
+      <div class="contact-box" *ngFor="let contact of contacts">
+        <a routerLink="/profile/{{ contact.id }}">
+          <h3>{{ contact.name }}</h3>
+        </a>
+        <button class="send-message-button">Send Message</button>
       </div>
     </div>
   </div>
