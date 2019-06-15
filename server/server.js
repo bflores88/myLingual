@@ -27,6 +27,8 @@ const users = require('./routes/users');
 const forums = require('./routes/forums');
 const posts = require('./routes/posts');
 const conversations = require('./routes/conversations');
+const translate = require('./routes/translate');
+
 const quizzes = require('./routes/quizzes');
 const quiz_contents = require('./routes/quiz_contents');
 const contacts = require('./routes/contacts');
@@ -126,6 +128,9 @@ app.use('/api/forums', forums);
 app.use('/api/posts', posts);
 
 app.use('/api/conversations', conversations);
+
+app.use('/api/translate', translate);
+
 app.use('/api/quizzes', quizzes);
 app.use('/api/quiz_contents', quiz_contents);
 app.use('/api/contacts', contacts);
