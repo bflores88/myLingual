@@ -1,6 +1,12 @@
-<div class="pages">
-  <div id="searchInput">
-    <input type="text" value="Search For A Card" />
+<div class="page">
+  <div class="searchInput">
+    <form>
+      <div>
+        <input type="text" name="name" placeholder="Search" />
+        <!-- <input type="text" name="name" placeholder="Search" [(ngModel)]="searchName.name" (keyup)="submit()" /> -->
+      </div>
+    </form>
+    <!-- have button display while clicked into search bar -->
     <button>Search</button>
   </div>
 
