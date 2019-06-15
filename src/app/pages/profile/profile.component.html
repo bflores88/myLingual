@@ -1,41 +1,48 @@
 <app-profile-nav-mobile></app-profile-nav-mobile>
-<div class="profile-page">
-  <div class="profile">
-    <div class="profile-photo-div">
-      <img src="{{ user.profile_image_url }}" />
-    </div>
 
-    <div class="profile-info-div">
-      <h2>
-        <span [hidden]="user.username">Username</span
-        ><span *ngIf="user.id === userID" [hidden]="!user.username">{{ user.name }}</span
-        ><span *ngIf="user.id !== userID" [hidden]="!user.username">{{ user.username }}</span>
-      </h2>
-      <p>Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
-    </div>
+<div class="page">
+  <div class="profile-page">
+    <div class="profile">
+      <div class="profile-photo-div">
+        <img src="{{ user.profile_image_url }}" />
+      </div>
 
-    <div class="profile-language-div">
-      <p><span>Primary Language</span><br />{{ user.native_languages }}</p>
-      <p><span>Languages Learning</span><br />{{ user.target_languages }}</p>
-    </div>
+      <div class="profile-info-div">
+        <h2>
+          <span [hidden]="user.username">Username</span
+          ><span *ngIf="user.id === userID" [hidden]="!user.username">{{ user.name }}</span
+          ><span *ngIf="user.id !== userID" [hidden]="!user.username">{{ user.username }}</span>
+        </h2>
+        <p>Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+      </div>
 
-    <div class="profile-stats-div">
-      <h3>User Stats</h3>
-      <p>Cards Collected:&nbsp;&nbsp;{{ user.cards_owned }}</p>
-      <p>Cards Created:&nbsp;&nbsp;{{ user.cards_created }}</p>
-      <p>Decks:&nbsp;&nbsp;{{ user.decks }}</p>
-    </div>
+      <div class="profile-language-div">
+        <p><span>Primary Language</span><br />{{ user.native_languages }}</p>
+        <p><span>Languages Learning</span><br />{{ user.target_languages }}</p>
+      </div>
 
-    <div *ngIf="user.id === userID" class="profile-settings-div">
-      <button class="small-btn" (click)="toUserSettings()"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;Settings</button>
-    </div>
+      <div class="profile-stats-div">
+        <h3>User Stats</h3>
+        <p>Cards Collected:&nbsp;&nbsp;{{ user.cards_owned }}</p>
+        <p>Cards Created:&nbsp;&nbsp;{{ user.cards_created }}</p>
+        <p>Decks:&nbsp;&nbsp;{{ user.decks }}</p>
+      </div>
 
-    <div *ngIf="user.id !== userID" class="profile-settings-div">
-      <button class="small-btn" (click)="sendInvite()">
-        <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Send Contact Invite
-      </button>
-      <div *ngIf="message !== ''">
-        {{ message }}
+      <div *ngIf="user.id === userID" class="profile-settings-div">
+        <button class="small-btn" (click)="toUserSettings()">
+          <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Settings
+        </button>
+        <br /><br />
+        <button class="small-btn" (click)="logout()"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</button>
+      </div>
+
+      <div *ngIf="user.id !== userID" class="profile-settings-div">
+        <button class="small-btn" (click)="sendInvite()">
+          <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Send Contact Invite
+        </button>
+        <div *ngIf="message !== ''">
+          {{ message }}
+        </div>
       </div>
     </div>
   </div>
