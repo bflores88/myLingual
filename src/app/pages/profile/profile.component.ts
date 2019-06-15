@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface UserResponse {
   id: number;
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private activated: ActivatedRoute,
     private session: SessionService,
+    private auth: AuthService,
   ) {}
 
   ngOnInit() {
@@ -81,5 +83,12 @@ export class ProfileComponent implements OnInit {
 
   toUserSettings() {
     return this.router.navigate(['settings']);
+  }
+
+  logout() {
+    return this.auth.logout()
+      .then(() => {
+        this.router.navigate(['/login'])
+    })
   }
 }
