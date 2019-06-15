@@ -81,8 +81,11 @@ export class BackendService {
     return this.http.get(`/api/decks`).toPromise();
   }
 
-  getSpecificDeck(id): Promise<object> {
+  getSpecificDeck(id, target_language: string): Promise<object> {
     // console.log('get specific');
+    let body = {
+      target_language,
+    };
     return this.http.get(`/api/decks/${id}`).toPromise();
   }
 

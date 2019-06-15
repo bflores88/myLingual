@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const Deck = require('../database/models/Deck');
+const User = require('../database/models/User');
 
 router.route('/all').get((req, res) => {
   new Deck()
@@ -47,13 +48,48 @@ router.route('/').post((req, res) => {
 
 // grab specific deck w/ cards
 
+// router.route('/:id').get((req, res) => {
+//   console.log(req.user);
+//   new Deck()
+//     .where({ id: req.params.id })
+//     .fetchAll({ withRelated: ['decks_cards.users_cards.cards.words.spanish_translations'] })
+//     .then((result) => {
+//       return res.send(result.toJSON());
+//     })
+//     .catch((err) => {
+//       console.log('error', err);
+//     });
+// });
+
+// grab deck with target language attempt
+
 router.route('/:id').get((req, res) => {
   console.log(req.user);
-  new Deck()
-    .where({ id: req.params.id })
-    .fetchAll({ withRelated: ['decks_cards.users_cards.cards.words.spanish_translations'] })
+  new User()
+    .where({ id: req.user.id })
+    .fetchAll({ withRelated: ['languages.languages'] })
     .then((result) => {
-      return res.send(result.toJSON());
+      return result.toJSON();
+    })
+    .then((resultData) => {
+      // console.log('data', resultData[0].languages);
+      let languages = resultData[0].languages;
+      let target;
+      languages.forEach((language) => {
+        if (language.language_type == 'target') {
+          target = language.languages.english_name;
+        }
+      });
+      // console.log('target', target);
+      new Deck()
+        .where({ id: req.params.id })
+        .fetchAll({ withRelated: [`decks_cards.users_cards.cards.words.${target}_translations`] })
+        .then((result) => {
+          return res.send(result.toJSON());
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
     })
     .catch((err) => {
       console.log('error', err);
