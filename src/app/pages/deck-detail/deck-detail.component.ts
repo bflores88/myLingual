@@ -63,6 +63,11 @@ export class DeckDetailComponent implements OnInit {
 
       this.target_language = this.userDetail.target_languages[0];
 
+      // COMMENT
+      // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
+      // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
+      // i would like to figure out if its possible with a fully dynamic system
+
       this.backend.getSpecificDeck(routeId, 'how do you like this code eh?').then((data: any) => {
         // console.log(data);
         this.deck = data[0];
