@@ -21,14 +21,14 @@ export class BackendService {
   }
 
   postFlashcard(data) {
-    console.log('sdfkjsjfdskj')
+    console.log('sdfkjsjfdskj');
     return this.http.post('/api/cards', data).toPromise();
   }
 
   translate(word: Object) {
     return this.http.post('/api/translate', word).toPromise();
   }
-  
+
   postFlashcardImageUpload(data) {
     return this.http.post('/api/cards/upload', data).toPromise();
   }
@@ -97,5 +97,9 @@ export class BackendService {
       type: 'test',
     };
     return this.http.post(`/api/quizzes/${id}`, body).toPromise();
+  }
+
+  search(searchText: string): Promise<object> {
+    return this.http.get(`/api/searches/${searchText}`).toPromise();
   }
 }
