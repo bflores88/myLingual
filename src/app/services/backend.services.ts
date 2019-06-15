@@ -106,4 +106,22 @@ export class BackendService {
     // console.log('get specific');
     return this.http.get(`/api/contacts`).toPromise();
   }
+
+  getUserInvites(): Promise<object> {
+    // console.log('get specific');
+    return this.http.get(`/api/contacts/invites`).toPromise();
+  }
+
+  respondToInvite(id, body): Promise<object> {
+    // console.log('get specific');
+    return this.http.put(`/api/contacts/invites/${id}`, body).toPromise();
+  }
+
+  sendContactInvite(id): Promise<object> {
+    // console.log('get specific');
+    let body = {
+      invitee: id,
+    };
+    return this.http.post(`/api/contacts/invites`, body).toPromise();
+  }
 }

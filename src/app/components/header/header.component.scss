@@ -9,6 +9,7 @@
   background-color: var(--headerColor);
   // background-image: linear-gradient(-65deg, var(--splashColor), var(--activeLinkColor));
   color: var(--headerFontColor);
+  border-bottom: none;
 }
 
 .header.dark-theme {
