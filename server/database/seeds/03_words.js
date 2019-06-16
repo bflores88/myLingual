@@ -10,6 +10,7 @@ exports.seed = function(knex, Promise) {
         { english_word: 'gang' },
         { english_word: 'blue' },
         { english_word: 'falcon' },
+        { english_word: 'serpent' },
       ]);
     });
 };

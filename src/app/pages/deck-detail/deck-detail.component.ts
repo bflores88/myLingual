@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-deck',
@@ -8,11 +9,32 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./deck-detail.component.scss'],
 })
 export class DeckDetailComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {}
+  user: {
+    loggedIn: boolean;
+    username: string;
+    id: any;
+    // target_languages: any;
+  };
+  userDetail: {
+    target_languages: any;
+  };
+  constructor(
+    private backend: BackendService,
+    private activated: ActivatedRoute,
+    private router: Router,
+    private session: SessionService,
+  ) {
+    this.user = this.session.getSession();
+  }
 
   cards: any = '';
 
   deck: any = '';
+
+  target_translation: string = '';
+  target_language: string = '';
+
+  findTranslatedWord: string = '';
 
   flipCard() {
     console.log(event.target);
@@ -30,12 +52,31 @@ export class DeckDetailComponent implements OnInit {
   ngOnInit() {
     // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('id');
-    this.backend.getSpecificDeck(routeId).then((data: any) => {
-      // console.log(data);
-      this.deck = data[0];
-      this.cards = this.deck.decks_cards;
-      console.log('data', this.deck);
-      console.log(this.cards);
+    // console.log('user', this.user);
+
+    this.session.getSession();
+
+    let searchId = parseInt(this.user.id);
+
+    this.backend.getUserProfile(searchId).then((data: any) => {
+      this.userDetail = data;
+
+      this.target_language = this.userDetail.target_languages[0];
+
+      // COMMENT
+      // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
+      // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
+      // i would like to figure out if its possible with a fully dynamic system
+
+      this.backend.getSpecificDeck(routeId, 'how do you like this code eh?').then((data: any) => {
+        // console.log(data);
+        this.deck = data[0];
+        this.cards = this.deck.decks_cards;
+        console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
+        // console.log(this.cards);
+      });
     });
+
+    // let targetLanguage = this.user.target_languages[0];
   }
 }

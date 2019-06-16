@@ -22,6 +22,7 @@
   --fontAwesomeUserSetting: hsl(0, 0%, 50%);
 
   --textFont: 'Raleway', sans-serif;
+  --inputFont: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -38,6 +39,10 @@ a:link {
 
 a:hover {
   color: var(--hoverLinkColor);
+}
+
+.page {
+  margin-top: 80px;
 }
 
 .small-btn {
@@ -78,6 +83,13 @@ body {
   margin: 0;
   background-color: var(--bgColor);
   font-family: var(--textFont);
+}
+
+input {
+  margin: 0;
+  background-color: var(--bgColor);
+  font-family: var(--inputFont);
+  font-size: 16px;
 }
 
 .header {

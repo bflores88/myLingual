@@ -20,6 +20,10 @@ export class BackendService {
     return this.http.get('/api/logout').toPromise();
   }
 
+  getFlashcard(id: String) {
+    return this.http.get(`/api/cards/${id}`).toPromise();
+  }
+
   postFlashcard(data) {
     console.log('sdfkjsjfdskj');
     return this.http.post('/api/cards', data).toPromise();
@@ -81,8 +85,11 @@ export class BackendService {
     return this.http.get(`/api/decks`).toPromise();
   }
 
-  getSpecificDeck(id): Promise<object> {
+  getSpecificDeck(id, target_language: string): Promise<object> {
     // console.log('get specific');
+    let body = {
+      target_language,
+    };
     return this.http.get(`/api/decks/${id}`).toPromise();
   }
 
@@ -104,28 +111,35 @@ export class BackendService {
   }
 
   search(searchText: string): Promise<object> {
-    return this.http.get(`/api/searches/${searchText}`).toPromise();
+    return this.http.get(`/api/searches/all/${searchText}`).toPromise();
   }
   getUserContacts(): Promise<object> {
-    // console.log('get specific');
     return this.http.get(`/api/contacts`).toPromise();
   }
 
   getUserInvites(): Promise<object> {
-    // console.log('get specific');
     return this.http.get(`/api/contacts/invites`).toPromise();
   }
 
   respondToInvite(id, body): Promise<object> {
-    // console.log('get specific');
     return this.http.put(`/api/contacts/invites/${id}`, body).toPromise();
   }
 
   sendContactInvite(id): Promise<object> {
-    // console.log('get specific');
     let body = {
       invitee: id,
     };
     return this.http.post(`/api/contacts/invites`, body).toPromise();
+  }
+
+  getAllLanguages(): Promise<object> {
+    return this.http.get(`/api/languages/all`).toPromise();
+  }
+
+  changeTargetLanguage(languageId): Promise<object> {
+    let body = {
+      language_id: languageId,
+    };
+    return this.http.put(`/api/languages/target`, body).toPromise();
   }
 }
