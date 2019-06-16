@@ -19,10 +19,6 @@ require('dotenv').config({ path: '../.env' });
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 
-const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-console.log(PORT);
-console.log(process.env.GOOGLE_CLIENT_SECRET)
-
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const cards = require('./routes/cards');
