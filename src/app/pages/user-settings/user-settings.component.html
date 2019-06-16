@@ -1,3 +1,20 @@
-<p>
-  user-settings works!
-</p>
+<div>
+  <div class="page">
+    <div class="settings-container">
+      <h4>
+        {{ message }}
+      </h4>
+      <div class="change-language-box">
+        <label for="languages">Choose your target language</label>
+        <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
+          <option *ngFor="let language of languages" value="{{ language.id }}">{{ language.english_name }}</option>
+        </select>
+      </div>
+      <div class="submit-box">
+        <button (click)="changeTarget()">Submit Changes</button>
+      </div>
+    </div>
+
+    <!-- <option value="Internet Explorer"> Choose your target language</option> -->
+  </div>
+</div>

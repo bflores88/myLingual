@@ -10,6 +10,7 @@ exports.seed = function(knex, Promise) {
         { word_id: 3, language_id: 2, italian_word: 'squadra' },
         { word_id: 4, language_id: 2, italian_word: 'blu' },
         { word_id: 5, language_id: 2, italian_word: 'falco' },
+        { word_id: 6, language_id: 2, italian_word: 'serpente' },
       ]);
     });
 };

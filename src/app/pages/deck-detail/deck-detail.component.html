@@ -15,7 +15,15 @@
           </div>
 
           <div class="flip-card-back">
-            <h4>{{ card.users_cards.cards.words.spanish_translations.spanish_word }}</h4>
+            <!-- <h4>{{ card.users_cards.cards.words[findTranslatedWord] }}</h4> -->
+            <h4 *ngIf="target_language == 'italian'">
+              {{ card.users_cards.cards.words.italian_translations.italian_word }}
+            </h4>
+
+            <h4 *ngIf="target_language == 'spanish'">
+              {{ card.users_cards.cards.words.spanish_translations.spanish_word }}
+            </h4>
+            <!-- <h4>{{ card[findTranslatedWord] }}</h4> -->
           </div>
         </div>
       </div>
