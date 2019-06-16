@@ -55,7 +55,6 @@ export class CardComponent implements OnInit {
   }
 
   loadCard() {
-    // console.log('getting user session ', this.session.getSession());
     this.user = this.session.getSession();
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -70,49 +69,35 @@ export class CardComponent implements OnInit {
         response.english_word = englishWordCaptial + englishWordRemainder;
         this.flashcard = response;
         this.hasFlashcard = true;
-        // console.log('flashcard retrieved ', this.flashcard);
       }
 
       this.backend.getUserProfile(response.created_by)
       .then((result: Creator) => {
         this.creator = result;
         this.hasCreator = true;
-        // console.log('flashcard creator ', result);
 
         if (this.user.loggedIn) {
-          // console.log('known user visits page');
           this.backend.getUserContacts()
           .then((result: []) => {
             this.hasRelation = false;
             result.forEach((contact: Contact) => {
-              // console.log('contact ', contact);
               if (contact.id === this.creator.id){
                 this.hasRelation = true;
               }
             })
-            // if (this.hasRelation){
-              // console.log('the creator is the users friend');
-            // } else {
-              // console.log('the user has no relation to the creator');
-            // }
           })
-          .catch((error) => {
+          .catch(() => {
             this.errorMessage = 'Error getting contacts.';
-            // console.log('error getting contacts ', error);
+            
           });
         }
-        // } else {
-        //   console.log('anonymous person visits page');
-        // }
       })
       .catch(() => {
         this.errorMessage = 'Error retrieving creator details.';
-        // console.log('hasCreator: ', this.hasCreator);
       });
     })
     .catch(() => {
       this.errorMessage = 'Error retrieving card.';
-      console.log('hasFlashcard: ', this.hasFlashcard);
     });
   }
 
@@ -132,6 +117,5 @@ export class CardComponent implements OnInit {
       console.log('previousCard()');
       this.router.navigate([`/card/${newParam}`]);
     }
-    
   }
 }
