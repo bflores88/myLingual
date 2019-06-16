@@ -19,7 +19,8 @@ require('dotenv').config({ path: '../.env' });
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 
-console.log(process.env.GOOGLE_CLIENT_ID)
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+console.log(PORT);
 console.log(process.env.GOOGLE_CLIENT_SECRET)
 
 const login = require('./routes/login');
@@ -61,7 +62,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "https://mylingual.me/api/auth/google/callback"
+  callbackURL: "/api/auth/google"
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -137,16 +138,15 @@ passport.deserializeUser(function(user, done) {
 app.get('/api/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-app.get('/api/auth/google/callback', 
+app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    // res.redirect('/');
-    return res.json({ message: 'successful authentication'})
+    res.redirect('/');
+  
   });
 
 app.use('/api/login', login);
-app.use('/api/google_signin', oauth);
 app.use('/api/logout', logout);
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
