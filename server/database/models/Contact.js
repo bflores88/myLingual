@@ -11,7 +11,7 @@ class Contact extends bookshelf.Model {
   }
 
   requesters() {
-    return this.belongsTo('User', 'requestor');
+    return this.belongsTo('User', 'requester');
   }
 
   invitees() {

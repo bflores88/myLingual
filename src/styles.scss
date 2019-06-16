@@ -58,6 +58,11 @@ a:hover {
     background-color: var(--buttonHoverColor);
     cursor: pointer;
   }
+
+  &:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
 }
 
 html {

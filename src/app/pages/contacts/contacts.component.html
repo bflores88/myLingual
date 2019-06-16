@@ -1,3 +1,26 @@
-<p>
-  contacts works!
-</p>
+<app-profile-nav-mobile></app-profile-nav-mobile>
+<div class="page">
+  <div class="forum-container">
+    <h1>Contacts</h1>
+    <div class="contacts-container">
+      <div class="contact-box" *ngFor="let contact of contacts">
+        <div class="left-side-contact">
+          <a routerLink="/profile/{{ contact.id }}">
+            <img class="contact-image" src="{{ contact.profile_image_url }}" alt="" />
+            <h3>{{ contact.name }}</h3>
+          </a>
+        </div>
+        <div class="right-side-contact">
+          <div class="right-side-inner">
+            <button class="send-message-button">Send Message</button>
+          </div>
+
+          <div class="right-side-inner">
+            <button class="delete-contact-button">Delete Contact</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="contacts.length === 0">You have no friends.... damn im sorry man...</div>
+    </div>
+  </div>
+</div>
