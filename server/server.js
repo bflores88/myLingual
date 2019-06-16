@@ -11,12 +11,16 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const redis = require('connect-redis')(session);
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const User = require('./database/models/User');
 
 require('dotenv').config({ path: '../.env' });
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
+
+console.log(process.env.GOOGLE_CLIENT_ID)
+console.log(process.env.GOOGLE_CLIENT_SECRET)
 
 const login = require('./routes/login');
 const logout = require('./routes/logout');
@@ -53,6 +57,18 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "https://mylingual.me/api/auth/google/callback"
+},
+function(accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    return cb(err, user);
+  });
+}
+));
 
 passport.use(
   new LocalStrategy(function(username, password, done) {
@@ -117,6 +133,17 @@ passport.deserializeUser(function(user, done) {
       return done(err);
     });
 });
+
+app.get('/api/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/api/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    // res.redirect('/');
+    return res.json({ message: 'successful authentication'})
+  });
 
 app.use('/api/login', login);
 app.use('/api/logout', logout);
