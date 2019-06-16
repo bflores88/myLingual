@@ -11,6 +11,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const redis = require('connect-redis')(session);
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const User = require('./database/models/User');
 
@@ -55,6 +56,18 @@ app.use(
 app.use(session({ secret: 'anything' }))
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "/api/auth/google"
+},
+function(accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    return cb(err, user);
+  });
+}
+));
 
 passport.use(
   new LocalStrategy(function(username, password, done) {
@@ -119,6 +132,17 @@ passport.deserializeUser(function(user, done) {
       return done(err);
     });
 });
+
+app.get('/api/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  
+  });
 
 app.use('/api/login', login);
 app.use('/api/logout', logout);

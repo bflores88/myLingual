@@ -96,9 +96,16 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
+    let gapi: any;
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+
     return this.auth.logout()
       .then(() => {
         this.router.navigate(['/login'])
     })
   }
+
 }

@@ -20,6 +20,14 @@ export class BackendService {
     return this.http.get('/api/logout').toPromise();
   }
 
+  googleLogin() {
+    return this.http.get('/api/auth/google').toPromise();
+  }
+
+  getClientId() {
+    return this.http.get('/api/google_signin').toPromise();
+  }
+  
   getFlashcard(id: String) {
     return this.http.get(`/api/cards/${id}`).toPromise();
   }
