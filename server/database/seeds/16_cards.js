@@ -73,6 +73,34 @@ exports.seed = function(knex, Promise) {
           public: true,
           active: true,
         },
+        {
+          word_id: 5,
+          card_theme_id: 1,
+          created_by: 4,
+          likes: 5,
+          shares: 2,
+          red_flagged: 0,
+          downloads: 7,
+          image_link:
+            'https://images.unsplash.com/photo-1548317623-5079c3f86324?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2681&q=80',
+          approved: true,
+          public: true,
+          active: true,
+        },
+        {
+          word_id: 6,
+          card_theme_id: 1,
+          created_by: 5,
+          likes: 5,
+          shares: 2,
+          red_flagged: 0,
+          downloads: 7,
+          image_link:
+            'https://images.unsplash.com/photo-1543069949-a59e53ad5734?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          approved: true,
+          public: true,
+          active: true,
+        },
       ]);
     });
 };
