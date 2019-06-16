@@ -63,6 +63,17 @@ export class AddCardNoImageComponent implements OnInit {
     }
   }
 
+  handleInputOnChange() {
+    if (this.add_to_deck === 'new-deck') {
+      this.newDeck = true;
+      
+      this.buttonDisabled = false;
+    }
+    
+    console.log(this.add_to_deck)
+    this.buttonDisabled = false;
+  }
+
   handleSubmitWord() {
     const data = {
       english_word: this.formData.english_word,
