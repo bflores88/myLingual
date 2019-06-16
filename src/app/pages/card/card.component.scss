@@ -1,0 +1,199 @@
+@import '../../components/header/header.component';
+
+$flashcardWidth: 400px;
+$flashcardPadding: 20px;
+$imageMargins: 10px;
+
+$heartIconSize: 20px;
+$fontOffset: 3px;
+$fontOffset_H2: 4px;
+
+$arrowSize: 200px;
+$arrowColor: hsl(197, 65%, 55%);
+$arrowMargin: 100px;
+
+$containerSpacing: 40px;
+
+$creatorElementsColor_BG: lighten($arrowColor, 40%);
+$creatorElementsBorderRadius: 20px;
+$creatorImageHeight: 150px;
+$creatorStatusIconSize: 50px;
+
+#flashcard-page {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 40px;
+  margin: $headerHeight 0 100px 0;
+}
+
+#flashcard-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+}
+
+#flashcard {
+  text-align: center;
+
+  background: whitesmoke;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+
+  padding: $flashcardPadding;
+  width: $flashcardWidth;
+
+  h1 {
+    border-bottom: 1px solid black;
+  }
+
+  h2 {
+    font-weight: bolder;
+    font-variant: all-small-caps;
+  
+    border-bottom: 1px solid black;
+    margin: 10px 0 30px 0;
+  }
+  
+  h3 {
+    font-variant: all-small-caps;
+    margin: 0;
+    padding-bottom: $fontOffset_H2;
+  }
+  
+  img {
+    align-self: center;
+    width: $flashcardWidth - ($flashcardPadding * 2) - 2px;
+    height: auto;
+  
+    border-radius: 20px;
+  
+    margin-top: 30px;
+  }
+}
+
+#translation-container {
+  margin-bottom: 30px;
+}
+
+#social-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid black;
+
+  margin: 0 10px 0 10px;
+  padding-top: 8px;
+}
+
+#flashcard-additional-details {
+  margin: $containerSpacing 0 0 0;
+}
+
+#creator-header {
+  display: flex;
+  flex-direction: row;
+  
+  background: $creatorElementsColor_BG;
+  border-radius: $creatorElementsBorderRadius;
+
+  img {
+    margin: 20px;
+
+    height: $creatorImageHeight;
+    width: auto;
+  }
+
+  .fa-user-friends:before {
+    font-size: $creatorStatusIconSize;
+  }
+
+  .fa-user:before {
+    font-size: $creatorStatusIconSize;
+  }
+}
+
+#creator-languages {
+  background: $creatorElementsColor_BG;
+  border-radius: $creatorElementsBorderRadius;
+}
+
+.social-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  font-size: $heartIconSize;
+
+  i {
+    padding-right: 10px;
+  }
+
+  p {
+    margin: 0px;
+    font-size: $heartIconSize + $fontOffset;
+  }
+}
+
+.translation-element {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background: white;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.arrow-button {
+  clip-path: circle(45%);
+}
+
+#left-arrow {
+  margin-right: $arrowMargin;
+} 
+
+#right-arrow {
+  margin-left: $arrowMargin;
+}
+
+.fa-arrow-alt-circle-left::before {
+  font-size: $arrowSize;
+  color: $arrowColor;
+}
+
+.fa-arrow-alt-circle-right::before {
+  font-size: $arrowSize;
+  color: $arrowColor;
+}
+
+button:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 425px){
+  #flashcard-page {
+    margin: 0;
+    padding: 20px 0 100px 0;
+  }
+
+  #flashcard {
+    width: 350px;
+    margin: 0;
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

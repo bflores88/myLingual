@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -19,10 +20,11 @@ export class SearchBarComponent implements OnInit {
     searchMatches: string;
   }[] = [];
 
-  constructor(private backend: BackendService) {}
+  constructor(private backend: BackendService, private router: Router) {}
 
   ngOnInit() {}
 
+  // search while user types
   searchInit() {
     const { searchText } = this.searchText;
 
@@ -32,6 +34,22 @@ export class SearchBarComponent implements OnInit {
       this.backend.search(searchText).then((data: { searchMatches: string }[]) => {
         this.searchMatches = data;
       });
+    }
+  }
+
+  // search when user clicks search icon
+  searchFull() {
+    // place holder.  Should take user to search results page.
+    console.log(this.searchText);
+  }
+
+  // takes users to detail page when selecting a match from dropdown
+  showDetail(matchId, matchType) {
+    if (matchType === 'user') {
+      this.router.navigate([`/profile/${matchId}`]);
+    } else if (matchType === 'card') {
+      // uncomment this when card detail page available
+      // this.router.navigate([`/card/${matchId}`]);
     }
   }
 }
