@@ -4,4 +4,17 @@
   width: 100%;
   margin: 1em;
   padding: 1em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.language-dropdown {
+  background-color: var(--headerColor);
+  border: none;
+  border-radius: 5px;
+}
+.submit-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
