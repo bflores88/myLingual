@@ -1,10 +1,14 @@
 <div id="flashcard-page">
   <h1>{{errorMessage}}</h1>
 
-  <div id="flashcard-container">
-    <i class="fas fa-arrow-alt-circle-left"></i>
+  <div id="flashcard-container" *ngIf="hasFlashcard">
+    <div class="arrow-button" id="left-arrow">
+      <button (click)="previousCard()">
+        <i class="fas fa-arrow-alt-circle-left"></i> 
+      </button>
+    </div>
 
-    <div id="flashcard" *ngIf="hasFlashcard">
+    <div id="flashcard">
       <h1>{{flashcard.english_word}}</h1>
       <img src = "{{flashcard.image_link}}"/>
 
@@ -39,10 +43,48 @@
 
     </div>
 
-    <i class="fas fa-arrow-alt-circle-right"></i>
+    <div class="arrow-button" id="right-arrow">
+      <button class="arrow-button" (click)="nextCard()">
+        <i class="fas fa-arrow-alt-circle-right"></i>
+      </button>
+    </div>
   </div>
 
-  <div id="flashcard-additional-details">
-    <p>Additional details go here</p>
+  <div id="flashcard-additional-details" *ngIf="hasCreator">
+    <div id="creator-header">
+      <img src="{{creator.profile_image_url}}"/>
+
+      <div>
+        <h2>Created By: {{creator.username}}</h2>
+        
+
+        <div *ngIf="user.loggedIn && creator.active && hasRelation">
+          <i class="fas fa-user-friends" style="color: green"></i>
+        </div>
+        <div *ngIf="user.loggedIn && creator.active && !hasRelation">
+          <i class="far fa-user" style="color: green"></i>
+        </div>
+        <div *ngIf="!user.loggedIn && creator.active">
+          <i class="far fa-user" style="color: black"></i>
+        </div>
+        <div *ngIf="!creator.active">
+          <i class="far fa-user" style="color: red"></i>
+        </div>
+
+        <p>Cards Created: {{creator.cards_created}}</p>
+        <p>Cards Owned: {{creator.cards_owned}}</p>
+      </div>
+    </div>
+    
+    <div id="creator-languages">
+      <h3>Native Languages</h3>
+      <div *ngFor="let language of creator.native_languages">
+        <p>{{language}}</p>
+      </div>
+      <h3>Target Languages</h3>
+      <div *ngFor="let language of creator.target_languages">
+        <p>{{language}}</p>
+      </div>
+    </div>
   </div>
 </div>
