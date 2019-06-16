@@ -1,8 +1,38 @@
-<div class="searchBar">
-  <form>
-    <div>
-      <input type="text" name="searchText" [(ngModel)]="searchText.searchText" (keyup)="searchInit()" />
+<div class="search">
+  <div class="search-bar">
+    <form>
+      <div class="search-input">
+        <input
+          type="text"
+          placeholder="Search..."
+          name="searchText"
+          [(ngModel)]="searchText.searchText"
+          (keyup)="searchInit()"
+        />
+      </div>
+    </form>
+    <div class="search-icon">
+      <button class="fas fa-search fa-lg" (click)="searchFull()"></button>
     </div>
-  </form>
-  <button>Search</button>
+  </div>
+
+  <div class="search-match-box">
+    <div *ngFor="let searchMatch of searchMatches">
+      <div (click)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
+        <span class="match-image">
+          <img src="{{ searchMatch.match_image }}" />
+        </span>
+        <span
+          [ngClass]="{
+            'match-own': true,
+            'fas fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
+            'far fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === '0',
+            'fas fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
+            'far fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === '0'
+          }"
+        ></span>
+        <span class="match-name">{{ searchMatch.match_name }}</span>
+      </div>
+    </div>
+  </div>
 </div>

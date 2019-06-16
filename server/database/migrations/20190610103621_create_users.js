@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
       .references('id')
       .inTable('roles');
     table
-      .string('username', 20)
+      .string('username', 50)
       .notNull()
       .unique();
     table.string('oauth_token', 255);

@@ -33,6 +33,7 @@ const quizzes = require('./routes/quizzes');
 const quiz_contents = require('./routes/quiz_contents');
 const contacts = require('./routes/contacts');
 const searches = require('./routes/searches');
+const languages = require('./routes/languages');
 
 app.use(bodyParser.json());
 app.use(
@@ -52,6 +53,7 @@ app.use(
   }),
 );
 
+app.use(session({ secret: 'anything' }))
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -156,6 +158,7 @@ app.use('/api/quizzes', quizzes);
 app.use('/api/quiz_contents', quiz_contents);
 app.use('/api/contacts', contacts);
 app.use('/api/searches', searches);
+app.use('/api/languages', languages);
 
 http.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);

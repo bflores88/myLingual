@@ -140,8 +140,8 @@ router.route('/:id').get((req, res) => {
       delete newResult.words;
       return res.json(newResult);
     })
-    .catch((err) => {
-      console.log('error', err);
+    .catch(() => {
+      return res.json({errorMessage: 'Card not found.'});
     });
 });
 

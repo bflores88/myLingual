@@ -1,1 +1,21 @@
 @import '../../../styles.scss';
+
+body {
+  background-color: #f0f0f0;
+}
+#app {
+  text-align: center;
+//   color: #2c3e50;
+}
+#video {
+  background-color:white;
+}
+#canvas {
+  display: none;
+}
+li {
+  display: inline;
+}
+ul{
+  padding: 0px;
+}
