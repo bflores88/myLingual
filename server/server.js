@@ -146,6 +146,7 @@ app.get('/api/auth/google/callback',
   });
 
 app.use('/api/login', login);
+app.use('/api/google_signin', oauth);
 app.use('/api/logout', logout);
 app.use('/api/cards', cards);
 app.use('/api/decks', decks);
