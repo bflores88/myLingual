@@ -1,5 +1,7 @@
 @import '../../../styles.scss';
 
+$headerHeight: 60px;
+
 .header {
   width: 100%;
   display: flex;
@@ -7,7 +9,7 @@
   justify-content: flex-end;
   background-color: var(--headerColor);
   color: var(--headerFontColor);
-  height: 60px;
+  height: $headerHeight;
   border-bottom: 1px solid black;
   top: 0;
   position: fixed;

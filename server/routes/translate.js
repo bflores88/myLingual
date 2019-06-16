@@ -25,7 +25,7 @@ router.route('/')
           code: error.code,
           message: error.message,
         };
-      })
+      });
     });
 
     Promise.all(languages).then((translations) => {

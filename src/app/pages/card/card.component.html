@@ -1,0 +1,90 @@
+<div id="flashcard-page">
+  <h1>{{errorMessage}}</h1>
+
+  <div id="flashcard-container" *ngIf="hasFlashcard">
+    <div class="arrow-button" id="left-arrow">
+      <button (click)="previousCard()">
+        <i class="fas fa-arrow-alt-circle-left"></i> 
+      </button>
+    </div>
+
+    <div id="flashcard">
+      <h1>{{flashcard.english_word}}</h1>
+      <img src = "{{flashcard.image_link}}"/>
+
+      <div id="translation-container">
+        <h2>Translations</h2>
+        <div class="translation-element">
+          <h3>Spanish </h3>
+          <h3>{{flashcard.spanish_translations}}</h3>
+        </div>
+        <div class="translation-element">
+          <h3>Italian</h3>
+          <h3>{{flashcard.italian_translations}}</h3>
+        </div>
+      </div>
+    
+      <div id="social-container">
+        <div class="social-element">
+          <i class="fas fa-heart"></i>
+          <p>{{flashcard.likes}}</p>
+        </div>
+
+        <div class="social-element">
+          <i class="fas fa-file-download"></i>
+          <p>{{flashcard.downloads}}</p>
+        </div>
+
+        <div class="social-element">
+          <i class="fas fa-share"></i>
+          <p>{{flashcard.shares}}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="arrow-button" id="right-arrow">
+      <button class="arrow-button" (click)="nextCard()">
+        <i class="fas fa-arrow-alt-circle-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="flashcard-additional-details" *ngIf="hasCreator">
+    <div id="creator-header">
+      <img src="{{creator.profile_image_url}}"/>
+
+      <div>
+        <h2>Created By: {{creator.username}}</h2>
+        
+
+        <div *ngIf="user.loggedIn && creator.active && hasRelation">
+          <i class="fas fa-user-friends" style="color: green"></i>
+        </div>
+        <div *ngIf="user.loggedIn && creator.active && !hasRelation">
+          <i class="far fa-user" style="color: green"></i>
+        </div>
+        <div *ngIf="!user.loggedIn && creator.active">
+          <i class="far fa-user" style="color: black"></i>
+        </div>
+        <div *ngIf="!creator.active">
+          <i class="far fa-user" style="color: red"></i>
+        </div>
+
+        <p>Cards Created: {{creator.cards_created}}</p>
+        <p>Cards Owned: {{creator.cards_owned}}</p>
+      </div>
+    </div>
+    
+    <div id="creator-languages">
+      <h3>Native Languages</h3>
+      <div *ngFor="let language of creator.native_languages">
+        <p>{{language}}</p>
+      </div>
+      <h3>Target Languages</h3>
+      <div *ngFor="let language of creator.target_languages">
+        <p>{{language}}</p>
+      </div>
+    </div>
+  </div>
+</div>
