@@ -14,7 +14,7 @@ import { ForumTopicComponent } from './pages/forum-topic/forum-topic.component';
 import { ForumPostComponent } from './pages/forum-post/forum-post.component';
 import { NewForumPostComponent } from './pages/new-forum-post/new-forum-post.component';
 import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-image.component';
-
+import { ImageCaptureComponent } from './pages/image-capture/image-capture.component';
 import { TestComponent } from './pages/test/test.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
@@ -40,6 +40,7 @@ const routes: Routes = [
   { path: 'add-card', component: AddCardComponent },
   { path: 'add-card/continue', component: AddCardNoImageComponent },
   { path: 'add-card/upload', component: AddCardUploadComponent },
+  { path: 'add-card/capture', component: ImageCaptureComponent },
   { path: 'messages', component: ConversationsComponent },
   { path: 'messages/:id', component: MessagesComponent },
   { path: 'forums', component: ForumsComponent },

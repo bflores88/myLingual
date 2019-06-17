@@ -17,7 +17,7 @@ export class DeckComponent implements OnInit {
 
   ngOnInit() {
     // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
-    let routeId = this.activated.snapshot.paramMap.get('post_id');
+    // let routeId = this.activated.snapshot.paramMap.get('post_id');
     this.backend.getUserDecks().then((data: any) => {
       // console.log(data);
       this.decks = data;

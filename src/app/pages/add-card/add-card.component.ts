@@ -4,21 +4,22 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-card',
   templateUrl: './add-card.component.html',
-  styleUrls: ['./add-card.component.scss']
+  styleUrls: ['./add-card.component.scss'],
 })
 export class AddCardComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   continue() {
-    return this.router.navigate(['add-card/continue'])
+    return this.router.navigate(['add-card/continue']);
   }
 
   toImageUpload() {
-    return this.router.navigate(['add-card/upload'])
+    return this.router.navigate(['add-card/upload']);
   }
 
+  toCaptureImage() {
+    return this.router.navigate(['add-card/capture']);
+  }
 }
