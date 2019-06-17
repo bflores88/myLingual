@@ -24,13 +24,15 @@ export class ImageCaptureComponent implements OnInit {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       let videoTracks = stream.getVideoTracks();
 
-      window.stream = stream;
+      // window.stream = stream;
       video.srcObject = stream;
     });
   }
 
   public capture() {
-    let context = this.canvas.nativeElement.getContext('2d').drawImage(this.video.nativeElement, 0, 0, canvas.width, canvas.height);
+    let context = this.canvas.nativeElement
+      .getContext('2d')
+      .drawImage(this.video.nativeElement, 0, 0, canvas.width, canvas.height);
     this.captures.push(this.canvas.nativeElement.toDataURL('images/png'));
   }
 }
