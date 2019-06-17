@@ -73,6 +73,8 @@ router.route('/all/:search_text').get((req, res) => {
       let matchWeighted;
       let matchCard;
       result.rows.forEach((match) => {
+        // postgres COUNT() returns string.  convert to number.
+        match.match_own = parseInt(match.match_own);
         // sort1: exact match > (0, 100)
         matchPerfect = match.match_score === 1 ? 100 : 0;
         // sort2: match score (0-10) + priority if own card/contact (0, 2)
@@ -128,6 +130,8 @@ router.route('/cards/:search_text').get((req, res) => {
       let matchWeighted;
       let matchCard;
       result.rows.forEach((match) => {
+        // postgres COUNT() returns string.  convert to number.
+        match.match_own = parseInt(match.match_own);
         // sort1: exact match > (0, 100)
         matchPerfect = match.match_score === 1 ? 100 : 0;
         // sort2: match score (0-10) + priority if own card/contact (0, 2)
@@ -186,6 +190,8 @@ router.route('/users/:search_text').get((req, res) => {
       let matchWeighted;
       let matchCard;
       result.rows.forEach((match) => {
+        // postgres COUNT() returns string.  convert to number.
+        match.match_own = parseInt(match.match_own);
         // sort1: exact match > (0, 100)
         matchPerfect = match.match_score === 1 ? 100 : 0;
         // sort2: match score (0-10) + priority if own card/contact (0, 2)
