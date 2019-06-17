@@ -7,7 +7,6 @@ exports.seed = function(knex, Promise) {
       return knex('cards').insert([
         {
           word_id: 1,
-          card_theme_id: 1,
           created_by: 1,
           likes: 17,
           shares: 99,
@@ -21,7 +20,6 @@ exports.seed = function(knex, Promise) {
         },
         {
           word_id: 2,
-          card_theme_id: 1,
           created_by: 2,
           likes: 234,
           shares: 432,
@@ -35,7 +33,6 @@ exports.seed = function(knex, Promise) {
         },
         {
           word_id: 3,
-          card_theme_id: 1,
           created_by: 3,
           likes: 1,
           shares: 22,
@@ -49,7 +46,6 @@ exports.seed = function(knex, Promise) {
         },
         {
           word_id: 4,
-          card_theme_id: 1,
           created_by: 3,
           likes: 1,
           shares: 22,
@@ -62,7 +58,6 @@ exports.seed = function(knex, Promise) {
         },
         {
           word_id: 5,
-          card_theme_id: 1,
           created_by: 3,
           likes: 1,
           shares: 22,
@@ -75,7 +70,6 @@ exports.seed = function(knex, Promise) {
         },
         {
           word_id: 5,
-          card_theme_id: 1,
           created_by: 4,
           likes: 5,
           shares: 2,
@@ -89,7 +83,6 @@ exports.seed = function(knex, Promise) {
         },
         {
           word_id: 6,
-          card_theme_id: 1,
           created_by: 5,
           likes: 5,
           shares: 2,

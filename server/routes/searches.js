@@ -62,6 +62,26 @@ router.route('/all/:search_text').get((req, res) => {
       ],
     )
     .then((result) => {
+      // add sortScore key-value to sort matches
+      let matchPerfect;
+      let matchWeighted;
+      let matchCard;
+      result.rows.forEach((match) => {
+        // sort1: exact match > (0, 100)
+        matchPerfect = match.match_score === 1 ? 100 : 0;
+        // sort2: match score (0-10) + priority if own card/contact (0, 2)
+        matchWeighted = 10 * match.match_score + 2 * match.match_own;
+        // sort3: match is a card > (0, 1)
+        matchCard = match.match_type === 'card' ? 1 : 0;
+        match.sortScore = matchPerfect + matchWeighted + matchCard;
+      });
+      // sort by sortScore; break ties by id
+      result.rows.sort((a, b) => {
+        if (a.sortScore === b.sortScore) {
+          return a.match_id - b.match_id;
+        }
+        return b.sortScore - a.sortScore;
+      });
       return res.json(result.rows);
     })
     .catch((err) => {
@@ -94,6 +114,26 @@ router.route('/cards/:search_text').get((req, res) => {
       [search_text, my_id, search_text, `%${search_text}%`, search_text],
     )
     .then((result) => {
+      // add sortScore key-value to sort matches
+      let matchPerfect;
+      let matchWeighted;
+      let matchCard;
+      result.rows.forEach((match) => {
+        // sort1: exact match > (0, 100)
+        matchPerfect = match.match_score === 1 ? 100 : 0;
+        // sort2: match score (0-10) + priority if own card/contact (0, 2)
+        matchWeighted = 10 * match.match_score + 2 * match.match_own;
+        // sort3: match is a card > (0, 1)
+        matchCard = match.match_type === 'card' ? 1 : 0;
+        match.sortScore = matchPerfect + matchWeighted + matchCard;
+      });
+      // sort by sortScore; break ties by id
+      result.rows.sort((a, b) => {
+        if (a.sortScore === b.sortScore) {
+          return a.match_id - b.match_id;
+        }
+        return b.sortScore - a.sortScore;
+      });
       return res.json(result.rows);
     })
     .catch((err) => {
@@ -130,6 +170,26 @@ router.route('/users/:search_text').get((req, res) => {
       [search_text, my_id, my_id, my_username, search_text, `%${search_text}%`, search_text],
     )
     .then((result) => {
+      // add sortScore key-value to sort matches
+      let matchPerfect;
+      let matchWeighted;
+      let matchCard;
+      result.rows.forEach((match) => {
+        // sort1: exact match > (0, 100)
+        matchPerfect = match.match_score === 1 ? 100 : 0;
+        // sort2: match score (0-10) + priority if own card/contact (0, 2)
+        matchWeighted = 10 * match.match_score + 2 * match.match_own;
+        // sort3: match is a card > (0, 1)
+        matchCard = match.match_type === 'card' ? 1 : 0;
+        match.sortScore = matchPerfect + matchWeighted + matchCard;
+      });
+      // sort by sortScore; break ties by id
+      result.rows.sort((a, b) => {
+        if (a.sortScore === b.sortScore) {
+          return a.match_id - b.match_id;
+        }
+        return b.sortScore - a.sortScore;
+      });
       return res.json(result.rows);
     })
     .catch((err) => {

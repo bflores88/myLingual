@@ -44,6 +44,7 @@ app.use(
 app.use(express.static('public'));
 
 app.use(cookieParser());
+app.set('trust proxy', 1);
 app.use(
   session({
     store: new redis({ url: process.env.REDIS_URL }),
@@ -56,17 +57,20 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "/api/auth/google"
-},
-function(accessToken, refreshToken, profile, cb) {
-  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    return cb(err, user);
-  });
-}
-));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: '/api/auth/google',
+    },
+    function(accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ googleId: profile.id }, function(err, user) {
+        return cb(err, user);
+      });
+    },
+  ),
+);
 
 passport.use(
   new LocalStrategy(function(username, password, done) {
@@ -132,16 +136,12 @@ passport.deserializeUser(function(user, done) {
     });
 });
 
-app.get('/api/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile'] }));
 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  
-  });
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('/');
+});
 
 app.use('/api/login', login);
 app.use('/api/logout', logout);
