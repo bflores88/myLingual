@@ -2,6 +2,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('users', (table) => {
     table.increments();
     table.boolean('active').notNull();
+    table.boolean('private_mode').notNull();
     table
       .integer('role_id')
       .references('id')

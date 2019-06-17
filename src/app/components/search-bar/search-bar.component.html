@@ -25,10 +25,12 @@
         <span
           [ngClass]="{
             'match-own': true,
-            'fas fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
-            'far fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === '0',
-            'fas fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
-            'far fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === '0'
+            fas: searchMatch.match_own > 0,
+            far: searchMatch.match_own === '0',
+            'fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
+            'fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === '0',
+            'fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
+            'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === '0'
           }"
         ></span>
         <span class="match-name">{{ searchMatch.match_name }}</span>

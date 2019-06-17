@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-test',
@@ -8,10 +9,23 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./test.component.scss'],
 })
 export class TestComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {}
+  constructor(
+    private backend: BackendService,
+    private activated: ActivatedRoute,
+    private router: Router,
+    private session: SessionService,
+  ) {}
+
+  // user info
+  user: any = '';
+
+  userDetail: any = '';
+
+  target_language: any = '';
 
   quiz_contents: any = '';
 
+  //
   cards: any = '';
 
   words: any = '';
@@ -64,7 +78,13 @@ export class TestComponent implements OnInit {
     this.backend.answerQuestion(this.currentQuizId, answerBody).then((data: any) => {
       this.currentCard += 1;
       if (!(this.totalCards < this.currentCard + 1)) {
-        this.currentAnswer = this.translations[this.currentCard].spanish_word;
+        if (this.target_language == 'spanish') {
+          this.currentAnswer = this.translations[this.currentCard].spanish_word;
+        }
+        if (this.target_language == 'italian') {
+          this.currentAnswer = this.translations[this.currentCard].italian_word;
+        }
+
         this.currentQuizId = this.quiz_contents[this.currentCard].id;
         this.currentQuizContent = this.quiz_contents[this.currentCard];
       }
@@ -83,10 +103,20 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.session.getSession();
+
+    let searchId = parseInt(this.user.id);
+
+    this.backend.getUserProfile(searchId).then((data: any) => {
+      this.userDetail = data;
+      console.log('yooooo');
+      this.target_language = this.userDetail.target_languages[0];
+      console.log('language', this.target_language);
+    });
     // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('id');
     this.backend.getSpecificQuiz(routeId).then((data: any) => {
-      console.log('data', data);
+      // console.log('data', data);
       // this.deck = data[0];
       this.quiz_contents = data[0].quiz_contents;
       let cardsArray = [];
@@ -95,19 +125,32 @@ export class TestComponent implements OnInit {
       this.cards = this.quiz_contents.map((question, idx) => {
         cardsArray.push(question.users_cards.cards);
         wordsArray.push(question.users_cards.cards.words);
-        translationArray.push(question.users_cards.cards.words.spanish_translations);
+        if (this.target_language == 'spanish') {
+          // console.log('questoin', question.users_cards.cards.words);
+          translationArray.push(question.users_cards.cards.words.spanish_translations);
+        }
+        if (this.target_language == 'italian') {
+          translationArray.push(question.users_cards.cards.words.italian_translations);
+        }
       });
       this.totalCards = this.quiz_contents.length;
       this.cards = cardsArray;
       this.words = wordsArray;
       this.translations = translationArray;
-      console.log('quiz contents', this.quiz_contents);
-      console.log('cards', this.cards);
-      console.log('words', this.words);
-      console.log('transaltions', this.translations);
+      console.log('translations', this.translations);
+      // console.log('quiz contents', this.quiz_contents);
+      // console.log('cards', this.cards);
+      // console.log('words', this.words);
+      // console.log('transaltions', this.translations);
 
       // setting starting quiz state
-      this.currentAnswer = this.translations[this.currentCard].spanish_word;
+      if (this.target_language == 'spanish') {
+        this.currentAnswer = this.translations[this.currentCard].spanish_word;
+      }
+      if (this.target_language == 'italian') {
+        this.currentAnswer = this.translations[this.currentCard].italian_word;
+      }
+
       this.currentQuizId = this.quiz_contents[this.currentCard].id;
       this.currentQuizContent = this.quiz_contents[this.currentCard];
       console.log(this.currentAnswer);

@@ -50,9 +50,7 @@ export class DeckDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('id');
-    // console.log('user', this.user);
 
     this.session.getSession();
 
