@@ -21,12 +21,16 @@ router.route('/all/:search_text').get((req, res) => {
         'card' AS match_type
       FROM cards
       INNER JOIN words ON words.id = cards.word_id
-      WHERE cards.word_id IN
-        (SELECT id AS word_id
-        FROM words
-        WHERE
-          char_length(?) > 1 AND
-          (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))
+      WHERE
+        cards.approved IS TRUE AND
+        cards.public IS TRUE AND
+        cards.active IS TRUE AND
+        cards.word_id IN
+          (SELECT id AS word_id
+          FROM words
+          WHERE
+            char_length(?) > 1 AND
+            (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))
       UNION
       SELECT
         users.id AS match_id,
@@ -40,12 +44,15 @@ router.route('/all/:search_text').get((req, res) => {
           (c.requester = ? AND c.invitee = users.id AND c.accepted IS TRUE)) AS match_own,
         'user' AS match_type
       FROM users
-      WHERE users.username != ? AND users.username IN
-        (SELECT username
-        FROM users
-        WHERE
-          char_length(?) > 1 AND
-          (LOWER(username) LIKE ? OR ? % LOWER(username)))`,
+      WHERE
+        users.username != ? AND
+        users.private_mode IS FALSE AND
+        users.username IN
+          (SELECT username
+          FROM users
+          WHERE
+            char_length(?) > 1 AND
+            (LOWER(username) LIKE ? OR ? % LOWER(username)))`,
       [
         search_text,
         my_id,
@@ -105,12 +112,16 @@ router.route('/cards/:search_text').get((req, res) => {
         'card' AS match_type
       FROM cards
       INNER JOIN words ON words.id = cards.word_id
-      WHERE cards.word_id IN
-        (SELECT id AS word_id
-        FROM words
-        WHERE
-          char_length(?) > 1 AND
-          (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))`,
+      WHERE
+        cards.approved IS TRUE AND
+        cards.public IS TRUE AND
+        cards.active IS TRUE AND
+        cards.word_id IN
+          (SELECT id AS word_id
+          FROM words
+          WHERE
+            char_length(?) > 1 AND
+            (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))`,
       [search_text, my_id, search_text, `%${search_text}%`, search_text],
     )
     .then((result) => {
@@ -161,12 +172,15 @@ router.route('/users/:search_text').get((req, res) => {
           (c.requester = ? AND c.invitee = users.id AND c.accepted IS TRUE)) AS match_own,
         'user' AS match_type
       FROM users
-      WHERE users.username != ? AND users.username IN
-        (SELECT username
-        FROM users
-        WHERE
-          char_length(?) > 1 AND
-          (LOWER(username) LIKE ? OR ? % LOWER(username)))`,
+      WHERE 
+        users.username != ? AND
+        users.private_mode IS FALSE AND
+        users.username IN
+          (SELECT username
+          FROM users
+          WHERE
+            char_length(?) > 1 AND
+            (LOWER(username) LIKE ? OR ? % LOWER(username)))`,
       [search_text, my_id, my_id, my_username, search_text, `%${search_text}%`, search_text],
     )
     .then((result) => {
