@@ -27,9 +27,9 @@ export class ImageCaptureComponent implements OnInit {
   }
 
   public capture() {
-    let context = this.canvas.nativeElement.getContext('2d').drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-    this.captures.push(this.canvas.nativeElement.toDataURL('images/jpeg', 1));
-
-    this.video.nativeElement.srcObject.getTracks().forEach(track => track.stop())
+    let context = this.canvas.nativeElement
+      .getContext('2d')
+      .drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.captures.push(this.canvas.nativeElement.toDataURL('images/jpeg', 1.0));
   }
 }

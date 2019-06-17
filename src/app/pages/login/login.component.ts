@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { BackendService } from 'src/app/services/backend.services';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   formData: {
@@ -16,11 +17,9 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, private backend: BackendService) {}
 
   login() {
-    console.log(this.formData);
     this.auth
       .login(this.formData)
       .then((response) => {
@@ -38,7 +37,12 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  googleSignin() {
+    return this.backend.googleLogin()
   }
+
+
+  ngOnInit() { }
+  
 
 }
