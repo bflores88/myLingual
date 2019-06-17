@@ -22,17 +22,15 @@ export class ImageCaptureComponent implements OnInit {
 
   public ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-      let videoTracks = stream.getVideoTracks();
+      this.video.nativeElement.srcObject = stream;
 
-      // window.stream = stream;
-      video.srcObject = stream;
     });
   }
 
   public capture() {
     let context = this.canvas.nativeElement
       .getContext('2d')
-      .drawImage(this.video.nativeElement, 0, 0, canvas.width, canvas.height);
-    this.captures.push(this.canvas.nativeElement.toDataURL('images/png'));
+      .drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.captures.push(this.canvas.nativeElement.toDataURL('images/jpeg', 1.0));
   }
 }
