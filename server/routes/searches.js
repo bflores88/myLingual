@@ -9,7 +9,6 @@ router.route('/all/:search_text').get((req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const my_username = req.user ? req.user.username : '';
   const search_text = req.params.search_text.toLowerCase();
-  // still need to filter out private, unapproved cards
   knex
     .raw(
       `SELECT
@@ -100,7 +99,6 @@ router.route('/all/:search_text').get((req, res) => {
 router.route('/cards/:search_text').get((req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const search_text = req.params.search_text.toLowerCase();
-  // still need to filter out private, unapproved cards
   knex
     .raw(
       `SELECT
@@ -157,7 +155,6 @@ router.route('/users/:search_text').get((req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const my_username = req.user ? req.user.username : '';
   const search_text = req.params.search_text.toLowerCase();
-  // still need to filter out users with private profile
   knex
     .raw(
       `SELECT
