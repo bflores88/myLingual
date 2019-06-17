@@ -11,7 +11,12 @@ const QuizContent = require('../database/models/QuizContent');
 router.route('/:id').get((req, res) => {
   new Quiz()
     .where({ id: req.params.id })
-    .fetchAll({ withRelated: ['quiz_contents.users_cards.cards.words.spanish_translations'] })
+    .fetchAll({
+      withRelated: [
+        'quiz_contents.users_cards.cards.words.spanish_translations',
+        'quiz_contents.users_cards.cards.words.italian_translations',
+      ],
+    })
     .then((result) => {
       return res.send(result.toJSON());
     })
@@ -22,15 +27,12 @@ router.route('/:id').get((req, res) => {
 
 // post reply
 router.route('/:id').post((req, res) => {
-  // console.log(req.body);
   new Quiz({
     deck_id: parseInt(req.params.id),
     quiz_type: req.body.type,
   })
     .save()
     .then((result) => {
-      // console.log('result', result.attributes.id);
-
       return result;
     })
     .then((quiz) => {
@@ -40,19 +42,13 @@ router.route('/:id').post((req, res) => {
         .where({ id: deck_id })
         .fetchAll({ withRelated: ['decks_cards.users_cards.cards.words.spanish_translations'] })
         .then((result) => {
-          // grab card ids
-          // console.log(
-          //   'userCARDS',
-          //   result.models[0].relations.decks_cards.models[0].relations.users_cards.attributes.id,
-          // );
-
           let arrayUserCards = result.models[0].relations.decks_cards.models;
           let arrayCardId = [];
-          // console.log(arrayUserCards);
+
           arrayUserCards.forEach((element) => {
             arrayCardId.push(element.relations.users_cards.attributes.id);
           });
-          // console.log(arrayCardId);
+
           arrayCardId.forEach((card) => {
             new QuizContent({
               users_cards_id: card,
