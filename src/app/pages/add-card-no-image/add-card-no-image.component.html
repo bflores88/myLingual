@@ -1,17 +1,35 @@
 <div class="page">
 
   <div class="add-no-image">
-    <p>1. Type Word.  We will let you know if you already have this word.</p>
-    <p>2. Word will automatically translate if we have DB.  If not, query Google Translate API and word will show up here.</p>
-    <p>3. Set card theme.</p>
-    <p>4. Add to Deck?</p>
 
-    <form action="">
-      <input type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="new-card" />
-      <button type="submit" (click)="submitWord()">Submit</button>
-      <div [hidden]="!this.errorMessage">{{errorMessage}}</div>
-      <button (click)="queryGTAPI()">If not, query Google Translate API</button>
-    </form>
+      <h2 *ngIf="!showSuccess">Enter a word to translate</h2>
+      <input *ngIf="!showSuccess" type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="type-word" maxlength="100" />
+ 
+    <div [hidden]="!this.errorMessage" class="error-message-div">{{errorMessage}}</div>
+
+    <div *ngIf="!showSuccess" class="deck-select">
+        <select name="add_to_deck" [(ngModel)]="add_to_deck" (change)="handleInputOnChange()">
+          <option value="">Add Card To Deck</option>
+          <option *ngFor="let deck of decks" value="{{deck.id}}">{{deck.name}}</option>
+          <option value="new-deck">Create New Deck</option>
+        </select>
+      </div>
+
+      <div *ngIf="newDeck" class="new-deck">
+          <input type="text" name="new-deck-name" [(ngModel)]="new_deck_name" placeholder="deck name" class="type-word" />
+      </div>
+
+      <div *ngIf="!showSuccess" class="submit-word">
+        <button class="small-btn" [disabled]="isInvalid()" (click)="handleSubmitWord()">Submit</button>
+      </div>
+
+      <div *ngIf="showSuccess" class="success-card-generated">
+          <h1>Success!!!<br /></h1>
+          <h2>Check your decks to start studying!</h2>
+        </div>
+
+
   </div>
+
 
 </div>
