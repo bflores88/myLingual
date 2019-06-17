@@ -9,6 +9,7 @@ $fontOffset: 3px;
 $fontOffset_H2: 4px;
 
 $arrowSize: 200px;
+$arrowSizeTablet: 80px;
 $arrowColor: hsl(197, 65%, 55%);
 $arrowMargin: 100px;
 
@@ -19,20 +20,28 @@ $creatorElementsBorderRadius: 20px;
 $creatorImageHeight: 150px;
 $creatorStatusIconSize: 50px;
 
+#arrow-buttons-mobile-container {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+
+  margin-top: $containerSpacing;
+}
+
 #flashcard-page {
   display: flex;
   align-content: center;
   flex-direction: column;
   justify-content: center;
 
-  padding: 40px;
-  margin: $headerHeight 0 100px 0;
+  // padding: 40px;
+  margin: ($headerHeight + 30px) 0 100px 0;
 }
 
 #flashcard-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 
   border: none;
 }
@@ -101,6 +110,8 @@ $creatorStatusIconSize: 50px;
   display: flex;
   flex-direction: row;
   
+  margin-right: 15px;
+  margin-left: 15px;
   background: $creatorElementsColor_BG;
   border-radius: $creatorElementsBorderRadius;
 
@@ -123,6 +134,11 @@ $creatorStatusIconSize: 50px;
 #creator-languages {
   background: $creatorElementsColor_BG;
   border-radius: $creatorElementsBorderRadius;
+
+  margin-top: $containerSpacing;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding: 14px;
 }
 
 .social-element {
@@ -155,12 +171,8 @@ $creatorStatusIconSize: 50px;
   clip-path: circle(45%);
 }
 
-#left-arrow {
-  margin-right: $arrowMargin;
-} 
-
-#right-arrow {
-  margin-left: $arrowMargin;
+.arrow-button-mobile {
+  display: none;
 }
 
 .fa-arrow-alt-circle-left::before {
@@ -177,15 +189,38 @@ button:focus {
   outline: none;
 }
 
+@media only screen and (max-width: 768px) {
+  .fa-arrow-alt-circle-left::before {
+    font-size: $arrowSizeTablet;
+    
+  }
+  
+  .fa-arrow-alt-circle-right::before {
+    font-size: $arrowSizeTablet;
+  }
+}
+
 @media only screen and (max-width: 425px){
   #flashcard-page {
-    margin: 0;
+    
     padding: 20px 0 100px 0;
   }
 
   #flashcard {
     width: 350px;
     margin: 0;
+
+    img {
+      width: 300px;
+    }
+  }
+
+  .arrow-button {
+    display: none;
+  }
+
+  .arrow-button-mobile {
+    display: initial;
   }
 
   img {
@@ -196,4 +231,13 @@ button:focus {
 
 @media only screen and (max-width: 320px) {
 
+  #flashcard {
+    width: 280px;
+
+    img {
+      width: 230px;
+    }
+  }
+
 }
+
