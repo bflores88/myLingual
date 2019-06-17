@@ -65,7 +65,7 @@
 
   <div id="flashcard-additional-details" *ngIf="hasCreator">
     <div id="creator-header">
-      <img src="{{creator.profile_image_url}}"/>
+      <img src="{{creator.profile_image_url}}" routerLink="/profile/{{creator.id}}"/>
 
       <div>
         <h2>Created By: {{creator.username}}</h2>
