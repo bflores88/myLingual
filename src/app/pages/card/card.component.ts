@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 
 interface ResponseData {
+  id: number;
   errorMessage: string;
   english_word: string;
   created_by: number;
@@ -26,6 +27,9 @@ interface Creator {
 })
 
 export class CardComponent implements OnInit {
+  cardTableId: string[] = [];
+  cardTableIdPosition: number;
+
   errorMessage: string;
 
   id: string;
@@ -49,12 +53,21 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((routeParams: ParamMap) => {
-      this.loadCard();
-    });
+    // Only happens on initial navigation to component or entering url manually
+    this.backend.getFlashcards().then((cards: ResponseData[]) => {
+      cards.forEach((card: ResponseData) => {
+        this.cardTableId.push(card.id.toString());
+      });
+      this.cardTableIdPosition = this.cardTableId.indexOf(this.activatedRoute.snapshot.paramMap.get('id'));
+
+      this.activatedRoute.paramMap.subscribe((routeParams: ParamMap) => {
+        this.loadCard();
+      });
+    })
   }
 
   loadCard() {
+    console.log('loading card');
     this.user = this.session.getSession();
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -86,9 +99,12 @@ export class CardComponent implements OnInit {
               }
             })
           })
-          .catch(() => {
-            this.errorMessage = 'Error getting contacts.';
-            
+          .catch((error) => {
+            if (error.ok === false) {
+              this.errorMessage = '';
+            } else {
+              this.errorMessage = 'Error getting contacts.';
+            }
           });
         }
       })
@@ -102,20 +118,22 @@ export class CardComponent implements OnInit {
   }
 
   nextCard() {
-    // replace later
-    let newParam = parseInt(this.id) + 1;
-    if (newParam <= 5){
-      console.log('nextCard()');
-      this.router.navigate([`/card/${newParam}`]);
+    if ((this.cardTableIdPosition + 1) < this.cardTableId.length){
+      this.cardTableIdPosition++;
+    } else {
+      this.cardTableIdPosition = 0;
     }
+    
+    this.router.navigate([`/card/${this.cardTableId[this.cardTableIdPosition]}`]);
   }
 
   previousCard() {
-    // replace later
-    let newParam = parseInt(this.id) - 1;
-    if (newParam > 0){
-      console.log('previousCard()');
-      this.router.navigate([`/card/${newParam}`]);
+    if ((this.cardTableIdPosition - 1) >= 0){
+      this.cardTableIdPosition--;
+    } else {
+      this.cardTableIdPosition = this.cardTableId.length - 1;
     }
+
+    this.router.navigate([`/card/${this.cardTableId[this.cardTableIdPosition]}`]);
   }
 }
