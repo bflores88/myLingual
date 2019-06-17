@@ -10,6 +10,7 @@ exports.seed = function(knex, Promise) {
       return knex('users').insert([
         {
           active: true,
+          private_mode: false,
           role_id: 1,
           username: 'Admin01',
           password: bcrypt.hashSync('password', saltRounds),
@@ -20,6 +21,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           active: true,
+          private_mode: false,
           role_id: 1,
           username: 'Admin02',
           password: bcrypt.hashSync('password', saltRounds),
@@ -31,6 +33,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           active: true,
+          private_mode: true,
           role_id: 2,
           username: 'Moderator01',
           password: bcrypt.hashSync('password', saltRounds),
@@ -41,6 +44,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           active: true,
+          private_mode: false,
           role_id: 2,
           username: 'Moderator02',
           password: bcrypt.hashSync('password', saltRounds),
@@ -52,6 +56,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           active: true,
+          private_mode: false,
           role_id: 3,
           username: 'User01',
           password: bcrypt.hashSync('password', saltRounds),
@@ -62,6 +67,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           active: false,
+          private_mode: false,
           role_id: 3,
           username: 'User02',
           password: bcrypt.hashSync('password', saltRounds),
@@ -73,6 +79,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           active: false,
+          private_mode: false,
           role_id: 3,
           username: 'User03',
           password: bcrypt.hashSync('password', saltRounds),
