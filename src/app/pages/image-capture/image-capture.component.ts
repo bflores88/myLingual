@@ -21,12 +21,33 @@ export class ImageCaptureComponent implements OnInit {
   public ngOnInit() {}
 
   public ngAfterViewInit() {
-    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+
+    const constraints = {
+      audio: false,
+      video: {
+          width: {
+              min: 320,
+              max: 1280
+          },
+          height: {
+              min: 240,
+              max: 720
+        },
+        facingMode: {
+          ideal: "environment"
+      }
+      }
+  }
+  
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
       this.video.nativeElement.srcObject = stream;
     });
   }
 
   public capture() {
+
+    this.canvas.nativeElement.width = 480;
+    this.canvas.nativeElement.height = 600;
     let context = this.canvas.nativeElement
       .getContext('2d')
       .drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
