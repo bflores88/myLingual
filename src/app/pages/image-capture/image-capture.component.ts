@@ -23,6 +23,7 @@ export class ImageCaptureComponent implements OnInit {
   public ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       this.video.nativeElement.srcObject = stream;
+
     });
   }
 
