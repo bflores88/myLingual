@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BackendService {
+
   constructor(private http: HttpClient) {}
 
   register(data) {
@@ -27,6 +28,12 @@ export class BackendService {
   getClientId() {
     return this.http.get('/api/google_signin', { withCredentials: true }).toPromise();
   }
+
+
+  getFlashcards() {
+    return this.http.get('/api/cards', { withCredentials: true }).toPromise();
+  }
+  
 
   getFlashcard(id: String) {
     return this.http.get(`/api/cards/${id}`, { withCredentials: true }).toPromise();

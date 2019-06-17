@@ -2,7 +2,7 @@
   <h1>{{errorMessage}}</h1>
 
   <div id="flashcard-container" *ngIf="hasFlashcard">
-    <div class="arrow-button" id="left-arrow">
+    <div class="arrow-button">
       <button (click)="previousCard()">
         <i class="fas fa-arrow-alt-circle-left"></i> 
       </button>
@@ -43,8 +43,21 @@
 
     </div>
 
-    <div class="arrow-button" id="right-arrow">
+    <div class="arrow-button">
       <button class="arrow-button" (click)="nextCard()">
+        <i class="fas fa-arrow-alt-circle-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="arrow-buttons-mobile-container">
+    <div class="arrow-button-mobile">
+      <button (click)="previousCard()">
+        <i class="fas fa-arrow-alt-circle-left"></i> 
+      </button>
+    </div>
+    <div class="arrow-button-mobile">
+      <button (click)="nextCard()">
         <i class="fas fa-arrow-alt-circle-right"></i>
       </button>
     </div>
@@ -52,7 +65,7 @@
 
   <div id="flashcard-additional-details" *ngIf="hasCreator">
     <div id="creator-header">
-      <img src="{{creator.profile_image_url}}"/>
+      <img src="{{creator.profile_image_url}}" routerLink="/profile/{{creator.id}}"/>
 
       <div>
         <h2>Created By: {{creator.username}}</h2>
