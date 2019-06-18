@@ -33,7 +33,6 @@ import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-i
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { TestComponent } from './pages/test/test.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
-import { AddCardPhotoComponent } from './pages/add-card-photo/add-card-photo.component';
 import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
 import { CardComponent } from './pages/card/card.component';
 
@@ -45,6 +44,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { AboutComponent } from './pages/about/about.component';
 
 
 
@@ -79,7 +79,6 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
     TestComponent,
     DeckDetailComponent,
     AddCardUploadComponent,
-    AddCardPhotoComponent,
     ProfileNavMobileComponent,
     CardComponent,
 
@@ -88,6 +87,8 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
     InvitesComponent,
 
     SearchResultsComponent,
+
+    AboutComponent,
 
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],

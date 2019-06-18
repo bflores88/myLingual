@@ -23,5 +23,15 @@
         ]
       }
     }
-  ]
+  ],
+  "dataGroups": [{
+    "name": "myLingual",
+    "urls": [
+      "https://mylingual.me/**"
+    ],
+    "cacheConfig": {
+      "maxAge": "6h",
+      "strategy": "freshness"
+    }
+  }]
 }

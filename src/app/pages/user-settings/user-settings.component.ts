@@ -46,13 +46,10 @@ export class UserSettingsComponent implements OnInit {
   ngOnInit() {
     this.backend.getAllLanguages().then((data) => {
       this.languages = data;
-      console.log(this.languages);
     });
   }
 
   changeTarget() {
-    console.log('test');
-    console.log(this.target_language_id);
     let targetId = parseInt(this.target_language_id);
     this.backend.changeTargetLanguage(targetId).then((data) => {
       this.message = 'Target language changed successfully!';

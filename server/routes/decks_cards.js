@@ -16,6 +16,7 @@ router.route('/').post((req, res) => {
         return new DeckCard().save({
           users_cards_id: req.body.usercard_id,
           deck_id: deckResult.id,
+          card_theme_id: 1,
         });
       })
       .then((result) => {
@@ -30,6 +31,7 @@ router.route('/').post((req, res) => {
       .save({
         users_cards_id: req.body.usercard_id,
         deck_id: req.body.deck_id,
+        card_theme_id: 1,
       })
       .then((result) => {
         console.log('new deck card created', result);
