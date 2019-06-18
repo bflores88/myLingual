@@ -36,7 +36,7 @@ export class SearchBarComponent implements OnInit {
   searchInit() {
     const { searchText } = this.searchText;
 
-    if (searchText === '') {
+    if (!searchText || searchText.length < 2) {
       this.searchMatches = [];
     } else {
       this.backend.search(searchText).then((data: SearchMatches[]) => {
@@ -47,8 +47,10 @@ export class SearchBarComponent implements OnInit {
 
   // search when user clicks search icon
   searchFull() {
-    // place holder.  Should take user to search results page.
-    console.log(this.searchText);
+    const { searchText } = this.searchText;
+    if (searchText.length > 0) {
+      this.router.navigate([`/search/${searchText}`]);
+    }
   }
 
   // takes users to detail page when selecting a match from dropdown
@@ -56,8 +58,7 @@ export class SearchBarComponent implements OnInit {
     if (matchType === 'user') {
       this.router.navigate([`/profile/${matchId}`]);
     } else if (matchType === 'card') {
-      // uncomment this when card detail page available
-      // this.router.navigate([`/card/${matchId}`]);
+      this.router.navigate([`/card/${matchId}`]);
     }
   }
 }

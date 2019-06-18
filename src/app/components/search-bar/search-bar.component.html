@@ -7,7 +7,7 @@
           placeholder="Search..."
           name="searchText"
           [(ngModel)]="searchText.searchText"
-          (keyup)="searchInit()"
+          (ngModelChange)="searchInit()"
         />
       </div>
     </form>
