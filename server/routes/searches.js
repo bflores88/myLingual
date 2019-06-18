@@ -9,7 +9,6 @@ router.route('/all/:search_text').get((req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const my_username = req.user ? req.user.username : '';
   const search_text = req.params.search_text.toLowerCase();
-  // still need to filter out private, unapproved cards
   knex
     .raw(
       `SELECT
@@ -74,6 +73,8 @@ router.route('/all/:search_text').get((req, res) => {
       let matchWeighted;
       let matchCard;
       result.rows.forEach((match) => {
+        // postgres COUNT() returns string.  convert to number.
+        match.match_own = parseInt(match.match_own);
         // sort1: exact match > (0, 100)
         matchPerfect = match.match_score === 1 ? 100 : 0;
         // sort2: match score (0-10) + priority if own card/contact (0, 2)
@@ -100,7 +101,6 @@ router.route('/all/:search_text').get((req, res) => {
 router.route('/cards/:search_text').get((req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const search_text = req.params.search_text.toLowerCase();
-  // still need to filter out private, unapproved cards
   knex
     .raw(
       `SELECT
@@ -130,6 +130,8 @@ router.route('/cards/:search_text').get((req, res) => {
       let matchWeighted;
       let matchCard;
       result.rows.forEach((match) => {
+        // postgres COUNT() returns string.  convert to number.
+        match.match_own = parseInt(match.match_own);
         // sort1: exact match > (0, 100)
         matchPerfect = match.match_score === 1 ? 100 : 0;
         // sort2: match score (0-10) + priority if own card/contact (0, 2)
@@ -157,7 +159,6 @@ router.route('/users/:search_text').get((req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const my_username = req.user ? req.user.username : '';
   const search_text = req.params.search_text.toLowerCase();
-  // still need to filter out users with private profile
   knex
     .raw(
       `SELECT
@@ -189,6 +190,8 @@ router.route('/users/:search_text').get((req, res) => {
       let matchWeighted;
       let matchCard;
       result.rows.forEach((match) => {
+        // postgres COUNT() returns string.  convert to number.
+        match.match_own = parseInt(match.match_own);
         // sort1: exact match > (0, 100)
         matchPerfect = match.match_score === 1 ? 100 : 0;
         // sort2: match score (0-10) + priority if own card/contact (0, 2)

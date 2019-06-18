@@ -41,6 +41,12 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 
 import { InvitesComponent } from './pages/invites/invites.component';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
+
+
 
 @NgModule({
   declarations: [
@@ -81,8 +87,10 @@ import { InvitesComponent } from './pages/invites/invites.component';
 
     InvitesComponent,
 
+    SearchResultsComponent,
+
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [],
   bootstrap: [AppComponent],
 })

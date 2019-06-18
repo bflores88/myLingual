@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
 import { Router } from '@angular/router';
 
+interface SearchMatches {
+  match_id: number;
+  match_name: string;
+  match_score: number;
+  match_image: string;
+  match_own: number;
+  match_type: string;
+  sortScore: number;
+}
+
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -16,9 +26,7 @@ export class SearchBarComponent implements OnInit {
   };
 
   // initialize searchMatches as empty array
-  searchMatches: {
-    searchMatches: string;
-  }[] = [];
+  searchMatches: SearchMatches[];
 
   constructor(private backend: BackendService, private router: Router) {}
 
@@ -31,7 +39,7 @@ export class SearchBarComponent implements OnInit {
     if (searchText === '') {
       this.searchMatches = [];
     } else {
-      this.backend.search(searchText).then((data: { searchMatches: string }[]) => {
+      this.backend.search(searchText).then((data: SearchMatches[]) => {
         this.searchMatches = data;
       });
     }
