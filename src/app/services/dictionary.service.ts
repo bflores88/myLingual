@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+interface Data {
+  word: string,
+  fields: string,
+  strictMatch: boolean,
+}
+
 @Injectable({
   providedIn: 'root',
 })
 
-// const Dictionary = require('oxford-dictionary-api');
-// const myDictionary = Dictionary();
-
 export class DictionaryService {
-  // Dictionary = require("oxford-dictionary-api");
+  
+  constructor(private http: HttpClient){}
 
-  // myDictionary = new this.Dictionary(
-  //   process.env.OXFORD_DICTIONARIES_APP_ID,
-  //   process.env.OXFORD_DICTIONARIES_APP_KEY,
-  // );
-
-  test() {
-    console.log('test');
+  validateWord(word: string) {
+    return this.http.get(`/api/dictionary/validate/${word}`).toPromise();
   }
 
-
+  getWordDefinitions(word: string) {
+    return this.http.get(`/api/dictionary/${word}&definitions&true`).toPromise();
+  }
 }

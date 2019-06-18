@@ -135,12 +135,14 @@ router.route('/:id').get((req, res) => {
       newResult.english_word = newResult.words.english_word;
       newResult.spanish_translations = newResult.words.spanish_translations.spanish_word;
       newResult.italian_translations = newResult.words.italian_translations.italian_word;
-      newResult.card_theme = newResult.card_themes.name;
+      // Line below is broken. 
+      // newResult.card_theme = newResult.card_themes.name;
       delete newResult.card_themes;
       delete newResult.words;
       return res.json(newResult);
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log('what ', error);
       return res.json({errorMessage: 'Card not found.'});
     });
 });
