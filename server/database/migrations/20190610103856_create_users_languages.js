@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
       .inTable('languages');
     table.string('language_type', 15).notNull();
     table.boolean('primary').notNull();
+    table.boolean('active').notNull();
     table.timestamps(true, true);
   });
 };
