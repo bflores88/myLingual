@@ -1,1 +1,122 @@
 @import '../../../styles.scss';
+
+.conversation-page {
+  // padding: 1em;
+  margin-top: 2em;
+}
+
+.messages-container {
+  // padding: 1em;
+  // border: 2px solid #cacbcc;
+  width: 90%;
+  background-color: rgba(247, 246, 246, 0.795);
+  border-radius: 5px;
+  height: 600px;
+  display: block;
+  overflow: auto;
+  white-space: nowrap;
+  margin: 1em 1em 0em 1em;
+  .messages-container::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  .messages-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+#form-div {
+  align-content: center;
+  align-items: center;
+  margin: 0em 1em 1em 1em;
+  text-align: center;
+  padding-top: 10px;
+  display: flex;
+  #message-input {
+    width: 90%;
+    height: 40px;
+    letter-spacing: 1px;
+    font-size: 1.5em;
+    resize: none;
+    border: 2px solid orange;
+    // padding-top: 10px;
+    // text-align: center;
+  }
+
+  #button-container {
+    width: 10%;
+  }
+
+  #submit-message-button {
+    width: 100%;
+    background-color: white;
+    // border-color: aq;
+    height: 40px;
+    // padding-top: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+  }
+  #submit-message-button:hover {
+    background-color: rgb(255, 229, 182);
+  }
+}
+
+// message css
+
+.message-box {
+  border: 1px solid orange;
+  margin: 0.5em;
+  padding: 0em 0.25em 0em 0.25em;
+  color: #222f3d;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  min-height: 100px;
+  overflow-wrap: break-word;
+  white-space: normal; // overflow: hidden;
+
+  .message-body {
+    font-size: 1em;
+  }
+}
+.outer-message-box-user {
+  overflow-wrap: break-word;
+  white-space: normal; // overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 1em 0em 1em 0em;
+  // margin: 0;
+}
+.outer-message-box-other {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 1em 0em 1em 0em;
+  width: 100%;
+  overflow-wrap: break-word;
+  white-space: normal; // overflow: hidden;
+}
+
+.sent_by {
+  margin: 0em 0em 0.2em 0em;
+  color: #555;
+  font-size: 0.8em;
+}
+
+.user-message {
+  background-color: rgb(205, 255, 238);
+  border-radius: 10px;
+  // padding: 0.5em;
+  width: 70%;
+  padding: 0.5em;
+}
+
+.other-message {
+  background-color: rgb(252, 229, 186);
+  width: 70%;
+  border-radius: 10px;
+  padding: 0.5em;
+}
+
+.message-date {
+  font-size: 0.5em;
+}
