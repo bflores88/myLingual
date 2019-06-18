@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BackendService } from '../services/backend.services';
+import { Router } from '@angular/router';
 
 // interface ClientIdResponse {
 //   client_id: string
@@ -16,7 +17,8 @@ export class AppComponent {
   title = 'myLingual';
   client_id: string;
 
-  constructor(private backend: BackendService) { }
+  constructor(private backend: BackendService, private router: Router) { }
+
 
   // ngOnInit() {
   //   return this.backend.getClientId().then((data: ClientIdResponse) => {

@@ -2,16 +2,27 @@
 
 .change-language-box {
   width: 100%;
-  margin: 1em;
   padding: 1em;
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  text-align: center;
 }
 
 .language-dropdown {
   background-color: var(--headerColor);
   border: none;
   border-radius: 5px;
+  height: 40px;
+  color: white;
+  font-size: 16px;
+  padding-left: 15px;
+
+  @media only screen and (min-width: 768px) {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 .submit-box {
   width: 100%;
