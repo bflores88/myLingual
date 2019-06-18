@@ -1,1 +1,16 @@
 @import '../../../styles.scss';
+
+.messages-container {
+}
+
+.message-box {
+  background-color: var(--buttonBgColor);
+  padding: 0.5em;
+  border-radius: 5px;
+  margin-top: 1em;
+}
+
+.message-date {
+  // border-top: 1px dotted black;
+  margin: 0.25em;
+}
