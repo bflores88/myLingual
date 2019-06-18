@@ -40,6 +40,7 @@ import { CardComponent } from './pages/card/card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 import { InvitesComponent } from './pages/invites/invites.component';
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
 
 
 @NgModule({
@@ -80,6 +81,8 @@ import { InvitesComponent } from './pages/invites/invites.component';
     SearchBarComponent,
 
     InvitesComponent,
+
+    SearchResultsComponent,
 
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],

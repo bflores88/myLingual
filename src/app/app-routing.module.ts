@@ -22,6 +22,7 @@ import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { CardComponent } from './pages/card/card.component';
 import { InvitesComponent } from './pages/invites/invites.component';
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'forums/:id', component: ForumTopicComponent },
   { path: 'forums/new/:id', component: NewForumPostComponent },
   { path: 'forums/posts/:post_id', component: ForumPostComponent },
+  { path: 'search/:search_text', component: SearchResultsComponent },
 ];
 
 @NgModule({
