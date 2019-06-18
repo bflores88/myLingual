@@ -10,7 +10,7 @@ export class AddCardComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log(navigator.onLine)
+    // console.log(navigator.onLine)
   }
 
   continue() {
