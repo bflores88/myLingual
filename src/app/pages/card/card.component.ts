@@ -35,9 +35,11 @@ export class CardComponent implements OnInit {
 
   id: string;
   flashcard: object;
+  definitions: object;
   creator: Creator;
   hasFlashcard = false;
   hasCreator = false;
+  hasDefinitions = false;
   hasRelation: boolean;
   
   user: {
@@ -55,45 +57,6 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.dictionary.getWordDefinitions('test')
-    // .then((result) => {
-    //   console.log('test definitions ', result);
-    // })
-
-    // this.dictionary.getWordDefinitions('angular')
-    // .then((result) => {
-    //   console.log('angular definitions ', result);
-    // })
-
-    // this.dictionary.getWordDefinitions('imnotarealword')
-    // .then((result) => {
-    //   console.log('imnotarealword definitions ', result);
-    // })
-
-    // this.dictionary.getWordDefinitions('swimming')
-    // .then((result) => {
-    //   console.log('swimming definitions ', result);
-    // })
-
-    // this.dictionary.validateWord('imnotarealword')
-    // .then((result) => {
-    //   console.log(result);
-    // })
-
-    // this.dictionary.validateWord('real')
-    // .then((result) => {
-    //   console.log(result);
-    // })
-
-    // this.dictionary.validateWord('breverage')
-    // .then((result) => {
-    //   console.log(result);
-    // })
-
-    // this.dictionary.validateWord('exceedingly')
-    // .then((result) => {
-    //   console.log(result);
-    // })
     // Only happens on initial navigation to component or entering url manually
     this.backend.getFlashcards().then((cards: ResponseData[]) => {
       cards.forEach((card: ResponseData) => {
@@ -122,7 +85,15 @@ export class CardComponent implements OnInit {
         this.flashcard = response;
         this.hasFlashcard = true;
       }
-
+      this.dictionary.getWordDefinitions(response.english_word)
+      .then((result) => {
+        this.definitions = result;
+        this.hasDefinitions = true;
+        console.log(this.definitions);
+      })
+      .catch((error) => {
+        this.errorMessage = error.errorMessage;
+      });
       this.backend.getUserProfile(response.created_by)
       .then((result: Creator) => {
         this.creator = result;

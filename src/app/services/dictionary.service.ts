@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface Data {
-  word: string,
-  fields: string,
-  strictMatch: boolean,
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -22,4 +16,8 @@ export class DictionaryService {
   getWordDefinitions(word: string) {
     return this.http.get(`/api/dictionary/${word}&definitions&true`).toPromise();
   }
+
+  // getWordPartOfSpeech(word: string) {
+  //   return this.http.get(`/api/dictionary/${word}`)
+  // }
 }

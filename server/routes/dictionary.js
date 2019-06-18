@@ -8,7 +8,7 @@ router.route('/:word&:fields&:strictMatch')
   let options = {
     host: 'od-api.oxforddictionaries.com',
     port: '443',
-    path: '/api/v2/entries/en-us/' + req.params.word
+    path: '/api/v2/entries/en-us/' + req.params.word.toLowerCase()
     + '?fields=' + req.params.fields 
     + '&strictMatch=' + req.params.strictMatch,
     method: 'GET',
@@ -31,6 +31,7 @@ router.route('/:word&:fields&:strictMatch')
       let responseObj;
       let dataObj = JSON.parse(dataString);
       
+       
       if (dataObj.results) {
         dataObj.results[0].lexicalEntries[0].entries[0].senses.forEach((sense) => {
           mainDefinitions.push(sense.definitions[0]);
@@ -56,7 +57,7 @@ router.route('/:word&:fields&:strictMatch')
     });
   })
   .on('error', (e) => {
-    console.log(e);
+    console.log('error getting definitions ', e);
   });
 })
 
@@ -65,7 +66,7 @@ router.route('/validate/:word')
   const options = {
     host: 'od-api.oxforddictionaries.com',
     port: '443',
-    path: '/api/v2/lemmas/en/' + req.params.word,
+    path: '/api/v2/lemmas/en/' + req.params.word.toLowerCase(),
     method: "GET",
     headers: {
       'app_id': process.env.OXFORD_DICTIONARIES_APP_ID,

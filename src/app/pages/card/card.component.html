@@ -99,5 +99,14 @@
         <p>{{language}}</p>
       </div>
     </div>
+
+    <div *ngIf="hasDefinitions">
+      <div *ngFor="let definition of definitions.mainDefinitions">
+        <p>{{definition}}</p>
+      </div>
+      <div *ngFor="let definition of definitions.subsenseDefinitions">
+        <p>{{definition}}</p>
+      </div>
+    </div>
   </div>
 </div>
