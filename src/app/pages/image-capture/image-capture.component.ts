@@ -126,12 +126,8 @@ export class ImageCaptureComponent implements OnInit {
     this.loading = true;
     this.confirm = false;
     const captureFile = this.captures[0];
-
     const findFirstComma = captureFile.indexOf(',');
-
     const stringBase64 = captureFile.substring(findFirstComma + 1, captureFile.length);
-
-    console.log(stringBase64);
 
     // Naming the image
     const date = new Date().valueOf();
@@ -146,13 +142,9 @@ export class ImageCaptureComponent implements OnInit {
     const imageBlob = this.dataURItoBlob(stringBase64);
     const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
 
-    console.log(imageFile);
-
     this.uploadForm.get('image').setValue(imageFile);
     let formData = new FormData();
     formData.append('image', this.uploadForm.value.image);
-
-    console.log('****', this.uploadForm.value.image);
 
     this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
       this.loading = false;
@@ -168,8 +160,7 @@ export class ImageCaptureComponent implements OnInit {
 
       this.buttonDisabled = false;
     }
-
-    console.log(this.add_to_deck);
+    
     this.buttonDisabled = false;
   }
 
