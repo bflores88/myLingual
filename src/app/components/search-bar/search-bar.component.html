@@ -5,9 +5,12 @@
         <input
           type="text"
           placeholder="Search..."
+          tabindex="-1"
           name="searchText"
           [(ngModel)]="searchText.searchText"
           (ngModelChange)="searchInit()"
+          (keyup)="$event.keyCode == 13 ? searchFull() : null"
+          (blur)="clearDropdown()"
         />
       </div>
     </form>

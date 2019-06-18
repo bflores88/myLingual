@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BackendService {
-
   constructor(private http: HttpClient) {}
 
   register(data) {
@@ -29,11 +28,9 @@ export class BackendService {
     return this.http.get('/api/google_signin', { withCredentials: true }).toPromise();
   }
 
-
   getFlashcards() {
     return this.http.get('/api/cards', { withCredentials: true }).toPromise();
   }
-  
 
   getFlashcard(id: String) {
     return this.http.get(`/api/cards/${id}`, { withCredentials: true }).toPromise();
@@ -128,6 +125,15 @@ export class BackendService {
   search(searchText: string): Promise<object> {
     return this.http.get(`/api/searches/all/${searchText}`, { withCredentials: true }).toPromise();
   }
+
+  searchCards(searchText: string): Promise<object> {
+    return this.http.get(`/api/searches/cards/${searchText}`, { withCredentials: true }).toPromise();
+  }
+
+  searchUsers(searchText: string): Promise<object> {
+    return this.http.get(`/api/searches/users/${searchText}`, { withCredentials: true }).toPromise();
+  }
+
   getUserContacts(): Promise<object> {
     return this.http.get(`/api/contacts`, { withCredentials: true }).toPromise();
   }

@@ -25,7 +25,7 @@ export class SearchBarComponent implements OnInit {
     searchText: '',
   };
 
-  // initialize searchMatches as empty array
+  // initialize searchMatches
   searchMatches: SearchMatches[];
 
   constructor(private backend: BackendService, private router: Router) {}
@@ -60,5 +60,9 @@ export class SearchBarComponent implements OnInit {
     } else if (matchType === 'card') {
       this.router.navigate([`/card/${matchId}`]);
     }
+  }
+
+  clearDropdown() {
+    this.searchMatches = [];
   }
 }

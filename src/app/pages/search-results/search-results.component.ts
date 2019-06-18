@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface SearchMatches {
   match_id: number;
@@ -19,13 +19,47 @@ interface SearchMatches {
 })
 export class SearchResultsComponent implements OnInit {
   searchMatches: SearchMatches[];
+  filterToggle: number = 0;
+  search_text: string;
 
-  constructor(private backend: BackendService, private route: ActivatedRoute) {}
+  constructor(private backend: BackendService, private route: ActivatedRoute, private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.search_text = this.route.snapshot.paramMap.get('search_text');
+  }
 
   ngOnInit() {
-    const search_text = this.route.snapshot.paramMap.get('search_text');
-    this.backend.search(search_text).then((data: SearchMatches[]) => {
+    this.backend.search(this.search_text).then((data: SearchMatches[]) => {
       this.searchMatches = data;
+    });
+  }
+
+  // takes users to detail page when selecting a match from dropdown
+  showDetail(matchId, matchType) {
+    if (matchType === 'user') {
+      this.router.navigate([`/profile/${matchId}`]);
+    } else if (matchType === 'card') {
+      this.router.navigate([`/card/${matchId}`]);
+    }
+  }
+
+  searchAll() {
+    this.backend.search(this.search_text).then((data: SearchMatches[]) => {
+      this.searchMatches = data;
+      this.filterToggle = 0;
+    });
+  }
+
+  searchCards() {
+    this.backend.searchCards(this.search_text).then((data: SearchMatches[]) => {
+      this.searchMatches = data;
+      this.filterToggle = 1;
+    });
+  }
+
+  searchUsers() {
+    this.backend.searchUsers(this.search_text).then((data: SearchMatches[]) => {
+      this.searchMatches = data;
+      this.filterToggle = 2;
     });
   }
 }
