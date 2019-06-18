@@ -12,12 +12,14 @@ exports.seed = function(knex, Promise) {
         { user_id: 4, language_id: 2, language_type: 'target', primary: true },
         { user_id: 5, language_id: 1, language_type: 'target', primary: true },
         { user_id: 6, language_id: 3, language_type: 'target', primary: true },
+        { user_id: 7, language_id: 2, language_type: 'target', primary: true },
         { user_id: 1, language_id: 3, language_type: 'native', primary: true },
         { user_id: 2, language_id: 3, language_type: 'native', primary: true },
         { user_id: 3, language_id: 3, language_type: 'native', primary: true },
         { user_id: 4, language_id: 3, language_type: 'native', primary: true },
         { user_id: 5, language_id: 3, language_type: 'native', primary: true },
         { user_id: 6, language_id: 1, language_type: 'native', primary: true },
+        { user_id: 7, language_id: 3, language_type: 'native', primary: true },
       ]);
     });
 };
