@@ -5,7 +5,137 @@ body {
 }
 #app {
   text-align: center;
-//   color: #2c3e50;
+  margin-bottom: 100px;
+
+  .image-box {
+    margin-top: 100px;
+  }
+
+  .confirm-options {
+    margin-top: 30px;
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  
+    .option-confirm {
+      width: 120px;
+      text-align: center;
+      color: white;
+      border-radius: 6px;
+      padding: 15px 20px;
+  
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+  
+    }
+  
+    .yes-image {
+      background-color: var(--accentColor);
+      margin-right: 20px;
+    }
+  
+    .no-image {
+      background-color: red;
+    }
+  }
+  
+  .loading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .lds-hourglass {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    height: auto;
+  }
+  .lds-hourglass:after {
+    content: ' ';
+    display: block;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    margin: 6px;
+    box-sizing: border-box;
+    border: 60px solid var(--splashColor);
+    border-color: var(--splashColor) transparent var(--splashColor) transparent;
+    animation: lds-hourglass 1.2s infinite;
+  }
+  @keyframes lds-hourglass {
+    0% {
+      transform: rotate(0);
+      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+      transform: rotate(900deg);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+      transform: rotate(1800deg);
+    }
+  }
+  
+  
+  .select-word {
+    width: 100%;
+    text-align: center;
+  
+    .word-confirm {
+      margin-top: 15px;
+    }
+  
+    .type-word-option {
+      margin-top: 20px;
+    }
+  
+    .type-word {
+      border: 0px;
+      background-color: lighten(lightgrey, 10%);
+      font-size: 30px;
+      height: 50px;
+      width: 100%;
+      border-radius: 12px;
+      padding: 10px 15px;
+      text-align: center;
+    }
+  
+    .deck-select, .new-deck, .submit-word {
+      margin-top: 20px;
+  
+      select {
+        width: 100%;
+        height: 40px;
+        font-size: 24px;
+        border-radius: 12px;
+      }
+    }
+  }
+  
+  .success-card-generated {
+    width: 100%;
+    text-align: center;
+  }
+  
+  
+  
+
 }
 #video {
   background-color:white;
@@ -19,3 +149,25 @@ li {
 ul{
   padding: 0px;
 }
+
+.confirm-image {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+
+  button {
+    color: white;
+    font-size: 30px;
+    background-color: transparent;
+    border: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
+

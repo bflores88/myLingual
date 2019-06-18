@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-conversations',
@@ -10,15 +9,11 @@ import { Router } from '@angular/router';
 export class ConversationsComponent implements OnInit {
   conversations: any = [];
 
-  constructor(private backend: BackendService, private router: Router) {}
+  constructor(private backend: BackendService) {}
 
   ngOnInit() {
     this.backend.getConversations().then((data: any) => {
       this.conversations = data;
     });
-  }
-
-  viewConversation() {
-    this.router.navigate([`/messages/${this.conversations.id}`]);
   }
 }

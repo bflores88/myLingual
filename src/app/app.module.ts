@@ -40,8 +40,12 @@ import { CardComponent } from './pages/card/card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 import { InvitesComponent } from './pages/invites/invites.component';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
+
 
 
 @NgModule({
@@ -82,6 +86,8 @@ import { environment } from '../environments/environment';
     SearchBarComponent,
 
     InvitesComponent,
+
+    SearchResultsComponent,
 
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
