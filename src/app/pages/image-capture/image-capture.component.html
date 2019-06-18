@@ -1,10 +1,12 @@
 <div id="app">
-  <div><video #video id="video" width="100%" autoplay></video></div>
-  <div><button id="snap" (click)="capture()">Snap Photo</button></div>
-  <canvas #canvas id="canvas" width="100%" ></canvas>
-  <ul>
-    <li *ngFor="let c of captures">
-      <img src="{{ c }}" width="425" height="318.75" />
-    </li>
-  </ul>
+  <div [hidden]="hideVideo"><video #video id="video" width="100%" autoplay></video></div>
+  <div [hidden]="hideVideo"><button id="snap" (click)="capture()">Snap Photo</button></div>
+
+    <canvas #canvas id="canvas" width="100%"></canvas>
+    <ul>
+      <li *ngFor="let c of captures">
+        <img src="{{ c }}" width="425" height="318.75" />
+      </li>
+    </ul>
+
 </div>
