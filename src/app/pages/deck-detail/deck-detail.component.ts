@@ -58,6 +58,7 @@ export class DeckDetailComponent implements OnInit {
 
     this.backend.getUserProfile(searchId).then((data: any) => {
       this.userDetail = data;
+      console.log(this.userDetail);
 
       this.target_language = this.userDetail.target_languages[0];
 
@@ -66,15 +67,14 @@ export class DeckDetailComponent implements OnInit {
       // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
       // i would like to figure out if its possible with a fully dynamic system
 
-      this.backend.getSpecificDeck(routeId, 'how do you like this code eh?').then((data: any) => {
-        // console.log(data);
+      this.backend.getSpecificDeck(routeId).then((data: any) => {
+        console.log('data', data);
         this.deck = data[0];
         this.cards = this.deck.decks_cards;
-        console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
+        console.log('cards', this.cards);
+        // console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
         // console.log(this.cards);
       });
     });
-
-    // let targetLanguage = this.user.target_languages[0];
   }
 }

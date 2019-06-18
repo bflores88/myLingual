@@ -72,15 +72,15 @@ router.route('/:id').get((req, res) => {
       return result.toJSON();
     })
     .then((resultData) => {
-      // console.log('data', resultData[0].languages);
+      console.log('data', resultData[0].languages);
       let languages = resultData[0].languages;
       let target;
       languages.forEach((language) => {
-        if (language.language_type == 'target') {
+        if (language.primary == true && language.language_type == 'target') {
           target = language.languages.english_name;
+          console.log('target', target);
         }
       });
-      // console.log('target', target);
       new Deck()
         .where({ id: req.params.id })
         .fetchAll({ withRelated: [`decks_cards.users_cards.cards.words.${target}_translations`] })
