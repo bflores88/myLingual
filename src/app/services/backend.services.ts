@@ -13,7 +13,7 @@ export class BackendService {
   }
 
   login(data) {
-    console.log('backend', data);
+    // console.log('backend', data);
     return this.http.post('/api/login', data, { withCredentials: true }).toPromise();
   }
 
