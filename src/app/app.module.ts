@@ -45,6 +45,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { AboutComponent } from './pages/about/about.component';
 
 
 
@@ -88,6 +89,8 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
     InvitesComponent,
 
     SearchResultsComponent,
+
+    AboutComponent,
 
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
