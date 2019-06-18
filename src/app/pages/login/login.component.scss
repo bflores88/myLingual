@@ -2,7 +2,7 @@
 
 
 .login-container {
-  margin-top: 200px;
+  margin-top: 100px;
   text-align: center;
   vertical-align: middle;
   height: 100%;
@@ -11,6 +11,30 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  form {
+
+    div {
+      margin-bottom: 15px;
+    }
+  }
+
+  .type-word {
+    border: 0px;
+    background-color: lighten(lightgrey, 10%);
+    font-size: 30px;
+    height: 50px;
+    width: 100%;
+    border-radius: 12px;
+    padding: 10px 15px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media only screen and (min-width: 768px) {
+      width: 60%;
+    }
+  }
 
   #my-signin2 {
     margin-top: 20px;
