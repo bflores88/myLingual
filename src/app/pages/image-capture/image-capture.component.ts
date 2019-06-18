@@ -123,12 +123,36 @@ export class ImageCaptureComponent implements OnInit {
   }
 
   submitImage() {
-    const file = this.captures[0];
-    this.uploadForm.get('image').setValue(file);
     this.loading = true;
     this.confirm = false;
+    const captureFile = this.captures[0];
+
+    const findFirstComma = captureFile.indexOf(',');
+
+    const stringBase64 = captureFile.substring(findFirstComma + 1, captureFile.length);
+
+    console.log(stringBase64);
+
+    // Naming the image
+    const date = new Date().valueOf();
+    let text = '';
+    const possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 5; i++) {
+      text += possibleText.charAt(Math.floor(Math.random() * possibleText.length));
+    }
+    // Replace extension according to your media type
+    const imageName = date + '.' + text + '.jpeg';
+    // call method that creates a blob from dataUri
+    const imageBlob = this.dataURItoBlob(stringBase64);
+    const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
+
+    console.log(imageFile);
+
+    this.uploadForm.get('image').setValue(imageFile);
     let formData = new FormData();
     formData.append('image', this.uploadForm.value.image);
+
+    console.log('****', this.uploadForm.value.image);
 
     this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
       this.loading = false;
@@ -141,11 +165,11 @@ export class ImageCaptureComponent implements OnInit {
   handleInputOnChange() {
     if (this.add_to_deck === 'new-deck') {
       this.newDeck = true;
-      
+
       this.buttonDisabled = false;
     }
-    
-    console.log(this.add_to_deck)
+
+    console.log(this.add_to_deck);
     this.buttonDisabled = false;
   }
 
@@ -176,4 +200,14 @@ export class ImageCaptureComponent implements OnInit {
     return this.english_word.length === 0 || this.buttonDisabled;
   }
 
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+    return blob;
+ }
 }
