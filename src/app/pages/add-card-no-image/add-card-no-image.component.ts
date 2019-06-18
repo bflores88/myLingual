@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
+import { DictionaryService } from 'src/app/services/dictionary.service';
 
 interface AddWordResponse {
   message: string;
   english_word: string;
   id: number;
+  isWord: boolean;
 }
 
 interface DeckResponse {
@@ -21,6 +23,7 @@ interface DeckResponse {
 export class AddCardNoImageComponent implements OnInit {
   userId = 0;
   errorMessage = '';
+  isWord: boolean;
 
   decks: any;
   add_to_deck = '';
@@ -29,15 +32,18 @@ export class AddCardNoImageComponent implements OnInit {
   newDeck = false;
   showSuccess = false;
   buttonDisabled = true;
-
-
+  
   formData: {
     english_word: string;
   } = {
     english_word: '',
   };
 
-  constructor(private backend: BackendService, private session: SessionService) {}
+  constructor(
+    private backend: BackendService,
+    private session: SessionService,
+    private dictionary: DictionaryService,
+  ) {}
 
   ngOnInit() {
     this.backend.getUserDecks().then((data: DeckResponse) => {
@@ -51,24 +57,14 @@ export class AddCardNoImageComponent implements OnInit {
     this.userId = parseInt(user.id);
   }
 
-  submitWord() {
-    if (this.formData.english_word.length === 0) {
-      return (this.errorMessage = 'No word provided.');
-    } else {
-      const word = this.formData;
-      this.backend.postFlashcard(word).then((data: AddWordResponse) => {
-        this.errorMessage = data.message;
-      });
-    }
-  }
-
   handleInputOnChange() {
     if (this.add_to_deck === 'new-deck') {
       this.newDeck = true;
-      
+
       this.buttonDisabled = false;
     }
-    
+
+    console.log(this.add_to_deck);
     this.buttonDisabled = false;
   }
 
@@ -77,17 +73,22 @@ export class AddCardNoImageComponent implements OnInit {
       english_word: this.formData.english_word,
     };
 
-    this.backend.postFlashcard(data).then((data: AddWordResponse) => {
-      const newData = {
-        usercard_id: data.id,
-        deck_id: this.add_to_deck,
-        new_deck_name: this.new_deck_name,
-      };
+    return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
+      if (!result.isWord) {
+        return this.errorMessage = 'Not a valid word.'
+      } else {
+        this.backend.postFlashcard(data).then((data: AddWordResponse) => {
+          const newData = {
+            usercard_id: data.id,
+            deck_id: this.add_to_deck,
+            new_deck_name: this.new_deck_name,
+          };
+          this.showSuccess = true;
+          this.showWordConfirm = false;
 
-      this.showSuccess = true;
-      this.showWordConfirm = false;
-
-      return this.backend.postDeckCard(newData);
+          return this.backend.postDeckCard(newData);
+        });
+      }
     });
   }
 

@@ -24,6 +24,7 @@ import { CardComponent } from './pages/card/card.component';
 import { InvitesComponent } from './pages/invites/invites.component';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { AuthGuard } from './guards/auth-guard.service';
+import { AboutComponent } from './pages/about/about.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'decks/:id', canActivate: [AuthGuard],  component: DeckDetailComponent },
   { path: 'card/:id', component: CardComponent },
   { path: 'test/:id', canActivate: [AuthGuard], component: TestComponent },
+  { path: 'about', canActivate: [AuthGuard], component: AboutComponent },
   { path: 'add-card', canActivate: [AuthGuard], component: AddCardComponent },
   { path: 'add-card/continue', canActivate: [AuthGuard], component: AddCardNoImageComponent },
   { path: 'add-card/upload', canActivate: [AuthGuard], component: AddCardUploadComponent },
