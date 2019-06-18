@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BackendService {
-
   constructor(private http: HttpClient) {}
 
   register(data) {
@@ -13,7 +12,7 @@ export class BackendService {
   }
 
   login(data) {
-    console.log('backend', data);
+    // console.log('backend', data);
     return this.http.post('/api/login', data, { withCredentials: true }).toPromise();
   }
 
@@ -29,11 +28,9 @@ export class BackendService {
     return this.http.get('/api/google_signin', { withCredentials: true }).toPromise();
   }
 
-
   getFlashcards() {
     return this.http.get('/api/cards', { withCredentials: true }).toPromise();
   }
-  
 
   getFlashcard(id: String) {
     return this.http.get(`/api/cards/${id}`, { withCredentials: true }).toPromise();
@@ -100,11 +97,11 @@ export class BackendService {
     return this.http.get(`/api/decks`, { withCredentials: true }).toPromise();
   }
 
-  getSpecificDeck(id, target_language: string): Promise<object> {
+  getSpecificDeck(id: string): Promise<object> {
     // console.log('get specific');
-    let body = {
-      target_language,
-    };
+    // let body = {
+    //   target_language,
+    // };
     return this.http.get(`/api/decks/${id}`, { withCredentials: true }).toPromise();
   }
 

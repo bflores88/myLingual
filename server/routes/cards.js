@@ -59,7 +59,6 @@ router
 
               return new Card().save({
                 word_id: newResult.id,
-                card_theme_id: 1,
                 created_by: req.user.id,
                 image_link: pendingImage,
                 likes: 0,
@@ -92,7 +91,6 @@ router
           return new Card()
             .save({
               word_id: wordResult.id,
-              card_theme_id: 1,
               created_by: req.user.id,
               image_link: pendingImage,
               likes: 0,
