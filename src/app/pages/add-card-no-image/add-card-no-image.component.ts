@@ -57,7 +57,6 @@ export class AddCardNoImageComponent implements OnInit {
     } else {
       const word = this.formData;
       this.backend.postFlashcard(word).then((data: AddWordResponse) => {
-        console.log(data);
         this.errorMessage = data.message;
       });
     }
@@ -70,7 +69,6 @@ export class AddCardNoImageComponent implements OnInit {
       this.buttonDisabled = false;
     }
     
-    console.log(this.add_to_deck)
     this.buttonDisabled = false;
   }
 

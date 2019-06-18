@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
+import { DictionaryService } from 'src/app/services/dictionary.service';
 
 interface ResponseData {
   id: number;
@@ -49,10 +50,50 @@ export class CardComponent implements OnInit {
     private backend: BackendService, 
     private activatedRoute: ActivatedRoute,
     private router: Router, 
-    private session: SessionService
+    private session: SessionService,
+    private dictionary: DictionaryService,
   ) {}
 
   ngOnInit() {
+    // this.dictionary.getWordDefinitions('test')
+    // .then((result) => {
+    //   console.log('test definitions ', result);
+    // })
+
+    // this.dictionary.getWordDefinitions('angular')
+    // .then((result) => {
+    //   console.log('angular definitions ', result);
+    // })
+
+    // this.dictionary.getWordDefinitions('imnotarealword')
+    // .then((result) => {
+    //   console.log('imnotarealword definitions ', result);
+    // })
+
+    // this.dictionary.getWordDefinitions('swimming')
+    // .then((result) => {
+    //   console.log('swimming definitions ', result);
+    // })
+
+    // this.dictionary.validateWord('imnotarealword')
+    // .then((result) => {
+    //   console.log(result);
+    // })
+
+    // this.dictionary.validateWord('real')
+    // .then((result) => {
+    //   console.log(result);
+    // })
+
+    // this.dictionary.validateWord('breverage')
+    // .then((result) => {
+    //   console.log(result);
+    // })
+
+    // this.dictionary.validateWord('exceedingly')
+    // .then((result) => {
+    //   console.log(result);
+    // })
     // Only happens on initial navigation to component or entering url manually
     this.backend.getFlashcards().then((cards: ResponseData[]) => {
       cards.forEach((card: ResponseData) => {
@@ -67,10 +108,8 @@ export class CardComponent implements OnInit {
   }
 
   loadCard() {
-    console.log('loading card');
     this.user = this.session.getSession();
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-
     this.backend.getFlashcard(this.id)
     .then((response: ResponseData) => {
       if (response.errorMessage) {
