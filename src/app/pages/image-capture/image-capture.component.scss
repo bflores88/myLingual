@@ -132,10 +132,8 @@ body {
     width: 100%;
     text-align: center;
   }
-  
-  
-  
 
+  
 }
 #video {
   background-color:white;
@@ -168,6 +166,19 @@ ul{
 
   h2 {
     margin: 0;
+  }
+}
+
+.error-message-div {
+  margin-top: 15px;
+  color: red;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media only screen and (min-width: 768px) {
+    width: 60%;
   }
 }
 
