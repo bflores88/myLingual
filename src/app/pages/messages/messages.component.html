@@ -44,14 +44,15 @@
   <div class="input-message-container">
     <form action="">
       <div id="form-div">
-        <!-- <textarea  name="message" id="message-input" cols="30" rows="10" /> -->
+        <input
+          id="message-input"
+          type="text"
+          name="message"
+          [(ngModel)]="messageBody"
+          (keyup)="$event.keyCode == 13 ? sendMessage() : null"
+        />
         <div id="button-container">
-          <input
-            type="text"
-            name="message"
-            [(ngModel)]="messageBody"
-            (keyup)="$event.keyCode == 13 ? sendMessage() : null"
-          />
+          <!-- <button (click)="sendMessage()" id="submit-message-button">Send</button> -->
         </div>
       </div>
     </form>
