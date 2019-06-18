@@ -14,7 +14,7 @@
       users
     </button>
   </div>
-  <div *ngFor="let searchMatch of searchMatches">
+  <div class="search-match-box" *ngFor="let searchMatch of searchMatches">
     <div (click)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
       <span class="match-image">
         <img src="{{ searchMatch.match_image }}" />
@@ -27,10 +27,19 @@
           'fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
           'fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === 0,
           'fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
-          'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === 0
+          'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === 0,
+          'fa-lg': true
         }"
       ></span>
-      <span class="match-name">{{ searchMatch.match_name }}</span>
+      <div class="match-detail">
+        <p class="match-name">{{ searchMatch.match_name }}</p>
+        <div class="match-other">
+          <p class="match-other-text">{{ searchMatch.match_name }}</p>
+          <img class="match-other-image" src="../../../assets/italy_flag.svg" alt="" />
+          <img class="match-other-image" src="../../../assets/spain_flag.svg" alt="" />
+          <img class="match-other-image" src="../../../assets/usa_flag.svg" alt="" />
+        </div>
+      </div>
     </div>
   </div>
 </div>
