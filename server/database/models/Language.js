@@ -2,6 +2,7 @@ const bookshelf = require('../bookshelf');
 
 require('./ItalianTranslation');
 require('./SpanishTranslation');
+require('./JapaneseTranslation');
 class Language extends bookshelf.Model {
   get tableName() {
     return 'languages';
@@ -17,6 +18,10 @@ class Language extends bookshelf.Model {
 
   italian_translations() {
     return this.hasMany('ItalianTranslation', 'language_id');
+  }
+
+  japanese_translations() {
+    return this.hasMany('JapaneseTranslation', 'language_id');
   }
 
   users() {
