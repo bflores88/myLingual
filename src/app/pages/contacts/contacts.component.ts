@@ -23,7 +23,7 @@ export class ContactsComponent implements OnInit {
   ngOnInit() {
     this.backend.getUserContacts().then((data: any) => {
       // this.contacts = data;
-      console.log(data);
+      // console.log(data);
       data.forEach((contact) => {
         if (contact.invitee != this.user.id) {
           this.contacts.push(contact.invitees);
@@ -31,7 +31,7 @@ export class ContactsComponent implements OnInit {
           this.contacts.push(contact.requesters);
         }
       });
-      console.log(this.contacts);
+      // console.log(this.contacts);
     });
   }
 }
