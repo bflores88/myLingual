@@ -12,7 +12,7 @@
         type="text"
         name="message"
         [(ngModel)]="messageBody"
-        (keyup)="$event.keyCode == 13 ? sendMessage(messages.conversation_id, messageBody) : null"
+        (keyup)="$event.keyCode == 13 ? sendMessage() : null"
       />
     </div>
   </form>
