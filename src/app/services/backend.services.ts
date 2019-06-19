@@ -21,11 +21,8 @@ export class BackendService {
   }
 
   googleLogin() {
-    // return this.http.post('/api/auth/google', { withCredentials: true }).toPromise();
-    window.open('/api/auth/google', 'mywindow', 'location=1,status=1,scrollbars=1, width=800,height=800');
-    let listener = window.addEventListener('message', (message) => {
-      //message will contain facebook user and details
-    });
+    console.log('gets to googleLogin');
+    return this.http.get('/api/google_user', { withCredentials: true }).toPromise();
   }
 
   getClientId() {

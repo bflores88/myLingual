@@ -45,6 +45,7 @@ import { environment } from '../environments/environment';
 
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { AboutComponent } from './pages/about/about.component';
+import { GoogleComponent } from './pages/google/google.component';
 
 
 
@@ -89,6 +90,8 @@ import { AboutComponent } from './pages/about/about.component';
     SearchResultsComponent,
 
     AboutComponent,
+
+    GoogleComponent,
 
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
