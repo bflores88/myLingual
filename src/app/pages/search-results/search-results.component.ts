@@ -8,6 +8,8 @@ interface SearchMatches {
   match_score: number;
   match_image: string;
   match_own: number;
+  match_other_text: string;
+  match_other_string: string;
   match_type: string;
   sortScore: number;
 }

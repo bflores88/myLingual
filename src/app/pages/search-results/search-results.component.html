@@ -34,10 +34,17 @@
       <div class="match-detail">
         <p class="match-name">{{ searchMatch.match_name }}</p>
         <div class="match-other">
-          <p class="match-other-text">{{ searchMatch.match_name }}</p>
-          <img class="match-other-image" src="../../../assets/italy_flag.svg" alt="" />
-          <img class="match-other-image" src="../../../assets/spain_flag.svg" alt="" />
-          <img class="match-other-image" src="../../../assets/usa_flag.svg" alt="" />
+          <p class="match-other-text">{{ searchMatch.match_other_text }}</p>
+          <img
+            class="match-other-image"
+            *ngIf="searchMatch.match_type === 'card'"
+            src="{{ searchMatch.match_other_image }}"
+            alt=""
+          />
+          <img class="match-other-image" src="../../../assets/italy_flag.png" alt="" />
+          <img class="match-other-image" src="../../../assets/spain_flag.png" alt="" />
+          <img class="match-other-image" src="../../../assets/usa_flag.png" alt="" />
+          <img class="match-other-image" src="../../../assets/japan_flag.png" alt="" />
         </div>
       </div>
     </div>
