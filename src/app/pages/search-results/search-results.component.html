@@ -10,12 +10,14 @@
       users
     </button>
   </div>
-  <div class="search-match-box" *ngFor="let searchMatch of searchMatches">
-    <div (click)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
-      <span class="match-image">
-        <img src="{{ searchMatch.match_image }}" />
-      </span>
-      <span [ngClass]="{
+  <p *ngIf="show_error">{{ error_text }}</p>
+  <div *ngIf="!show_error">
+    <div class="search-match-box" *ngFor="let searchMatch of searchMatches">
+      <div (click)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
+        <span class="match-image">
+          <img src="{{ searchMatch.match_image }}" />
+        </span>
+        <span [ngClass]="{
           'match-own': true,
           fas: searchMatch.match_own > 0,
           far: searchMatch.match_own === 0,
@@ -25,19 +27,20 @@
           'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === 0,
           'fa-2x': true
         }"></span>
-      <div class="match-detail">
-        <p class="match-name">{{ searchMatch.match_name }}</p>
-        <div class="match-other" *ngIf="searchMatch.match_type === 'card'">
-          <img class="match-other-image-card" src="{{ searchMatch.match_other_image }}" alt="" />
-          <span class="match-other-text">created by: </span>
-          <p class="match-other-text">{{ searchMatch.match_other_text }}</p>
+        <div class="match-detail">
+          <p class="match-name">{{ searchMatch.match_name }}</p>
+          <div class="match-other" *ngIf="searchMatch.match_type === 'card'">
+            <img class="match-other-image-card" src="{{ searchMatch.match_other_image }}" alt="" />
+            <span class="match-other-text">created by: </span>
+            <p class="match-other-text">{{ searchMatch.match_other_text }}</p>
 
-        </div>
-        <div class="match-other" *ngIf="searchMatch.match_type === 'user'">
-          <img class="match-other-image-user" src="{{ searchMatch.match_other_image }}" alt="" />
-          <span class="match-other-text">studying: </span>
-          <p class="match-other-text">{{ searchMatch.match_other_text }}</p>
+          </div>
+          <div class="match-other" *ngIf="searchMatch.match_type === 'user'">
+            <img class="match-other-image-user" src="{{ searchMatch.match_other_image }}" alt="" />
+            <span class="match-other-text">studying: </span>
+            <p class="match-other-text">{{ searchMatch.match_other_text }}</p>
 
+          </div>
         </div>
       </div>
     </div>
