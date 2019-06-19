@@ -45,13 +45,13 @@ router.route('/all/:search_text').get((req, res) => {
           (c.requester = users.id AND c.invitee = ? AND c.accepted IS TRUE) OR
           (c.requester = ? AND c.invitee = users.id AND c.accepted IS TRUE)) AS match_own,
         languages.native_name AS match_other_text,
-        'flag' AS match_other_image,
+        languages.flag_link AS match_other_image,
         'user' AS match_type
       FROM users
       INNER JOIN users_languages ul ON ul.user_id = users.id
       INNER JOIN languages ON languages.id = ul.language_id
       WHERE
-        ul.language_type='target' AND ul.primary IS TRUE AND
+        ul.language_type='target' AND ul.primary IS TRUE AND ul.active IS TRUE AND
         users.username != ? AND
         users.private_mode IS FALSE AND
         users.username IN
@@ -183,13 +183,13 @@ router.route('/users/:search_text').get((req, res) => {
           (c.requester = users.id AND c.invitee = ? AND c.accepted IS TRUE) OR
           (c.requester = ? AND c.invitee = users.id AND c.accepted IS TRUE)) AS match_own,
         languages.native_name AS match_other_text,
-        'flag' AS match_other_image,
+        languages.flag_link AS match_other_image,
         'user' AS match_type
       FROM users
       INNER JOIN users_languages ul ON ul.user_id = users.id
       INNER JOIN languages ON languages.id = ul.language_id
       WHERE
-        ul.language_type='target' AND ul.primary IS TRUE AND
+        ul.language_type='target' AND ul.primary IS TRUE AND ul.active IS TRUE AND
         users.username != ? AND
         users.private_mode IS FALSE AND
         users.username IN
