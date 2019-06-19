@@ -69,13 +69,13 @@ passport.use(
       callbackURL: 'http://localhost:8080/api/auth/google/callback',
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log('google strategy in progress');
+      console.log('google strategy in progress', profile);
       // console.log('profile', profile);
       new User()
         .where({ username: profile.emails[0].value })
         .fetchAll()
         .then((result) => {
-          console.log('1283793871308471329084712394',result)
+          console.log('1283793871308471329084712394', result);
           if (result.length === 0) {
             console.log('no result from google');
             new User({
@@ -84,24 +84,27 @@ passport.use(
               role_id: 3,
               name: profile.name.givenName,
               email: profile.emails[0].value,
-              username:  profile.emails[0].value,
+              username: profile.emails[0].value,
               oauth_token: accessToken,
               lingots: 0,
             })
               .save()
               .then((result) => {
-                console.log('result:', result);
-                return done(result);
+                console.log('new result:', result);
+                return done(null, result);
               })
               .catch((err) => {
-                console.log(err);
+                console.log('this error is happening', err);
                 return err;
               });
-          } 
-          else {
-            console.log('*&*&*&*&*&*&*&*&*&*');
-            return done(result);
+          } else {
+            console.log('*&*&*&*&*&*&*&*&*&*', result);
+            return done(null, result);
           }
+        })
+        .catch((err) => {
+          console.log(err);
+          return done(err);
         });
     },
   ),
@@ -144,43 +147,68 @@ passport.use(
 );
 
 passport.serializeUser(function(user, done) {
+  console.log('serialized user>>>>>>>>>>', user);
   console.log('serializing');
-  return done(null, { id: user.id, username: user.username });
+  return done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
+  console.log('deserialize user>>>>>>>>', user);
   console.log('deserializing');
+  if (typeof user === Array) {
+    console.log('user is an Array')
+    return new User({ id: user[0].id })
+      .fetch()
+      .then((user) => {
+        user = user.toJSON();
 
-  return new User({ id: user.id })
-    .fetch()
-    .then((user) => {
-      user = user.toJSON();
-
-      done(null, {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        active: user.active,
-        role_id: user.role_id,
-        name: user.name,
+        done(null, {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          active: user.active,
+          role_id: user.role_id,
+          name: user.name,
+        });
+      })
+      .catch((err) => {
+        console.log('deserialize err>>>>>', err);
+        return done(err);
       });
-    })
-    .catch((err) => {
-      console.log('err', err);
-      return done(err);
-    });
+  } else {
+    console.log('user is NOT an array')
+    return new User({ id: user.id })
+      .fetch()
+      .then((user) => {
+        user = user.toJSON();
+
+        done(null, {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          active: user.active,
+          role_id: user.role_id,
+          name: user.name,
+        });
+      })
+      .catch((err) => {
+        console.log('deserialize err>>>>>', err);
+        return done(err);
+      });
+  }
 });
 
 app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/api/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(
-  req,
-  res,
-) {
-  // Successful authentication, redirect home.
-  console.log('hits***********');
-  res.redirect('/');
-});
+app.get(
+  '/api/auth/google/callback',
+  passport.authenticate('google', { failureMessage: 'http://localhost:4200/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    console.log('hits***********');
+    res.redirect('http://localhost:4200/home');
+  },
+);
 
 app.use('/api/login', login);
 app.use('/api/logout', logout);
