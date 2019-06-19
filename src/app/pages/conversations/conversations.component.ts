@@ -11,15 +11,12 @@ import { SocketService } from 'src/app/services/socket.service';
 export class ConversationsComponent implements OnInit {
   conversations: any = [];
 
-  constructor(private backend: BackendService, private socketService: SocketService) {}
+  constructor(private backend: BackendService) {}
 
   ngOnInit() {
     this.backend.getConversations().then((data: any) => {
       this.conversations = data;
       console.log(this.conversations);
-      this.conversations.forEach((conversation) => {
-        return this.socketService.joinRoom(conversation.id);
-      })
     });
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BackendService } from 'src/app/services/backend.services';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
-
+  conversations: any[];
+  constructor(private backend: BackendService, private socketService: SocketService) {}
 
   ngOnInit() {
+    this.backend.getConversations().then((data: any) => {
+      this.conversations = data;
+      console.log(this.conversations);
+      this.conversations.forEach((conversation) => {
+        return this.socketService.joinRoom(conversation.id);
+      });
+    });
+
     // auth2 is initialized with gapi.auth2.init() and a user is signed in.
     // let auth2: any;
     // if (auth2.isSignedIn.get()) {
@@ -20,6 +30,4 @@ export class HomeComponent implements OnInit {
     //   console.log('Email: ' + profile.getEmail());
     // }
   }
-
-
 }
