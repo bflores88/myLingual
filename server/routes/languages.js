@@ -88,30 +88,30 @@ router.route('/:id').put(authGuard, languagesGuard, (req, res) => {
 
 // change user target language
 
-router.route('/target').put((req, res) => {
-  UserLanguage.query({
-    where: { user_id: req.user.id, language_type: 'target' },
-  })
-    .destroy()
-    .then(() => {
-      new UserLanguage()
-        .save({
-          user_id: req.user.id,
-          language_id: req.body.language_id,
-          language_type: 'target',
-        })
-        .then((result) => {
-          return res.json(result);
-        })
-        .catch((err) => {
-          console.log('error', err);
-          return res.status(500).send('Server error');
-        });
-    })
-    .catch((err) => {
-      console.log('error', err);
-      return res.status(500).send('Server error');
-    });
-});
+// router.route('/target').put((req, res) => {
+//   UserLanguage.query({
+//     where: { user_id: req.user.id, language_type: 'target' },
+//   })
+//     .destroy()
+//     .then(() => {
+//       new UserLanguage()
+//         .save({
+//           user_id: req.user.id,
+//           language_id: req.body.language_id,
+//           language_type: 'target',
+//         })
+//         .then((result) => {
+//           return res.json(result);
+//         })
+//         .catch((err) => {
+//           console.log('error', err);
+//           return res.status(500).send('Server error');
+//         });
+//     })
+//     .catch((err) => {
+//       console.log('error', err);
+//       return res.status(500).send('Server error');
+//     });
+// });
 
 module.exports = router;

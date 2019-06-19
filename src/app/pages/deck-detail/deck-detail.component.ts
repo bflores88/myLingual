@@ -35,6 +35,7 @@ export class DeckDetailComponent implements OnInit {
   target_language: string = '';
 
   findTranslatedWord: string = '';
+  languages: any = [];
 
   flipCard() {
     console.log(event.target);
@@ -56,17 +57,15 @@ export class DeckDetailComponent implements OnInit {
 
     let searchId = parseInt(this.user.id);
 
-    this.backend.getUserProfile(searchId).then((data: any) => {
-      this.userDetail = data;
-      console.log(this.userDetail);
-
-      this.target_language = this.userDetail.target_languages[0];
-
-      // COMMENT
-      // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
-      // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
-      // i would like to figure out if its possible with a fully dynamic system
-
+    this.backend.getUserLanguages().then((data) => {
+      console.log(data);
+      this.languages = data;
+      this.languages.map((language) => {
+        if (language.language_type == 'target' && language.primary == true) {
+          this.target_language = language.languages.english_name;
+        }
+      });
+      console.log(this.target_language);
       this.backend.getSpecificDeck(routeId).then((data: any) => {
         console.log('data', data);
         this.deck = data[0];
@@ -76,5 +75,17 @@ export class DeckDetailComponent implements OnInit {
         // console.log(this.cards);
       });
     });
+
+    // this.backend.getUserProfile(searchId).then((data: any) => {
+    //   this.userDetail = data;
+    //   console.log('detail', this.userDetail);
+
+    //   // this.target_language = this.userDetail.target_languages[0];
+
+    //   // COMMENT
+    //   // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
+    //   // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
+    //   // i would like to figure out if its possible with a fully dynamic system
+    // });
   }
 }
