@@ -12,24 +12,27 @@ router.route('/all/:search_text').get((req, res) => {
   knex
     .raw(
       `SELECT
-        cards.id AS match_id,
-        words.english_word AS match_name,
-        word_similarity(?, words.english_word) AS match_score,
-        cards.image_link AS match_image,
-        (SELECT COUNT(*) FROM users_cards uc WHERE uc.card_id = cards.id AND uc.user_id = ?) AS match_own,
-        'card' AS match_type
-      FROM cards
-      INNER JOIN words ON words.id = cards.word_id
-      WHERE
-        cards.approved IS TRUE AND
-        cards.public IS TRUE AND
-        cards.active IS TRUE AND
-        cards.word_id IN
-          (SELECT id AS word_id
-          FROM words
-          WHERE
-            char_length(?) > 0 AND
-            (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))
+      cards.id AS match_id,
+      words.english_word AS match_name,
+      word_similarity(?, words.english_word) AS match_score,
+      cards.image_link AS match_image,
+      (SELECT COUNT(*) FROM users_cards uc WHERE uc.card_id = cards.id AND uc.user_id = ?) AS match_own,
+      users.username AS match_other_text,
+      users.profile_image_url AS match_other_image,
+      'card' AS match_type
+    FROM cards
+    INNER JOIN words ON words.id = cards.word_id
+    INNER JOIN users ON cards.created_by = users.id
+    WHERE
+      cards.approved IS TRUE AND
+      cards.public IS TRUE AND
+      cards.active IS TRUE AND
+      cards.word_id IN
+        (SELECT id AS word_id
+        FROM words
+        WHERE
+          char_length(?) > 0 AND
+          (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))
       UNION
       SELECT
         users.id AS match_id,
@@ -41,9 +44,14 @@ router.route('/all/:search_text').get((req, res) => {
         WHERE
           (c.requester = users.id AND c.invitee = ? AND c.accepted IS TRUE) OR
           (c.requester = ? AND c.invitee = users.id AND c.accepted IS TRUE)) AS match_own,
+        languages.native_name AS match_other_text,
+        'flag' AS match_other_image,
         'user' AS match_type
       FROM users
+      INNER JOIN users_languages ul ON ul.user_id = users.id
+      INNER JOIN languages ON languages.id = ul.language_id
       WHERE
+        ul.language_type='target' AND ul.primary IS TRUE AND
         users.username != ? AND
         users.private_mode IS FALSE AND
         users.username IN
@@ -109,9 +117,12 @@ router.route('/cards/:search_text').get((req, res) => {
         word_similarity(?, words.english_word) AS match_score,
         cards.image_link AS match_image,
         (SELECT COUNT(*) FROM users_cards uc WHERE uc.card_id = cards.id AND uc.user_id = ?) AS match_own,
+        users.username AS match_other_text,
+        users.profile_image_url AS match_other_image,
         'card' AS match_type
       FROM cards
       INNER JOIN words ON words.id = cards.word_id
+      INNER JOIN users ON cards.created_by = users.id
       WHERE
         cards.approved IS TRUE AND
         cards.public IS TRUE AND
@@ -171,9 +182,14 @@ router.route('/users/:search_text').get((req, res) => {
         WHERE
           (c.requester = users.id AND c.invitee = ? AND c.accepted IS TRUE) OR
           (c.requester = ? AND c.invitee = users.id AND c.accepted IS TRUE)) AS match_own,
+        languages.native_name AS match_other_text,
+        'flag' AS match_other_image,
         'user' AS match_type
       FROM users
-      WHERE 
+      INNER JOIN users_languages ul ON ul.user_id = users.id
+      INNER JOIN languages ON languages.id = ul.language_id
+      WHERE
+        ul.language_type='target' AND ul.primary IS TRUE AND
         users.username != ? AND
         users.private_mode IS FALSE AND
         users.username IN
