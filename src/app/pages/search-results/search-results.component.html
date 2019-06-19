@@ -1,4 +1,19 @@
 <div class="page">
+  <app-search-bar></app-search-bar>
+  <div class="search-filters">
+    <button
+      [ngClass]="{ 'filter-btn': true, 'filter-on': filterToggle === 1 }"
+      (click)="filterToggle !== 1 ? searchCards() : searchAll()"
+    >
+      cards
+    </button>
+    <button
+      [ngClass]="{ 'filter-btn': true, 'filter-on': filterToggle === 2 }"
+      (click)="filterToggle !== 2 ? searchUsers() : searchAll()"
+    >
+      users
+    </button>
+  </div>
   <div *ngFor="let searchMatch of searchMatches">
     <div (click)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
       <span class="match-image">

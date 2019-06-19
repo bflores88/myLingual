@@ -3,6 +3,7 @@ import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DictionaryService } from 'src/app/services/dictionary.service';
 
 interface AddWordResponse {
   message: string;
@@ -10,6 +11,7 @@ interface AddWordResponse {
   id: number;
   image_link: string;
   results: [];
+  isWord: boolean;
 }
 
 interface DeckResponse {
@@ -52,6 +54,7 @@ export class ImageCaptureComponent implements OnInit {
     private backend: BackendService,
     private session: SessionService,
     private formBuilder: FormBuilder,
+    private dictionary: DictionaryService,
   ) {
     this.captures = [];
   }
@@ -173,18 +176,25 @@ export class ImageCaptureComponent implements OnInit {
       english_word: this.english_word,
     };
 
-    this.backend.postFlashcard(data).then((data: AddWordResponse) => {
-      const newData = {
-        usercard_id: data.id,
-        deck_id: this.add_to_deck,
-        new_deck_name: this.new_deck_name,
-      };
-
-      this.showSuccess = true;
-      this.showWordConfirm = false;
-
-      return this.backend.postDeckCard(newData);
+    return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
+      if (!result.isWord) {
+        return this.errorMessage = 'Not a valid word.'
+      } else {
+        this.backend.postFlashcard(data).then((data: AddWordResponse) => {
+          const newData = {
+            usercard_id: data.id,
+            deck_id: this.add_to_deck,
+            new_deck_name: this.new_deck_name,
+          };
+    
+          this.showSuccess = true;
+          this.showWordConfirm = false;
+    
+          return this.backend.postDeckCard(newData);
+        });
+      }
     });
+
   }
 
   isInvalid() {

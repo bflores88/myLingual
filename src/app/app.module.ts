@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { NavBrowserComponent } from './components/nav-browser/nav-browser.component';
@@ -33,7 +32,6 @@ import { AddCardNoImageComponent } from './pages/add-card-no-image/add-card-no-i
 import { DeckDetailComponent } from './pages/deck-detail/deck-detail.component';
 import { TestComponent } from './pages/test/test.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
-import { AddCardPhotoComponent } from './pages/add-card-photo/add-card-photo.component';
 import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
 import { CardComponent } from './pages/card/card.component';
 
@@ -43,10 +41,11 @@ import { InvitesComponent } from './pages/invites/invites.component';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { AboutComponent } from './pages/about/about.component';
 
-
+const config: SocketIoConfig = { url: 'http://localhost:4200', options: {} };
 
 @NgModule({
   declarations: [
@@ -79,7 +78,6 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
     TestComponent,
     DeckDetailComponent,
     AddCardUploadComponent,
-    AddCardPhotoComponent,
     ProfileNavMobileComponent,
     CardComponent,
 
@@ -89,8 +87,17 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
 
     SearchResultsComponent,
 
+    AboutComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SocketIoModule.forRoot(config),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

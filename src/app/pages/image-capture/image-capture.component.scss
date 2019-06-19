@@ -96,13 +96,22 @@ body {
   .select-word {
     width: 100%;
     text-align: center;
-  
+
+
     .word-confirm {
       margin-top: 15px;
     }
   
     .type-word-option {
       margin-top: 20px;
+
+      @media only screen and (min-width: 768px) {
+        width: 60%;
+        margin-left: auto;
+        margin-right:auto;
+    
+      }
+    
     }
   
     .type-word {
@@ -124,18 +133,24 @@ body {
         height: 40px;
         font-size: 24px;
         border-radius: 12px;
+
+        @media only screen and (min-width: 768px) {
+          width: 60%;
+          margin-left: auto;
+          margin-right:auto;
+      
+        }
       }
     }
+
   }
   
   .success-card-generated {
     width: 100%;
     text-align: center;
   }
-  
-  
-  
 
+  
 }
 #video {
   background-color:white;
@@ -168,6 +183,19 @@ ul{
 
   h2 {
     margin: 0;
+  }
+}
+
+.error-message-div {
+  margin-top: 15px;
+  color: red;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media only screen and (min-width: 768px) {
+    width: 60%;
   }
 }
 

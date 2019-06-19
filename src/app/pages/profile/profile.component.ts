@@ -3,6 +3,7 @@ import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { container } from '@angular/core/src/render3';
 
 interface UserResponse {
   id: number;
@@ -47,6 +48,8 @@ export class ProfileComponent implements OnInit {
   };
 
   message: string = '';
+  checkUser: boolean;
+  isNotContact: boolean;
 
   constructor(
     private backend: BackendService,
@@ -64,30 +67,49 @@ export class ProfileComponent implements OnInit {
 
       return this.backend.getUserProfile(searchId).then((data: UserResponse) => {
         this.user = data;
-      });
+        this.checkUser = this.userID === this.user.id;
+      }).then(() => {
+        return this.backend.getUserContacts().then((data: any) => {
+          const contactArray = [];
+
+          data.forEach((contact) => {
+    
+            if (contact.invitee != this.userID){
+              contactArray.push(contact.invitees.id);
+            } else {
+              contactArray.push(contact.requesters.id);
+            }
+          });
+
+          if (contactArray.indexOf(searchId) === -1) {
+            this.isNotContact = true;
+          } else if (searchId === this.userID) {
+            this.isNotContact = false;
+          } else {
+            this.isNotContact = false;
+          }
+          
+        })
+      });;
     } else {
-      return this.getUser();
+      return this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
+        this.user = data;
+        this.checkUser = this.userID === this.user.id;
+        this.isNotContact = false;
+      })
     }
   }
 
   getUserSession() {
     let user = this.session.getSession();
     this.userID = parseInt(user.id);
-  }
 
-  getUser() {
-    this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
-      this.user = data;
-
-      console.log(data);
-    });
   }
 
   sendInvite() {
     this.backend.sendContactInvite(this.activated.snapshot.paramMap.get('user_id')).then((data) => {
       this.message = 'Invite sent';
 
-      console.log(data);
     });
   }
 
@@ -96,15 +118,9 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    let gapi: any;
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-
     return this.auth.logout()
       .then(() => {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/'])
     })
   }
 

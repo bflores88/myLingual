@@ -137,6 +137,15 @@ export class BackendService {
   search(searchText: string): Promise<object> {
     return this.http.get(`/api/searches/all/${searchText}`, { withCredentials: true }).toPromise();
   }
+
+  searchCards(searchText: string): Promise<object> {
+    return this.http.get(`/api/searches/cards/${searchText}`, { withCredentials: true }).toPromise();
+  }
+
+  searchUsers(searchText: string): Promise<object> {
+    return this.http.get(`/api/searches/users/${searchText}`, { withCredentials: true }).toPromise();
+  }
+
   getUserContacts(): Promise<object> {
     return this.http.get(`/api/contacts`, { withCredentials: true }).toPromise();
   }
@@ -160,10 +169,18 @@ export class BackendService {
     return this.http.get(`/api/languages/all`, { withCredentials: true }).toPromise();
   }
 
-  changeTargetLanguage(languageId): Promise<object> {
-    let body = {
-      language_id: languageId,
-    };
-    return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
+  // changeTargetLanguage(languageId): Promise<object> {
+  //   let body = {
+  //     language_id: languageId,
+  //   };
+  //   return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
+  // }
+
+  getUserLanguages(): Promise<object> {
+    return this.http.get(`/api/languages`, { withCredentials: true }).toPromise();
+  }
+
+  changeTargetLanguage(id): Promise<object> {
+    return this.http.put(`/api/languages/${id}`, { withCredentials: true }).toPromise();
   }
 }

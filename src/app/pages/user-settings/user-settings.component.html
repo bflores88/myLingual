@@ -5,13 +5,17 @@
         {{ message }}
       </h4>
       <div class="change-language-box">
-        <label for="languages">Choose your target language</label>
+        <label for="languages">Choose your target language</label><br />
         <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
-          <option *ngFor="let language of languages" value="{{ language.id }}">{{ language.english_name }}</option>
+          <option selected="selected" value="" disabled selected>Select your option</option>
+          <option *ngFor="let language of languages" value="{{ language.id }}">{{
+            language.languages.english_name
+          }}</option>
         </select>
-      </div>
-      <div class="submit-box">
-        <button (click)="changeTarget()">Submit Changes</button>
+        <br />
+        <div class="submit-box">
+          <button class="small-btn" (click)="changeTarget()">Submit Changes</button>
+        </div>
       </div>
     </div>
 

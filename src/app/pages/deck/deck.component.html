@@ -6,7 +6,7 @@
     <div class="most-recent-deck-container">
       <div>
         <h3 class="recent-title">Most Recent Deck</h3>
-        <a routerLink="{{ decks[0].id }}">
+        <a *ngIf="decks[0]" routerLink="{{ decks[0].id }}">
           <div class="most-recent-deck-box">
             <h3>{{ decks[0].name }}</h3>
           </div>

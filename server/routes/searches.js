@@ -28,7 +28,7 @@ router.route('/all/:search_text').get((req, res) => {
           (SELECT id AS word_id
           FROM words
           WHERE
-            char_length(?) > 1 AND
+            char_length(?) > 0 AND
             (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))
       UNION
       SELECT
@@ -50,7 +50,7 @@ router.route('/all/:search_text').get((req, res) => {
           (SELECT username
           FROM users
           WHERE
-            char_length(?) > 1 AND
+            char_length(?) > 0 AND
             (LOWER(username) LIKE ? OR ? % LOWER(username)))`,
       [
         search_text,
@@ -120,7 +120,7 @@ router.route('/cards/:search_text').get((req, res) => {
           (SELECT id AS word_id
           FROM words
           WHERE
-            char_length(?) > 1 AND
+            char_length(?) > 0 AND
             (LOWER(english_word) LIKE ? OR ? % LOWER(english_word)))`,
       [search_text, my_id, search_text, `%${search_text}%`, search_text],
     )
@@ -180,7 +180,7 @@ router.route('/users/:search_text').get((req, res) => {
           (SELECT username
           FROM users
           WHERE
-            char_length(?) > 1 AND
+            char_length(?) > 0 AND
             (LOWER(username) LIKE ? OR ? % LOWER(username)))`,
       [search_text, my_id, my_id, my_username, search_text, `%${search_text}%`, search_text],
     )

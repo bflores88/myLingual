@@ -161,6 +161,53 @@ app.use('/api/searches', searches);
 app.use('/api/languages', languages);
 app.use('/api/dictionary', dictionary);
 
+// io.of('/socket.io').on
+let onlineUsers = {};
+
+io.on('connect', (socket) => {
+  console.log('connection made');
+
+  socket.on('identify', (user) => {
+    console.log('identify', user);
+
+    onlineUsers[user.id] = socket;
+    socket.user = user;
+
+    socket.emit('verify', true);
+    io.emit('online', user.id);
+  });
+
+  socket.on('disconnect', () => {
+    const { user } = socket;
+    if (user && user.id) {
+      delete onlineUsers[user.id];
+      io.emit('offline', user.id);
+    }
+  });
+
+  socket.on('message', (msg) => {
+    console.log('server socket message', msg);
+    // knex insert
+
+    // console.log('online users', onlineUsers);
+    console.log(msg.to);
+    console.log(msg.id);
+
+    const recipient = onlineUsers[msg.id];
+    console.log('recipient', recipient);
+
+    if (recipient) {
+      recipient.emit('message', msg);
+      console.log(recipient);
+    }
+  });
+
+  // list of users
+  socket.on('users', () => {
+    socket.emit('users', Object.keys(onlineUsers));
+  });
+});
+
 http.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);
 });
