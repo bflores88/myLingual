@@ -185,6 +185,22 @@ io.on('connect', (socket) => {
     }
   });
 
+  // add room
+  socket.on('create', (room) => {
+    console.log('room', room)
+    socket.join(room);
+  });
+
+  // join room
+  socket.on('join', (data) => {
+    socket.join(data.room)
+  })
+
+  // leave room
+  socket.on('leave', (data) => {
+    socket.leave(data.room)
+  })
+
   socket.on('message', (msg) => {
     console.log('server socket message', msg);
     // knex insert
