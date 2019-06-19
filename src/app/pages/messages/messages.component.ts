@@ -53,9 +53,9 @@ export class MessagesComponent implements OnInit {
     private session: SessionService,
     private socketService: SocketService,
   ) {
-    this.socketService.getMessage().subscribe((message) => {
-      console.log('User data', message);
-      this.messages.push(message);
+    this.socketService.getMessage().subscribe((msg) => {
+      console.log('User data', msg);
+      // this.messages.push(msg);
     });
   }
 

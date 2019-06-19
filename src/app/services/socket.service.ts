@@ -21,7 +21,7 @@ export class SocketService {
       room,
       message,
     };
-    this.socket.emit('groupMessage', msgObj);
+    this.socket.emit('message', msgObj);
     console.log('SS msg:', msgObj);
   }
 
