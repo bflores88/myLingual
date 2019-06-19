@@ -125,6 +125,78 @@ router
       });
   });
 
+router.route('/like/:id')
+.get((req, res) => {
+  new Card('id', req.params.id)
+  .fetch({columns: 'likes'})
+  .then((card) => {
+    const cardObj = card.toJSON();
+    let likesCount = parseInt(cardObj.likes);
+    likesCount++;
+
+    new Card('id', req.params.id)
+    .save({likes: likesCount})
+    .then((card) => {
+      const cardObj = card.toJSON();
+      return res.json({likes: cardObj.likes});
+    })
+    .catch(() => {
+      return res.json({errorMessage: 'Like update failed.'});
+    });
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Card not found.'});
+  });
+});
+
+router.route('/download/:id')
+.get((req, res) => {
+  new Card('id', req.params.id)
+  .fetch({columns: 'downloads'})
+  .then((card) => {
+    const cardObj = card.toJSON();
+    let downloadCount = parseInt(cardObj.downloads);
+    downloadCount++;
+
+    new Card('id', req.params.id)
+    .save({downloads: downloadCount})
+    .then((card) => {
+      const cardObj = card.toJSON();
+      return res.json({downloads: cardObj.downloads});
+    })
+    .catch(() => {
+      return res.json({errorMessage: 'Download update failed.'});
+    });
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Card not found'});
+  })
+})
+
+router.route('/share/:id')
+.get((req, res) => {
+  new Card('id', req.params.id)
+  .fetch({columns: 'shares'})
+  .then((card) => {
+    const cardObj = card.toJSON();
+    let shareCount = parseInt(cardObj.shares);
+    shareCount++;
+
+    new Card('id', req.params.id)
+    .save({shares: shareCount})
+    .then((card) => {
+      const cardObj = card.toJSON();
+      return res.json({shares: cardObj.shares});
+    })
+    .catch(() => {
+      return res.json({errorMessage: 'Shares update failed.'});
+    });
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Card not found'});
+  })
+})
+
 router.route('/:id').get((req, res) => {
   new Card('id', req.params.id)
     .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users.tags'] })
@@ -221,5 +293,6 @@ router
 
     res.json({ message: 'delete success!' });
   });
+
 
 module.exports = router;

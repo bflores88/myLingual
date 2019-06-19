@@ -1,10 +1,6 @@
 @import '../../components/header/header.component';
 
-$flashcardWidth: 400px;
-$flashcardPadding: 20px;
-$imageMargins: 10px;
-
-$heartIconSize: 20px;
+$heartIconSize: 25px;
 $fontOffset: 3px;
 $fontOffset_H2: 4px;
 
@@ -20,6 +16,143 @@ $creatorElementsBorderRadius: 20px;
 $creatorImageHeight: 150px;
 $creatorStatusIconSize: 50px;
 
+$sectionToHeaderOffset: 100px;
+
+$flashcardBottomMargin: 30px;
+
+#flashcard-page {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+
+  margin: ($headerHeight + $sectionToHeaderOffset) 0 100px 0;
+
+  #flashcard-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  
+    border: none;
+
+    #flip-container-wrapper {
+      .flip-container {
+        perspective: 1000px;
+      }
+  
+      .flip-container:hover .flipper, .flip-container.hover .flipper {
+        transform: rotateY(180deg);
+      }
+  
+      .flip-container, .front, .back {
+        width: 800px;
+        height: 400px;
+      }
+  
+      .flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+  
+        position: relative;
+      }
+  
+      .front, .back {
+        backface-visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+  
+      .front {
+        z-index: 2;
+        /* for firefox 31 */
+        transform: rotateY(0deg);
+      }
+  
+      .back {
+        transform: rotateY(180deg);
+      }
+    }
+    
+    .change-flashcard-large {
+      clip-path: circle(45%);
+    }
+
+    .flashcard-base {
+      display: flex;
+      flex-direction: column;
+      align-items: center; // vertical
+      justify-content: center; // horizontal
+
+      background: whitesmoke;
+      color: black;
+      border: 1px solid black;
+      border-radius: 10px;
+
+      width: 100%;
+      height: 100%;
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center; // vertical
+        justify-content: center; // horizontal
+        text-transform: capitalize;
+
+        width: 100%;
+        height: 15%;
+
+        margin-bottom: 2%;
+        border-bottom: 1px solid black;
+      }
+
+      .body{
+        display: flex;
+        flex-direction: column;
+        align-items: center; // vertical
+        justify-content: center; // horizontal
+
+        height: 81%;
+        width: 100%;
+        padding-bottom: 2%;
+
+        h2 {
+          text-transform: uppercase;
+        }
+
+        img {
+          width: auto;
+          height: 100%;
+        }
+      }
+    }
+
+    #translations {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 100%;
+
+      .language {
+        display: flex;
+        flex-direction: row;
+        background: white;
+
+        border-radius: 10px;
+
+        h3 {
+          margin: 0;
+          padding: 5px 10px 5px 10px;
+        }
+
+        .label{
+          font-variant: small-caps;
+        }
+      }
+    }
+  }
+}
+
 #arrow-buttons-mobile-container {
   display: flex;
   align-content: center;
@@ -28,67 +161,7 @@ $creatorStatusIconSize: 50px;
   margin-top: $containerSpacing;
 }
 
-#flashcard-page {
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-  justify-content: center;
 
-  // padding: 40px;
-  margin: ($headerHeight + 30px) 0 100px 0;
-}
-
-#flashcard-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-
-  border: none;
-}
-
-#flashcard {
-  text-align: center;
-
-  background: whitesmoke;
-  border: 1px solid black;
-  border-radius: 10px;
-  color: black;
-
-  padding: $flashcardPadding;
-  width: $flashcardWidth;
-
-  h1 {
-    border-bottom: 1px solid black;
-  }
-
-  h2 {
-    font-weight: bolder;
-    font-variant: all-small-caps;
-  
-    border-bottom: 1px solid black;
-    margin: 10px 0 30px 0;
-  }
-  
-  h3 {
-    font-variant: all-small-caps;
-    margin: 0;
-    padding-bottom: $fontOffset_H2;
-  }
-  
-  img {
-    align-self: center;
-    width: $flashcardWidth - ($flashcardPadding * 2) - 2px;
-    height: auto;
-  
-    border-radius: 20px;
-  
-    margin-top: 30px;
-  }
-}
-
-#translation-container {
-  margin-bottom: 30px;
-}
 
 #social-container {
   display: flex;
@@ -112,14 +185,18 @@ $creatorStatusIconSize: 50px;
   
   margin-right: 15px;
   margin-left: 15px;
+  padding: 10px;
   background: $creatorElementsColor_BG;
   border-radius: $creatorElementsBorderRadius;
+  height: 200px;
 
   img {
-    margin: 20px;
+    // margin: 20px;
 
-    height: $creatorImageHeight;
+    height: 100%;
     width: auto;
+
+    border-radius: 20px;
   }
 
   .fa-user-friends:before {
@@ -141,34 +218,43 @@ $creatorStatusIconSize: 50px;
   padding: 14px;
 }
 
+
+
+.image-blurred-edge {
+  width: 200px;
+  height: 180px;
+  box-shadow: 0 0 3px 10px #eaf6fb inset;
+  border: none;
+}
+
 .social-element {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   
   font-size: $heartIconSize;
 
   i {
-    padding-right: 10px;
+    color: black;
+    font-size: $heartIconSize;
+    align-self: center;
+    justify-self: center;
   }
 
   p {
-    margin: 0px;
+    margin: 0 10px 0 10px;
+    padding: 0;
     font-size: $heartIconSize + $fontOffset;
   }
-}
 
-.translation-element {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  background: white;
-  border-radius: 20px;
-  margin-bottom: 10px;
-}
-
-.arrow-button {
-  clip-path: circle(45%);
+  button {
+    background: none;
+    min-width: 50%;
+    padding: 5px;
+    border: 5px solid black;
+    border-radius: 10px;
+  }
 }
 
 .arrow-button-mobile {

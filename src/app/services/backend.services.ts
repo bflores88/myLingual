@@ -41,6 +41,18 @@ export class BackendService {
     return this.http.post('/api/cards', data, { withCredentials: true }).toPromise();
   }
 
+  likeFlashcard(id: string) {
+    return this.http.get(`/api/cards/like/${id}`, { withCredentials: true }).toPromise();
+  }
+
+  downloadFlashcard(id: string) {
+    return this.http.get(`/api/cards/download/${id}`, { withCredentials: true }).toPromise();
+  }
+
+  shareFlashcard(id: string) {
+    return this.http.get(`/api/cards/share/${id}`, { withCredentials: true }).toPromise();
+  }
+
   translate(word: Object) {
     return this.http.post('/api/translate', word, { withCredentials: true }).toPromise();
   }

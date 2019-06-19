@@ -1,49 +1,51 @@
 <div id="flashcard-page">
   <h1>{{errorMessage}}</h1>
 
-  <div id="flashcard-container" *ngIf="hasFlashcard">
-    <div class="arrow-button">
+  <div id="flashcard-section" *ngIf="hasFlashcard">
+    <div class="change-flashcard-large">
       <button (click)="previousCard()">
         <i class="fas fa-arrow-alt-circle-left"></i> 
       </button>
     </div>
 
-    <div id="flashcard">
-      <h1>{{flashcard.english_word}}</h1>
-      <img src = "{{flashcard.image_link}}"/>
-
-      <div id="translation-container">
-        <h2>Translations</h2>
-        <div class="translation-element">
-          <h3>Spanish </h3>
-          <h3>{{flashcard.spanish_translations}}</h3>
-        </div>
-        <div class="translation-element">
-          <h3>Italian</h3>
-          <h3>{{flashcard.italian_translations}}</h3>
+    <div id="flip-container-wrapper">
+      <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+        <div class="flipper">
+          <div class="front">
+            <div class="flashcard-base">
+              <div class="title">
+                <h1>{{flashcard.english_word}}</h1>
+              </div>
+              <div class="body">
+                <img src="{{flashcard.image_link}}"/>
+              </div>
+            </div>
+          </div>
+          <div class="back">
+            <div class="flashcard-base">
+              <div class="title">
+                <h1>{{flashcard.english_word}}</h1>
+              </div>
+              <div class="body">
+                <h2>Translations</h2>
+                <div id="translations">
+                  <div class="language">
+                    <h3 class="label">Spanish</h3>
+                    <h3>{{flashcard.spanish_translations}}</h3>
+                  </div>
+                  <div class="language">
+                    <h3 class="label">Italian</h3>
+                    <h3>{{flashcard.italian_translations}}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    
-      <div id="social-container">
-        <div class="social-element">
-          <i class="fas fa-heart"></i>
-          <p>{{flashcard.likes}}</p>
-        </div>
-
-        <div class="social-element">
-          <i class="fas fa-file-download"></i>
-          <p>{{flashcard.downloads}}</p>
-        </div>
-
-        <div class="social-element">
-          <i class="fas fa-share"></i>
-          <p>{{flashcard.shares}}</p>
-        </div>
-      </div>
-
     </div>
 
-    <div class="arrow-button">
+    <div class="change-flashcard-large">
       <button class="arrow-button" (click)="nextCard()">
         <i class="fas fa-arrow-alt-circle-right"></i>
       </button>
@@ -65,12 +67,10 @@
 
   <div id="flashcard-additional-details" *ngIf="hasCreator">
     <div id="creator-header">
-      <img src="{{creator.profile_image_url}}" routerLink="/profile/{{creator.id}}"/>
-
+      <div class="image-blurred-edge" [ngStyle]="{ 'background-image': 'url(' + creator.profile_image_url + ')'}"></div>
       <div>
         <h2>Created By: {{creator.username}}</h2>
         
-
         <div *ngIf="user.loggedIn && creator.active && hasRelation">
           <i class="fas fa-user-friends" style="color: green"></i>
         </div>
@@ -86,6 +86,23 @@
 
         <p>Cards Created: {{creator.cards_created}}</p>
         <p>Cards Owned: {{creator.cards_owned}}</p>
+
+        <div id="social-container">
+          <div class="social-element">
+            <button (click)="addLike()"><i class="fas fa-heart"></i></button>
+            <p>{{flashcard.likes}}</p>
+          </div>
+
+          <div class="social-element">
+            <button (click)="download()" id="download"><i class="fas fa-file-download"></i></button>
+            <p>{{flashcard.downloads}}</p>
+          </div>
+
+          <div class="social-element">
+            <button (click)="share()"><i class="fas fa-share"></i></button>
+            <p>{{flashcard.shares}}</p>
+          </div>
+        </div>
       </div>
     </div>
     
