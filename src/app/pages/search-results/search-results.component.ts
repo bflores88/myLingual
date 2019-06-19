@@ -8,6 +8,8 @@ interface SearchMatches {
   match_score: number;
   match_image: string;
   match_own: number;
+  match_other_text: string;
+  match_other_string: string;
   match_type: string;
   sortScore: number;
 }
@@ -21,6 +23,8 @@ export class SearchResultsComponent implements OnInit {
   searchMatches: SearchMatches[];
   filterToggle: number = 0;
   search_text: string;
+  error_text: string;
+  show_error: boolean = false;
 
   constructor(private backend: BackendService, private route: ActivatedRoute, private router: Router) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -29,6 +33,13 @@ export class SearchResultsComponent implements OnInit {
 
   ngOnInit() {
     this.backend.search(this.search_text).then((data: SearchMatches[]) => {
+      if (data.length === 0) {
+        this.error_text = `Sorry, no results for '${this.search_text}'`;
+        this.show_error = true;
+      } else {
+        this.show_error = false;
+      }
+
       this.searchMatches = data;
     });
   }
@@ -44,13 +55,28 @@ export class SearchResultsComponent implements OnInit {
 
   searchAll() {
     this.backend.search(this.search_text).then((data: SearchMatches[]) => {
+      if (data.length === 0) {
+        this.error_text = `Sorry, no results for '${this.search_text}'`;
+        this.show_error = true;
+      } else {
+        this.show_error = false;
+      }
+
       this.searchMatches = data;
       this.filterToggle = 0;
+
     });
   }
 
   searchCards() {
     this.backend.searchCards(this.search_text).then((data: SearchMatches[]) => {
+      if (data.length === 0) {
+        this.error_text = `Sorry, no cards for '${this.search_text}'`;
+        this.show_error = true;
+      } else {
+        this.show_error = false;
+      }
+
       this.searchMatches = data;
       this.filterToggle = 1;
     });
@@ -58,6 +84,13 @@ export class SearchResultsComponent implements OnInit {
 
   searchUsers() {
     this.backend.searchUsers(this.search_text).then((data: SearchMatches[]) => {
+      if (data.length === 0) {
+        this.error_text = `Sorry, no users for '${this.search_text}'`;
+        this.show_error = true;
+      } else {
+        this.show_error = false;
+      }
+
       this.searchMatches = data;
       this.filterToggle = 2;
     });

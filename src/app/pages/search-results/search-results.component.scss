@@ -28,15 +28,52 @@
   background-color: white;
 
   .match-image img {
-    width: 35px;
-    height: 35px;
-    padding: 3px;
+    width: 65px;
+    height: 65px;
+    margin: 5px 10px 5px 5px;
     border-radius: 50%;
+    border: #dddddd 1px solid;
   }
 
   .match-own {
     margin-left: 5px;
-    margin-right: 3px;
-    width: 25px;
+    margin-right: 5px;
+    width: 30px;
+  }
+
+  .match-detail {
+    margin: 5px 5px 5px 15px;
+
+    p {
+      margin: 3px;
+    }
+    .match-name {
+      font-weight: bolder;
+      font-size: 24px;
+    }
+    .match-other {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .match-other-image-user {
+        margin-right : 5px;
+        height: 25px;
+        width: 35px;
+        border: #dddddd 1px solid;
+      }
+
+      .match-other-image-card {
+        margin-right: 5px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        border: #dddddd 1px solid;
+      }
+      .match-other-text {
+        font-style: italic;
+        color: #333333;
+      }
+    }
   }
 }

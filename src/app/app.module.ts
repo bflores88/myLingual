@@ -34,11 +34,8 @@ import { TestComponent } from './pages/test/test.component';
 import { AddCardUploadComponent } from './pages/add-card-upload/add-card-upload.component';
 import { ProfileNavMobileComponent } from './components/profile-nav-mobile/profile-nav-mobile.component';
 import { CardComponent } from './pages/card/card.component';
-
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-
 import { InvitesComponent } from './pages/invites/invites.component';
-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -80,13 +77,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4200', options: {} };
     AddCardUploadComponent,
     ProfileNavMobileComponent,
     CardComponent,
-
     SearchBarComponent,
-
     InvitesComponent,
-
     SearchResultsComponent,
-
     AboutComponent,
   ],
   imports: [
