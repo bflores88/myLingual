@@ -21,7 +21,8 @@ export class BackendService {
   }
 
   googleLogin() {
-    return this.http.get('/api/auth/google', { withCredentials: true }).toPromise();
+    console.log('gets to googleLogin');
+    return this.http.get('/api/google_user', { withCredentials: true }).toPromise();
   }
 
   getClientId() {

@@ -44,6 +44,7 @@ import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { AboutComponent } from './pages/about/about.component';
+import { GoogleComponent } from './pages/google/google.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4200', options: {} };
 
@@ -88,6 +89,10 @@ const config: SocketIoConfig = { url: 'http://localhost:4200', options: {} };
     SearchResultsComponent,
 
     AboutComponent,
+
+    GoogleComponent,
+
+
   ],
   imports: [
     BrowserModule,
