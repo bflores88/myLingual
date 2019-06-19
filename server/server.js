@@ -193,11 +193,13 @@ io.on('connect', (socket) => {
 
   // join room
   socket.on('join', (data) => {
+    console.log('joining room', data.room)
     socket.join(data.room)
   })
 
   // leave room
   socket.on('leave', (data) => {
+    console.log('leaving room', data.room)
     socket.leave(data.room)
   })
 
