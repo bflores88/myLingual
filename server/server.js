@@ -69,15 +69,15 @@ passport.use(
       callbackURL: 'http://localhost:8080/api/auth/google/callback',
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log('google strategy in progress', profile);
+      // console.log('google strategy in progress', profile);
       // console.log('profile', profile);
       new User()
         .where({ username: profile.emails[0].value })
         .fetchAll()
         .then((result) => {
-          console.log('1283793871308471329084712394', result);
+          // console.log('1283793871308471329084712394', result);
           if (result.length === 0) {
-            console.log('no result from google');
+            // console.log('no result from google');
             new User({
               active: true,
               private_mode: false,
@@ -98,7 +98,7 @@ passport.use(
                 return err;
               });
           } else {
-            console.log('*&*&*&*&*&*&*&*&*&*', result);
+            // console.log('*&*&*&*&*&*&*&*&*&*', result);
             return done(null, result);
           }
         })
@@ -147,21 +147,27 @@ passport.use(
 );
 
 passport.serializeUser(function(user, done) {
-  console.log('serialized user>>>>>>>>>>', user);
+  console.log('serialized user>>>>>>>>>>', user); //plain object
+  console.log('oauth serialized user >>>>>>>>>>>', user.models[0].attributes)
   console.log('serializing');
-  return done(null, user);
+  // if (user.models[0].attributes) {
+  //   console.log('user.models[0]',user.models[0].attributes)
+  //   return done(null, user.models[0].attributes)
+  // } else {
+    return done(null, user);
+  // }
 });
 
 passport.deserializeUser(function(user, done) {
-  console.log('deserialize user>>>>>>>>', user);
+  // console.log('deserialize user>>>>>>>>', user);
   console.log('deserializing');
-  if (typeof user === Array) {
+  if (user[0]) {
     console.log('user is an Array')
     return new User({ id: user[0].id })
       .fetch()
       .then((user) => {
         user = user.toJSON();
-
+        console.log('deserialize userJSON', user);
         done(null, {
           id: user.id,
           username: user.username,
