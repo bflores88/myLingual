@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 export class AddCardComponent implements OnInit {
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log(navigator.onLine)
+  }
 
   continue() {
     return this.router.navigate(['add-card/continue']);

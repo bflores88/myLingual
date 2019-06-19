@@ -157,10 +157,18 @@ export class BackendService {
     return this.http.get(`/api/languages/all`, { withCredentials: true }).toPromise();
   }
 
-  changeTargetLanguage(languageId): Promise<object> {
-    let body = {
-      language_id: languageId,
-    };
-    return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
+  // changeTargetLanguage(languageId): Promise<object> {
+  //   let body = {
+  //     language_id: languageId,
+  //   };
+  //   return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
+  // }
+
+  getUserLanguages(): Promise<object> {
+    return this.http.get(`/api/languages`, { withCredentials: true }).toPromise();
+  }
+
+  changeTargetLanguage(id): Promise<object> {
+    return this.http.put(`/api/languages/${id}`, { withCredentials: true }).toPromise();
   }
 }
