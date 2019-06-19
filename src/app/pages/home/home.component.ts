@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   constructor() {}
 
+
   ngOnInit() {
     // auth2 is initialized with gapi.auth2.init() and a user is signed in.
     // let auth2: any;
@@ -19,4 +20,6 @@ export class HomeComponent implements OnInit {
     //   console.log('Email: ' + profile.getEmail());
     // }
   }
+
+
 }

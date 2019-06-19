@@ -45,8 +45,8 @@ async function translator(word, wordId) {
               spanish_word: translation,
             })
             .then((result) => {
-              console.log(result);
-              return res.json({ success: 'successfully added spanish word!' });
+
+              return console.log({ success: 'successfully added spanish word!' });
             })
             .catch((err) => {
               console.log('error', err);
@@ -59,8 +59,8 @@ async function translator(word, wordId) {
               italian_word: translation,
             })
             .then((result) => {
-              console.log(result);
-              return res.json({ success: 'successfully added italian word!' });
+
+              return console.log({ success: 'successfully added italian word!' });
             })
             .catch((err) => {
               console.log('error', err);

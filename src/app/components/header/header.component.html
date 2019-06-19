@@ -9,6 +9,6 @@
       <h1 id="appName">myLingual</h1>
     </div>
 
-    <app-nav-browser></app-nav-browser>
+    <app-nav-browser *ngIf="router.url != '/login'"></app-nav-browser>
   </header>
 </div>

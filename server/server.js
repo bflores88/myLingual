@@ -34,6 +34,7 @@ const quiz_contents = require('./routes/quiz_contents');
 const contacts = require('./routes/contacts');
 const searches = require('./routes/searches');
 const languages = require('./routes/languages');
+const dictionary = require('./routes/dictionary');
 
 app.use(bodyParser.json());
 app.use(
@@ -158,6 +159,7 @@ app.use('/api/quiz_contents', quiz_contents);
 app.use('/api/contacts', contacts);
 app.use('/api/searches', searches);
 app.use('/api/languages', languages);
+app.use('/api/dictionary', dictionary);
 
 http.listen(PORT, () => {
   console.log(`Express app is running at port ${PORT}`);
