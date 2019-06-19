@@ -12,6 +12,9 @@ const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const redis = require('connect-redis')(session);
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const cors = require('cors');
+
+// app.use(cors());
 
 const User = require('./database/models/User');
 
@@ -63,12 +66,43 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/api/auth/google',
+      callbackURL: 'http://localhost:8080/api/auth/google/callback',
     },
-    function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ googleId: profile.id }, function(err, user) {
-        return cb(err, user);
-      });
+    function(accessToken, refreshToken, profile, done) {
+      console.log('google strategy in progress');
+      // console.log('profile', profile);
+      new User()
+        .where({ username: profile.emails[0].value })
+        .fetchAll()
+        .then((result) => {
+          console.log('1283793871308471329084712394',result)
+          if (result.length === 0) {
+            console.log('no result from google');
+            new User({
+              active: true,
+              private_mode: false,
+              role_id: 3,
+              name: profile.name.givenName,
+              email: profile.emails[0].value,
+              username:  profile.emails[0].value,
+              oauth_token: accessToken,
+              lingots: 0,
+            })
+              .save()
+              .then((result) => {
+                console.log('result:', result);
+                return done(result);
+              })
+              .catch((err) => {
+                console.log(err);
+                return err;
+              });
+          } 
+          else {
+            console.log('*&*&*&*&*&*&*&*&*&*');
+            return done(result);
+          }
+        });
     },
   ),
 );
@@ -137,10 +171,14 @@ passport.deserializeUser(function(user, done) {
     });
 });
 
-app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
+app.get('/api/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(
+  req,
+  res,
+) {
   // Successful authentication, redirect home.
+  console.log('hits***********');
   res.redirect('/');
 });
 
