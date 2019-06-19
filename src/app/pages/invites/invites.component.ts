@@ -27,7 +27,7 @@ export class InvitesComponent implements OnInit {
 
     // console.log('accept');
     this.backend.respondToInvite(id, body).then((data: any) => {
-      console.log('accept', data);
+      // console.log('accept', data);
 
       this.invites = [];
 
@@ -46,7 +46,7 @@ export class InvitesComponent implements OnInit {
 
           this.invites.push(inviteObj);
         });
-        console.log('invites', this.invites);
+        // console.log('invites', this.invites);
       });
     });
   }
@@ -57,7 +57,7 @@ export class InvitesComponent implements OnInit {
     };
 
     this.backend.respondToInvite(id, body).then((data: any) => {
-      console.log('reject', data);
+      // console.log('reject', data);
 
       this.invites = [];
 
@@ -76,7 +76,7 @@ export class InvitesComponent implements OnInit {
 
           this.invites.push(inviteObj);
         });
-        console.log('invites', this.invites);
+        // console.log('invites', this.invites);
       });
     });
   }
@@ -97,7 +97,7 @@ export class InvitesComponent implements OnInit {
 
         this.invites.push(inviteObj);
       });
-      console.log('invites', this.invites);
+      // console.log('invites', this.invites);
     });
   }
 }
