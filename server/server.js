@@ -220,7 +220,7 @@ io.on('connect', (socket) => {
     console.log('recipient', recipient);
 
     if (recipient) {
-      recipient.emit('message', msg);
+      recipient.emit(   , msg);
       console.log(recipient);
     }
   });
