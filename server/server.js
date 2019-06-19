@@ -166,6 +166,7 @@ let onlineUsers = {};
 
 io.on('connect', (socket) => {
   console.log('connection made');
+  console.log('****', io.sockets.sockets)
 
   socket.on('identify', (user) => {
     console.log('identify', user);
@@ -192,16 +193,20 @@ io.on('connect', (socket) => {
   });
 
   // join room
-  socket.on('join', (data) => {
+  socket.on('subscribe', (data) => {
     console.log('joining room', data.room)
     socket.join(data.room)
+    console.log('****', io.sockets.sockets)
   })
 
   // leave room
-  socket.on('leave', (data) => {
+  socket.on('unsubscribe', (data) => {
     console.log('leaving room', data.room)
     socket.leave(data.room)
   })
+
+  // message to specific room
+  // io.to(data.room).emit
 
   socket.on('message', (msg) => {
     console.log('server socket message', msg);

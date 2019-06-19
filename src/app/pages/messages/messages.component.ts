@@ -28,6 +28,7 @@ export class MessagesComponent implements OnInit {
   private msgSub: Subscription;
 
   userId = 0;
+  roomId = 0;
 
   user: {
     id: number;
@@ -68,8 +69,9 @@ export class MessagesComponent implements OnInit {
     this.socketService.sendIdentity(this.userId);
 
     const id = this.route.snapshot.paramMap.get('id');
+    this.roomId = parseInt(id);
     this.backend.getMessages(id).then((data: MessageData[]) => {
-      this.messages = data;
+      this.messages = data.reverse();
       console.log('**************', this.messages);
     });
 
@@ -82,7 +84,7 @@ export class MessagesComponent implements OnInit {
 
   sendMessage(message) {
     // const id = this.route.snapshot.paramMap.get('id');
-    this.socketService.sendMessage(this.userId, message);
+    this.socketService.sendMessage(this.userId, this.roomId, message);
     console.log('backend service; sent msg');
   }
 

@@ -15,17 +15,28 @@ export class SocketService {
     return this.socket.fromEvent<any>('message').pipe(map((data) => data.message));
   }
 
-  sendMessage(id: number, message: string) {
+  sendMessage(id: number, room: number, message: string) {
     const msgObj = {
       id,
+      room,
       message,
     };
-    this.socket.emit('message', msgObj);
+    this.socket.emit('groupMessage', msgObj);
     console.log('SS msg:', msgObj);
   }
 
   sendIdentity(userId: number) {
     this.socket.emit('identify', userId);
     console.log('SS identity', userId);
+  }
+
+  joinRoom(roomId: number) {
+    const data = {
+      room: roomId
+    }
+    console.log('reached join room', roomId)
+    
+    return this.socket.emit('subscribe', data)
+    
   }
 }

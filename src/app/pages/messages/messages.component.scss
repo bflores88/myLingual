@@ -16,6 +16,8 @@
   overflow: auto;
   white-space: nowrap;
   margin: 1em 1em 0em 1em;
+  display: flex;
+  flex-direction: column-reverse;
   .messages-container::-webkit-scrollbar {
     width: 0 !important;
   }
