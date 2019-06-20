@@ -18,6 +18,26 @@ router.route('/all').get(authGuard, (req, res) => {
     });
 });
 
+// add language
+
+router.route('/').post((req, res) => {
+  console.log(req.body);
+  new UserLanguage({
+    user_id: req.user.id,
+    language_id: req.body.language_id,
+    language_type: 'target',
+    primary: true,
+    active: true,
+  })
+    .save()
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+});
+
 router.route('/').get(authGuard, (req, res) => {
   UserLanguage.where({ user_id: req.user.id, active: true })
     .orderBy('active', 'DESC')

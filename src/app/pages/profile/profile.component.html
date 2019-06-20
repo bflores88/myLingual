@@ -3,6 +3,9 @@
 <div class="page">
   <div *ngIf="user" class="profile-page">
     <div class="profile">
+      <div (click)="toUserSettings()" class="profile-setup-banner" *ngIf="user.target_languages.length == 0">
+        Hey! You have no target language. Click here to finish setting up your profile.
+      </div>
       <div class="profile-photo-div">
         <img src="{{ user.profile_image_url }}" />
       </div>
