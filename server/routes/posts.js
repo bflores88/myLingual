@@ -25,7 +25,7 @@ router.route('/:id').post((req, res) => {
   console.log(req.body);
   new Reply({
     post_id: req.params.id,
-    sent_by: req.body.sent_by,
+    sent_by: req.user.id,
     body: req.body.body,
   })
     .save()
