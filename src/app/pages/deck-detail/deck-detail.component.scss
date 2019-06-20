@@ -9,11 +9,13 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+
     .outer-card-box {
       display: inline-block;
-      width: 600px;
+      min-width: 300px;
+      max-width: 600px;
       height: 300px;
-      perspective: 600px;
+      perspective: 300px;
     }
   }
   
@@ -38,7 +40,7 @@
   .flip-card {
     display: inline-block;
     background-color: transparent;
-    width: 390px;
+    width: 95%;
     height: 250px;
     // border: 1px solid #f1f1f1;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
