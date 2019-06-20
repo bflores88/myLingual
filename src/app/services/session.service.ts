@@ -20,6 +20,7 @@ export class SessionService {
       console.log('could not parse user');
     }
   }
+  
 
   getSession() {
     return this.user;

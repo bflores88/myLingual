@@ -21,7 +21,7 @@ export class DeckComponent implements OnInit {
     this.backend.getUserDecks().then((data: any) => {
       // console.log(data);
       this.decks = data;
-      console.log(this.decks);
+      // console.log(this.decks);
       //
       function compareValues(key, order = 'asc') {
         return function(a, b) {

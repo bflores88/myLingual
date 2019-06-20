@@ -17,7 +17,6 @@ router.route('/all').get((req, res) => {
 });
 
 router.route('/').get((req, res) => {
-  console.log(req.user);
   new Deck()
     .where({ user_id: req.user.id })
     .fetchAll()
