@@ -21,6 +21,10 @@ class Word extends bookshelf.Model {
     return this.hasOne('ItalianTranslation', 'word_id');
   }
 
+  japanese_translations() {
+    return this.hasOne('JapaneseTranslation', 'word_id');
+  }
+
   cards() {
     return this.hasMany('Card', 'word_id');
   }

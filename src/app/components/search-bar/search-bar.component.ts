@@ -64,7 +64,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   clearDropdown() {
-    // short timeout to allow click event on matches to fire
-    setTimeout(() => (this.searchMatches = []), 10);
+    this.searchMatches = [];
   }
 }
