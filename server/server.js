@@ -112,10 +112,9 @@ passport.use(
         .where({ username: profile.emails[0].value })
         .fetch()
         .then((result) => {
-          result = result.toJSON();
-          // console.log('1283793871308471329084712394', result);
-          if (result.length === 0) {
-            // console.log('no result from google');
+          if (!result) {
+            console.log('need to make new user');
+
             new User({
               active: true,
               private_mode: false,
@@ -125,6 +124,7 @@ passport.use(
               username: profile.emails[0].value,
               oauth_token: accessToken,
               lingots: 0,
+              profile_image_url: profile.photos[0].value,
             })
               .save()
               .then((result) => {
@@ -136,6 +136,8 @@ passport.use(
                 return err;
               });
           } else {
+            result = result.toJSON();
+            console.log('1283793871308471329084712394', profile.photos[0].value);
             // console.log('*&*&*&*&*&*&*&*&*&*', result);
             return done(null, result);
           }
@@ -149,12 +151,7 @@ passport.use(
 );
 
 passport.serializeUser(function(user, done) {
-  // console.log('serialized user>>>>>>>>>>', user); //plain object
-  // console.log('oauth serialized user >>>>>>>>>>>', user.models[0].attributes.id);
-  // console.log('serializing');
   if (user.models !== undefined) {
-    // console.log('if statement user', user.models[0]._previousAttributes)
-    // console.log('user.models[0]',JSON.stringify(user.models[0].attributes))
     let userObj = {
       id: user.models[0].attributes.id,
       active: user.models[0].attributes.active,
@@ -181,32 +178,12 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   // console.log('deserialize user>>>>>>>>', user);
   console.log('deserializing');
-  // if (user[0]) {
-  //   console.log('user is an Array');
-  //   return new User({ id: user[0].id })
-  //     .fetch()
-  //     .then((user) => {
-  //       user = user.toJSON();
-  //       console.log('deserialize userJSON', user);
-  //       done(null, {
-  //         id: user.id,
-  //         username: user.username,
-  //         email: user.email,
-  //         active: user.active,
-  //         role_id: user.role_id,
-  //         name: user.name,
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log('deserialize err>>>>>', err);
-  //       return done(err);
-  //     });
-  // } else {
-  // console.log('user is NOT an array');
+
   return new User({ id: user.id })
     .fetch()
     .then((user) => {
       user = user.toJSON();
+      console.log('user deserialize', user);
 
       done(null, {
         id: user.id,
