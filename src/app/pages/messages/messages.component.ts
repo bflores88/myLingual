@@ -28,6 +28,7 @@ export class MessagesComponent implements OnInit {
   private msgSub: Subscription;
 
   userId = 0;
+  roomId = 0;
 
   user: {
     id: number;
@@ -52,14 +53,15 @@ export class MessagesComponent implements OnInit {
     private session: SessionService,
     private socketService: SocketService,
   ) {
-    this.socketService.getMessage().subscribe((message) => {
-      console.log('User data', message);
-      this.messages.push(message);
+    this.socketService.getMessage().subscribe((msg) => {
+      console.log('User data', msg);
+      // this.messages.push(msg);
     });
   }
 
   ngOnInit() {
-    this.msgSub = this.socketService.msg.subscribe((msg) => (this.messageBody = msg));
+    this.msg = this.socketService.msg;
+    this.msgSub = this.socketService.msg.subscribe((msg) => (this.messageBody = msg.message));
     let user = this.session.getSession();
     this.userId = parseInt(user.id);
 
@@ -68,8 +70,9 @@ export class MessagesComponent implements OnInit {
     this.socketService.sendIdentity(this.userId);
 
     const id = this.route.snapshot.paramMap.get('id');
+    this.roomId = parseInt(id);
     this.backend.getMessages(id).then((data: MessageData[]) => {
-      this.messages = data;
+      this.messages = data.reverse();
       console.log('**************', this.messages);
     });
 
@@ -81,8 +84,13 @@ export class MessagesComponent implements OnInit {
   }
 
   sendMessage(message) {
+    const msg = {
+      id: this.userId,
+      room: this.roomId,
+      message: message
+    }
     // const id = this.route.snapshot.paramMap.get('id');
-    this.socketService.sendMessage(this.userId, message);
+    this.socketService.sendMessage(msg);
     console.log('backend service; sent msg');
   }
 
