@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface SearchMatches {
   match_id: number;
@@ -27,22 +27,28 @@ export class SearchResultsComponent implements OnInit {
   show_error: boolean = false;
 
   constructor(private backend: BackendService, private route: ActivatedRoute, private router: Router) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.search_text = this.route.snapshot.paramMap.get('search_text');
   }
 
   ngOnInit() {
-    this.backend.search(this.search_text).then((data: SearchMatches[]) => {
-      if (data.length === 0) {
-        this.error_text = `Sorry, no results for '${this.search_text}'`;
-        this.show_error = true;
-      } else {
-        this.show_error = false;
-      }
+    this.route.params.subscribe(routeParams => {
+      this.search_text = routeParams.search_text;
+      this.backend.search(this.search_text).then((data: SearchMatches[]) => {
+        if (data.length === 0) {
+          this.error_text = `Sorry, no results for '${this.search_text}'`;
+          this.show_error = true;
+        } else {
+          this.show_error = false;
+        }
 
-      this.searchMatches = data;
-    });
+        this.searchMatches = data;
+      });
+    })
+
   }
+
+
+
 
   // takes users to detail page when selecting a match from dropdown
   showDetail(matchId, matchType) {
