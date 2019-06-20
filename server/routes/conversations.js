@@ -11,7 +11,7 @@ const knex = require('../database/knex.js');
 
 
 router.route('/')
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     knex
       .raw(
         `SELECT
@@ -50,7 +50,7 @@ router.route('/')
         return res.status(500).send('Server Error');
       });
   })
-  .post((req, res) => {
+  .post(authGuard, (req, res) => {
     // TO-DO: ensure req.body.userList is an array of user_id's
     // TO-DO: ensure that recipient list contains only a user's contacts
     // must send a message when starting a conversation
