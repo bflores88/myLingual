@@ -103,7 +103,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:8080/api/auth/google/callback',
+      callbackURL: 'https://mylingual.me/api/auth/google/callback',
     },
     function(accessToken, refreshToken, profile, done) {
       // console.log('google strategy in progress', profile);
@@ -205,13 +205,13 @@ app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile',
 
 app.get(
   '/api/auth/google/callback',
-  passport.authenticate('google', { failureMessage: 'http://localhost:4200/login' }),
+  passport.authenticate('google', { failureMessage: 'https://mylingual.me/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     // console.log('hits***********', req.user);
     // console.log(req)
     // res.json(req.user);
-    res.redirect('http://localhost:4200/google');
+    res.redirect('https://mylingual.me/google');
   },
 );
 
