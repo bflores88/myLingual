@@ -21,7 +21,8 @@ export class BackendService {
   }
 
   googleLogin() {
-    return this.http.get('/api/auth/google', { withCredentials: true }).toPromise();
+    console.log('gets to googleLogin');
+    return this.http.get('/api/google_user', { withCredentials: true }).toPromise();
   }
 
   getClientId() {
@@ -182,6 +183,10 @@ export class BackendService {
 
   getUserLanguages(): Promise<object> {
     return this.http.get(`/api/languages`, { withCredentials: true }).toPromise();
+  }
+
+  addUserLanguage(body): Promise<object> {
+    return this.http.post(`/api/languages`, body, { withCredentials: true }).toPromise();
   }
 
   changeTargetLanguage(id): Promise<object> {

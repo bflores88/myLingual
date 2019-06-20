@@ -12,6 +12,9 @@ const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const redis = require('connect-redis')(session);
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const cors = require('cors');
+
+// app.use(cors());
 
 const User = require('./database/models/User');
 
@@ -35,6 +38,7 @@ const contacts = require('./routes/contacts');
 const searches = require('./routes/searches');
 const languages = require('./routes/languages');
 const dictionary = require('./routes/dictionary');
+const google = require('./routes/google');
 
 app.use(bodyParser.json());
 app.use(
@@ -57,21 +61,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/api/auth/google',
-    },
-    function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ googleId: profile.id }, function(err, user) {
-        return cb(err, user);
-      });
-    },
-  ),
-);
 
 passport.use(
   new LocalStrategy(function(username, password, done) {
@@ -109,18 +98,92 @@ passport.use(
   }),
 );
 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: 'http://localhost:8080/api/auth/google/callback',
+    },
+    function(accessToken, refreshToken, profile, done) {
+      // console.log('google strategy in progress', profile);
+      // console.log('profile', profile);
+      new User()
+        .where({ username: profile.emails[0].value })
+        .fetch()
+        .then((result) => {
+          if (!result) {
+            console.log('need to make new user');
+
+            new User({
+              active: true,
+              private_mode: false,
+              role_id: 3,
+              name: profile.name.givenName,
+              email: profile.emails[0].value,
+              username: profile.emails[0].value,
+              oauth_token: accessToken,
+              lingots: 0,
+              profile_image_url: profile.photos[0].value,
+            })
+              .save()
+              .then((result) => {
+                console.log('new result:', result);
+                return done(null, result);
+              })
+              .catch((err) => {
+                console.log('this error is happening', err);
+                return err;
+              });
+          } else {
+            result = result.toJSON();
+            console.log('1283793871308471329084712394', profile.photos[0].value);
+            // console.log('*&*&*&*&*&*&*&*&*&*', result);
+            return done(null, result);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          return done(err);
+        });
+    },
+  ),
+);
+
 passport.serializeUser(function(user, done) {
-  console.log('serializing');
-  return done(null, { id: user.id, username: user.username });
+  if (user.models !== undefined) {
+    let userObj = {
+      id: user.models[0].attributes.id,
+      active: user.models[0].attributes.active,
+      private_mode: user.models[0].attributes.private_mode,
+      role_id: user.models[0].attributes.role_id,
+      username: user.models[0].attributes.username,
+      oauth_token: user.models[0].attributes.oauth_token,
+      password: user.models[0].attributes.password,
+      name: user.models[0].attributes.name,
+      email: user.models[0].attributes.email,
+      profile_image_url: user.models[0].attributes.profile_image_url,
+      lingots: user.models[0].attributes.lingots,
+      created_at: user.models[0].attributes.created_at,
+      updated_at: user.models[0].attributes.updated_at,
+    };
+    // console.log('userObj**********************>',userObj);
+    return done(null, userObj);
+  } else {
+    // console.log('else statement user', user);
+    return done(null, user);
+  }
 });
 
 passport.deserializeUser(function(user, done) {
+  // console.log('deserialize user>>>>>>>>', user);
   console.log('deserializing');
 
   return new User({ id: user.id })
     .fetch()
     .then((user) => {
       user = user.toJSON();
+      console.log('user deserialize', user);
 
       done(null, {
         id: user.id,
@@ -132,18 +195,27 @@ passport.deserializeUser(function(user, done) {
       });
     })
     .catch((err) => {
-      console.log('err', err);
+      console.log('deserialize err>>>>>', err);
       return done(err);
     });
+  // }
 });
 
-app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-  // Successful authentication, redirect home.
-  res.redirect('/');
-});
+app.get(
+  '/api/auth/google/callback',
+  passport.authenticate('google', { failureMessage: 'http://localhost:4200/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    // console.log('hits***********', req.user);
+    // console.log(req)
+    // res.json(req.user);
+    res.redirect('http://localhost:4200/google');
+  },
+);
 
+app.use('/api/google_user', google);
 app.use('/api/login', login);
 app.use('/api/logout', logout);
 app.use('/api/cards', cards);

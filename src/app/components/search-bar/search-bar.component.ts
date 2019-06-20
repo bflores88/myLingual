@@ -22,15 +22,15 @@ export class SearchBarComponent implements OnInit {
   searchText: {
     searchText: string;
   } = {
-    searchText: '',
-  };
+      searchText: '',
+    };
 
   // initialize searchMatches
   searchMatches: SearchMatches[];
 
-  constructor(private backend: BackendService, private router: Router) {}
+  constructor(private backend: BackendService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // search while user types
   searchInit() {
@@ -40,7 +40,8 @@ export class SearchBarComponent implements OnInit {
       this.searchMatches = [];
     } else {
       this.backend.search(searchText).then((data: SearchMatches[]) => {
-        this.searchMatches = data;
+        // only display first 3 search results in dropdown
+        this.searchMatches = data.slice(0, 3);
       });
     }
   }
