@@ -4,10 +4,11 @@ const express = require('express');
 const router = express.Router();
 const Conversation = require('../database/models/Conversation');
 const Message = require('../database/models/Message');
+const authGuard = require('../guards/authGuard');
 
 const knex = require('../database/knex.js');
 
-router.route('/').get((req, res) => {
+router.route('/').get(authGuard, (req, res) => {
   knex
     .raw(
       `SELECT
@@ -49,7 +50,7 @@ router.route('/').get((req, res) => {
 
 router
   .route('/:conversation_id')
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     knex
       .raw(
         `SELECT
@@ -74,7 +75,7 @@ router
         return res.status(500).send('Server Error');
       });
   })
-  .post((req, res) => {
+  .post(authGuard, (req, res) => {
     new Message()
       .save({
         body: req.body.body,
