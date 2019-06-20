@@ -21,7 +21,8 @@ export class BackendService {
   }
 
   googleLogin() {
-    return this.http.get('/api/auth/google', { withCredentials: true }).toPromise();
+    console.log('gets to googleLogin');
+    return this.http.get('/api/google_user', { withCredentials: true }).toPromise();
   }
 
   getClientId() {
@@ -157,10 +158,22 @@ export class BackendService {
     return this.http.get(`/api/languages/all`, { withCredentials: true }).toPromise();
   }
 
-  changeTargetLanguage(languageId): Promise<object> {
-    let body = {
-      language_id: languageId,
-    };
-    return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
+  // changeTargetLanguage(languageId): Promise<object> {
+  //   let body = {
+  //     language_id: languageId,
+  //   };
+  //   return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
+  // }
+
+  getUserLanguages(): Promise<object> {
+    return this.http.get(`/api/languages`, { withCredentials: true }).toPromise();
+  }
+
+  addUserLanguage(body): Promise<object> {
+    return this.http.post(`/api/languages`, body, { withCredentials: true }).toPromise();
+  }
+
+  changeTargetLanguage(id): Promise<object> {
+    return this.http.put(`/api/languages/${id}`, { withCredentials: true }).toPromise();
   }
 }

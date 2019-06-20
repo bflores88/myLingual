@@ -13,10 +13,12 @@ export class AuthGuard implements CanActivate {
     this.auth.redirectUrl = state.url;
 
     if (this.session.isLoggedIn()) {
+      console.log('user is logged in.')
       return true;
     }
 
     this.router.navigate(['/login']);
+    console.log('user is not logged in')
     return false;
   }
 }

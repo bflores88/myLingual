@@ -1,18 +1,36 @@
 <div>
   <div class="page">
     <div class="settings-container">
+      <h2>Your Settings</h2>
       <h4>
         {{ message }}
       </h4>
+      <!-- add target -->
       <div class="change-language-box">
+        <label for="languages">Add a target language</label><br />
+        <select class="language-dropdown" [(ngModel)]="new_target_language_id" name="languages" id="language-dropdown">
+          <option selected="selected" value="" disabled selected>Select your option</option>
+          <option *ngFor="let language of languages_list" value="{{ language.id }}">{{ language.english_name }}</option>
+        </select>
+        <br />
+        <div class="submit-box">
+          <button class="small-btn" (click)="addTarget()">Submit Changes</button>
+        </div>
+      </div>
+
+      <!-- change target -->
+      <div *ngIf="languages.length !== 0" class="change-language-box">
         <label for="languages">Choose your target language</label><br />
         <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
-            <option value="" disabled selected>Select your option</option>
-          <option *ngFor="let language of languages" value="{{ language.id }}">{{ language.english_name }}</option>
-        </select> <br />
+          <option selected="selected" value="" disabled selected>Select your option</option>
+          <option *ngFor="let language of languages" value="{{ language.id }}">{{
+            language.languages.english_name
+          }}</option>
+        </select>
+        <br />
         <div class="submit-box">
-            <button class="small-btn" (click)="changeTarget()">Submit Changes</button>
-          </div>
+          <button class="small-btn" (click)="changeTarget()">Submit Changes</button>
+        </div>
       </div>
     </div>
 

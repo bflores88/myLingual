@@ -53,6 +53,8 @@ export class TestComponent implements OnInit {
 
   quizPercentage: any = '';
 
+  languages: any = [];
+
   flipCard() {
     console.log(event.target);
   }
@@ -85,6 +87,10 @@ export class TestComponent implements OnInit {
           this.currentAnswer = this.translations[this.currentCard].italian_word;
         }
 
+        if (this.target_language == 'japanese') {
+          this.currentAnswer = this.translations[this.currentCard].japanese_word;
+        }
+
         this.currentQuizId = this.quiz_contents[this.currentCard].id;
         this.currentQuizContent = this.quiz_contents[this.currentCard];
       }
@@ -99,7 +105,8 @@ export class TestComponent implements OnInit {
 
   retakeTest() {
     let routeId = this.activated.snapshot.paramMap.get('id');
-    this.router.navigateByUrl(`/test/${routeId}`);
+    // this.router.navigateByUrl(`/test/${routeId}`);
+    this.router.navigateByUrl(`/decks`);
   }
 
   ngOnInit() {
@@ -107,11 +114,21 @@ export class TestComponent implements OnInit {
 
     let searchId = parseInt(this.user.id);
 
-    this.backend.getUserProfile(searchId).then((data: any) => {
-      this.userDetail = data;
-      console.log('yooooo');
-      this.target_language = this.userDetail.target_languages[0];
-      console.log('language', this.target_language);
+    // this.backend.getUserProfile(searchId).then((data: any) => {
+    //   this.userDetail = data;
+    //   console.log('yooooo');
+    //   this.target_language = this.userDetail.target_languages[0];
+    //   console.log('language', this.target_language);
+    // });
+    this.backend.getUserLanguages().then((data) => {
+      console.log(data);
+      this.languages = data;
+      this.languages.map((language) => {
+        if (language.language_type == 'target' && language.primary == true) {
+          this.target_language = language.languages.english_name;
+          console.log('target lang', this.target_language);
+        }
+      });
     });
     // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('id');
@@ -132,12 +149,18 @@ export class TestComponent implements OnInit {
         if (this.target_language == 'italian') {
           translationArray.push(question.users_cards.cards.words.italian_translations);
         }
+
+        if (this.target_language == 'japanese') {
+          // console.log('question', question.users_cards.cards.words);
+          translationArray.push(question.users_cards.cards.words.japanese_translations);
+        }
       });
       this.totalCards = this.quiz_contents.length;
       this.cards = cardsArray;
       this.words = wordsArray;
       this.translations = translationArray;
-      console.log('translations', this.translations);
+
+      // console.log('translations', this.translations);
       // console.log('quiz contents', this.quiz_contents);
       // console.log('cards', this.cards);
       // console.log('words', this.words);
@@ -150,11 +173,14 @@ export class TestComponent implements OnInit {
       if (this.target_language == 'italian') {
         this.currentAnswer = this.translations[this.currentCard].italian_word;
       }
+      if (this.target_language == 'japanese') {
+        this.currentAnswer = this.translations[this.currentCard].japanese_word;
+      }
 
       this.currentQuizId = this.quiz_contents[this.currentCard].id;
       this.currentQuizContent = this.quiz_contents[this.currentCard];
-      console.log(this.currentAnswer);
-      console.log(this.currentQuizContent);
+      // console.log(this.currentAnswer);
+      // console.log(this.currentQuizContent);
     });
   }
 }

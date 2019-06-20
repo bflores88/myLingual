@@ -1,8 +1,11 @@
 <app-profile-nav-mobile></app-profile-nav-mobile>
 
 <div class="page">
-  <div class="profile-page">
+  <div *ngIf="user" class="profile-page">
     <div class="profile">
+      <div (click)="toUserSettings()" class="profile-setup-banner" *ngIf="user.target_languages.length == 0">
+        Hey! You have no target language. Click here to finish setting up your profile.
+      </div>
       <div class="profile-photo-div">
         <img src="{{ user.profile_image_url }}" />
       </div>
@@ -10,8 +13,8 @@
       <div class="profile-info-div">
         <h2>
           <span [hidden]="user.username">Username</span
-          ><span *ngIf="user.id === userID" [hidden]="!user.username">{{ user.name }}</span
-          ><span *ngIf="user.id !== userID" [hidden]="!user.username">{{ user.username }}</span>
+          ><span *ngIf="checkUser" [hidden]="!user.username">{{ user.name }}</span
+          ><span *ngIf="!checkUser" [hidden]="!user.username">{{ user.username }}</span>
         </h2>
         <p>Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
       </div>
@@ -28,7 +31,7 @@
         <p>Decks:&nbsp;&nbsp;{{ user.decks }}</p>
       </div>
 
-      <div *ngIf="user.id === userID" class="profile-settings-div">
+      <div *ngIf="checkUser" class="profile-settings-div">
         <button class="small-btn" (click)="toUserSettings()">
           <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Settings
         </button>
@@ -36,7 +39,7 @@
         <button class="small-btn" (click)="logout()"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</button>
       </div>
 
-      <div *ngIf="user.id !== userID" class="profile-settings-div">
+      <div *ngIf="isNotContact" class="profile-settings-div">
         <button class="small-btn" (click)="sendInvite()">
           <i class="fas fa-user-cog"></i>&nbsp;&nbsp;Send Contact Invite
         </button>
