@@ -18,7 +18,7 @@
           <img src="{{ searchMatch.match_image }}" />
         </span>
         <span [ngClass]="{
-          'match-own': true,
+          'full-match-own': true,
           fas: searchMatch.match_own > 0,
           far: searchMatch.match_own === 0,
           'fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
