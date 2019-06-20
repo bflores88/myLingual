@@ -19,11 +19,15 @@ export class ContactsComponent implements OnInit {
   }
 
   contacts: any = [];
+  newConversation: boolean;
+  messageBody = '';
+  messageTo = '';
+  userList = [];
 
   ngOnInit() {
     this.backend.getUserContacts().then((data: any) => {
       // this.contacts = data;
-      // console.log(data);
+      console.log(data);
       data.forEach((contact) => {
         if (contact.invitee != this.user.id) {
           this.contacts.push(contact.invitees);
@@ -31,7 +35,33 @@ export class ContactsComponent implements OnInit {
           this.contacts.push(contact.requesters);
         }
       });
-      // console.log(this.contacts);
+      console.log(this.contacts);
     });
   }
+
+  handleSendMessage(e) {
+    console.log(e.target.value)
+    console.log(e.target.name)
+    this.newConversation = true;
+    this.userList.push(parseInt(e.target.value));
+    this.messageTo = e.target.name;
+  }
+
+  handleNewMessage() {
+    console.log(this.messageBody);
+    console.log(this.messageTo);
+    console.log(this.userList);
+    this.newConversation = false;
+
+    const data = {
+      body: this.messageBody,
+      userList: this.userList
+    }
+
+    this.backend.postConversation(data).then((result) => {
+      console.log(data);
+    })
+  }
+
+  
 }

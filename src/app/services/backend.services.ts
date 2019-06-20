@@ -58,6 +58,10 @@ export class BackendService {
     return this.http.get('/api/conversations', { withCredentials: true }).toPromise();
   }
 
+  postConversation(data) {
+    return this.http.post('/api/conversations', data, { withCredentials: true }).toPromise();
+  }
+
   getMessages(id) {
     return this.http.get(`/api/conversations/${id}`, { withCredentials: true }).toPromise();
   }

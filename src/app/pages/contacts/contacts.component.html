@@ -7,20 +7,27 @@
         <div class="left-side-contact">
           <a routerLink="/profile/{{ contact.id }}">
             <img class="contact-image" src="{{ contact.profile_image_url }}" alt="" />
-            <h3>{{ contact.name }}</h3>
+            <h3>{{ contact.username }}</h3>
           </a>
         </div>
         <div class="right-side-contact">
           <div class="right-side-inner">
-            <button class="send-message-button">Send Message</button>
+            <button class="send-message-button" name="{{ contact.username}}" value="{{ contact. id }}" (click)="handleSendMessage($event)">Send Message</button>
           </div>
 
           <div class="right-side-inner">
-            <button class="delete-contact-button">Delete Contact</button>
+            <button class="delete-contact-button" value="{{ contact. id }}">Delete Contact</button>
           </div>
         </div>
       </div>
       <div *ngIf="contacts.length === 0">You have no friends.... damn im sorry man...</div>
     </div>
+
+    <div *ngIf="newConversation" class="new-conversation">
+      <h1>New Message To {{ messageTo }}</h1>
+      <input type="text" name="messageBody" [(ngModel)]="messageBody" class="new-message" />
+      <button class="small-btn" (click)="handleNewMessage()">Send</button>
+    </div>
+
   </div>
 </div>

@@ -49,6 +49,7 @@ router.route('/')
       });
   })
   .post((req, res) => {
+    console.log('********** hit  post request')
     // TO-DO: ensure req.body.userList is an array of user_id's
     // TO-DO: ensure that recipient list contains only a user's contacts
     // must send a message when starting a conversation
@@ -60,16 +61,18 @@ router.route('/')
     new Conversation()
       .save({})
       .then((result) => {
+        const resultJSON = result.toJSON()
         // post first messge in the conversation
         return new Message()
           .save({
             body: req.body.body,
-            conversation_id: result.id,
+            conversation_id: resultJSON.id,
             sent_by: req.user.id
           })
       })
       .then((result) => {
         // tie sender to the conversation
+        console.log('message result', result.toJSON())
         const conversation_id = result.attributes.conversation_id;
         const users_conversations = [
           {
@@ -87,10 +90,16 @@ router.route('/')
             })
           })
         }
+
+        console.log('users_convs', users_conversations);
         // post to users_conversations (one entry per recipient)
         return UserConversation.collection(users_conversations).invokeThen('save')
       })
       .then(() => {
+        // return res.json({ success: 'made new conversation'})
+
+        // COMMMENTED OUT CODE BELOW DUE TO INTERNAL SERVER ERROR
+
         // now fetch the new conversation
         return knex
           .raw(
@@ -110,6 +119,7 @@ router.route('/')
           )
       })
       .then((result) => {
+        console.log('made some shit', result.toJSON())
         // send response (new conversation with first message)
         return res.json(result.rows);
       })
