@@ -26,9 +26,11 @@ export class MessagesComponent implements OnInit {
   messageBody: string;
   msg: Observable<any>;
   private msgSub: Subscription;
+  newMessages = [];
 
   userId = 0;
   roomId = 0;
+  conversation_id: number;
 
   user: {
     id: number;
@@ -53,19 +55,32 @@ export class MessagesComponent implements OnInit {
     private session: SessionService,
     private socketService: SocketService,
   ) {
-    this.socketService.getMessage().subscribe((msg) => {
-      console.log('User data', msg);
-      // this.messages.push(msg);
-    });
+    // this.socketService.getMessage().subscribe((msg) => {
+    //   console.log('User data', msg);
+    //   // this.newMessages.push(this.messages)
+    //   // this.newMessages.push(msg);
+    //   // this.messages = this.newMessages;
+    // });
   }
 
   ngOnInit() {
+    this.route.params.subscribe(routeParams => {
+      this.conversation_id = parseInt(routeParams.id);
+    })
+    
     this.msg = this.socketService.msg;
-    this.msgSub = this.socketService.msg.subscribe((msg) => (this.messageBody = msg.message));
+    this.msgSub = this.socketService.msg.subscribe((msg) =>
+    {
+      this.messages.unshift(msg);
+      // this.messages = this.messages
+      console.log(msg);
+      // console.log(this.messages)
+    });
     let user = this.session.getSession();
     this.userId = parseInt(user.id);
 
     console.log(this.userId);
+
 
     this.socketService.sendIdentity(this.userId);
 
@@ -73,6 +88,7 @@ export class MessagesComponent implements OnInit {
     this.roomId = parseInt(id);
     this.backend.getMessages(id).then((data: MessageData[]) => {
       this.messages = data.reverse();
+
       console.log('**************', this.messages);
     });
 
@@ -87,7 +103,12 @@ export class MessagesComponent implements OnInit {
     const msg = {
       id: this.userId,
       room: this.roomId,
-      message: message
+      body: message,
+      conversation_id: this.conversation_id,
+      sent_by: this.userId,
+      sent_by_user_id: this.userId,
+      sent_by_username: 'Admin01',
+      created_at: Date.now().toString(),
     }
     // const id = this.route.snapshot.paramMap.get('id');
     this.socketService.sendMessage(msg);
@@ -108,5 +129,9 @@ export class MessagesComponent implements OnInit {
 
   getMessage() {
     return this.socketService.getMessage();
+  }
+
+  ngOnDestroy() {
+    this.msgSub.unsubscribe();
   }
 }

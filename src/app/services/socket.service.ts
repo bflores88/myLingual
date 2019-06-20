@@ -16,7 +16,7 @@ export class SocketService {
 
   getMessage() {
     this.socket.on('message', (msg: any) => {
-      console.log(msg);
+      console.log('SS message received');
     })
     console.log('socket service get message');
     return this.socket.fromEvent<any>('message').pipe(map((data) => data.message));
