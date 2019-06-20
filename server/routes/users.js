@@ -5,11 +5,13 @@ const router = express.Router();
 const User = require('../database/models/User');
 const UserCard = require('../database/models/UserCard');
 const Deck = require('../database/models/Deck');
+const authGuard = require('../guards/authGuard');
+const isOwnerGuard = require('../guards/isOwnerGuard');
 
 router
   .route('/')
   // fetches all users
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     new User()
       .fetchAll({ withRelated: ['roles'] })
       .then((result) => {
@@ -20,7 +22,7 @@ router
       });
   });
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authGuard, (req, res) => {
   new User('id', req.params.id)
     .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
     .then((result) => {
@@ -31,7 +33,7 @@ router.route('/:id').get((req, res) => {
       console.log('error', err);
     });
 })
-  .put((req, res) => {
+  .put(authGuard, (req, res) => {
     User.where('id', req.user.id)
       .save({
         active: req.body.active,
@@ -49,7 +51,7 @@ router.route('/:id').get((req, res) => {
 })
 
 // fetches all cards owned by User
-router.route('/:id/cards').get((req, res) => {
+router.route('/:id/cards').get(authGuard, (req, res) => {
   new User('id', req.params.id)
     .fetch({
       withRelated: [
@@ -76,7 +78,7 @@ router.route('/:id/cards').get((req, res) => {
 });
 
 // fetches all decks belonging to User
-router.route('/:id/decks').get((req, res) => {
+router.route('/:id/decks').get(authGuard, (req, res) => {
   Deck.where({ user_id: req.params.id })
     .fetchAll({
       withRelated: [
