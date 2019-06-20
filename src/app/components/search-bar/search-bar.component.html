@@ -14,7 +14,7 @@
 
   <div class="search-match-box">
     <div *ngFor="let searchMatch of searchMatches">
-      <div (click)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
+      <div (mousedown)="showDetail(searchMatch.match_id, searchMatch.match_type)" class="search-match">
         <span class="match-image">
           <img src="{{ searchMatch.match_image }}" />
         </span>
