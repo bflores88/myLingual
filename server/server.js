@@ -300,8 +300,6 @@ io.on('connect', (socket) => {
     socket.leave(data.room)
   })
 
-  // message to specific room
-  // io.to(data.room).emit
 
   socket.on('message', (msg) => {
     console.log('server socket message', msg);

@@ -31,6 +31,7 @@ export class MessagesComponent implements OnInit {
   userId = 0;
   roomId = 0;
   conversation_id: number;
+  username = '';
 
   user: {
     id: number;
@@ -64,6 +65,9 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit() {
+    let user = this.session.getSession();
+    this.userId = parseInt(user.id);
+    this.username = user.username;
     this.route.params.subscribe(routeParams => {
       this.conversation_id = parseInt(routeParams.id);
     })
@@ -76,8 +80,7 @@ export class MessagesComponent implements OnInit {
       console.log(msg);
       // console.log(this.messages)
     });
-    let user = this.session.getSession();
-    this.userId = parseInt(user.id);
+    
 
     console.log(this.userId);
 
@@ -107,7 +110,7 @@ export class MessagesComponent implements OnInit {
       conversation_id: this.conversation_id,
       sent_by: this.userId,
       sent_by_user_id: this.userId,
-      sent_by_username: 'Admin01',
+      sent_by_username: this.username,
       created_at: Date.now().toString(),
     }
     // const id = this.route.snapshot.paramMap.get('id');
