@@ -25,6 +25,7 @@ import { InvitesComponent } from './pages/invites/invites.component';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { AboutComponent } from './pages/about/about.component';
+import { GoogleComponent } from './pages/google/google.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'forums/new/:id', canActivate: [AuthGuard], component: NewForumPostComponent },
   { path: 'forums/posts/:post_id', canActivate: [AuthGuard], component: ForumPostComponent },
   { path: 'search/:search_text', canActivate: [AuthGuard], component: SearchResultsComponent },
+  { path: 'google', component: GoogleComponent },
 ];
 
 @NgModule({
