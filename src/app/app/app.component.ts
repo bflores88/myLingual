@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BackendService } from '../services/backend.services';
 import { Router } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
 
 // interface ClientIdResponse {
 //   client_id: string
@@ -17,14 +18,11 @@ export class AppComponent {
   title = 'myLingual';
   client_id: string;
 
-  constructor(private backend: BackendService, private router: Router) { }
+  constructor(private swUpdate: SwUpdate) { }
 
 
-  // ngOnInit() {
-  //   return this.backend.getClientId().then((data: ClientIdResponse) => {
-  //     this.client_id = data.client_id;
-  //     console.log(data);
-  //   })
-  // }
+  ngOnInit() {
+    this.swUpdate.checkForUpdate()
+  }
 
 }
