@@ -41,19 +41,76 @@ export class UserSettingsComponent implements OnInit {
 
   languages: any = [];
 
+  languages_list: any = [];
+
   target_language_id: any = 0;
+
+  new_target_language_id: number = 0;
 
   ngOnInit() {
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
       this.languages.shift();
       console.log(this.languages);
+      this.backend.getAllLanguages().then((data) => {
+        let yourLanguageList = [];
+        let nonTargetList = [];
+        this.languages.forEach((element) => {
+          yourLanguageList.push(element.language_id);
+        });
+        // console.log(yourLanguageList);
+        this.languages_list = data;
+        // console.log('not filtered', this.languages_list);
+        this.languages_list = this.languages_list.forEach((lang) => {
+          if (!yourLanguageList.includes(lang.id) && lang.id !== 3) {
+            // console.log('its in there');
+            nonTargetList.push(lang);
+          }
+        });
+        console.log('filtered', nonTargetList);
+        this.languages_list = nonTargetList;
+      });
+    });
+  }
+
+  addTarget() {
+    let targetId = this.new_target_language_id;
+    let body = {
+      language_id: targetId,
+    };
+    this.backend.addUserLanguage(body).then((data) => {
+      this.message = 'Target language added successfully!';
+    });
+
+    //
+    this.backend.getUserLanguages().then((data) => {
+      this.languages = data;
+      this.languages.shift();
+      console.log(this.languages);
+      this.backend.getAllLanguages().then((data) => {
+        let yourLanguageList = [];
+        let nonTargetList = [];
+        this.languages.forEach((element) => {
+          yourLanguageList.push(element.language_id);
+        });
+        // console.log(yourLanguageList);
+        this.languages_list = data;
+        // console.log('not filtered', this.languages_list);
+        this.languages_list = this.languages_list.forEach((lang) => {
+          if (!yourLanguageList.includes(lang.id) && lang.id !== 3) {
+            // console.log('its in there');
+            nonTargetList.push(lang);
+          }
+        });
+        // console.log('filtered', nonTargetList);
+        this.languages_list = nonTargetList;
+      });
     });
   }
 
   changeTarget() {
     let targetId = parseInt(this.target_language_id);
-    console.log(targetId);
+    // console.log(targetId);
     this.backend.changeTargetLanguage(targetId).then((data) => {
       this.message = 'Target language changed successfully!';
     });
