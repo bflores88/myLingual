@@ -18,8 +18,10 @@ router.route('/all').get(authGuard, modGuard, (req, res) => {
     });
 });
 
+
 router.route('/').get(authGuard, (req, res) => {
   console.log(req.user);
+
   new Deck()
     .where({ user_id: req.user.id })
     .fetchAll()
