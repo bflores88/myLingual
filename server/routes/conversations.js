@@ -50,6 +50,7 @@ router.route('/')
   })
   .post((req, res) => {
     // TO-DO: ensure req.body.userList is an array of user_id's
+    // TO-DO: ensure that recipient list contains only a user's contacts
     // must send a message when starting a conversation
     if (!req.body.hasOwnProperty("body")) {
       console.log("No message body");
