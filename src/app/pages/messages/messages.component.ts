@@ -60,7 +60,8 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.msgSub = this.socketService.msg.subscribe((msg) => (this.messageBody = msg));
+    this.msg = this.socketService.msg;
+    this.msgSub = this.socketService.msg.subscribe((msg) => (this.messageBody = msg.message));
     let user = this.session.getSession();
     this.userId = parseInt(user.id);
 
@@ -83,8 +84,13 @@ export class MessagesComponent implements OnInit {
   }
 
   sendMessage(message) {
+    const msg = {
+      id: this.userId,
+      room: this.roomId,
+      message: message
+    }
     // const id = this.route.snapshot.paramMap.get('id');
-    this.socketService.sendMessage(this.userId, this.roomId, message);
+    this.socketService.sendMessage(msg);
     console.log('backend service; sent msg');
   }
 
