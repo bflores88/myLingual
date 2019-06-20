@@ -2,10 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
+const authGuard = require('../guards/authGuard');
 
 const knex = require('../database/knex.js');
 
-router.route('/all/:search_text').get((req, res) => {
+router.route('/all/:search_text').get(authGuard, (req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const my_username = req.user ? req.user.username : '';
   const search_text = req.params.search_text.toLowerCase();
@@ -106,7 +107,7 @@ router.route('/all/:search_text').get((req, res) => {
     });
 });
 
-router.route('/cards/:search_text').get((req, res) => {
+router.route('/cards/:search_text').get(authGuard, (req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const search_text = req.params.search_text.toLowerCase();
   knex
@@ -166,7 +167,7 @@ router.route('/cards/:search_text').get((req, res) => {
     });
 });
 
-router.route('/users/:search_text').get((req, res) => {
+router.route('/users/:search_text').get(authGuard, (req, res) => {
   const my_id = req.user ? req.user.id : 0;
   const my_username = req.user ? req.user.username : '';
   const search_text = req.params.search_text.toLowerCase();
