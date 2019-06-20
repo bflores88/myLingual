@@ -103,7 +103,6 @@ export class ProfileComponent implements OnInit {
   getUserSession() {
     let user = this.session.getSession();
     this.userID = parseInt(user.id);
-
   }
 
   sendInvite() {
