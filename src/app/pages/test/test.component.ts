@@ -87,6 +87,10 @@ export class TestComponent implements OnInit {
           this.currentAnswer = this.translations[this.currentCard].italian_word;
         }
 
+        if (this.target_language == 'japanese') {
+          this.currentAnswer = this.translations[this.currentCard].japanese_word;
+        }
+
         this.currentQuizId = this.quiz_contents[this.currentCard].id;
         this.currentQuizContent = this.quiz_contents[this.currentCard];
       }
@@ -101,7 +105,8 @@ export class TestComponent implements OnInit {
 
   retakeTest() {
     let routeId = this.activated.snapshot.paramMap.get('id');
-    this.router.navigateByUrl(`/test/${routeId}`);
+    // this.router.navigateByUrl(`/test/${routeId}`);
+    this.router.navigateByUrl(`/decks`);
   }
 
   ngOnInit() {
@@ -121,7 +126,7 @@ export class TestComponent implements OnInit {
       this.languages.map((language) => {
         if (language.language_type == 'target' && language.primary == true) {
           this.target_language = language.languages.english_name;
-          // console.log('target lang', this.target_language);
+          console.log('target lang', this.target_language);
         }
       });
     });
@@ -144,11 +149,17 @@ export class TestComponent implements OnInit {
         if (this.target_language == 'italian') {
           translationArray.push(question.users_cards.cards.words.italian_translations);
         }
+
+        if (this.target_language == 'japanese') {
+          // console.log('question', question.users_cards.cards.words);
+          translationArray.push(question.users_cards.cards.words.japanese_translations);
+        }
       });
       this.totalCards = this.quiz_contents.length;
       this.cards = cardsArray;
       this.words = wordsArray;
       this.translations = translationArray;
+
       // console.log('translations', this.translations);
       // console.log('quiz contents', this.quiz_contents);
       // console.log('cards', this.cards);
@@ -161,6 +172,9 @@ export class TestComponent implements OnInit {
       }
       if (this.target_language == 'italian') {
         this.currentAnswer = this.translations[this.currentCard].italian_word;
+      }
+      if (this.target_language == 'japanese') {
+        this.currentAnswer = this.translations[this.currentCard].japanese_word;
       }
 
       this.currentQuizId = this.quiz_contents[this.currentCard].id;
