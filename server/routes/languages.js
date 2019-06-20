@@ -7,7 +7,7 @@ const UserLanguage = require('../database/models/UserLanguage');
 const authGuard = require('../guards/authGuard');
 const languagesGuard = require('../guards/languagesGuard');
 
-router.route('/all').get((req, res) => {
+router.route('/all').get(authGuard, (req, res) => {
   new Language()
     .fetchAll({})
     .then((result) => {
