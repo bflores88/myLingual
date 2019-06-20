@@ -23,7 +23,7 @@ router.route('/:id').get(authGuard, (req, res) => {
     });
 });
 // edit quiz question
-router.route('/:id').put(authGuard, isAdminGuard, (req, res) => {
+router.route('/:id').put(authGuard, (req, res) => {
   console.log(req.body);
   new QuizContent('id', req.params.id)
     .save({
