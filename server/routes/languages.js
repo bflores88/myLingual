@@ -18,42 +18,52 @@ router.route('/all').get(authGuard, (req, res) => {
     });
 });
 
-// add language
-
-router.route('/').post((req, res) => {
-  console.log(req.body);
-  new UserLanguage({
-    user_id: req.user.id,
-    language_id: req.body.language_id,
-    language_type: 'target',
-    primary: true,
-    active: true,
+router
+  .route('/')
+  .get(authGuard, (req, res) => {
+    UserLanguage.where({ user_id: req.user.id, active: true })
+      .orderBy('active', 'DESC')
+      .orderBy('language_type', 'ASC')
+      .orderBy('primary', 'DESC')
+      .orderBy('id', 'ASC')
+      .fetchAll({ withRelated: ['languages'] })
+      .then((result) => {
+        // respond with all active payment cards, sorted
+        return res.json(result);
+      })
+      .catch((err) => {
+        console.log('error:', err);
+        return res.status(500).send('Server error');
+      });
   })
-    .save()
-    .then((result) => {
-      return res.json(result);
-    })
-    .catch((err) => {
-      console.log('error', err);
-    });
-});
-
-router.route('/').get(authGuard, (req, res) => {
-  UserLanguage.where({ user_id: req.user.id, active: true })
-    .orderBy('active', 'DESC')
-    .orderBy('language_type', 'ASC')
-    .orderBy('primary', 'DESC')
-    .orderBy('id', 'ASC')
-    .fetchAll({ withRelated: ['languages'] })
-    .then((result) => {
-      // respond with all active payment cards, sorted
-      return res.json(result);
-    })
-    .catch((err) => {
-      console.log('error:', err);
-      return res.status(500).send('Server error');
-    });
-});
+  .post(authGuard, (req, res) => {
+    // ensure not setting target language to english
+    if (parseInt(req.body.language_id) === 3) {
+      return res.status(400).send('Bad Request');
+    }
+    // fetch all of user's target languages
+    UserLanguage.where({ user_id: req.user.id, active: true, language_type: 'target' })
+      .fetchAll()
+      .then((result) => {
+        // if no active target languages, set primary = true. Otherwise, false
+        const primary = result.length > 0 ? false : true;
+        // return posted language
+        return new UserLanguage().save({
+          user_id: req.user.id,
+          language_id: req.body.language_id,
+          language_type: 'target',
+          primary: primary,
+          active: true,
+        });
+      })
+      .then(() => {
+        return res.send('Successful post');
+      })
+      .catch((err) => {
+        console.log(err.message);
+        return res.status(500).send('Server error');
+      });
+  });
 
 // toggle primary target language
 router
