@@ -313,6 +313,8 @@ io.on('connect', (socket) => {
 
     const recipient = onlineUsers[msg.id];
     console.log('recipient', recipient);
+    console.log('message.room', msg.room);
+    io.to(`${msg.room}`).emit('message', msg)
 
     if (recipient) {
       recipient.emit( 'message', msg);
