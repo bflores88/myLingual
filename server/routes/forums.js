@@ -4,9 +4,10 @@ const express = require('express');
 const router = express.Router();
 const ForumTopic = require('../database/models/ForumTopic');
 const Post = require('../database/models/Post');
+const authGuard = require('../guards/authGuard');
 
 // get all forums
-router.route('/').get((req, res) => {
+router.route('/').get(authGuard, (req, res) => {
   new ForumTopic()
     .fetchAll({ withRelated: ['posts'] })
     .then((result) => {
@@ -20,7 +21,7 @@ router.route('/').get((req, res) => {
 
 // get specific post
 
-router.route('/:post_id').get((req, res) => {
+router.route('/:post_id').get(authGuard, (req, res) => {
   new ForumTopic()
     .where({ id: req.params.post_id })
     .fetchAll({ withRelated: ['posts.created_by'] })
@@ -35,7 +36,7 @@ router.route('/:post_id').get((req, res) => {
 
 // add new post to specific forum
 
-router.route('/:id').post((req, res) => {
+router.route('/:id').post(authGuard, (req, res) => {
   // console.log(req.body);
   new Post({
     forum_topic_id: req.params.id,
