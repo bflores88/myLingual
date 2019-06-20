@@ -21,58 +21,71 @@
   }
 }
 
-.search-match {
-  display: flex;
-  align-items: center;
-  border-bottom: #cccccc 1px solid;
-  background-color: white;
+.full-search-match-box {
+  .full-search-match {
+    display: flex;
+    align-items: center;
+    border-bottom: #cccccc 1px solid;
+    background-color: white;
 
-  .match-image img {
-    width: 65px;
-    height: 65px;
-    margin: 5px 10px 5px 5px;
-    border-radius: 50%;
-    border: #dddddd 1px solid;
-  }
-
-  .match-own {
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 30px;
-  }
-
-  .match-detail {
-    margin: 5px 5px 5px 15px;
-
-    p {
-      margin: 3px;
+    .full-match-image img {
+      width: 65px;
+      height: 65px;
+      margin: 5px 10px 5px 5px;
+      border-radius: 50%;
+      border: #dddddd 1px solid;
     }
-    .match-name {
-      font-weight: bolder;
-      font-size: 24px;
+
+    .full-match-own {
+      margin-left: 5px;
+      margin-right: 5px;
+      width: 30px;
     }
-    .match-other {
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
-      .match-other-image-user {
-        margin-right : 5px;
-        height: 25px;
-        width: 35px;
-        border: #dddddd 1px solid;
-      }
+    .full-match-detail {
+      margin: 5px 5px 5px 15px;
 
-      .match-other-image-card {
-        margin-right: 5px;
-        height: 30px;
-        width: 30px;
-        border-radius: 50%;
-        border: #dddddd 1px solid;
+      p {
+        margin: 3px;
       }
-      .match-other-text {
-        font-style: italic;
-        color: #333333;
+      .full-match-name {
+        font-weight: bolder;
+        font-size: 24px;
+      }
+      .full-match-other {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+
+        .full-match-other-image-user {
+          margin-right : 5px;
+          height: 20px;
+          width: 30px;
+          border: #dddddd 1px solid;
+
+          @media only screen and (max-width: 400px) {
+            display: none;
+          }
+        }
+
+        .full-match-other-image-card {
+          margin-right: 5px;
+          height: 30px;
+          width: 30px;
+          border-radius: 50%;
+          border: #dddddd 1px solid;
+
+          @media only screen and (max-width: 400px) {
+            display: none;
+          }
+        }
+        
+        .full-match-other-text {
+          font-style: italic;
+          color: #333333;
+          font-size: 16px;
+        }
       }
     }
   }

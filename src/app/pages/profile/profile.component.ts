@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
     private activated: ActivatedRoute,
     private session: SessionService,
     private auth: AuthService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getUserSession();
@@ -73,8 +73,8 @@ export class ProfileComponent implements OnInit {
           const contactArray = [];
 
           data.forEach((contact) => {
-    
-            if (contact.invitee != this.userID){
+
+            if (contact.invitee != this.userID) {
               contactArray.push(contact.invitees.id);
             } else {
               contactArray.push(contact.requesters.id);
@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit {
           } else {
             this.isNotContact = false;
           }
-          
+
         })
       });;
     } else {
@@ -120,7 +120,7 @@ export class ProfileComponent implements OnInit {
     return this.auth.logout()
       .then(() => {
         this.router.navigate(['/'])
-    })
+      })
   }
 
 }
