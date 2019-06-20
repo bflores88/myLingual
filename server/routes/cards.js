@@ -149,28 +149,85 @@ router.route('/like/:id')
   });
 });
 
-router.route('/download/:id')
+// DOWNLOAD VERIFICATION ROUTE FOR CARDS NOT CREATED BY CURRENT USER
+router.route('/download/verify/:cardID&:userID')
 .get((req, res) => {
-  new Card('id', req.params.id)
-  .fetch({columns: 'downloads'})
-  .then((card) => {
-    const cardObj = card.toJSON();
-    let downloadCount = parseInt(cardObj.downloads);
-    downloadCount++;
-
-    new Card('id', req.params.id)
-    .save({downloads: downloadCount})
-    .then((card) => {
-      const cardObj = card.toJSON();
-      return res.json({downloads: cardObj.downloads});
-    })
-    .catch(() => {
-      return res.json({errorMessage: 'Download update failed.'});
-    });
+  new UserCard({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .fetch()
+  .then((result) => {
+    if (result) {
+      return res.json({canDownload: false});
+    } else {
+      return res.json({canDownload: true});
+    }
   })
   .catch(() => {
-    return res.json({errorMessage: 'Card not found'});
+    return res.json({errorMessage: 'Error validating download eligibility.'});
   })
+})
+
+// DOWNLOAD ROUTE WHICH HAS VERIFICATION FROM ABOVE, COULD REMOVE LATER.
+router.route('/download/:cardID&:userID')
+.get((req, res) => {
+
+  // in order to download a card the card must not already belong to a user.
+  new UserCard({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .fetch()
+  .then((result) => {
+    if (result) {
+      // if the card is already paired with user so end the process.
+      return res.json({errorMessage: 'Card already belongs to User.'});
+    } else {
+      // if the card isn't paired with user so create a new entry in users_cards.
+      new UserCard()
+      .save({
+        user_id: req.params.userID,
+        card_id: req.params.cardID,
+        attempts: 0,
+        successes: 0,
+      })
+      .then((userCard) => {
+        // once save is complete then get the card from cards table
+        const userCardObj = userCard.toJSON();
+        
+        new Card('id', userCardObj.card_id)
+        .fetch({columns: 'downloads'})
+        .then((card) => {
+          // extract the download count and increment
+          const cardObj = card.toJSON();
+          let downloadCount = parseInt(cardObj.downloads);
+          downloadCount++;
+
+          // get card again and save changes
+          new Card('id', userCardObj.card_id)
+          .save({downloads: downloadCount})
+          .then((card) => {
+            // send updated download count back to app
+            const cardObj = card.toJSON();
+            return res.json({updatedDownloads: cardObj.downloads});
+          })
+          .catch(() => {
+            return res.json({errorMessage: 'Error in download count update.'});
+          })
+        })
+        .catch(() => {
+          return res.json(cardObj);
+        });
+      })
+      .catch(() => {
+        return res.json({errorMessage: 'Error downloading card.'});
+      }) 
+    }
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Error in download process. Try again.'});
+  });
 })
 
 router.route('/share/:id')
@@ -212,7 +269,6 @@ router.route('/:id').get((req, res) => {
       return res.json(newResult);
     })
     .catch((error) => {
-      console.log('what ', error);
       return res.json({errorMessage: 'Card not found.'});
     });
 });

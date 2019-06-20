@@ -45,8 +45,12 @@ export class BackendService {
     return this.http.get(`/api/cards/like/${id}`, { withCredentials: true }).toPromise();
   }
 
-  downloadFlashcard(id: string) {
-    return this.http.get(`/api/cards/download/${id}`, { withCredentials: true }).toPromise();
+  downloadFlashcardVerify(cardID: string, userID: string) {
+    return this.http.get(`/api/cards/download/verify/${cardID}&${userID}`, { withCredentials: true }).toPromise();
+  }
+
+  downloadFlashcard(cardID: string, userID: string) {
+    return this.http.get(`/api/cards/download/${cardID}&${userID}`, { withCredentials: true }).toPromise();
   }
 
   shareFlashcard(id: string) {

@@ -6,6 +6,8 @@ import { DictionaryService } from 'src/app/services/dictionary.service';
 
 interface ResponseData {
   errorMessage: string;
+  updatedDownloads: number;
+  canDownload: boolean;
 }
 
 interface Flashcard {
@@ -37,6 +39,10 @@ export class CardComponent implements OnInit {
   hasDefinitions = false;
   hasRelation = false;
 
+  canLike: boolean;
+  canDownload: boolean;
+  canShare: boolean;
+
   routeID: string;
 
   flashcard: Flashcard;
@@ -61,15 +67,23 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Only happens on initial navigation to component or entering url manually
-    this.backend.getFlashcards().then((cards: Flashcard[]) => {
+    this.backend.getFlashcards()
+    .then((cards: Flashcard[]) => {
+
       cards.forEach((card: Flashcard) => {
         this.cardTableId.push(card.id.toString());
       });
+
       this.cardTableIdPosition = this.cardTableId.indexOf(this.activatedRoute.snapshot.paramMap.get('id'));
 
       this.activatedRoute.paramMap.subscribe((routeParams: ParamMap) => {
-        this.loadCard();
+        // Behavior on navigation to page from other pages or same pages
+        this.loadCard()
+        .then(()=> this.getCreator()
+        .then(()=> this.getRelationStatus()
+        .then(()=> this.validateDownload()
+        .then(()=> this.validateLikeAndShare()
+        ))));
       });
     })
   }
@@ -78,55 +92,75 @@ export class CardComponent implements OnInit {
     this.user = this.session.getSession();
     this.routeID = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.backend.getFlashcard(this.routeID)
+    return this.backend.getFlashcard(this.routeID)
     .then((response: ResponseData) => {
+
       if (response.errorMessage) {
         this.hasFlashcard = false;
         this.errorMessage = response.errorMessage;
+
       } else {
         this.flashcard = (response as unknown) as Flashcard;
         this.hasFlashcard = true;
       }
-      // this.dictionary.getWordDefinitions(response.english_word)
-      // .then((result) => {
-      //   this.definitions = result;
-      //   this.hasDefinitions = true;
-      //   console.log(this.definitions);
-      // })
-      // .catch((error) => {
-      //   this.errorMessage = error.errorMessage;
-      // });
-      this.backend.getUserProfile(this.flashcard.created_by)
-      .then((result: User) => {
-        this.creator = result;
-        this.hasCreator = true;
-
-        if (this.user.loggedIn) {
-          this.backend.getUserContacts()
-          .then((result: []) => {
-            this.hasRelation = false;
-            result.forEach((contact: User) => {
-              if (contact.id === this.creator.id){
-                this.hasRelation = true;
-              }
-            })
-          })
-          .catch((error) => {
-            if (error.ok === false) {
-              this.errorMessage = '';
-            } else {
-              this.errorMessage = 'Error getting contacts.';
-            }
-          });
-        }
-      })
-      .catch(() => {
-        this.errorMessage = 'Error retrieving creator details.';
-      });
     })
     .catch(() => {
       this.errorMessage = 'Error retrieving card.';
     });
+  }
+
+  getCreator() {
+    return this.backend.getUserProfile(this.flashcard.created_by)
+    .then((result: User) => {
+
+      this.creator = result;
+      this.hasCreator = true;
+    })
+    .catch(() => {
+      this.errorMessage = 'Error retrieving creator details.';
+    });
+  }
+
+  getRelationStatus(){
+    return this.backend.getUserContacts()
+    .then((result: []) => {
+
+      this.hasRelation = false;
+
+      result.forEach((contact: User) => {
+        if (contact.id === this.creator.id){
+          this.hasRelation = true;
+        }
+      })
+    })
+    .catch((error) => {
+      if (error.ok === false) {
+        this.errorMessage = '';
+      } else {
+        this.errorMessage = 'Error getting contacts.';
+      }
+    });
+  }
+
+  validateDownload() {
+    return this.backend.downloadFlashcardVerify(this.routeID, this.user.id)
+    .then((response: ResponseData) => {
+      this.canDownload = response.canDownload;
+    })
+    .catch((error) => {
+      this.errorMessage = error.errorMessage;
+      this.canDownload = false;
+    })
+  }
+
+  validateLikeAndShare() {
+    if (this.user.loggedIn) {
+      this.canLike = true;
+      this.canShare = true;
+    } else {
+      this.canLike = false;
+      this.canShare = false;
+    }
   }
 
   nextCard() {
@@ -150,7 +184,7 @@ export class CardComponent implements OnInit {
   }
 
   addLike() {
-    if (this.user.loggedIn) {
+    if (this.canLike) {
       this.backend.likeFlashcard(this.routeID)
       .then((response: Flashcard) => {
         this.flashcard.likes = response.likes;
@@ -162,10 +196,15 @@ export class CardComponent implements OnInit {
   }
 
   download() {
-    if (this.user.loggedIn) {
-      this.backend.downloadFlashcard(this.routeID)
-      .then((response: Flashcard) => {
-        this.flashcard.downloads = response.downloads;
+    if (this.canDownload) { 
+      this.backend.downloadFlashcard(this.routeID, this.user.id)
+      .then((response: ResponseData) => {
+        if (response.errorMessage){
+          this.errorMessage = response.errorMessage;
+        } else {
+          this.flashcard.downloads = response.updatedDownloads;
+          this.canDownload = false;
+        }
       })
       .catch((error) => {
         this.errorMessage = error.errorMessage;
@@ -174,7 +213,7 @@ export class CardComponent implements OnInit {
   }
 
   share() {
-    if (this.user.loggedIn) {
+    if (this.canShare) {
       this.backend.shareFlashcard(this.routeID)
       .then((response: Flashcard) => {
         this.flashcard.shares = response.shares;
