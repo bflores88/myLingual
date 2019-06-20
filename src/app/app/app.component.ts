@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BackendService } from '../services/backend.services';
 import { Router } from '@angular/router';
-import { SwUpdate } from '@angular/service-worker';
+// import { SwUpdate } from '@angular/service-worker';
 
 // interface ClientIdResponse {
 //   client_id: string
@@ -18,11 +18,11 @@ export class AppComponent {
   title = 'myLingual';
   client_id: string;
 
-  constructor(private swUpdate: SwUpdate) { }
+  constructor() { }
 
 
   ngOnInit() {
-    this.swUpdate.checkForUpdate()
+    // this.swUpdate.checkForUpdate()
   }
 
 }
