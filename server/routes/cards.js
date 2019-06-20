@@ -11,6 +11,7 @@ const singleUpload = upload.single('image');
 const aws = require('aws-sdk');
 const visionApi = require('../services/vision-api');
 const translateApi = require('../services/translate-api');
+const authGuard = require('../guards/authGuard');
 
 require('dotenv').config({ path: '../.env' });
 
@@ -30,7 +31,7 @@ let italian = '';
 router
   .route('/')
   // fetches all cards
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     new Card()
       .fetchAll({ withRelated: ['users', 'words', 'card_themes', 'created_by'] })
       .then((results) => {
@@ -40,7 +41,7 @@ router
         console.log('error', err);
       });
   })
-  .post((req, res) => {
+  .post(authGuard, (req, res) => {
     // check if word exists
 
     const word = req.body.english_word.toLowerCase();
@@ -49,7 +50,7 @@ router
       .then((wordResult) => {
 
         if (!wordResult) {
-
+          
           new Word()
             .save({ english_word: word })
             .then((result) => {
@@ -125,7 +126,7 @@ router
       });
   });
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authGuard, (req, res) => {
   new Card('id', req.params.id)
     .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users.tags'] })
     .then((result) => {
@@ -145,7 +146,7 @@ router.route('/:id').get((req, res) => {
     });
 });
 
-router.route('/search/:term').get((req, res) => {
+router.route('/search/:term').get(authGuard, (req, res) => {
   let search = req.params.term;
   let lowerSearch = search.toLowerCase();
 
@@ -195,7 +196,8 @@ router.route('/search/:term').get((req, res) => {
 // test upload to s3 image bucket working!!!
 router
   .route('/upload')
-  .post(singleUpload, (req, res) => {
+  .post(authGuard, singleUpload, (req, res) => {
+    // console.log(req.user)
     pendingImage = req.file.location;
     
     visionApi(req.file.location)
@@ -209,7 +211,7 @@ router
       })
       .catch(console.error);
   })
-  .delete((req, res) => {
+  .delete(authGuard, (req, res) => {
     const params = {
       Bucket: 'mylingual-images',
       Key: '1560450624222',

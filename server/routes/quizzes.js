@@ -6,9 +6,10 @@ const Deck = require('../database/models/Deck');
 const Reply = require('../database/models/Reply');
 const Quiz = require('../database/models/Quiz');
 const QuizContent = require('../database/models/QuizContent');
+const authGuard = require('../guards/authGuard');
 // get specific quiz
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authGuard, (req, res) => {
   new Quiz()
     .where({ id: req.params.id })
     .fetchAll({
@@ -27,7 +28,7 @@ router.route('/:id').get((req, res) => {
 });
 
 // post reply
-router.route('/:id').post((req, res) => {
+router.route('/:id').post(authGuard, (req, res) => {
   new Quiz({
     deck_id: parseInt(req.params.id),
     quiz_type: req.body.type,

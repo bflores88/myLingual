@@ -5,10 +5,11 @@ const router = express.Router();
 const ForumTopic = require('../database/models/ForumTopic');
 const Post = require('../database/models/Post');
 const Reply = require('../database/models/Reply');
+const authGuard = require('../guards/authGuard');
 
 // get specific post
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authGuard, (req, res) => {
   new Post()
     .where({ id: req.params.id })
     .fetchAll({ withRelated: ['replies.created_by', 'created_by'] })
@@ -21,7 +22,7 @@ router.route('/:id').get((req, res) => {
     });
 });
 // post reply
-router.route('/:id').post((req, res) => {
+router.route('/:id').post(authGuard, (req, res) => {
   console.log(req.body);
   new Reply({
     post_id: req.params.id,
