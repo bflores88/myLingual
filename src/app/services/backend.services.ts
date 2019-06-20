@@ -169,6 +169,10 @@ export class BackendService {
     return this.http.get(`/api/languages`, { withCredentials: true }).toPromise();
   }
 
+  addUserLanguage(body): Promise<object> {
+    return this.http.post(`/api/languages`, body, { withCredentials: true }).toPromise();
+  }
+
   changeTargetLanguage(id): Promise<object> {
     return this.http.put(`/api/languages/${id}`, { withCredentials: true }).toPromise();
   }

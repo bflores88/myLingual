@@ -15,6 +15,7 @@ router.route('/:id').get((req, res) => {
       withRelated: [
         'quiz_contents.users_cards.cards.words.spanish_translations',
         'quiz_contents.users_cards.cards.words.italian_translations',
+        'quiz_contents.users_cards.cards.words.japanese_translations',
       ],
     })
     .then((result) => {

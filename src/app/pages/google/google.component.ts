@@ -6,22 +6,23 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-google',
   templateUrl: './google.component.html',
-  styleUrls: ['./google.component.scss']
+  styleUrls: ['./google.component.scss'],
 })
 export class GoogleComponent implements OnInit {
-
-  constructor(  private backend: BackendService,
+  constructor(
+    private backend: BackendService,
     private router: Router,
     private activated: ActivatedRoute,
     private session: SessionService,
-    private auth: AuthService,) { }
+    private auth: AuthService,
+  ) {}
 
   ngOnInit() {
-    console.log('hits googleLogin ngOnInit')
+    console.log('hits googleLogin ngOnInit');
     this.backend.googleLogin().then((data) => {
-      console.log('user data',data);
+      console.log('user data', data);
       this.session.setSession(data);
-      this.router.navigate(['home'])
-    })
+      this.router.navigate(['profile']);
+    });
   }
 }
