@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
     private activated: ActivatedRoute,
     private session: SessionService,
     private auth: AuthService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getUserSession();
@@ -66,33 +66,36 @@ export class ProfileComponent implements OnInit {
     if (this.activated.snapshot.paramMap.get('user_id')) {
       let searchId = parseInt(this.activated.snapshot.paramMap.get('user_id'));
 
-      return this.backend
-        .getUserProfile(searchId)
-        .then((data: UserResponse) => {
-          this.user = data;
-          this.checkUser = this.userID === this.user.id;
-        })
-        .then(() => {
-          return this.backend.getUserContacts().then((data: any) => {
-            const contactArray = [];
 
-            data.forEach((contact) => {
-              if (contact.invitee != this.userID) {
-                contactArray.push(contact.invitees.id);
-              } else {
-                contactArray.push(contact.requesters.id);
-              }
-            });
+      return this.backend.getUserProfile(searchId).then((data: UserResponse) => {
+        this.user = data;
+        this.checkUser = this.userID === this.user.id;
+      }).then(() => {
+        return this.backend.getUserContacts().then((data: any) => {
+          const contactArray = [];
 
-            if (contactArray.indexOf(searchId) === -1) {
-              this.isNotContact = true;
-            } else if (searchId === this.userID) {
-              this.isNotContact = false;
+          data.forEach((contact) => {
+
+            if (contact.invitee != this.userID) {
+              contactArray.push(contact.invitees.id);
+
             } else {
               this.isNotContact = false;
             }
           });
-        });
+
+
+          if (contactArray.indexOf(searchId) === -1) {
+            this.isNotContact = true;
+          } else if (searchId === this.userID) {
+            this.isNotContact = false;
+          } else {
+            this.isNotContact = false;
+          }
+
+        })
+      });;
+
     } else {
       return this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
         this.user = data;
@@ -120,8 +123,10 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
+
     return this.auth.logout().then(() => {
       this.router.navigate(['/']);
     });
+
   }
 }
