@@ -56,12 +56,6 @@ export class MessagesComponent implements OnInit {
     private session: SessionService,
     private socketService: SocketService,
   ) {
-    // this.socketService.getMessage().subscribe((msg) => {
-    //   console.log('User data', msg);
-    //   // this.newMessages.push(this.messages)
-    //   // this.newMessages.push(msg);
-    //   // this.messages = this.newMessages;
-    // });
   }
 
   ngOnInit() {
@@ -76,14 +70,7 @@ export class MessagesComponent implements OnInit {
     this.msgSub = this.socketService.msg.subscribe((msg) =>
     {
       this.messages.unshift(msg);
-      // this.messages = this.messages
-      console.log(msg);
-      // console.log(this.messages)
     });
-    
-
-    console.log(this.userId);
-
 
     this.socketService.sendIdentity(this.userId);
 
@@ -91,15 +78,8 @@ export class MessagesComponent implements OnInit {
     this.roomId = parseInt(id);
     this.backend.getMessages(id).then((data: MessageData[]) => {
       this.messages = data.reverse();
-
-      console.log('**************', this.messages);
     });
 
-    // this.socketService.getMessage().subscribe(
-    //   msg => this.messageBody = msg;
-    //   console.log('new message', this.messageBody);
-    // );
-    // this.sendMessage(msg);
   }
 
   sendMessage(message) {
@@ -113,22 +93,9 @@ export class MessagesComponent implements OnInit {
       sent_by_username: this.username,
       created_at: Date.now().toString(),
     }
-    // const id = this.route.snapshot.paramMap.get('id');
-    this.socketService.sendMessage(msg);
-    console.log('backend service; sent msg');
-  }
 
-  // sendMessage(message) {
-  //   const id = this.route.snapshot.paramMap.get('id');
-  //   this.backend.sendMessage(id, message).then(() => {
-  //     this.socketService.sendMessage(message);
-  //     this.backend.getMessages(id).then((data: MessageData[]) => {
-  //       this.messages = data;
-  //       message = '';
-  //       console.log('backend service; sent msg');
-  //     });
-  //   });
-  // }
+    this.socketService.sendMessage(msg);
+  }
 
   getMessage() {
     return this.socketService.getMessage();
