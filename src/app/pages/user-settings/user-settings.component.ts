@@ -47,6 +47,10 @@ export class UserSettingsComponent implements OnInit {
 
   new_target_language_id: number = 0;
 
+  clicked_add_new: boolean = false;
+
+  clicked_change_target: boolean = false;
+
   ngOnInit() {
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
@@ -71,6 +75,26 @@ export class UserSettingsComponent implements OnInit {
         this.languages_list = nonTargetList;
       });
     });
+  }
+
+  showAddNew() {
+    this.clicked_add_new = true;
+    console.log(this.clicked_add_new);
+  }
+
+  changeAddTarget(id) {
+    this.new_target_language_id = id;
+    console.log(this.new_target_language_id);
+  }
+
+  changeNewPrimary(id) {
+    this.target_language_id = id;
+    console.log(this.target_language_id);
+  }
+
+  showChangeTarget() {
+    this.clicked_change_target = true;
+    console.log(this.clicked_change_target);
   }
 
   addTarget() {
@@ -110,7 +134,7 @@ export class UserSettingsComponent implements OnInit {
 
   changeTarget() {
     let targetId = parseInt(this.target_language_id);
-    // console.log(targetId);
+    console.log(targetId);
     this.backend.changeTargetLanguage(targetId).then((data) => {
       this.message = 'Target language changed successfully!';
     });

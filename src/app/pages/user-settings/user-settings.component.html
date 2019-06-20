@@ -6,27 +6,55 @@
         {{ message }}
       </h4>
       <!-- add target -->
-      <div class="change-language-box">
+      <div class="submit-box">
+        <button class="small-btn2" *ngIf="!clicked_add_new && languages_list.length !== 0" (click)="showAddNew()">
+          Add New Language
+        </button>
+      </div>
+
+      <div *ngIf="clicked_add_new" class="change-language-box">
         <label for="languages">Add a target language</label><br />
-        <select class="language-dropdown" [(ngModel)]="new_target_language_id" name="languages" id="language-dropdown">
+        <!-- <select class="language-dropdown" [(ngModel)]="new_target_language_id" name="languages" id="language-dropdown">
           <option selected="selected" value="" disabled selected>Select your option</option>
           <option *ngFor="let language of languages_list" value="{{ language.id }}">{{ language.english_name }}</option>
-        </select>
+        </select> -->
+
+        <div class="flag-box" *ngFor="let language of languages_list">
+          <img class="lang-flag-img" src="{{ language.flag_link }}" (click)="changeAddTarget(language.id)" alt="" />
+        </div>
         <br />
         <div class="submit-box">
           <button class="small-btn" (click)="addTarget()">Submit Changes</button>
         </div>
       </div>
 
+      <div class="submit-box">
+        <button
+          class="small-btn2"
+          *ngIf="!clicked_change_target && languages.length !== 0"
+          (click)="showChangeTarget()"
+        >
+          Change Target Language
+        </button>
+      </div>
       <!-- change target -->
-      <div *ngIf="languages.length !== 0" class="change-language-box">
+      <div *ngIf="clicked_change_target" class="change-language-box">
         <label for="languages">Choose your target language</label><br />
-        <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
+        <!-- <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
           <option selected="selected" value="" disabled selected>Select your option</option>
           <option *ngFor="let language of languages" value="{{ language.id }}">{{
             language.languages.english_name
           }}</option>
-        </select>
+        </select> -->
+
+        <div class="flag-box" *ngFor="let language of languages">
+          <img
+            class="lang-flag-img"
+            (click)="changeNewPrimary(language.languages.id)"
+            src="{{ language.languages.flag_link }}"
+            alt=""
+          />
+        </div>
         <br />
         <div class="submit-box">
           <button class="small-btn" (click)="changeTarget()">Submit Changes</button>
