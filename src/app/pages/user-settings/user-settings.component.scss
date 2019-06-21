@@ -39,9 +39,12 @@
   .lang-flag-img {
     width: auto;
     height: 125px;
-    border: 2px solid #bbb;
+    border: 3px solid #bbb;
   }
   .lang-flag-img:hover {
+    border-color: var(--headerColor);
+  }
+  .lang-flag-img:active {
     border-color: var(--headerColor);
   }
 }
