@@ -9,7 +9,6 @@ const authGuard = require('../guards/authGuard');
 
 const knex = require('../database/knex.js');
 
-
 router.route('/')
   .get(authGuard, (req, res) => {
     knex
@@ -54,32 +53,65 @@ router.route('/')
     // TO-DO: ensure req.body.userList is an array of user_id's
     // TO-DO: ensure that recipient list contains only a user's contacts
     // must send a message when starting a conversation
-    if (!req.body.hasOwnProperty("body")) {
-      console.log("No message body");
-      return res.status(400).send("Bad request");
+    if (!req.body.hasOwnProperty('body')) {
+      console.log('Must provide a message when starting a conversation');
+      return res.status(400).send('Bad request');
     }
-    // create conversation
-    new Conversation()
-      .save({})
+
+    if (!req.body.hasOwnProperty('userList') || !Array.isArray(req.body.userList)) {
+      // FYI: userList *can* be an empty array
+      console.log('Must provide a userList (as an array) when starting a conversation');
+      return res.status(400).send('Bad request');
+    }
+
+    // fetch all conversations (id) and each userList (array) tied to the user
+    knex
+      .raw(
+        `SELECT conversation_id, array_agg(user_id) AS user_list
+        FROM users_conversations
+        WHERE user_id != ? AND conversation_id IN
+          (SELECT conversation_id
+          FROM users_conversations
+          WHERE user_id = ?)
+        GROUP BY conversation_id
+        ORDER BY conversation_id;`,
+        [req.user.id, req.user.id],
+      )
       .then((result) => {
-        const resultJSON = result.toJSON()
-        // post first messge in the conversation
-        return new Message()
-          .save({
-            body: req.body.body,
-            conversation_id: resultJSON.id,
-            sent_by: req.user.id
-          })
+        // check for pre-existing
+        let existingConversation = { exists: false };
+        result.rows.forEach((conversation) => {
+          if (conversation.user_list.sort().toString() === req.body.userList.sort().toString()) {
+            existingConversation.exists = true;
+            existingConversation.id = conversation.conversation_id;
+          }
+        });
+
+        // if already a conversation between users in userList
+        // then return the existingConversation object
+        if (existingConversation.exists) {
+          return existingConversation;
+          // otherwise create a new conversation
+        } else {
+          return new Conversation().save({});
+        }
+      })
+      .then((result) => {
+        // post messge in the conversation
+        return new Message().save({
+          body: req.body.body,
+          conversation_id: result.id,
+          sent_by: req.user.id,
+        });
       })
       .then((result) => {
         // tie sender to the conversation
-        console.log('message result', result.toJSON())
         const conversation_id = result.attributes.conversation_id;
         const users_conversations = [
           {
             conversation_id,
-            user_id: req.user.id
-          }
+            user_id: req.user.id,
+          },
         ];
         // tie recipients to the conversation
         const userList = req.body.userList;
@@ -87,48 +119,22 @@ router.route('/')
           userList.forEach((user) => {
             users_conversations.push({
               conversation_id,
-              user_id: parseInt(user)
-            })
-          })
+              user_id: parseInt(user),
+            });
+          });
         }
 
-        console.log('users_convs', users_conversations);
         // post to users_conversations (one entry per recipient)
-        return UserConversation.collection(users_conversations).invokeThen('save')
+        return UserConversation.collection(users_conversations).invokeThen('save');
       })
       .then(() => {
         return res.json({ success: 'made new conversation'})
-
-        // COMMMENTED OUT CODE BELOW DUE TO INTERNAL SERVER ERROR
-
-        // now fetch the new conversation
-        // return knex
-        //   .raw(
-        //     `SELECT
-        //       messages.id AS message_id,
-        //       messages.sent_by AS sent_by_user_id,
-        //       users.username AS sent_by_username,
-        //       messages.body,
-        //       messages.conversation_id,
-        //       messages.created_at
-        //     FROM messages
-        //     INNER JOIN users ON users.id = messages.sent_by
-        //     INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
-        //     WHERE uc.user_id = ? AND messages.conversation_id = ?
-        //     ORDER BY message_id`,
-        //     [req.user.id, result[0].attributes.conversation_id],
-        //   )
-      })
-      .then((result) => {
-        console.log('made some shit', result.toJSON())
-        // send response (new conversation with first message)
-        return res.json(result.rows);
       })
       .catch((err) => {
         console.log(err.message);
-        return res.status(500).send("Server error");
-      })
-  })
+        return res.status(500).send('Server error');
+      });
+  });
 
 router
   .route('/:conversation_id')
