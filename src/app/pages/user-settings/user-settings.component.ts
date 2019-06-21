@@ -51,18 +51,39 @@ export class UserSettingsComponent implements OnInit {
 
   clicked_change_target: boolean = false;
 
+  current_primary: any = '';
+
+  userLanguages: any = [];
+
   ngOnInit() {
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
-      this.languages.shift();
-      console.log(this.languages);
+      // console.log('ur lang', this.languages);
+      this.userLanguages = data;
+      console.log('userlang', this.userLanguages);
+
+      // find primary
+      let nonPrimaryLang = [];
+
+      this.languages.forEach((element) => {
+        if (element.primary == true) {
+          this.current_primary = element;
+        } else {
+          nonPrimaryLang.push(element);
+        }
+      });
+
+      console.log('primary', this.current_primary);
+      this.languages = nonPrimaryLang;
+
       this.backend.getAllLanguages().then((data) => {
         let yourLanguageList = [];
         let nonTargetList = [];
-        this.languages.forEach((element) => {
+        // console.log(data);
+        this.userLanguages.forEach((element) => {
           yourLanguageList.push(element.language_id);
         });
-        // console.log(yourLanguageList);
+        // console.log('yourlanmg', yourLanguageList);
         this.languages_list = data;
         // console.log('not filtered', this.languages_list);
         this.languages_list = this.languages_list.forEach((lang) => {
@@ -128,6 +149,8 @@ export class UserSettingsComponent implements OnInit {
         });
         // console.log('filtered', nonTargetList);
         this.languages_list = nonTargetList;
+
+        this.router.navigateByUrl(`/profile`);
       });
     });
   }
@@ -137,6 +160,7 @@ export class UserSettingsComponent implements OnInit {
     console.log(targetId);
     this.backend.changeTargetLanguage(targetId).then((data) => {
       this.message = 'Target language changed successfully!';
+      this.router.navigateByUrl(`/profile`);
     });
   }
 }
