@@ -43,8 +43,9 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
 import { AboutComponent } from './pages/about/about.component';
 import { GoogleComponent } from './pages/google/google.component';
 
+const CONFIG_URL = environment.url;
 
-const config: SocketIoConfig = { url: 'https://mylingual.me', options: {} };
+const config: SocketIoConfig = { url: CONFIG_URL, options: {} };
 
 @NgModule({
   declarations: [
