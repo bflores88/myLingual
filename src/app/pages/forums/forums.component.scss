@@ -28,7 +28,8 @@
 }
 
 .forum-topic-box {
-  background-color: hsl(197, 56%, 69%);
+  // background-color: hsl(197, 56%, 69%);
+  background-color: var(--buttonBgColor);
   color: hsl(0, 0%, 100%);
   border-radius: 10px;
   margin: 1em 4em 1em 4em;

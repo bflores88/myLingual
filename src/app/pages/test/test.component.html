@@ -1,7 +1,7 @@
 <div class="page">
   <div *ngIf="totalCards !== 0" class="forum-container">
     <div *ngIf="totalCards > currentCard">
-      <h2>Que es esto?</h2>
+      <h2>{{ capitalLanguage }} Quiz</h2>
       <h3>Question: {{ currentCard + 1 }} / {{ totalCards }}</h3>
       <div class="message-box">
         <h4 class="wrong-answer-message">{{ wrongMessage }}</h4>

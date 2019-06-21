@@ -55,6 +55,8 @@ export class TestComponent implements OnInit {
 
   languages: any = [];
 
+  capitalLanguage: string = '';
+
   flipCard() {
     console.log(event.target);
   }
@@ -179,6 +181,8 @@ export class TestComponent implements OnInit {
 
       this.currentQuizId = this.quiz_contents[this.currentCard].id;
       this.currentQuizContent = this.quiz_contents[this.currentCard];
+
+      this.capitalLanguage = this.target_language.charAt(0).toUpperCase() + this.target_language.slice(1);
       // console.log(this.currentAnswer);
       // console.log(this.currentQuizContent);
     });

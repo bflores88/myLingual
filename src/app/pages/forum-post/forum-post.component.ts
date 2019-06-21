@@ -47,7 +47,6 @@ export class ForumPostComponent implements OnInit {
   }
 
   postReply() {
-    console.log(this.newReply);
     this.backend
       .addReply(parseInt(this.activated.snapshot.paramMap.get('post_id')), this.newReply.body, this.newReply.sent_by)
       .then(() => {

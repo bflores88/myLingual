@@ -65,22 +65,12 @@ export class DeckDetailComponent implements OnInit {
           this.target_language = language.languages.english_name;
         }
       });
-      console.log(this.target_language);
+
       this.backend.getSpecificDeck(routeId).then((data: any) => {
-        // console.log('data', data);
         this.deck = data[0];
         this.cards = this.deck.decks_cards;
-        // console.log('cards', this.cards);
-        // console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
-        // console.log(this.cards);
       });
     });
-
-    // this.backend.getUserProfile(searchId).then((data: any) => {
-    //   this.userDetail = data;
-    //   console.log('detail', this.userDetail);
-
-    //   // this.target_language = this.userDetail.target_languages[0];
 
     //   // COMMENT
     //   // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
