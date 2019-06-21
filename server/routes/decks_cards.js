@@ -28,7 +28,22 @@ router.route('/').post(authGuard, (req, res) => {
       });
   } else {
     // adds new card to deck
-    new DeckCard()
+    if (req.body.new_decks_cards) {
+      console.log('******', req.body.new_decks_cards)
+      const newDecksCards = req.body.new_decks_cards.map((card) => {
+        return {
+          users_cards_id: card,
+          deck_id: parseInt(req.body.deck_id),
+          card_theme_id: 1
+        }
+      })
+
+      DeckCard.collection(newDecksCards).invokeThen('save');
+
+      return res.json(newDecksCards);
+
+    } else {
+      new DeckCard()
       .save({
         users_cards_id: req.body.usercard_id,
         deck_id: req.body.deck_id,
@@ -40,6 +55,7 @@ router.route('/').post(authGuard, (req, res) => {
       .catch((err) => {
         console.log('error', err);
       });
+    }
   }
 });
 
