@@ -28,7 +28,6 @@ export class DeckDetailComponent implements OnInit {
   }
 
   cards: any = '';
-
   deck: any = '';
 
   target_translation: string = '';
@@ -37,21 +36,28 @@ export class DeckDetailComponent implements OnInit {
   findTranslatedWord: string = '';
   languages: any = [];
 
+
+  cardsInDeck = [];
+  cardsNotInDeck = [];
+  cardsToAdd = [];
+  routeId: any;
+  addCards: boolean;
+
   flipCard() {
     // console.log(event.target);
   }
 
   createTest() {
-    let routeId = this.activated.snapshot.paramMap.get('id');
+    this.routeId = this.activated.snapshot.paramMap.get('id');
 
-    this.backend.createTestQuiz(routeId).then((data: any) => {
+    this.backend.createTestQuiz(this.routeId).then((data: any) => {
       // console.log(data);
       this.router.navigate([`/test/${data}`]);
     });
   }
 
   ngOnInit() {
-    let routeId = this.activated.snapshot.paramMap.get('id');
+    this.routeId = this.activated.snapshot.paramMap.get('id');
 
     this.session.getSession();
 
@@ -66,15 +72,31 @@ export class DeckDetailComponent implements OnInit {
         }
       });
       console.log(this.target_language);
-      this.backend.getSpecificDeck(routeId).then((data: any) => {
-        // console.log('data', data);
+      this.backend.getSpecificDeck(this.routeId).then((data: any) => {
+        console.log('data', data);
         this.deck = data[0];
         this.cards = this.deck.decks_cards;
+        this.deck.decks_cards.forEach((card) => {
+          this.cardsInDeck.push(card.users_cards.card_id);
+        })
+
+        this.backend.getUserCards(searchId).then((data: any) => {
+          console.log('******', data)
+          data.UserCards.forEach((card) => {
+            if (this.cardsInDeck.indexOf(card.card_id) === -1) {
+              this.cardsNotInDeck.push(card);
+            }
+          })
+        })
+
+        console.log('cards in this deck', this.cardsInDeck)
+        console.log('cards NOT in deck', this.cardsNotInDeck)
         // console.log('cards', this.cards);
         // console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
         // console.log(this.cards);
       });
     });
+
 
     // this.backend.getUserProfile(searchId).then((data: any) => {
     //   this.userDetail = data;
@@ -87,5 +109,29 @@ export class DeckDetailComponent implements OnInit {
     //   // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
     //   // i would like to figure out if its possible with a fully dynamic system
     // });
+  }
+
+  handleAddCard() {
+    if (!this.addCards) {
+      this.addCards = true;
+    } else {
+      this.addCards = false;
+    }
+  }
+
+  addToDeck(e) {
+    if (e.target.checked) {
+      this.cardsToAdd.push(parseInt(e.target.value));
+
+    } else {
+      const findInCardsToAdd = this.cardsToAdd.indexOf(parseInt(e.target.value));
+      this.cardsToAdd.splice(findInCardsToAdd, 1);
+    }
+
+  }
+
+  handleCancel() {
+    this.cardsToAdd = [];
+    this.addCards = false;
   }
 }

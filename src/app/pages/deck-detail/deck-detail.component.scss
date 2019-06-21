@@ -98,6 +98,28 @@
     border-radius: 10px;
     font-size: 1.5em;
   }
+
+  .add-card-to-deck {
+    font-size: 20px;
+
+    .cards-not-in-deck {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      vertical-align: baseline;
+      height: 60px;
+    }
+
+    input {
+      margin-top: 5px;
+    }
+
+    img {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+    }
+  }
   
 }
 

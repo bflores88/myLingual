@@ -204,4 +204,8 @@ export class BackendService {
   deleteContact(id): Promise<object> {
     return this.http.delete(`/api/contacts/${id}`, { withCredentials: true }).toPromise();
   }
+
+  getUserCards(id): Promise<object> {
+    return this.http.get(`/api/users/${id}/cards`, { withCredentials: true }).toPromise();
+  }
 }
