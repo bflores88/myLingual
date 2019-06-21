@@ -51,18 +51,35 @@ export class UserSettingsComponent implements OnInit {
 
   clicked_change_target: boolean = false;
 
+  current_primary: any = '';
+
   ngOnInit() {
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
-      this.languages.shift();
-      console.log(this.languages);
+      console.log('ur lang', this.languages);
+
+      // find primary
+      let nonPrimaryLang = [];
+
+      this.languages.forEach((element) => {
+        if (element.primary == true) {
+          this.current_primary = element;
+        } else {
+          nonPrimaryLang.push(element);
+        }
+      });
+
+      console.log('primary', this.current_primary);
+      this.languages = nonPrimaryLang;
+      // this.languages.shift();
+      // console.log(this.languages);
       this.backend.getAllLanguages().then((data) => {
         let yourLanguageList = [];
         let nonTargetList = [];
         this.languages.forEach((element) => {
           yourLanguageList.push(element.language_id);
         });
-        // console.log(yourLanguageList);
+        // console.log('yourlanmg', yourLanguageList);
         this.languages_list = data;
         // console.log('not filtered', this.languages_list);
         this.languages_list = this.languages_list.forEach((lang) => {

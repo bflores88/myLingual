@@ -50,7 +50,7 @@
         <div class="flag-box" *ngFor="let language of languages">
           <img
             class="lang-flag-img"
-            (click)="changeNewPrimary(language.languages.id)"
+            (click)="changeNewPrimary(language.id)"
             src="{{ language.languages.flag_link }}"
             alt=""
           />
