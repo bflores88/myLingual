@@ -7,7 +7,11 @@ import { DictionaryService } from 'src/app/services/dictionary.service';
 interface ResponseData {
   errorMessage: string;
   updatedDownloads: number;
+  updatedLikes: number;
   canDownload: boolean;
+  canLike: boolean;
+  mainDefinitions: string[];
+  subsenseDefinitions: string[];
 }
 
 interface Flashcard {
@@ -22,6 +26,11 @@ interface Flashcard {
   shares: number;
 }
 
+interface Definitions {
+  mainDefinitions: string[];
+  subsenseDefinitions: string[];
+}
+
 interface User {
   id: number;
 }
@@ -34,10 +43,13 @@ interface User {
 
 export class CardComponent implements OnInit {
   errorMessage: string;
+  hasUser = false;
   hasFlashcard = false;
   hasCreator = false;
   hasDefinitions = false;
+  hasSecondaryDefinitions = false;
   hasRelation = false;
+  hasAllData = false;
 
   canLike: boolean;
   canDownload: boolean;
@@ -50,7 +62,7 @@ export class CardComponent implements OnInit {
   cardTableIdPosition: number;
 
   creator: User;
-  definitions: object;
+  definitions: Definitions;
   
   user: {
     loggedIn: boolean;
@@ -67,6 +79,13 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.user = this.session.getSession();
+    if (this.user.loggedIn){
+      this.hasUser = true;
+    } else {
+      this.hasUser = false;
+    }
+
     this.backend.getFlashcards()
     .then((cards: Flashcard[]) => {
 
@@ -82,14 +101,14 @@ export class CardComponent implements OnInit {
         .then(()=> this.getCreator()
         .then(()=> this.getRelationStatus()
         .then(()=> this.validateDownload()
-        .then(()=> this.validateLikeAndShare()
-        ))));
+        .then(()=> this.validateLike()
+        .then(()=> this.getDefinitions() 
+        )))));
       });
     })
   }
 
   loadCard() {
-    this.user = this.session.getSession();
     this.routeID = this.activatedRoute.snapshot.paramMap.get('id');
 
     return this.backend.getFlashcard(this.routeID)
@@ -103,6 +122,8 @@ export class CardComponent implements OnInit {
         this.flashcard = (response as unknown) as Flashcard;
         this.hasFlashcard = true;
       }
+
+      document.querySelector("#myCard").classList.toggle("flip")
     })
     .catch(() => {
       this.errorMessage = 'Error retrieving card.';
@@ -153,14 +174,39 @@ export class CardComponent implements OnInit {
     })
   }
 
-  validateLikeAndShare() {
-    if (this.user.loggedIn) {
-      this.canLike = true;
-      this.canShare = true;
-    } else {
+  validateLike() {
+    return this.backend.likeFlashcardVerify(this.routeID, this.user.id)
+    .then((response: ResponseData) => {
+      this.canLike = response.canLike;
+    })
+    .catch((error) => {
+      this.errorMessage = error.errorMessage;
       this.canLike = false;
-      this.canShare = false;
-    }
+    })
+  }
+
+  getDefinitions() {
+    this.dictionary.getWordDefinitions(this.flashcard.english_word)
+    .then((response: ResponseData) => {
+      if (response.errorMessage) {
+        this.errorMessage = response.errorMessage;
+        this.definitions = null;
+        this.hasDefinitions = false;
+        this.hasSecondaryDefinitions = false;
+      } else {
+        this.definitions = (response as unknown) as Definitions;
+        this.hasDefinitions = true;
+
+        if (this.definitions.subsenseDefinitions.length > 0) {
+          this.hasSecondaryDefinitions = true;
+        } else {
+          this.hasSecondaryDefinitions = false;
+        }
+      }
+    })
+    .catch((error) => {
+      this.errorMessage = error.errorMessage;
+    })
   }
 
   nextCard() {
@@ -185,9 +231,14 @@ export class CardComponent implements OnInit {
 
   addLike() {
     if (this.canLike) {
-      this.backend.likeFlashcard(this.routeID)
-      .then((response: Flashcard) => {
-        this.flashcard.likes = response.likes;
+      this.backend.likeFlashcard(this.routeID, this.user.id)
+      .then((response: ResponseData) => {
+        if (response.errorMessage){
+          this.errorMessage = response.errorMessage;
+        } else {
+          this.flashcard.likes = response.updatedLikes;
+          this.canLike = false;
+        }
       })
       .catch((error) => {
         this.errorMessage = error.errorMessage;
@@ -211,16 +262,24 @@ export class CardComponent implements OnInit {
       });
     }
   }
-
-  share() {
-    if (this.canShare) {
-      this.backend.shareFlashcard(this.routeID)
-      .then((response: Flashcard) => {
-        this.flashcard.shares = response.shares;
-      })
-      .catch((error) => {
-        this.errorMessage = error.errorMessage;
-      })
-    }
-  }
 }
+
+// share() {
+  //   if (this.canShare) {
+  //     this.backend.shareFlashcard(this.routeID)
+  //     .then((response: Flashcard) => {
+  //       this.flashcard.shares = response.shares;
+  //     })
+  //     .catch((error) => {
+  //       this.errorMessage = error.errorMessage;
+  //     })
+  //   }
+  // }
+
+// validateShare() {
+  //   if (this.user.loggedIn) {
+  //     this.canShare = true;
+  //   } else {
+  //     this.canShare = false;
+  //   }
+  // }

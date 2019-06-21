@@ -16,8 +16,4 @@ export class DictionaryService {
   getWordDefinitions(word: string) {
     return this.http.get(`/api/dictionary/${word}&definitions&true`).toPromise();
   }
-
-  // getWordPartOfSpeech(word: string) {
-  //   return this.http.get(`/api/dictionary/${word}`)
-  // }
 }

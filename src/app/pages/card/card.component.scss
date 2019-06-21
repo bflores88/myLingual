@@ -3,6 +3,7 @@
 $socialIconSize: 25px;
 
 $arrowSize: 200px;
+$arrowSizeSmallerDesktop: 140px;
 $arrowSizeTablet: 80px;
 $arrowColor: hsl(197, 65%, 55%);
 
@@ -29,8 +30,8 @@ $sectionToHeaderOffset: 100px;
       .flip-container {
         perspective: 1000px;
       }
-  
-      .flip-container:hover .flipper, .flip-container.hover .flipper {
+
+      .flip-container.hover .flipper{
         transform: rotateY(180deg);
       }
   
@@ -246,6 +247,36 @@ $sectionToHeaderOffset: 100px;
   }
 }
 
+#definition-section {
+  display: flex;
+  flex-direction: column;
+  margin: $containerSpacing 0 0 0;
+  background: $arrowColor;
+  border-radius: 20px;
+  padding: 20px 10px 10px 10px;
+  width: 100%;
+
+  .definition-element {
+    margin-bottom: 10px;
+  }
+  h3 {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0 0 0 5%;
+  }
+
+  li {
+    margin: 15px 0 0 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
 .fa-arrow-alt-circle-left::before {
   font-size: $arrowSize;
   color: $arrowColor;
@@ -263,6 +294,16 @@ button {
 
 button:focus {
   outline: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .fa-arrow-alt-circle-left::before {
+    font-size: $arrowSizeSmallerDesktop;
+  }
+
+  .fa-arrow-alt-circle-right::before {
+    font-size: $arrowSizeSmallerDesktop;
+  }
 }
 
 @media only screen and (max-width: 768px) {

@@ -5,6 +5,7 @@ const router = express.Router();
 const Card = require('../database/models/Card');
 const Word = require('../database/models/Word');
 const UserCard = require('../database/models/UserCard');
+const UserCardLikes = require('../database/models/UserCardLikes');
 const knex = require('../database/knex');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
@@ -125,27 +126,58 @@ router
       });
   });
 
-router.route('/like/:id')
+router.route('/like/verify/:cardID&:userID')
 .get((req, res) => {
-  new Card('id', req.params.id)
-  .fetch({columns: 'likes'})
-  .then((card) => {
-    const cardObj = card.toJSON();
-    let likesCount = parseInt(cardObj.likes);
-    likesCount++;
+  console.log('hit');
+  new UserCardLikes({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .fetch()
+  .then((result) => {
+    if (result) {
+      return res.json({canLike: false});
+    } else {
+      return res.json({canLike: true});
+    }
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Error validating like eligibility.'});
+  })
+})
 
-    new Card('id', req.params.id)
-    .save({likes: likesCount})
+router.route('/like/:cardID&:userID')
+.get((req, res) => {
+  console.log(req.params);
+  new UserCardLikes()
+  .save({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .then(() => {
+    new Card('id', req.params.cardID)
+    .fetch({columns: 'likes'})
     .then((card) => {
       const cardObj = card.toJSON();
-      return res.json({likes: cardObj.likes});
+      let likesCount = parseInt(cardObj.likes);
+      likesCount++;
+
+      new Card('id', req.params.cardID)
+      .save({likes: likesCount})
+      .then((card) => {
+        const cardObj = card.toJSON();
+        return res.json({updatedLikes: cardObj.likes});
+      })
+      .catch(() => {
+        return res.json({errorMessage: 'Like update failed.'});
+      })
     })
     .catch(() => {
-      return res.json({errorMessage: 'Like update failed.'});
+      return res.json({errorMessage: 'Card not found.'});
     });
   })
   .catch(() => {
-    return res.json({errorMessage: 'Card not found.'});
+    return res.json({errorMessage: 'Like record failed.'});
   });
 });
 
