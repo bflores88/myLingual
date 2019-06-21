@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
+import { Socket } from 'ngx-socket-io';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-conversations',
@@ -14,6 +16,7 @@ export class ConversationsComponent implements OnInit {
   ngOnInit() {
     this.backend.getConversations().then((data: any) => {
       this.conversations = data;
+      console.log(this.conversations);
     });
   }
 }

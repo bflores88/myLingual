@@ -4,8 +4,10 @@ const express = require('express');
 const router = express.Router();
 const Deck = require('../database/models/Deck');
 const User = require('../database/models/User');
+const authGuard = require('../guards/authGuard');
+const modGuard = require('../guards/modGuard');
 
-router.route('/all').get((req, res) => {
+router.route('/all').get(authGuard, modGuard, (req, res) => {
   new Deck()
     .fetchAll({ withRelated: ['users', 'decks_cards.users_cards.cards'] })
     .then((result) => {
@@ -16,8 +18,10 @@ router.route('/all').get((req, res) => {
     });
 });
 
-router.route('/').get((req, res) => {
+
+router.route('/').get(authGuard, (req, res) => {
   console.log(req.user);
+
   new Deck()
     .where({ user_id: req.user.id })
     .fetchAll()
@@ -31,7 +35,7 @@ router.route('/').get((req, res) => {
 
 // post new deck
 
-router.route('/').post((req, res) => {
+router.route('/').post(authGuard, (req, res) => {
   // console.log(req.body);
   new Deck({
     user_id: req.user.id,
@@ -63,7 +67,7 @@ router.route('/').post((req, res) => {
 
 // grab deck with target language attempt
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authGuard, (req, res) => {
   console.log(req.user);
   new User()
     .where({ id: req.user.id })

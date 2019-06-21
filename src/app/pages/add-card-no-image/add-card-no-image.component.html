@@ -2,9 +2,11 @@
 
   <div class="add-no-image">
 
-      <h2 *ngIf="!showSuccess">Enter a word to translate</h2>
-      <input *ngIf="!showSuccess" spellcheck="true" type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="type-word" maxlength="100" />
- 
+    <div *ngIf="!showSuccess">
+        <h2>Enter a word to translate</h2>
+        <input spellcheck="true" type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="type-word" maxlength="100" />
+    </div>
+     
     <div [hidden]="!this.errorMessage" class="error-message-div">{{errorMessage}}</div>
 
     <div *ngIf="!showSuccess" class="deck-select">
