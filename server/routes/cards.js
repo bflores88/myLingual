@@ -5,6 +5,7 @@ const router = express.Router();
 const Card = require('../database/models/Card');
 const Word = require('../database/models/Word');
 const UserCard = require('../database/models/UserCard');
+const UserCardLikes = require('../database/models/UserCardLikes');
 const knex = require('../database/knex');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
@@ -126,6 +127,167 @@ router
       });
   });
 
+// LIKE VERIFY
+router.route('/like/verify/:cardID&:userID')
+.get((req, res) => {
+  console.log('hit');
+  new UserCardLikes({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .fetch()
+  .then((result) => {
+    if (result) {
+      return res.json({canLike: false});
+    } else {
+      return res.json({canLike: true});
+    }
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Error validating like eligibility.'});
+  })
+})
+
+// LIKE BEHAVIOR
+router.route('/like/:cardID&:userID')
+.get((req, res) => {
+  console.log(req.params);
+  new UserCardLikes()
+  .save({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .then(() => {
+    new Card('id', req.params.cardID)
+    .fetch({columns: 'likes'})
+    .then((card) => {
+      const cardObj = card.toJSON();
+      let likesCount = parseInt(cardObj.likes);
+      likesCount++;
+
+      new Card('id', req.params.cardID)
+      .save({likes: likesCount})
+      .then((card) => {
+        const cardObj = card.toJSON();
+        return res.json({updatedLikes: cardObj.likes});
+      })
+      .catch(() => {
+        return res.json({errorMessage: 'Like update failed.'});
+      })
+    })
+    .catch(() => {
+      return res.json({errorMessage: 'Card not found.'});
+    });
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Like record failed.'});
+  });
+});
+
+// DOWNLOAD VERIFY
+router.route('/download/verify/:cardID&:userID')
+.get((req, res) => {
+  new UserCard({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .fetch()
+  .then((result) => {
+    if (result) {
+      return res.json({canDownload: false});
+    } else {
+      return res.json({canDownload: true});
+    }
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Error validating download eligibility.'});
+  })
+})
+
+// DOWNLOAD BEHAVIOR
+router.route('/download/:cardID&:userID')
+.get((req, res) => {
+
+  // in order to download a card the card must not already belong to a user.
+  new UserCard({
+    'user_id': req.params.userID,
+    'card_id': req.params.cardID,
+  })
+  .fetch()
+  .then((result) => {
+    if (result) {
+      // if the card is already paired with user so end the process.
+      return res.json({errorMessage: 'Card already belongs to User.'});
+    } else {
+      // if the card isn't paired with user so create a new entry in users_cards.
+      new UserCard()
+      .save({
+        user_id: req.params.userID,
+        card_id: req.params.cardID,
+        attempts: 0,
+        successes: 0,
+      })
+      .then((userCard) => {
+        // once save is complete then get the card from cards table
+        const userCardObj = userCard.toJSON();
+        
+        new Card('id', userCardObj.card_id)
+        .fetch({columns: 'downloads'})
+        .then((card) => {
+          // extract the download count and increment
+          const cardObj = card.toJSON();
+          let downloadCount = parseInt(cardObj.downloads);
+          downloadCount++;
+
+          // get card again and save changes
+          new Card('id', userCardObj.card_id)
+          .save({downloads: downloadCount})
+          .then((card) => {
+            // send updated download count back to app
+            const cardObj = card.toJSON();
+            return res.json({updatedDownloads: cardObj.downloads});
+          })
+          .catch(() => {
+            return res.json({errorMessage: 'Error in download count update.'});
+          })
+        })
+        .catch(() => {
+          return res.json(cardObj);
+        });
+      })
+      .catch(() => {
+        return res.json({errorMessage: 'Error downloading card.'});
+      }) 
+    }
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Error in download process. Try again.'});
+  });
+})
+
+router.route('/share/:id')
+.get((req, res) => {
+  new Card('id', req.params.id)
+  .fetch({columns: 'shares'})
+  .then((card) => {
+    const cardObj = card.toJSON();
+    let shareCount = parseInt(cardObj.shares);
+    shareCount++;
+
+    new Card('id', req.params.id)
+    .save({shares: shareCount})
+    .then((card) => {
+      const cardObj = card.toJSON();
+      return res.json({shares: cardObj.shares});
+    })
+    .catch(() => {
+      return res.json({errorMessage: 'Shares update failed.'});
+    });
+  })
+  .catch(() => {
+    return res.json({errorMessage: 'Card not found'});
+  })
+})
 
 router.route('/:id').get(authGuard, (req, res) => {
   // GET A SPECIFIC CARD
@@ -137,15 +299,12 @@ router.route('/:id').get(authGuard, (req, res) => {
       newResult.english_word = newResult.words.english_word;
       newResult.spanish_translations = newResult.words.spanish_translations.spanish_word;
       newResult.italian_translations = newResult.words.italian_translations.italian_word;
-      // Line below is broken.
-      // newResult.card_theme = newResult.card_themes.name;
       delete newResult.card_themes;
       delete newResult.words;
       return res.json(newResult);
     })
     .catch((error) => {
-      console.log('what ', error);
-      return res.json({ errorMessage: 'Card not found.' });
+      return res.json({errorMessage: 'Card not found.'});
     });
 });
 
@@ -227,5 +386,6 @@ router
 
     res.json({ message: 'delete success!' });
   });
+
 
 module.exports = router;

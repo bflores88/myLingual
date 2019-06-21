@@ -1,178 +1,280 @@
 @import '../../components/header/header.component';
 
-$flashcardWidth: 400px;
-$flashcardPadding: 20px;
-$imageMargins: 10px;
-
-$heartIconSize: 20px;
-$fontOffset: 3px;
-$fontOffset_H2: 4px;
+$socialIconSize: 25px;
 
 $arrowSize: 200px;
+$arrowSizeSmallerDesktop: 140px;
 $arrowSizeTablet: 80px;
 $arrowColor: hsl(197, 65%, 55%);
-$arrowMargin: 100px;
 
 $containerSpacing: 40px;
-
-$creatorElementsColor_BG: lighten($arrowColor, 40%);
-$creatorElementsBorderRadius: 20px;
-$creatorImageHeight: 150px;
-$creatorStatusIconSize: 50px;
-
-#arrow-buttons-mobile-container {
-  display: flex;
-  align-content: center;
-  justify-content: space-evenly;
-
-  margin-top: $containerSpacing;
-}
+$sectionToHeaderOffset: 100px;
 
 #flashcard-page {
   display: flex;
   align-content: center;
   flex-direction: column;
-  justify-content: center;
-
-  // padding: 40px;
-  margin: ($headerHeight + 30px) 0 100px 0;
-}
-
-#flashcard-container {
-  display: flex;
-  align-items: center;
   justify-content: space-evenly;
 
-  border: none;
-}
+  margin: ($headerHeight + $sectionToHeaderOffset) 0 100px 0;
+  padding: 0px 20px 0 20px;
+  
+  #flashcard-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  
+    border: none;
 
-#flashcard {
-  text-align: center;
+    #flip-container-wrapper {
+      .flip-container {
+        perspective: 1000px;
+      }
 
-  background: whitesmoke;
-  border: 1px solid black;
-  border-radius: 10px;
-  color: black;
+      .flip-container.hover .flipper{
+        transform: rotateY(180deg);
+      }
+  
+      .flip-container, .front, .back {
+        width: 600px;
+        height: 400px;
+      }
+  
+      .flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+  
+        position: relative;
+      }
+  
+      .front, .back {
+        backface-visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+  
+      .front {
+        z-index: 2;
+        /* for firefox 31 */
+        transform: rotateY(0deg);
+      }
+  
+      .back {
+        transform: rotateY(180deg);
+      }
+    }
+    
+    .change-flashcard-large {
+      clip-path: circle(45%);
+    }
 
-  padding: $flashcardPadding;
-  width: $flashcardWidth;
+    .flashcard-base {
+      display: flex;
+      flex-direction: column;
+      align-items: center; // vertical
+      justify-content: center; // horizontal
 
-  h1 {
-    border-bottom: 1px solid black;
+      background: whitesmoke;
+      color: black;
+      border: 1px solid black;
+      border-radius: 10px;
+
+      width: 100%;
+      height: 100%;
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center; // vertical
+        justify-content: center; // horizontal
+        text-transform: capitalize;
+
+        width: 100%;
+        height: 15%;
+
+        margin-bottom: 2%;
+        border-bottom: 1px solid black;
+      }
+
+      .body{
+        display: flex;
+        flex-direction: column;
+        align-items: center; // vertical
+        justify-content: center; // horizontal
+
+        height: 81%;
+        width: 100%;
+        padding: 2%;
+
+        h2 {
+          text-transform: uppercase;
+        }
+
+        img {
+          max-width: 90%;
+          max-height: 90%;
+        }
+      }
+    }
+
+    #translations {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      width: 100%;
+
+      .language {
+        display: flex;
+        flex-direction: row;
+        background: white;
+
+        border-radius: 10px;
+
+        h3 {
+          margin: 0;
+          padding: 5px 10px 5px 10px;
+        }
+
+        .label{
+          font-variant: small-caps;
+        }
+      }
+    }
   }
 
-  h2 {
-    font-weight: bolder;
-    font-variant: all-small-caps;
-  
-    border-bottom: 1px solid black;
-    margin: 10px 0 30px 0;
-  }
-  
-  h3 {
-    font-variant: all-small-caps;
-    margin: 0;
-    padding-bottom: $fontOffset_H2;
-  }
-  
-  img {
-    align-self: center;
-    width: $flashcardWidth - ($flashcardPadding * 2) - 2px;
-    height: auto;
-  
+  #creator-section {
+    display: flex;
+    flex-direction: column;
+    margin: $containerSpacing 0 0 0;
+    background: $arrowColor;
     border-radius: 20px;
+    padding: 10px;
+    width: 100%;
   
-    margin-top: 30px;
+    #creator-header {
+      display: flex;
+      flex-direction: row;
+      vertical-align: middle;
+
+      margin-bottom: 10px;
+      
+      h2 {
+        margin: 0;
+      }
+
+      .fa-user-friends:before {
+        font-size: 30px;
+        padding-right: 10px;
+      }
+    
+      .fa-user:before {
+        font-size: 30px;
+        padding-right: 10px;
+      }
+    }
+  
+    #creator-profile {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      
+      img {
+        width: auto;
+        max-width: 25%;
+        height: 200px;
+        
+        border-radius: 20px;
+      }
+  
+      .creator-profile-element {
+        width: 25%;
+        padding: 0 10px 0 10px;
+
+        p {
+          text-transform: capitalize;
+        }
+      }
+    }
   }
 }
 
-#translation-container {
-  margin-bottom: 30px;
+#change-flashcard-mobile-section {
+  display: none;
+
+  .change-flashcard-mobile {
+    clip-path: circle(45%);
+  }
 }
 
-#social-container {
+#social-section {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
-  border-top: 1px solid black;
-
-  margin: 0 10px 0 10px;
+  margin: $containerSpacing 10px 0 10px;
   padding-top: 8px;
+
+  .social-element {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+    font-size: $socialIconSize;
+  
+    i {
+      color: black;
+      font-size: $socialIconSize;
+      align-self: center;
+      justify-self: center;
+    }
+  
+    p {
+      margin: 0 10px 0 10px;
+      padding: 0;
+      font-size: $socialIconSize + 3px;
+    }
+  
+    button {
+      background: none;
+      min-width: 50%;
+      padding: 5px;
+      border: 5px solid black;
+      border-radius: 10px;
+    }
+  }
 }
 
-#flashcard-additional-details {
+#definition-section {
+  display: flex;
+  flex-direction: column;
   margin: $containerSpacing 0 0 0;
-}
+  background: $arrowColor;
+  border-radius: 20px;
+  padding: 20px 10px 10px 10px;
+  width: 100%;
 
-#creator-header {
-  display: flex;
-  flex-direction: row;
-  
-  margin-right: 15px;
-  margin-left: 15px;
-  background: $creatorElementsColor_BG;
-  border-radius: $creatorElementsBorderRadius;
-
-  img {
-    margin: 20px;
-
-    height: $creatorImageHeight;
-    width: auto;
+  .definition-element {
+    margin-bottom: 10px;
+  }
+  h3 {
+    margin: 0;
   }
 
-  .fa-user-friends:before {
-    font-size: $creatorStatusIconSize;
+  ul {
+    margin: 0;
+    padding: 0 0 0 5%;
   }
 
-  .fa-user:before {
-    font-size: $creatorStatusIconSize;
-  }
-}
-
-#creator-languages {
-  background: $creatorElementsColor_BG;
-  border-radius: $creatorElementsBorderRadius;
-
-  margin-top: $containerSpacing;
-  margin-right: 15px;
-  margin-left: 15px;
-  padding: 14px;
-}
-
-.social-element {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  
-  font-size: $heartIconSize;
-
-  i {
-    padding-right: 10px;
+  li {
+    margin: 15px 0 0 0;
   }
 
   p {
-    margin: 0px;
-    font-size: $heartIconSize + $fontOffset;
+    margin: 0;
   }
-}
-
-.translation-element {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  background: white;
-  border-radius: 20px;
-  margin-bottom: 10px;
-}
-
-.arrow-button {
-  clip-path: circle(45%);
-}
-
-.arrow-button-mobile {
-  display: none;
 }
 
 .fa-arrow-alt-circle-left::before {
@@ -185,11 +287,38 @@ $creatorStatusIconSize: 50px;
   color: $arrowColor;
 }
 
+button {
+  background: none;
+  border: none;
+}
+
 button:focus {
   outline: none;
 }
 
+@media only screen and (max-width: 1024px) {
+  .fa-arrow-alt-circle-left::before {
+    font-size: $arrowSizeSmallerDesktop;
+  }
+
+  .fa-arrow-alt-circle-right::before {
+    font-size: $arrowSizeSmallerDesktop;
+  }
+}
+
 @media only screen and (max-width: 768px) {
+  #flashcard-page{
+    #flashcard-section{
+      #flip-container-wrapper{
+        .flip-container, .front, .back {
+          width: 500px;
+          height: 400px;
+        }
+      }
+    }
+  }
+  
+  
   .fa-arrow-alt-circle-left::before {
     font-size: $arrowSizeTablet;
     
@@ -201,43 +330,91 @@ button:focus {
 }
 
 @media only screen and (max-width: 425px){
-  #flashcard-page {
-    
-    padding: 20px 0 100px 0;
-  }
+  #flashcard-page{
+    margin-top: ($headerHeight + 40px);
 
-  #flashcard {
-    width: 350px;
-    margin: 0;
+    #flashcard-section{
+      .change-flashcard-large {
+        display: none;
+      }
 
-    img {
-      width: 300px;
+      #flip-container-wrapper{
+        .flip-container, .front, .back {
+          width: 400px;
+          height: 266px; 
+        }
+      }
+    }
+
+    #creator-section {
+      #creator-header {
+        img {
+          max-height: 200px;
+          max-width: auto;
+        }
+      }
+  
+      #creator-profile {
+        flex-direction: column;
+
+        img{
+          align-self: center;
+          max-width: none;
+        }
+
+        .creator-profile-element {
+          width: 100%;
+        }
+      }
     }
   }
 
-  .arrow-button {
-    display: none;
+  #change-flashcard-mobile-section {
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    margin-top: $containerSpacing;
   }
+}
 
-  .arrow-button-mobile {
-    display: initial;
-  }
+@media only screen and (max-width: 375px) {
+  #flashcard-page{
+    #flashcard-section{
+      #flip-container-wrapper{
+        .flip-container, .front, .back {
+          width: 350px;
+        }
+      }
 
-  img {
-    width: 300px;
-    height: auto;
+      .flashcard-base {
+        .body {
+          img {
+            width: 320px;
+            height: auto;
+          }
+        }
+      }
+    }
   }
 }
 
 @media only screen and (max-width: 320px) {
+  #flashcard-page{
+    #flashcard-section{
+      #flip-container-wrapper{
+        .flip-container, .front, .back {
+          width: 300px;
+        }
+      }
 
-  #flashcard {
-    width: 280px;
-
-    img {
-      width: 230px;
+      .flashcard-base {
+        .body {
+          img {
+            width: 280px;
+          }
+        }
+      }
     }
   }
-
 }
 
