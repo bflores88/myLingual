@@ -12,10 +12,8 @@ const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const redis = require('connect-redis')(session);
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const cors = require('cors');
 
-// app.use(cors());
-
+console.log('process.env.OAUTH_URL',process.env.OAUTH_URL);
 const User = require('./database/models/User');
 
 require('dotenv').config({ path: '../.env' });
@@ -103,7 +101,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'https://mylingual.me/api/auth/google/callback',
+      callbackURL: `${process.env.OAUTH_URL}/api/auth/google/callback`,
     },
     function(accessToken, refreshToken, profile, done) {
       // console.log('google strategy in progress', profile);
@@ -205,13 +203,13 @@ app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile',
 
 app.get(
   '/api/auth/google/callback',
-  passport.authenticate('google', { failureMessage: 'https://mylingual.me/login' }),
+  passport.authenticate('google', { failureMessage: `${process.env.OAUTH_URL}/login` }),
   function(req, res) {
     // Successful authentication, redirect home.
     // console.log('hits***********', req.user);
     // console.log(req)
     // res.json(req.user);
-    res.redirect('https://mylingual.me/google');
+    res.redirect(`${process.env.OAUTH_URL}/google`);
   },
 );
 
@@ -266,20 +264,18 @@ io.on('connect', (socket) => {
   // join room
   socket.on('subscribe', (data) => {
     // console.log('joining room', data.room)
-    socket.join(data.room)
-  })
+    socket.join(data.room);
+  });
 
   // leave room
   socket.on('unsubscribe', (data) => {
     // console.log('leaving room', data.room)
-    socket.leave(data.room)
-  })
-
+    socket.leave(data.room);
+  });
 
   socket.on('message', (msg) => {
     // console.log('server socket message', msg);
     // knex insert
-    
 
     // console.log('online users', onlineUsers);
     // console.log(msg.to);
@@ -288,8 +284,7 @@ io.on('connect', (socket) => {
     const recipient = onlineUsers[msg.id];
     // console.log('recipient', recipient);
     // console.log('message.room', msg.room);
-    io.to(`${msg.room}`).emit('message', msg)
-
+    io.to(`${msg.room}`).emit('message', msg);
   });
 
   // list of users

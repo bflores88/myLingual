@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
         { name: 'English' },
         { name: 'Spanish' },
         { name: 'Italian' },
-        { name: 'General' },
+        { name: 'Japanese' },
         { name: 'Random' },
       ]);
     });

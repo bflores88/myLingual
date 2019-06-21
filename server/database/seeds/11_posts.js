@@ -21,8 +21,8 @@ exports.seed = function(knex, Promise) {
         {
           forum_topic_id: 4,
           created_by: 3,
-          title: 'This is the general posts forum',
-          body: 'Cant think of a good place for a new thread? Put it in here.',
+          title: 'This is the Japanese Forum',
+          body: 'Practice your japanese here.',
         },
         {
           forum_topic_id: 2,
@@ -34,8 +34,7 @@ exports.seed = function(knex, Promise) {
           forum_topic_id: 2,
           created_by: 4,
           title: 'What to do after eating too much taco bell',
-          body:
-            'I had a Grande DORITOS® Cool Ranch XXL Chalupa BorderBlast™ for breakfast, and now my insides feel like they are waging civil war against each other. Anyone have some remedies for this timeless conundrum?',
+          body: 'I think I am going to be sick.',
         },
         {
           forum_topic_id: 1,
