@@ -28,8 +28,6 @@ export class ContactsComponent implements OnInit {
 
   ngOnInit() {
     this.backend.getUserContacts().then((data: any) => {
-      // this.contacts = data;
-      console.log(data);
       data.forEach((contact) => {
         if (contact.invitee != this.user.id) {
           this.contacts.push(contact.invitees);
@@ -42,8 +40,6 @@ export class ContactsComponent implements OnInit {
   }
 
   handleSendMessage(e) {
-    console.log(e.target.value)
-    console.log(e.target.name)
     this.newConversation = true;
     this.userList.push(parseInt(e.target.value));
     this.messageTo.push(e.target.name);
@@ -54,18 +50,26 @@ export class ContactsComponent implements OnInit {
         this.notInMessage.push(contact); 
       }
     })
+  }
 
-    console.log(this.notInMessage)
+  cancelSendMessage() {
+    this.notInMessage = [];
+    this.messageBody = '';
+    this.messageTo = [];
+    this.userList = [];
+    this.newConversation = false;
   }
 
   handleAddMore() {
-    this.addOthers = true;
+    if (!this.addOthers) {
+      return this.addOthers = true;
+    } else {
+      return this.addOthers = false;
+    }
+    
   }
 
   handleNewMessage() {
-    console.log(this.messageBody);
-    console.log(this.messageTo);
-    console.log(this.userList);
     this.newConversation = false;
 
     const data = {
@@ -74,7 +78,6 @@ export class ContactsComponent implements OnInit {
     }
 
     this.backend.postConversation(data).then((result) => {
-      console.log(data);
       this.userList = [];
       this.messageBody = '';
     })
@@ -82,11 +85,19 @@ export class ContactsComponent implements OnInit {
 
   addToConversation(e) {
     console.log(e);
+    if (e.target.checked) {
+      this.userList.push(parseInt(e.target.value));
+      this.messageTo.push(', ');
+      this.messageTo.push(e.target.name);
+
+    } else {
+      const findInUserList = this.userList.indexOf(parseInt(e.target.value));
+      this.userList.splice(findInUserList, 1);
+
+      const findInMessageTo = this.messageTo.indexOf(e.target.name);
+      this.messageTo.splice(findInMessageTo -1, 2);
+    }
+
   }
-
-  removeFromConversation() {
-
-  }
-
   
 }
