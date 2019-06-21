@@ -109,13 +109,13 @@ export class UserSettingsComponent implements OnInit {
 
   changeNewPrimary(language) {
     this.target_language_id = language.id;
-    console.log(language);
+    // console.log(language);
     this.backend.getAllLanguages().then((data) => {
       this.all_languages = data;
       this.all_languages.forEach((element) => {
         // console.log(element);
         if (element.id == language.languages.id) {
-          console.log(element);
+          // console.log(element);
           this.chosen_language_name = element.english_name.charAt(0).toUpperCase() + element.english_name.slice(1);
         }
       });
