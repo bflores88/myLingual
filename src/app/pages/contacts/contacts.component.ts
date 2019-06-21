@@ -21,8 +21,10 @@ export class ContactsComponent implements OnInit {
   contacts: any = [];
   newConversation: boolean;
   messageBody = '';
-  messageTo = '';
+  messageTo = [];
   userList = [];
+  notInMessage = [];
+  addOthers: boolean;
 
   ngOnInit() {
     this.backend.getUserContacts().then((data: any) => {
@@ -44,7 +46,20 @@ export class ContactsComponent implements OnInit {
     console.log(e.target.name)
     this.newConversation = true;
     this.userList.push(parseInt(e.target.value));
-    this.messageTo = e.target.name;
+    this.messageTo.push(e.target.name);
+    this.notInMessage = [];
+
+    this.contacts.forEach((contact) => {
+      if (contact.id !== parseInt(e.target.value)) {
+        this.notInMessage.push(contact); 
+      }
+    })
+
+    console.log(this.notInMessage)
+  }
+
+  handleAddMore() {
+    this.addOthers = true;
   }
 
   handleNewMessage() {
@@ -60,7 +75,17 @@ export class ContactsComponent implements OnInit {
 
     this.backend.postConversation(data).then((result) => {
       console.log(data);
+      this.userList = [];
+      this.messageBody = '';
     })
+  }
+
+  addToConversation(e) {
+    console.log(e);
+  }
+
+  removeFromConversation() {
+
   }
 
   

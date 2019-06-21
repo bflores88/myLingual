@@ -25,7 +25,19 @@
 
     <div *ngIf="newConversation" class="new-conversation">
       <h1>New Message To {{ messageTo }}</h1>
-      <input type="text" name="messageBody" [(ngModel)]="messageBody" class="new-message" />
+      <div class="additional" (click)="handleAddMore()"><h3>+ add to conversation</h3></div>
+      <div *ngIf="addOthers" class="additional-chat">
+        <div *ngFor="let contact of notInMessage">
+            <input type="checkbox" value="{{contact.id}}" name="{{contact.username}}"/>{{contact.username}}
+        </div>
+      </div>
+      <input 
+      type="text" 
+      name="messageBody" 
+      [(ngModel)]="messageBody" 
+      class="new-message"
+      (keyup)="$event.keyCode == 13 ? handleNewMessage() : null"
+       />
       <button class="small-btn" (click)="handleNewMessage()">Send</button>
     </div>
 

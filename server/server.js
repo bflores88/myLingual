@@ -281,6 +281,7 @@ io.on('connect', (socket) => {
   socket.on('message', (msg) => {
     console.log('server socket message', msg);
     // knex insert
+    
 
     // console.log('online users', onlineUsers);
     console.log(msg.to);

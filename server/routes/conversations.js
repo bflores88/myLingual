@@ -96,27 +96,27 @@ router.route('/')
         return UserConversation.collection(users_conversations).invokeThen('save')
       })
       .then(() => {
-        // return res.json({ success: 'made new conversation'})
+        return res.json({ success: 'made new conversation'})
 
         // COMMMENTED OUT CODE BELOW DUE TO INTERNAL SERVER ERROR
 
         // now fetch the new conversation
-        return knex
-          .raw(
-            `SELECT
-              messages.id AS message_id,
-              messages.sent_by AS sent_by_user_id,
-              users.username AS sent_by_username,
-              messages.body,
-              messages.conversation_id,
-              messages.created_at
-            FROM messages
-            INNER JOIN users ON users.id = messages.sent_by
-            INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
-            WHERE uc.user_id = ? AND messages.conversation_id = ?
-            ORDER BY message_id`,
-            [req.user.id, result[0].attributes.conversation_id],
-          )
+        // return knex
+        //   .raw(
+        //     `SELECT
+        //       messages.id AS message_id,
+        //       messages.sent_by AS sent_by_user_id,
+        //       users.username AS sent_by_username,
+        //       messages.body,
+        //       messages.conversation_id,
+        //       messages.created_at
+        //     FROM messages
+        //     INNER JOIN users ON users.id = messages.sent_by
+        //     INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
+        //     WHERE uc.user_id = ? AND messages.conversation_id = ?
+        //     ORDER BY message_id`,
+        //     [req.user.id, result[0].attributes.conversation_id],
+        //   )
       })
       .then((result) => {
         console.log('made some shit', result.toJSON())
