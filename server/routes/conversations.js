@@ -5,11 +5,13 @@ const router = express.Router();
 const Conversation = require('../database/models/Conversation');
 const UserConversation = require('../database/models/UserConversation');
 const Message = require('../database/models/Message');
+const authGuard = require('../guards/authGuard');
 
 const knex = require('../database/knex.js');
 
+
 router.route('/')
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     knex
       .raw(
         `SELECT
@@ -48,8 +50,7 @@ router.route('/')
         return res.status(500).send('Server Error');
       });
   })
-  .post((req, res) => {
-    console.log('********** hit  post request')
+  .post(authGuard, (req, res) => {
     // TO-DO: ensure req.body.userList is an array of user_id's
     // TO-DO: ensure that recipient list contains only a user's contacts
     // must send a message when starting a conversation
@@ -131,7 +132,7 @@ router.route('/')
 
 router
   .route('/:conversation_id')
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     knex
       .raw(
         `SELECT
@@ -156,7 +157,7 @@ router
         return res.status(500).send('Server Error');
       });
   })
-  .post((req, res) => {
+  .post(authGuard, (req, res) => {
     new Message()
       .save({
         body: req.body.body,
