@@ -53,10 +53,14 @@ export class UserSettingsComponent implements OnInit {
 
   current_primary: any = '';
 
+  userLanguages: any = [];
+
   ngOnInit() {
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
-      console.log('ur lang', this.languages);
+      // console.log('ur lang', this.languages);
+      this.userLanguages = data;
+      console.log('userlang', this.userLanguages);
 
       // find primary
       let nonPrimaryLang = [];
@@ -71,12 +75,12 @@ export class UserSettingsComponent implements OnInit {
 
       console.log('primary', this.current_primary);
       this.languages = nonPrimaryLang;
-      // this.languages.shift();
-      // console.log(this.languages);
+
       this.backend.getAllLanguages().then((data) => {
         let yourLanguageList = [];
         let nonTargetList = [];
-        this.languages.forEach((element) => {
+        // console.log(data);
+        this.userLanguages.forEach((element) => {
           yourLanguageList.push(element.language_id);
         });
         // console.log('yourlanmg', yourLanguageList);
@@ -145,6 +149,8 @@ export class UserSettingsComponent implements OnInit {
         });
         // console.log('filtered', nonTargetList);
         this.languages_list = nonTargetList;
+
+        this.router.navigateByUrl(`/profile`);
       });
     });
   }
@@ -154,6 +160,7 @@ export class UserSettingsComponent implements OnInit {
     console.log(targetId);
     this.backend.changeTargetLanguage(targetId).then((data) => {
       this.message = 'Target language changed successfully!';
+      this.router.navigateByUrl(`/profile`);
     });
   }
 }
