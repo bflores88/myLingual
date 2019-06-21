@@ -42,6 +42,26 @@ export class BackendService {
     return this.http.post('/api/cards', data, { withCredentials: true }).toPromise();
   }
 
+  likeFlashcardVerify(cardID: string, userID: string) {
+    return this.http.get(`/api/cards/like/verify/${cardID}&${userID}`, { withCredentials: true }).toPromise();
+  }
+
+  likeFlashcard(cardID: string, userID: string) {
+    return this.http.get(`/api/cards/like/${cardID}&${userID}`, { withCredentials: true }).toPromise();
+  }
+
+  downloadFlashcardVerify(cardID: string, userID: string) {
+    return this.http.get(`/api/cards/download/verify/${cardID}&${userID}`, { withCredentials: true }).toPromise();
+  }
+
+  downloadFlashcard(cardID: string, userID: string) {
+    return this.http.get(`/api/cards/download/${cardID}&${userID}`, { withCredentials: true }).toPromise();
+  }
+
+  shareFlashcard(id: string) {
+    return this.http.get(`/api/cards/share/${id}`, { withCredentials: true }).toPromise();
+  }
+
   translate(word: Object) {
     return this.http.post('/api/translate', word, { withCredentials: true }).toPromise();
   }
@@ -56,6 +76,10 @@ export class BackendService {
 
   getConversations() {
     return this.http.get('/api/conversations', { withCredentials: true }).toPromise();
+  }
+
+  postConversation(data) {
+    return this.http.post('/api/conversations', data, { withCredentials: true }).toPromise();
   }
 
   getMessages(id) {
@@ -175,5 +199,9 @@ export class BackendService {
 
   changeTargetLanguage(id): Promise<object> {
     return this.http.put(`/api/languages/${id}`, { withCredentials: true }).toPromise();
+  }
+
+  deleteContact(id): Promise<object> {
+    return this.http.delete(`/api/contacts/${id}`, { withCredentials: true }).toPromise();
   }
 }

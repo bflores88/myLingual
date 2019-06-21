@@ -238,10 +238,9 @@ let onlineUsers = {};
 
 io.on('connect', (socket) => {
   console.log('connection made');
-  console.log('****', io.sockets.sockets)
 
   socket.on('identify', (user) => {
-    console.log('identify', user);
+    // console.log('identify', user);
 
     onlineUsers[user.id] = socket;
     socket.user = user;
@@ -260,41 +259,37 @@ io.on('connect', (socket) => {
 
   // add room
   socket.on('create', (room) => {
-    console.log('room', room)
+    // console.log('room', room)
     socket.join(room);
   });
 
   // join room
   socket.on('subscribe', (data) => {
-    console.log('joining room', data.room)
+    // console.log('joining room', data.room)
     socket.join(data.room)
-    console.log('****', io.sockets.sockets)
   })
 
   // leave room
   socket.on('unsubscribe', (data) => {
-    console.log('leaving room', data.room)
+    // console.log('leaving room', data.room)
     socket.leave(data.room)
   })
 
 
   socket.on('message', (msg) => {
-    console.log('server socket message', msg);
+    // console.log('server socket message', msg);
     // knex insert
+    
 
     // console.log('online users', onlineUsers);
-    console.log(msg.to);
-    console.log(msg.id);
+    // console.log(msg.to);
+    // console.log(msg.id);
 
     const recipient = onlineUsers[msg.id];
-    console.log('recipient', recipient);
-    console.log('message.room', msg.room);
+    // console.log('recipient', recipient);
+    // console.log('message.room', msg.room);
     io.to(`${msg.room}`).emit('message', msg)
 
-    if (recipient) {
-      recipient.emit( 'message', msg);
-      console.log(recipient);
-    }
   });
 
   // list of users

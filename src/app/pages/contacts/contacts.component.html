@@ -1,26 +1,70 @@
 <app-profile-nav-mobile></app-profile-nav-mobile>
 <div class="page">
   <div class="forum-container">
+
     <h1>Contacts</h1>
     <div class="contacts-container">
       <div class="contact-box" *ngFor="let contact of contacts">
         <div class="left-side-contact">
-          <a routerLink="/profile/{{ contact.id }}">
-            <img class="contact-image" src="{{ contact.profile_image_url }}" alt="" />
-            <h3>{{ contact.name }}</h3>
+          <a routerLink="/profile/{{ contact.person.id }}">
+            <img class="contact-image" src="{{ contact.person.profile_image_url }}" alt="" />
+            <h3>{{ contact.person.name }}</h3>
           </a>
         </div>
         <div class="right-side-contact">
           <div class="right-side-inner">
             <button class="send-message-button">Send Message</button>
+
           </div>
+          <div class="right-side-contact">
+            <div class="right-side-inner">
+              <button
+                class="send-message-button"
+                name="{{ contact.username }}"
+                value="{{ contact.id }}"
+                (click)="handleSendMessage($event)"
+              >
+                Send Message
+              </button>
+            </div>
+
 
           <div class="right-side-inner">
-            <button class="delete-contact-button">Delete Contact</button>
+            <button class="delete-contact-button" (click)="deleteThisContact(contact.id)">Delete Contact</button>
+
           </div>
         </div>
+        <div *ngIf="contacts.length === 0">You have no friends.... damn im sorry man...</div>
       </div>
-      <div *ngIf="contacts.length === 0">You have no friends.... damn im sorry man...</div>
+    </div>
+
+    <div *ngIf="newConversation" class="new-conversation">
+      <h2>
+        New Message To <span *ngFor="let contact of messageTo">{{ contact }}</span>
+      </h2>
+      <div class="additional" (click)="handleAddMore()"><h3>+ add to conversation</h3></div>
+      <div [hidden]="!addOthers" class="additional-chat">
+        <div *ngFor="let contact of notInMessage" class="add-to-message">
+          <input
+            type="checkbox"
+            value="{{ contact.id }}"
+            name="{{ contact.username }}"
+            (click)="addToConversation($event)"
+          />&nbsp;&nbsp;{{ contact.username }}
+        </div>
+      </div>
+      <div class="message-body-div">
+        <input
+          type="text"
+          name="messageBody"
+          [(ngModel)]="messageBody"
+          class="new-message"
+          (keyup)="$event.keyCode == 13 ? handleNewMessage() : null"
+        />
+      </div>
+      <button class="small-btn" (click)="handleNewMessage()">Send</button>
+      <br /><br />
+      <button class="small-btn cancel-btn" (click)="cancelSendMessage()">Cancel</button>
     </div>
   </div>
 </div>

@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface Data {
-  word: string,
-  fields: string,
-  strictMatch: boolean,
-}
-
 @Injectable({
   providedIn: 'root',
 })

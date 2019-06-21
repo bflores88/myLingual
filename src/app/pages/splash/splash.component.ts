@@ -11,6 +11,7 @@ export class SplashComponent implements OnInit {
   constructor(private router: Router, private session: SessionService) {}
 
   ngOnInit() {
+
     if (this.session.isLoggedIn()) {
       setTimeout(() => {
         this.router.navigate(['home']);
