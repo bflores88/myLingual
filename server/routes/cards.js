@@ -30,9 +30,10 @@ let italian = '';
 
 router
   .route('/')
-  // fetches all cards
+  // GET ALL ACTIVE/PUBLIC CARDS
   .get(authGuard, (req, res) => {
     new Card()
+      .where({ active: true, public: true })
       .fetchAll({ withRelated: ['users', 'words', 'card_themes', 'created_by'] })
       .then((results) => {
         return res.send(results.toJSON());
@@ -41,6 +42,7 @@ router
         console.log('error', err);
       });
   })
+  // CREATE A NEW CARD
   .post(authGuard, (req, res) => {
     // check if word exists
 
@@ -48,15 +50,14 @@ router
     new Word('english_word', word)
       .fetch()
       .then((wordResult) => {
-
+        // IF THE WORD DOES NOT EXIST
         if (!wordResult) {
-          
           new Word()
             .save({ english_word: word })
             .then((result) => {
               let newResult = result.toJSON();
 
-              translateApi(word, newResult.id)
+              translateApi(word, newResult.id);
 
               return new Card().save({
                 word_id: newResult.id,
@@ -87,7 +88,6 @@ router
             })
             .catch((error) => console.log('error', error));
         } else {
-
           // if the word exists, create a new card for the user
           return new Card()
             .save({
@@ -126,15 +126,18 @@ router
       });
   });
 
+
 router.route('/:id').get(authGuard, (req, res) => {
+  // GET A SPECIFIC CARD
   new Card('id', req.params.id)
+    .where({ active: true })
     .fetch({ withRelated: ['words.spanish_translations', 'words.italian_translations', 'card_themes', 'users.tags'] })
     .then((result) => {
       const newResult = result.toJSON();
       newResult.english_word = newResult.words.english_word;
       newResult.spanish_translations = newResult.words.spanish_translations.spanish_word;
       newResult.italian_translations = newResult.words.italian_translations.italian_word;
-      // Line below is broken. 
+      // Line below is broken.
       // newResult.card_theme = newResult.card_themes.name;
       delete newResult.card_themes;
       delete newResult.words;
@@ -142,10 +145,11 @@ router.route('/:id').get(authGuard, (req, res) => {
     })
     .catch((error) => {
       console.log('what ', error);
-      return res.json({errorMessage: 'Card not found.'});
+      return res.json({ errorMessage: 'Card not found.' });
     });
 });
 
+// SEARCH FOR TERMS IN USERS AND CARDS
 router.route('/search/:term').get(authGuard, (req, res) => {
   let search = req.params.term;
   let lowerSearch = search.toLowerCase();
@@ -199,12 +203,12 @@ router
   .post(authGuard, singleUpload, (req, res) => {
     // console.log(req.user)
     pendingImage = req.file.location;
-    
+
     visionApi(req.file.location)
       .then((labels) => {
         const topThree = labels.splice(0, 3).map((label) => {
-          return label.description
-        })
+          return label.description;
+        });
 
         console.log(pendingImage);
         return res.json({ results: topThree });
