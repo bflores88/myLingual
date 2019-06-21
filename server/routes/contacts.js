@@ -105,7 +105,7 @@ router
     Contact.where({ id: req.params.id })
       .destroy()
       .then(() => {
-        return res.send('Successful delete');
+        return res.json('Successful delete');
       })
       .catch((err) => {
         console.log('error', err);
@@ -120,7 +120,7 @@ router.route('/:id').delete(authGuard, contactsGuard, (req, res) => {
       accepted: false,
     })
     .then(() => {
-      return res.send('Succesful removal');
+      return res.json('Succesful removal');
     })
     .catch((err) => {
       console.log('error', err);

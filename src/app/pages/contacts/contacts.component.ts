@@ -45,20 +45,28 @@ export class ContactsComponent implements OnInit {
 
   deleteThisContact(id) {
     console.log('contact id', id);
-    this.backend.deleteContact(id);
-
-    this.backend.getUserContacts().then((data: any) => {
-      // this.contacts = data;
-      // console.log(data);
+    this.backend.deleteContact(id).then((data: any) => {
       this.contacts = [];
-      data.forEach((contact) => {
-        if (contact.invitee != this.user.id) {
-          this.contacts.push(contact.invitees);
-        } else {
-          this.contacts.push(contact.requesters);
-        }
+      this.backend.getUserContacts().then((data: any) => {
+        // this.contacts = data;
+        console.log(data);
+        data.forEach((contact) => {
+          if (contact.invitee != this.user.id) {
+            let contactObj = {
+              id: contact.id,
+              person: contact.invitees,
+            };
+            this.contacts.push(contactObj);
+          } else {
+            let contactObj = {
+              id: contact.id,
+              person: contact.requesters,
+            };
+            this.contacts.push(contactObj);
+          }
+        });
+        // console.log(this.contacts);
       });
-      // console.log(this.contacts);
     });
   }
 }
