@@ -128,7 +128,7 @@ router.route('/')
         return UserConversation.collection(users_conversations).invokeThen('save');
       })
       .then(() => {
-        return res.json('Successfully made new conversation');
+        return res.json({ success: 'made new conversation'})
       })
       .catch((err) => {
         console.log(err.message);

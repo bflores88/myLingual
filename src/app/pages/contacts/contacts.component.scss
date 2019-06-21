@@ -55,3 +55,34 @@
   margin: 1em;
   width: 100%;
 }
+
+.new-conversation {
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+
+  .add-to-message {
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+  }
+
+  .message-body-div {
+    input {
+      border: 3px solid var(--accentColor);
+      padding-left: 5px;
+      font-size: 16px;
+      width: 100%;
+      margin: 15px 0px;
+      height: 35px;
+  
+    }
+
+  }
+  
+  .cancel-btn {
+    background-color: red;
+  }
+}
+
