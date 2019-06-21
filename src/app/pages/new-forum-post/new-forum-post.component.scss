@@ -40,10 +40,17 @@
 
 .input-box {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
-  margin: 1em;
+  margin: 1em 0em 1em 0em;
+  // border-top: 1px dotted var(--headerColor);
+  padding: 1em 0em 1em 0em;
 }
 .input-label {
-  width: 100%;
+  // width: 100%;
+}
+
+.new-forum-input {
+  width: 50%;
+  border-color: var(--headerColor);
 }
