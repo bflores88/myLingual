@@ -40,32 +40,6 @@ export class ContactsComponent implements OnInit {
   }
 
   handleSendMessage(e) {
-    console.log(e.target.value);
-    console.log(e.target.name);
-    this.newConversation = true;
-    this.userList.push(parseInt(e.target.value));
-    this.messageTo = e.target.name;
-  }
-
-  handleNewMessage() {
-    console.log(this.messageBody);
-    console.log(this.messageTo);
-    console.log(this.userList);
-    this.newConversation = false;
-
-    const data = {
-      body: this.messageBody,
-      userList: this.userList,
-    };
-
-    this.backend.postConversation(data).then((result) => {
-      console.log(data);
-      this.messageBody = '';
-      this.userList = [];
-    });
-  }
-
-  handleSendMessage(e) {
     this.newConversation = true;
     this.userList.push(parseInt(e.target.value));
     this.messageTo.push(e.target.name);
