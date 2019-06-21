@@ -1,103 +1,161 @@
 <div id="flashcard-page">
-  <h1>{{errorMessage}}</h1>
 
-  <div id="flashcard-container" *ngIf="hasFlashcard">
-    <div class="arrow-button">
+  <div id="flashcard-section" *ngIf="hasFlashcard">
+
+    <div class="change-flashcard-large">
       <button (click)="previousCard()">
         <i class="fas fa-arrow-alt-circle-left"></i> 
       </button>
     </div>
 
-    <div id="flashcard">
-      <h1>{{flashcard.english_word}}</h1>
-      <img src = "{{flashcard.image_link}}"/>
-
-      <div id="translation-container">
-        <h2>Translations</h2>
-        <div class="translation-element">
-          <h3>Spanish </h3>
-          <h3>{{flashcard.spanish_translations}}</h3>
-        </div>
-        <div class="translation-element">
-          <h3>Italian</h3>
-          <h3>{{flashcard.italian_translations}}</h3>
+    <div id="flip-container-wrapper">
+      <div class="flip-container" onmousedown="this.classList.toggle('hover')">
+        <div class="flipper">
+          <div class="front">
+            <div class="flashcard-base">
+              <div class="title">
+                <h1>{{flashcard.english_word}}</h1>
+              </div>
+              <div class="body">
+                <img src="{{flashcard.image_link}}"/>
+              </div>
+            </div>
+          </div>
+          <div class="back">
+            <div class="flashcard-base">
+              <div class="title">
+                <h1>{{flashcard.english_word}}</h1>
+              </div>
+              <div class="body">
+                <h2>Translations</h2>
+                <div id="translations">
+                  <div class="language">
+                    <h3 class="label">Spanish</h3>
+                    <h3>{{flashcard.spanish_translations}}</h3>
+                  </div>
+                  <div class="language">
+                    <h3 class="label">Italian</h3>
+                    <h3>{{flashcard.italian_translations}}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    
-      <div id="social-container">
-        <div class="social-element">
-          <i class="fas fa-heart"></i>
-          <p>{{flashcard.likes}}</p>
-        </div>
-
-        <div class="social-element">
-          <i class="fas fa-file-download"></i>
-          <p>{{flashcard.downloads}}</p>
-        </div>
-
-        <div class="social-element">
-          <i class="fas fa-share"></i>
-          <p>{{flashcard.shares}}</p>
-        </div>
-      </div>
-
     </div>
 
-    <div class="arrow-button">
+    <div class="change-flashcard-large">
       <button class="arrow-button" (click)="nextCard()">
         <i class="fas fa-arrow-alt-circle-right"></i>
       </button>
     </div>
+
   </div>
 
-  <div id="arrow-buttons-mobile-container">
-    <div class="arrow-button-mobile">
+  <div id="change-flashcard-mobile-section">
+    <div class="change-flashcard-mobile">
       <button (click)="previousCard()">
         <i class="fas fa-arrow-alt-circle-left"></i> 
       </button>
     </div>
-    <div class="arrow-button-mobile">
+    <div class="change-flashcard-mobile">
       <button (click)="nextCard()">
         <i class="fas fa-arrow-alt-circle-right"></i>
       </button>
     </div>
   </div>
 
-  <div id="flashcard-additional-details" *ngIf="hasCreator">
+  <div id="social-section" *ngIf="hasFlashcard && hasUser">
+    <div class="social-element" *ngIf="canLike; else cannotLike">
+      <button (click)="addLike()">
+        <i class="fas fa-heart"></i>
+      </button>
+      <p>{{flashcard.likes}}</p>
+    </div>
+    <ng-template #cannotLike>
+      <div class="social-element">
+        <button [ngStyle]="{'border': '5px solid #808080'}">
+          <i class="fas fa-heart" [ngStyle]="{'color': '#808080'}"></i>
+        </button>
+        <p>{{flashcard.likes}}</p>
+      </div>
+    </ng-template>
+
+    <div class="social-element" *ngIf="canDownload; else cannotDownload">
+      <button (click)="download()"><i class="fas fa-file-download"></i></button>
+      <p>{{flashcard.downloads}}</p>
+    </div>
+    <ng-template #cannotDownload>
+      <div class="social-element">
+        <button [ngStyle]="{'border': '5px solid #808080'}">
+          <i class="fas fa-file-download" [ngStyle]="{'color': '#808080'}"></i>
+        </button>
+        <p>{{flashcard.downloads}}</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div id="creator-section" *ngIf="hasCreator">
+
     <div id="creator-header">
-      <img src="{{creator.profile_image_url}}" routerLink="/profile/{{creator.id}}"/>
+      <div *ngIf="hasUser && creator.active && hasRelation">
+        <i class="fas fa-user-friends" style="color: green"></i>
+      </div>
+      <div *ngIf="hasUser && creator.active && !hasRelation">
+        <i class="far fa-user" style="color: green"></i>
+      </div>
+      <div *ngIf="!hasUser && creator.active">
+        <i class="far fa-user" style="color: black"></i>
+      </div>
+      <div *ngIf="!creator.active">
+        <i class="far fa-user" style="color: red"></i>
+      </div>
 
-      <div>
-        <h2>Created By: {{creator.username}}</h2>
-        
+      <h2>Created by {{creator.username}}</h2>
+    </div>
 
-        <div *ngIf="user.loggedIn && creator.active && hasRelation">
-          <i class="fas fa-user-friends" style="color: green"></i>
-        </div>
-        <div *ngIf="user.loggedIn && creator.active && !hasRelation">
-          <i class="far fa-user" style="color: green"></i>
-        </div>
-        <div *ngIf="!user.loggedIn && creator.active">
-          <i class="far fa-user" style="color: black"></i>
-        </div>
-        <div *ngIf="!creator.active">
-          <i class="far fa-user" style="color: red"></i>
-        </div>
+    <div id="creator-profile">
+      <img class="image-blurred-edge" src="{{creator.profile_image_url}}"/>
 
+      <div class="creator-profile-element">
+        <h3>Stats</h3>
         <p>Cards Created: {{creator.cards_created}}</p>
         <p>Cards Owned: {{creator.cards_owned}}</p>
       </div>
+
+      <div class="creator-profile-element">
+        <h3>Native Languages</h3>
+        <div *ngFor="let language of creator.native_languages">
+          <p>{{language}}</p>
+        </div>
+      </div>
+
+      <div class="creator-profile-element">
+        <h3>Target Languages</h3>
+        <div *ngFor="let language of creator.target_languages">
+          <p>{{language}}</p>
+        </div>
+      </div>
     </div>
-    
-    <div id="creator-languages">
-      <h3>Native Languages</h3>
-      <div *ngFor="let language of creator.native_languages">
-        <p>{{language}}</p>
-      </div>
-      <h3>Target Languages</h3>
-      <div *ngFor="let language of creator.target_languages">
-        <p>{{language}}</p>
-      </div>
+  </div>
+
+  <div id="definition-section" *ngIf="hasUser && hasDefinitions">
+    <div class="definition-element">
+      <h3>Primary Definitions</h3>
+      <ul>
+        <li *ngFor="let definition of definitions.mainDefinitions">
+          <p>{{definition}}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="definition-element" *ngIf="hasSecondaryDefinitions">
+      <h3>Secondary Definitions</h3>
+      <ul>
+        <li *ngFor="let definition of definitions.subsenseDefinitions">
+          <p>{{definition}}</p>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
