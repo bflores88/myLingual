@@ -54,7 +54,7 @@ router
   });
 
 // fetches all cards owned by User
-router.route('/:id/cards').get( (req, res) => {
+router.route('/:id/cards').get(authGuard, (req, res) => {
   UserCard.where('user_id', req.params.id)
     .fetchAll({
       withRelated: [
