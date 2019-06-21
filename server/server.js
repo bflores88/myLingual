@@ -281,9 +281,6 @@ io.on('connect', (socket) => {
     // knex insert
     
 
-    // console.log('online users', onlineUsers);
-    // console.log(msg.to);
-    // console.log(msg.id);
 
     const recipient = onlineUsers[msg.id];
     // console.log('recipient', recipient);

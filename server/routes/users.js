@@ -54,7 +54,7 @@ router
   });
 
 // fetches all cards owned by User
-router.route('/:id/cards').get(authGuard, (req, res) => {
+router.route('/:id/cards').get( (req, res) => {
   new User('id', req.params.id)
     .fetch({
       withRelated: [
@@ -135,6 +135,7 @@ function assembleUserData(result) {
 }
 
 function assembleUserCards(result) {
+  console.log(result)
   const data = {
     id: result.id,
     role_id: result.role_id,
@@ -178,7 +179,7 @@ function assembleUserCards(result) {
       english_word: card.cards.words.english_word,
       spanish_translations: card.cards.words.spanish_translations.spanish_word,
       italian_translations: card.cards.words.italian_translations.italian_word,
-      card_themes: card.cards.card_themes.name,
+
     };
   });
 
