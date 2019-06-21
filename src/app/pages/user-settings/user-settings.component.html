@@ -3,7 +3,7 @@
     <div class="settings-container">
       <h2>Your Settings</h2>
 
-      <div class="primary-box">
+      <div *ngIf="current_primary" class="primary-box">
         <h3>Current Primary Language:</h3>
         <img class="primary-img" src="{{ current_primary.languages.flag_link }}" alt="" />
       </div>
@@ -44,7 +44,8 @@
       </div>
       <!-- change target -->
       <div *ngIf="clicked_change_target" class="change-language-box">
-        <label for="languages">Choose your target language</label><br />
+        <label for="languages">Choose your target language : {{ chosen_language_name }}</label
+        ><br />
         <!-- <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
           <option selected="selected" value="" disabled selected>Select your option</option>
           <option *ngFor="let language of languages" value="{{ language.id }}">{{
@@ -55,7 +56,7 @@
         <div class="flag-box" *ngFor="let language of languages">
           <img
             class="lang-flag-img"
-            (click)="changeNewPrimary(language.id)"
+            (click)="changeNewPrimary(language)"
             src="{{ language.languages.flag_link }}"
             alt=""
           />
