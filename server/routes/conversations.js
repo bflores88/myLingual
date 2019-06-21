@@ -62,16 +62,18 @@ router.route('/')
     new Conversation()
       .save({})
       .then((result) => {
+        const resultJSON = result.toJSON()
         // post first messge in the conversation
         return new Message()
           .save({
             body: req.body.body,
-            conversation_id: result.id,
+            conversation_id: resultJSON.id,
             sent_by: req.user.id
           })
       })
       .then((result) => {
         // tie sender to the conversation
+        console.log('message result', result.toJSON())
         const conversation_id = result.attributes.conversation_id;
         const users_conversations = [
           {
@@ -89,29 +91,36 @@ router.route('/')
             })
           })
         }
+
+        console.log('users_convs', users_conversations);
         // post to users_conversations (one entry per recipient)
         return UserConversation.collection(users_conversations).invokeThen('save')
       })
       .then(() => {
+        return res.json({ success: 'made new conversation'})
+
+        // COMMMENTED OUT CODE BELOW DUE TO INTERNAL SERVER ERROR
+
         // now fetch the new conversation
-        return knex
-          .raw(
-            `SELECT
-              messages.id AS message_id,
-              messages.sent_by AS sent_by_user_id,
-              users.username AS sent_by_username,
-              messages.body,
-              messages.conversation_id,
-              messages.created_at
-            FROM messages
-            INNER JOIN users ON users.id = messages.sent_by
-            INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
-            WHERE uc.user_id = ? AND messages.conversation_id = ?
-            ORDER BY message_id`,
-            [req.user.id, result[0].attributes.conversation_id],
-          )
+        // return knex
+        //   .raw(
+        //     `SELECT
+        //       messages.id AS message_id,
+        //       messages.sent_by AS sent_by_user_id,
+        //       users.username AS sent_by_username,
+        //       messages.body,
+        //       messages.conversation_id,
+        //       messages.created_at
+        //     FROM messages
+        //     INNER JOIN users ON users.id = messages.sent_by
+        //     INNER JOIN users_conversations uc ON uc.conversation_id = messages.conversation_id
+        //     WHERE uc.user_id = ? AND messages.conversation_id = ?
+        //     ORDER BY message_id`,
+        //     [req.user.id, result[0].attributes.conversation_id],
+        //   )
       })
       .then((result) => {
+        console.log('made some shit', result.toJSON())
         // send response (new conversation with first message)
         return res.json(result.rows);
       })

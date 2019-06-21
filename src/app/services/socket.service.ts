@@ -32,6 +32,15 @@ export class SocketService {
     console.log('SS identity', userId);
   }
 
+  createRoom(roomId: number) {
+    const data = {
+      room: roomId
+    }
+
+    this.socket.emit('create', data);
+    return this.joinRoom(roomId);
+  }
+
   joinRoom(roomId: number) {
     const data = {
       room: roomId
