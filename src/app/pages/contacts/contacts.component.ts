@@ -40,8 +40,8 @@ export class ContactsComponent implements OnInit {
   }
 
   handleSendMessage(e) {
-    console.log(e.target.value)
-    console.log(e.target.name)
+    console.log(e.target.value);
+    console.log(e.target.name);
     this.newConversation = true;
     this.userList.push(parseInt(e.target.value));
     this.messageTo = e.target.name;
@@ -55,13 +55,13 @@ export class ContactsComponent implements OnInit {
 
     const data = {
       body: this.messageBody,
-      userList: this.userList
-    }
+      userList: this.userList,
+    };
 
     this.backend.postConversation(data).then((result) => {
       console.log(data);
-    })
+      this.messageBody = '';
+      this.userList = [];
+    });
   }
-
-  
 }
