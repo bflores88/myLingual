@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const DeckCard = require('../database/models/DeckCard');
 const Deck = require('../database/models/Deck');
+const authGuard = require('../guards/authGuard');
 
-router.route('/').post((req, res) => {
+router.route('/').post(authGuard, (req, res) => {
   if (req.body.new_deck_name) {
     new Deck()
       .save({

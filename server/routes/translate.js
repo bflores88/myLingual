@@ -3,12 +3,13 @@
 const Language = require('../database/models/Language');
 const translate = require('@google-cloud/translate');
 const express = require('express');
+const authGuard = require('../guards/authGuard');
 
 const translationClient = new translate.Translate();
 const router = express.Router();
 
 router.route('/')
-.post((req, res) => {
+.post(authGuard, (req, res) => {
   new Language()
   .fetchAll()
   .then((results) => {

@@ -5,11 +5,13 @@ const router = express.Router();
 const User = require('../database/models/User');
 const UserCard = require('../database/models/UserCard');
 const Deck = require('../database/models/Deck');
+const authGuard = require('../guards/authGuard');
+const isOwnerGuard = require('../guards/isOwnerGuard');
 
 router
   .route('/')
   // fetches all users
-  .get((req, res) => {
+  .get(authGuard, (req, res) => {
     new User()
       .fetchAll({ withRelated: ['roles'] })
       .then((result) => {
@@ -20,25 +22,28 @@ router
       });
   });
 
-router.route('/:id').get((req, res) => {
-  new User('id', req.params.id)
-    .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
-    .then((result) => {
-      const newResult = assembleUserData(result.toJSON());
-      return res.json(newResult);
-    })
-    .catch((err) => {
-      console.log('error', err);
-    });
-})
-  .put((req, res) => {
+router
+  .route('/:id')
+  .get(authGuard, (req, res) => {
+    // returns a specific user by id
+    new User('id', req.params.id)
+      .where({ active: true })
+      .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
+      .then((result) => {
+        const newResult = assembleUserData(result.toJSON());
+        return res.json(newResult);
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+  })
+  .put(authGuard, (req, res) => {
     User.where('id', req.user.id)
       .save({
         active: req.body.active,
         role_id: req.body.role_id,
         name: req.body.name,
         email: req.body.email,
-
       })
       .then((result) => {
         return res.json(result);
@@ -46,10 +51,10 @@ router.route('/:id').get((req, res) => {
       .catch((err) => {
         console.log('error', err);
       });
-})
+  });
 
 // fetches all cards owned by User
-router.route('/:id/cards').get((req, res) => {
+router.route('/:id/cards').get(authGuard, (req, res) => {
   new User('id', req.params.id)
     .fetch({
       withRelated: [
@@ -76,7 +81,7 @@ router.route('/:id/cards').get((req, res) => {
 });
 
 // fetches all decks belonging to User
-router.route('/:id/decks').get((req, res) => {
+router.route('/:id/decks').get(authGuard, (req, res) => {
   Deck.where({ user_id: req.params.id })
     .fetchAll({
       withRelated: [
@@ -88,7 +93,7 @@ router.route('/:id/decks').get((req, res) => {
       ],
     })
     .then((result) => {
-      const newResult = assembleUserDecks(result.toJSON())
+      const newResult = assembleUserDecks(result.toJSON());
       return res.json(newResult);
     })
     .catch((err) => {
@@ -194,7 +199,7 @@ function assembleUserDecks(result) {
       created_at: deck.created_at,
       updated_at: deck.updated_at,
       name: deck.name,
-    }
+    };
 
     // assemble cards in deck
     const deckCards = deck.decks_cards.map((card) => {

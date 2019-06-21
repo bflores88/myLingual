@@ -10,7 +10,7 @@ $headerHeight: 60px;
   background-color: var(--headerColor);
   color: var(--headerFontColor);
   height: $headerHeight;
-  border-bottom: 1px solid black;
+  // border-bottom: 1px solid black;
   top: 0;
   position: fixed;
   z-index: 2;
@@ -34,13 +34,11 @@ $headerHeight: 60px;
   // @media only screen and (min-width: 600px) {
   //   display: none;
   // }
-
 }
 
 .header.dark-theme {
   --headerColor: hsl(197, 65%, 25%);
 }
-
 
 .appLogo {
   position: fixed;

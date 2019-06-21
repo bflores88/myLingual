@@ -38,14 +38,14 @@ export class DeckDetailComponent implements OnInit {
   languages: any = [];
 
   flipCard() {
-    console.log(event.target);
+    // console.log(event.target);
   }
 
   createTest() {
     let routeId = this.activated.snapshot.paramMap.get('id');
 
     this.backend.createTestQuiz(routeId).then((data: any) => {
-      console.log(data);
+      // console.log(data);
       this.router.navigate([`/test/${data}`]);
     });
   }
@@ -58,7 +58,7 @@ export class DeckDetailComponent implements OnInit {
     let searchId = parseInt(this.user.id);
 
     this.backend.getUserLanguages().then((data) => {
-      console.log(data);
+      // console.log(data);
       this.languages = data;
       this.languages.map((language) => {
         if (language.language_type == 'target' && language.primary == true) {
@@ -67,10 +67,10 @@ export class DeckDetailComponent implements OnInit {
       });
       console.log(this.target_language);
       this.backend.getSpecificDeck(routeId).then((data: any) => {
-        console.log('data', data);
+        // console.log('data', data);
         this.deck = data[0];
         this.cards = this.deck.decks_cards;
-        console.log('cards', this.cards);
+        // console.log('cards', this.cards);
         // console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
         // console.log(this.cards);
       });
