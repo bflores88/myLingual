@@ -176,4 +176,8 @@ export class BackendService {
   changeTargetLanguage(id): Promise<object> {
     return this.http.put(`/api/languages/${id}`, { withCredentials: true }).toPromise();
   }
+
+  deleteContact(id): Promise<object> {
+    return this.http.delete(`/api/contacts/${id}`, { withCredentials: true }).toPromise();
+  }
 }
