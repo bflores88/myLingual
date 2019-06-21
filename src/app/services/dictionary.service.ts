@@ -16,7 +16,7 @@ export class DictionaryService {
   constructor(private http: HttpClient){}
 
   validateWord(word: string) {
-    return this.http.get(`/api/dictionary/validate/${word}`).toPromise();
+    return this.http.get(`/api/dictionary/validate/${word.toLowerCase()}`).toPromise();
   }
 
   getWordDefinitions(word: string) {
