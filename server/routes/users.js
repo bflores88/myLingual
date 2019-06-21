@@ -22,17 +22,21 @@ router
       });
   });
 
-router.route('/:id').get(authGuard, (req, res) => {
-  new User('id', req.params.id)
-    .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
-    .then((result) => {
-      const newResult = assembleUserData(result.toJSON());
-      return res.json(newResult);
-    })
-    .catch((err) => {
-      console.log('error', err);
-    });
-})
+router
+  .route('/:id')
+  .get(authGuard, (req, res) => {
+    // returns a specific user by id
+    new User('id', req.params.id)
+      .where({ active: true })
+      .fetch({ withRelated: ['roles', 'cards', 'created_cards', 'decks', 'languages.languages'] })
+      .then((result) => {
+        const newResult = assembleUserData(result.toJSON());
+        return res.json(newResult);
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+  })
   .put(authGuard, (req, res) => {
     User.where('id', req.user.id)
       .save({
@@ -40,7 +44,6 @@ router.route('/:id').get(authGuard, (req, res) => {
         role_id: req.body.role_id,
         name: req.body.name,
         email: req.body.email,
-
       })
       .then((result) => {
         return res.json(result);
@@ -48,7 +51,7 @@ router.route('/:id').get(authGuard, (req, res) => {
       .catch((err) => {
         console.log('error', err);
       });
-})
+  });
 
 // fetches all cards owned by User
 router.route('/:id/cards').get(authGuard, (req, res) => {
@@ -90,7 +93,7 @@ router.route('/:id/decks').get(authGuard, (req, res) => {
       ],
     })
     .then((result) => {
-      const newResult = assembleUserDecks(result.toJSON())
+      const newResult = assembleUserDecks(result.toJSON());
       return res.json(newResult);
     })
     .catch((err) => {
@@ -196,7 +199,7 @@ function assembleUserDecks(result) {
       created_at: deck.created_at,
       updated_at: deck.updated_at,
       name: deck.name,
-    }
+    };
 
     // assemble cards in deck
     const deckCards = deck.decks_cards.map((card) => {
