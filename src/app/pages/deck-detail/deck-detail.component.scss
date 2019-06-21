@@ -101,6 +101,9 @@
 
   .add-card-to-deck {
     font-size: 20px;
+    width: 100%;
+    text-align: center;
+
 
     .cards-not-in-deck {
       display: flex;
@@ -108,6 +111,9 @@
       flex-direction: row;
       vertical-align: baseline;
       height: 60px;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     input {
@@ -118,6 +124,10 @@
       height: 30px;
       width: 30px;
       border-radius: 50%;
+    }
+
+    .cancel {
+      background-color: red;
     }
   }
   

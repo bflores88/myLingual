@@ -64,51 +64,30 @@ export class DeckDetailComponent implements OnInit {
     let searchId = parseInt(this.user.id);
 
     this.backend.getUserLanguages().then((data) => {
-      // console.log(data);
       this.languages = data;
       this.languages.map((language) => {
         if (language.language_type == 'target' && language.primary == true) {
           this.target_language = language.languages.english_name;
         }
       });
-      console.log(this.target_language);
+
       this.backend.getSpecificDeck(this.routeId).then((data: any) => {
-        console.log('data', data);
         this.deck = data[0];
-        this.cards = this.deck.decks_cards;
+        this.cards = this.deck.decks_cards.reverse();
         this.deck.decks_cards.forEach((card) => {
           this.cardsInDeck.push(card.users_cards.card_id);
         })
 
         this.backend.getUserCards(searchId).then((data: any) => {
-          console.log('******', data)
-          data.UserCards.forEach((card) => {
+          data.forEach((card) => {
             if (this.cardsInDeck.indexOf(card.card_id) === -1) {
               this.cardsNotInDeck.push(card);
             }
           })
         })
 
-        console.log('cards in this deck', this.cardsInDeck)
-        console.log('cards NOT in deck', this.cardsNotInDeck)
-        // console.log('cards', this.cards);
-        // console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
-        // console.log(this.cards);
       });
     });
-
-
-    // this.backend.getUserProfile(searchId).then((data: any) => {
-    //   this.userDetail = data;
-    //   console.log('detail', this.userDetail);
-
-    //   // this.target_language = this.userDetail.target_languages[0];
-
-    //   // COMMENT
-    //   // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
-    //   // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
-    //   // i would like to figure out if its possible with a fully dynamic system
-    // });
   }
 
   handleAddCard() {
@@ -128,6 +107,19 @@ export class DeckDetailComponent implements OnInit {
       this.cardsToAdd.splice(findInCardsToAdd, 1);
     }
 
+  }
+
+  handleSubmit() {
+    const data = {
+      new_decks_cards: this.cardsToAdd,
+      deck_id: this.routeId
+    }
+
+    return this.backend.postDeckCard(data).then((result) => {
+      this.ngOnInit();
+      this.addCards = false;
+      this.cardsToAdd = [];
+    })
   }
 
   handleCancel() {

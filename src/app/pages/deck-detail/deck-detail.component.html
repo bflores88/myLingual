@@ -1,67 +1,71 @@
 <div class="page">
   <div class="forum-container">
-
     <div *ngIf="!addCards">
-        <h2>Deck: {{ deck.name }}</h2>
+      <h2>Deck: {{ deck.name }}</h2>
 
-        <div class="top-side-scroll-container">
-          <div class="flip-card" *ngFor="let card of cards">
-            <div
-              class="flip-card-inner"
-              [ngClass]="{ 'flip-card-inner-flipped': card.isflipped }"
-              (click)="card.isflipped = !card.isflipped"
-            >
-              <div class="flip-card-front">
-                <img class="card-image" src="{{ card.users_cards.cards.image_link }}" alt="" />
-                <h4>{{ card.users_cards.cards.words.english_word }}</h4>
-              </div>
-    
-              <div class="flip-card-back">
-                <!-- <h4>{{ card.users_cards.cards.words[findTranslatedWord] }}</h4> -->
-                <h4 *ngIf="target_language == 'italian'">
-                  {{ card.users_cards.cards.words.italian_translations.italian_word }}
-                </h4>
-    
-                <h4 *ngIf="target_language == 'spanish'">
-                  {{ card.users_cards.cards.words.spanish_translations.spanish_word }}
-                </h4>
-                <h4 *ngIf="target_language == 'japanese'">
-                  {{ card.users_cards.cards.words.japanese_translations.japanese_word }}
-                </h4>
-                <!-- <h4>{{ card[findTranslatedWord] }}</h4> -->
-              </div>
+      <div class="top-side-scroll-container">
+        <div class="flip-card" *ngFor="let card of cards">
+          <div
+            class="flip-card-inner"
+            [ngClass]="{ 'flip-card-inner-flipped': card.isflipped }"
+            (click)="card.isflipped = !card.isflipped"
+          >
+            <div class="flip-card-front">
+              <img class="card-image" src="{{ card.users_cards.cards.image_link }}" alt="" />
+              <h4>{{ card.users_cards.cards.words.english_word }}</h4>
+            </div>
+
+            <div class="flip-card-back">
+              <!-- <h4>{{ card.users_cards.cards.words[findTranslatedWord] }}</h4> -->
+              <h4 *ngIf="target_language == 'italian'">
+                {{ card.users_cards.cards.words.italian_translations.italian_word }}
+              </h4>
+
+              <h4 *ngIf="target_language == 'spanish'">
+                {{ card.users_cards.cards.words.spanish_translations.spanish_word }}
+              </h4>
+              <h4 *ngIf="target_language == 'japanese'">
+                {{ card.users_cards.cards.words.japanese_translations.japanese_word }}
+              </h4>
+              <!-- <h4>{{ card[findTranslatedWord] }}</h4> -->
             </div>
           </div>
         </div>
-    
-        <div class="test-button-box">
-          <button (click)="createTest()" class="small-btn">Test</button>
-        </div>
-    
-        <!-- <div class="test-button-box">
-          <button class="small-btn">Learn</button>
-        </div> -->
-        <div class="test-button-box add-card-button">
-          <button class="small-btn" (click)="handleAddCard()">Add Card</button>
-        </div>
-
-
-    </div>
-    
-
-    <div class="add-card-to-deck" *ngIf="addCards">
-      <h1>Add Shit To {{ deck.name }}</h1>
-      <div class="cards-not-in-deck" *ngFor="let card of cardsNotInDeck">
-        <input 
-        type="checkbox" 
-        class="not-in-deck" 
-        value="{{ card.card_id }}"
-        (click)="addToDeck($event)" 
-        />
-        &nbsp;&nbsp; <img *ngIf="card.image_link" src="{{ card.image_link }}"> &nbsp;&nbsp; {{ card.english_word }}
       </div>
 
-      <button class="small-btn" (click)="handleCancel()">Cancel</button>
+      <div class="test-button-box">
+        <button (click)="createTest()" class="small-btn">Test</button>
+      </div>
+
+      <!-- <div class="test-button-box">
+          <button class="small-btn">Learn</button>
+        </div> -->
+      <div class="test-button-box add-card-button">
+        <button class="small-btn" (click)="handleAddCard()">Add Card</button>
+      </div>
+    </div>
+
+    <div class="add-card-to-deck" *ngIf="addCards">
+      <div *ngIf="cardsNotInDeck.length > 0">
+        <h1>Add Shit To {{ deck.name }}</h1>
+        <br /><br />
+        <div class="cards-not-in-deck" *ngFor="let card of cardsNotInDeck">
+          <input type="checkbox" class="not-in-deck" value="{{ card.id }}" (click)="addToDeck($event)" />
+          &nbsp;&nbsp; <img *ngIf="card.cards.image_link" src="{{ card.cards.image_link }}" /> &nbsp;&nbsp;
+          {{ card.cards.words.english_word }}
+        </div>
+        <div class="test-button-box">
+          <button class="small-btn" (click)="handleSubmit()">Submit</button>
+        </div>
+      </div>
+
+      <div *ngIf="cardsNotInDeck.length === 0">
+        <h2>You have no more cards to add to this deck!</h2>
+      </div>
+
+      <div class="test-button-box">
+        <button class="small-btn cancel" (click)="handleCancel()">Cancel</button>
+      </div>
     </div>
   </div>
 </div>
