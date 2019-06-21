@@ -55,6 +55,10 @@ export class UserSettingsComponent implements OnInit {
 
   userLanguages: any = [];
 
+  chosen_language_name: string = '';
+
+  all_languages: any = [];
+
   ngOnInit() {
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
@@ -103,8 +107,19 @@ export class UserSettingsComponent implements OnInit {
     this.new_target_language_id = id;
   }
 
-  changeNewPrimary(id) {
-    this.target_language_id = id;
+  changeNewPrimary(language) {
+    this.target_language_id = language.id;
+    // console.log(language);
+    this.backend.getAllLanguages().then((data) => {
+      this.all_languages = data;
+      this.all_languages.forEach((element) => {
+        // console.log(element);
+        if (element.id == language.languages.id) {
+          // console.log(element);
+          this.chosen_language_name = element.english_name.charAt(0).toUpperCase() + element.english_name.slice(1);
+        }
+      });
+    });
   }
 
   showChangeTarget() {
