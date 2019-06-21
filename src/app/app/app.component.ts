@@ -6,25 +6,18 @@ import { Router } from '@angular/router';
 //   client_id: string
 // }
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'myLingual';
   client_id: string;
 
-  constructor(private backend: BackendService, private router: Router) { }
+  constructor(private router: Router, private backend: BackendService) {}
 
-
-  // ngOnInit() {
-  //   return this.backend.getClientId().then((data: ClientIdResponse) => {
-  //     this.client_id = data.client_id;
-  //     console.log(data);
-  //   })
-  // }
-
+  ngOnInit() {
+    // this.swUpdate.checkForUpdate();
+  }
 }

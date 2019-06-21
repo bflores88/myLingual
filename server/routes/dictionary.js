@@ -1,10 +1,10 @@
 const http = require("https");
 const express = require('express');
-
+const authGuard = require('../guards/authGuard');
 const router = express.Router();
 
 router.route('/:word&:fields&:strictMatch')
-.get((req, res) => {
+.get(authGuard, (req, res) => {
   let options = {
     host: 'od-api.oxforddictionaries.com',
     port: '443',
@@ -62,7 +62,7 @@ router.route('/:word&:fields&:strictMatch')
 })
 
 router.route('/validate/:word')
-.get((req, res) => {
+.get(authGuard, (req, res) => {
   const options = {
     host: 'od-api.oxforddictionaries.com',
     port: '443',

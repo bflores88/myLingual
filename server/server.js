@@ -103,7 +103,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:8080/api/auth/google/callback',
+      callbackURL: 'https://mylingual.me/api/auth/google/callback',
     },
     function(accessToken, refreshToken, profile, done) {
       // console.log('google strategy in progress', profile);
@@ -205,13 +205,13 @@ app.get('/api/auth/google', passport.authenticate('google', { scope: ['profile',
 
 app.get(
   '/api/auth/google/callback',
-  passport.authenticate('google', { failureMessage: 'http://localhost:4200/login' }),
+  passport.authenticate('google', { failureMessage: 'https://mylingual.me/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     // console.log('hits***********', req.user);
     // console.log(req)
     // res.json(req.user);
-    res.redirect('http://localhost:4200/google');
+    res.redirect('https://mylingual.me/google');
   },
 );
 
@@ -238,6 +238,7 @@ let onlineUsers = {};
 
 io.on('connect', (socket) => {
   console.log('connection made');
+  console.log('****', io.sockets.sockets)
 
   socket.on('identify', (user) => {
     console.log('identify', user);
@@ -257,6 +258,26 @@ io.on('connect', (socket) => {
     }
   });
 
+  // add room
+  socket.on('create', (room) => {
+    console.log('room', room)
+    socket.join(room);
+  });
+
+  // join room
+  socket.on('subscribe', (data) => {
+    console.log('joining room', data.room)
+    socket.join(data.room)
+    console.log('****', io.sockets.sockets)
+  })
+
+  // leave room
+  socket.on('unsubscribe', (data) => {
+    console.log('leaving room', data.room)
+    socket.leave(data.room)
+  })
+
+
   socket.on('message', (msg) => {
     console.log('server socket message', msg);
     // knex insert
@@ -267,9 +288,11 @@ io.on('connect', (socket) => {
 
     const recipient = onlineUsers[msg.id];
     console.log('recipient', recipient);
+    console.log('message.room', msg.room);
+    io.to(`${msg.room}`).emit('message', msg)
 
     if (recipient) {
-      recipient.emit('message', msg);
+      recipient.emit( 'message', msg);
       console.log(recipient);
     }
   });

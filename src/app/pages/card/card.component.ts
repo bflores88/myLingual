@@ -263,23 +263,3 @@ export class CardComponent implements OnInit {
     }
   }
 }
-
-// share() {
-  //   if (this.canShare) {
-  //     this.backend.shareFlashcard(this.routeID)
-  //     .then((response: Flashcard) => {
-  //       this.flashcard.shares = response.shares;
-  //     })
-  //     .catch((error) => {
-  //       this.errorMessage = error.errorMessage;
-  //     })
-  //   }
-  // }
-
-// validateShare() {
-  //   if (this.user.loggedIn) {
-  //     this.canShare = true;
-  //   } else {
-  //     this.canShare = false;
-  //   }
-  // }
