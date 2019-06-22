@@ -50,11 +50,11 @@ router
             deck_id: req.body.deck_id,
             card_theme_id: 1,
           })
-          .then((result) => {
-            console.log('new deck card created', result);
+          .then(() => {
+            return res.json({message: "Card Added to Deck"});
           })
-          .catch((err) => {
-            console.log('error', err);
+          .catch(() => {
+            return res.json({errorMessage: "Error adding card to Deck"});
           });
       }
     }
