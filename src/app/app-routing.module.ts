@@ -27,6 +27,7 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { AboutComponent } from './pages/about/about.component';
 import { GoogleComponent } from './pages/google/google.component';
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { GradeComponent } from './pages/grade/grade.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'search/:search_text', canActivate: [AuthGuard], component: SearchResultsComponent },
   { path: 'google', component: GoogleComponent },
   { path: 'admin', component: AdminLoginComponent },
+  { path: 'grades', component: GradeComponent },
 ];
 
 @NgModule({
