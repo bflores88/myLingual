@@ -19,10 +19,10 @@ export class DeckDetailComponent implements OnInit {
     target_languages: any;
   };
   constructor(
-    private backend: BackendService,
-    private activated: ActivatedRoute,
-    private router: Router,
-    private session: SessionService,
+    public backend: BackendService,
+    public activated: ActivatedRoute,
+    public router: Router,
+    public session: SessionService,
   ) {
     this.user = this.session.getSession();
   }

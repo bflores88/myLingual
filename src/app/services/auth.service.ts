@@ -7,7 +7,7 @@ import { SessionService } from './session.service';
 })
 export class AuthService {
   redirectUrl = '';
-  constructor(private backend: BackendService, private session: SessionService) {}
+  constructor(public backend: BackendService, public session: SessionService) {}
 
   register(data) {
     return this.backend.register(data);

@@ -10,10 +10,10 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class TestComponent implements OnInit {
   constructor(
-    private backend: BackendService,
-    private activated: ActivatedRoute,
-    private router: Router,
-    private session: SessionService,
+    public backend: BackendService,
+    public activated: ActivatedRoute,
+    public router: Router,
+    public session: SessionService,
   ) {}
 
   // user info

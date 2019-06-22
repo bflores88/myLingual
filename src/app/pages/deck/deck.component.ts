@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./deck.component.scss'],
 })
 export class DeckComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute) {}
+  constructor(public backend: BackendService, public activated: ActivatedRoute) {}
 
   decks: {
     name: string;

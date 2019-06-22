@@ -15,7 +15,7 @@ export class AppComponent {
   title = 'myLingual';
   client_id: string;
 
-  constructor(private router: Router, private backend: BackendService) {}
+  constructor(public router: Router, public backend: BackendService) {}
 
   ngOnInit() {
     // this.swUpdate.checkForUpdate();
