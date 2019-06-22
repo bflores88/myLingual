@@ -67,7 +67,7 @@ router.route('/').post(authGuard, (req, res) => {
 
 // grab deck with target language attempt
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authGuard, (req, res) => {
   console.log(req.user);
   new User()
     .where({ id: req.user.id })

@@ -154,14 +154,18 @@ export class DeckDetailComponent implements OnInit {
 
     const thisCard = parseInt(e.target.value);
     
-    const deleteCard = this.cards.filter((card: any) => {
+    const notThisCard = this.cards.filter((card: any) => {
       return card.id !== thisCard
     })
 
+    this.cards = notThisCard;
+
     const data = {
       delete_card: thisCard,
-      deck_id: this.routeId
+      deck_id: parseInt(this.routeId)
     }
+
+    console.log(data);
 
     this.backend.deleteDeckCard(data);
 
