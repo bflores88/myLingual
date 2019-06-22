@@ -25,6 +25,7 @@ export class ForumTopicComponent implements OnInit {
 
   ngOnInit() {
     // console.log('param', this.activated.snapshot.paramMap.get('id'));
+
     let routeId = this.activated.snapshot.paramMap.get('id');
     this.backend.getSpecificForum(routeId).then((data: any) => {
       // console.log(data);
