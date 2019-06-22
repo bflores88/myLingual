@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./new-forum-post.component.scss'],
 })
 export class NewForumPostComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {}
+  constructor(public backend: BackendService, public activated: ActivatedRoute, public router: Router) {}
 
   newPost: {
     body: string;
