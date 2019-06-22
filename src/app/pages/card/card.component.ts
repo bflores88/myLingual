@@ -266,8 +266,7 @@ export class CardComponent implements OnInit {
         .catch((error) => {
           this.errorMessage = error.errorMessage;
         });
-      })
-      
+      });
     }
   }
 }
