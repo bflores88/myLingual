@@ -1,6 +1,6 @@
 <div class="page">
   <div class="forum-container">
-    <div *ngIf="!addCards">
+    <div *ngIf="showMain">
       <h2>Deck: {{ deck.name }}</h2>
 
       <div class="top-side-scroll-container">
@@ -37,11 +37,12 @@
         <button (click)="createTest()" class="small-btn">Test</button>
       </div>
 
-      <!-- <div class="test-button-box">
-          <button class="small-btn">Learn</button>
-        </div> -->
       <div class="test-button-box add-card-button">
         <button class="small-btn" (click)="handleAddCard()">Add Card</button>
+      </div>
+
+      <div class="test-button-box add-card-button">
+        <button class="small-btn" (click)="handleRemoveCards()">Remove Card</button>
       </div>
     </div>
 
@@ -65,6 +66,21 @@
 
       <div class="test-button-box">
         <button class="small-btn cancel" (click)="handleCancel()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="remove-cards-from-deck" *ngIf="removeCards">
+      <h2>Click or Tap To Remove Cards From Deck</h2>
+
+      <div class="remove-cards" *ngFor="let card of cards">
+        <button class="small-btn card-remove" value="{{card.id}}" (click)="handleTrashCard($event)">
+          <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;{{ card.users_cards.cards.words.english_word }}
+        </button>
+        <div class="card-to-remove"></div>
+      </div>
+
+      <div class="test-button-box">
+        <button class="small-btn cancel" (click)="handleCancel()">Back To Deck Detail</button>
       </div>
     </div>
   </div>
