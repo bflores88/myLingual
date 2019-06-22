@@ -57,6 +57,16 @@ router.route('/').post(authGuard, (req, res) => {
       });
     }
   }
-});
+})
+  .delete(authGuard, (req, res) => {
+    DeckCard.where({ users_card_id: req.body.usercard_id })
+      .destroy()
+      .then(() => {
+      return res.json({ delete_success: `successfully deleted card`})
+      })
+      .catch((err) => {
+      console.log('error', err)
+    })
+})
 
 module.exports = router;
