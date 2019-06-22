@@ -24,10 +24,6 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-// TEMPORARY ACCESS VARIABLES
-let pendingImage = '';
-let spanish = '';
-let italian = '';
 
 router
   .route('/')
@@ -46,7 +42,7 @@ router
   // CREATE A NEW CARD
   .post(authGuard, (req, res) => {
     // check if word exists
-
+    const image = req.body.image_link;
     const word = req.body.english_word.toLowerCase();
     new Word('english_word', word)
       .fetch()
@@ -60,10 +56,12 @@ router
 
               translateApi(word, newResult.id);
 
+              console.log('***', image)
+
               return new Card().save({
                 word_id: newResult.id,
                 created_by: req.user.id,
-                image_link: pendingImage,
+                image_link: image,
                 likes: 0,
                 shares: 0,
                 red_flagged: 0,
@@ -74,7 +72,6 @@ router
               });
             })
             .then((result) => {
-              pendingImage = '';
               let newResult = result.toJSON();
 
               return new UserCard().save({
@@ -90,11 +87,13 @@ router
             .catch((error) => console.log('error', error));
         } else {
           // if the word exists, create a new card for the user
+
+          console.log('***', image)
           return new Card()
             .save({
               word_id: wordResult.id,
               created_by: req.user.id,
-              image_link: pendingImage,
+              image_link: image,
               likes: 0,
               shares: 0,
               red_flagged: 0,
@@ -104,7 +103,6 @@ router
               active: true,
             })
             .then((result) => {
-              pendingImage = '';
               let newResult = result.toJSON();
 
               return new UserCard().save({
@@ -360,8 +358,6 @@ router.route('/search/:term').get(authGuard, (req, res) => {
 router
   .route('/upload')
   .post(authGuard, singleUpload, (req, res) => {
-    // console.log(req.user)
-    pendingImage = req.file.location;
 
     visionApi(req.file.location)
       .then((labels) => {
@@ -369,8 +365,7 @@ router
           return label.description;
         });
 
-        console.log(pendingImage);
-        return res.json({ results: topThree });
+        return res.json({ results: topThree, image_link: req.file.location });
       })
       .catch(console.error);
   })
