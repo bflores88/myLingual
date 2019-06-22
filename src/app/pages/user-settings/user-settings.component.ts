@@ -32,11 +32,11 @@ export class UserSettingsComponent implements OnInit {
   message: string = '';
 
   constructor(
-    private backend: BackendService,
-    private router: Router,
-    private activated: ActivatedRoute,
-    private session: SessionService,
-    private auth: AuthService,
+    public backend: BackendService,
+    public router: Router,
+    public activated: ActivatedRoute,
+    public session: SessionService,
+    public auth: AuthService,
   ) {}
 
   languages: any = [];

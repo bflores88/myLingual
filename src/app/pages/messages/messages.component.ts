@@ -51,10 +51,10 @@ export class MessagesComponent implements OnInit {
   };
 
   constructor(
-    private backend: BackendService,
-    private route: ActivatedRoute,
-    private session: SessionService,
-    private socketService: SocketService,
+    public backend: BackendService,
+    public route: ActivatedRoute,
+    public session: SessionService,
+    public socketService: SocketService,
   ) {
   }
 

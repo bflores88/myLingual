@@ -71,11 +71,11 @@ export class CardComponent implements OnInit {
   };
 
   constructor(
-    private backend: BackendService, 
-    private activatedRoute: ActivatedRoute,
-    private router: Router, 
-    private session: SessionService,
-    private dictionary: DictionaryService,
+    public backend: BackendService, 
+    public activatedRoute: ActivatedRoute,
+    public router: Router, 
+    public session: SessionService,
+    public dictionary: DictionaryService,
   ) {}
 
   ngOnInit() {

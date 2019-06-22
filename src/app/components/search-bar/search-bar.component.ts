@@ -28,7 +28,7 @@ export class SearchBarComponent implements OnInit {
   // initialize searchMatches
   searchMatches: SearchMatches[];
 
-  constructor(private backend: BackendService, private router: Router) { }
+  constructor(public backend: BackendService, public router: Router) { }
 
   ngOnInit() { }
 
