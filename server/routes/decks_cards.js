@@ -27,19 +27,32 @@ router.route('/').post(authGuard, (req, res) => {
         console.log('error', err);
       });
   } else {
-    // adds new card to deck
-    new DeckCard()
-      .save({
-        users_cards_id: req.body.usercard_id,
-        deck_id: req.body.deck_id,
-        card_theme_id: 1,
-      })
-      .then((result) => {
-        console.log('new deck card created', result);
-      })
-      .catch((err) => {
-        console.log('error', err);
-      });
+    // adds card to existing deck
+    new DeckCard({
+      users_cards_id: req.body.usercard_id,
+      deck_id: req.body.deck_id,
+    })
+    .fetch()
+    .then((result) => {
+      if (result) {
+        return res.json('Card already in deck');
+      } else {
+        new DeckCard()
+        .save({
+          users_cards_id: req.body.usercard_id,
+          deck_id: req.body.deck_id,
+          card_theme_id: 1,
+        })
+        .then(() => {
+          return res.json({message: "Card added to deck"});
+        })
+        .catch(() => {
+          return res.json({
+            errorMessage: "Error adding card to existing deck"
+          });
+        });
+      }
+    })
   }
 });
 

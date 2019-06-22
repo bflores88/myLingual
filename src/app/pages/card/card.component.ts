@@ -3,6 +3,7 @@ import { BackendService } from 'src/app/services/backend.services';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { DictionaryService } from 'src/app/services/dictionary.service';
+import { FormControl } from '@angular/forms';
 
 interface ResponseData {
   errorMessage: string;
@@ -56,59 +57,56 @@ export class CardComponent implements OnInit {
   canShare: boolean;
 
   routeID: string;
-
-  flashcard: Flashcard;
   cardTableId: string[] = [];
   cardTableIdPosition: number;
 
+  flashcard: Flashcard;
   creator: User;
   definitions: Definitions;
   
-  user: {
-    loggedIn: boolean;
-    username: string;
-    id: any;
+  user = {
+    session: {
+      loggedIn: undefined,
+      username: undefined,
+      id: undefined,
+    },
+    decks: undefined,
   };
 
+  deckID = new FormControl('');
+
   constructor(
-    private backend: BackendService, 
-    private activatedRoute: ActivatedRoute,
-    private router: Router, 
-    private session: SessionService,
-    private dictionary: DictionaryService,
+    public backend: BackendService, 
+    public activatedRoute: ActivatedRoute,
+    public router: Router, 
+    public session: SessionService,
+    public dictionary: DictionaryService,
   ) {}
 
   ngOnInit() {
-    this.user = this.session.getSession();
-    if (this.user.loggedIn){
-      this.hasUser = true;
-    } else {
-      this.hasUser = false;
-    }
-
+    this.user.session = this.session.getSession();
+    this.user.session.loggedIn ? this.hasUser = true : this.hasUser = false;
+    this.backend.getUserDecks().then((decks) => { this.user.decks = decks });
+    
     this.backend.getFlashcards()
     .then((cards: Flashcard[]) => {
-
       cards.forEach((card: Flashcard) => {
         this.cardTableId.push(card.id.toString());
       });
-
       this.cardTableIdPosition = this.cardTableId.indexOf(this.activatedRoute.snapshot.paramMap.get('id'));
 
       this.activatedRoute.paramMap.subscribe((routeParams: ParamMap) => {
-        // Behavior on navigation to page from other pages or same pages
-        this.loadCard()
+        this.getCard()
         .then(()=> this.getCreator()
         .then(()=> this.getRelationStatus()
         .then(()=> this.validateDownload()
         .then(()=> this.validateLike()
-        .then(()=> this.getDefinitions() 
-        )))));
+        ))));
       });
-    })
+    });
   }
 
-  loadCard() {
+  getCard() {
     this.routeID = this.activatedRoute.snapshot.paramMap.get('id');
 
     return this.backend.getFlashcard(this.routeID)
@@ -164,7 +162,7 @@ export class CardComponent implements OnInit {
   }
 
   validateDownload() {
-    return this.backend.downloadFlashcardVerify(this.routeID, this.user.id)
+    return this.backend.downloadFlashcardVerify(this.routeID, this.user.session.id)
     .then((response: ResponseData) => {
       this.canDownload = response.canDownload;
     })
@@ -175,9 +173,10 @@ export class CardComponent implements OnInit {
   }
 
   validateLike() {
-    return this.backend.likeFlashcardVerify(this.routeID, this.user.id)
+    return this.backend.likeFlashcardVerify(this.routeID, this.user.session.id)
     .then((response: ResponseData) => {
       this.canLike = response.canLike;
+      console.log(this.canDownload);
     })
     .catch((error) => {
       this.errorMessage = error.errorMessage;
@@ -229,9 +228,9 @@ export class CardComponent implements OnInit {
     this.router.navigate([`/card/${this.cardTableId[this.cardTableIdPosition]}`]);
   }
 
-  addLike() {
+  like() {
     if (this.canLike) {
-      this.backend.likeFlashcard(this.routeID, this.user.id)
+      this.backend.likeFlashcard(this.routeID, this.user.session.id)
       .then((response: ResponseData) => {
         if (response.errorMessage){
           this.errorMessage = response.errorMessage;
@@ -247,19 +246,29 @@ export class CardComponent implements OnInit {
   }
 
   download() {
-    if (this.canDownload) { 
-      this.backend.downloadFlashcard(this.routeID, this.user.id)
+    if (this.deckID.status === "VALID") {
+      this.backend.downloadFlashcard(this.flashcard.id.toString(), this.user.session.id) 
       .then((response: ResponseData) => {
-        if (response.errorMessage){
+        if (response.errorMessage) {
           this.errorMessage = response.errorMessage;
+          this.canDownload = true;
         } else {
           this.flashcard.downloads = response.updatedDownloads;
           this.canDownload = false;
         }
+
+        this.backend.postDeckCard({
+          usercard_id: this.flashcard.id,
+          deck_id: this.deckID.value,
+        })
+        .then((response: ResponseData) => {
+          if (response.errorMessage) {this.errorMessage = response.errorMessage};
+        })
+        .catch((error) => {
+          this.errorMessage = error.errorMessage;
+        });
       })
-      .catch((error) => {
-        this.errorMessage = error.errorMessage;
-      });
+      
     }
   }
 }

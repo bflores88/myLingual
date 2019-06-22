@@ -1,20 +1,25 @@
 <div id="flashcard-page">
-
   <div id="flashcard-section" *ngIf="hasFlashcard">
-
     <div class="change-flashcard-large">
       <button (click)="previousCard()">
         <i class="fas fa-arrow-alt-circle-left"></i> 
       </button>
     </div>
-
     <div id="flip-container-wrapper">
       <div class="flip-container" onmousedown="this.classList.toggle('hover')">
         <div class="flipper">
           <div class="front">
             <div class="flashcard-base">
               <div class="title">
+                <div class="likes">
+                  <i class="fas fa-heart"></i>
+                  <p>{{flashcard.likes}}</p>
+                </div>
                 <h1>{{flashcard.english_word}}</h1>
+                <div class="downloads">
+                  <p>{{flashcard.downloads}}</p>
+                  <i class="fas fa-file-download"></i>
+                </div>
               </div>
               <div class="body">
                 <img src="{{flashcard.image_link}}"/>
@@ -44,14 +49,13 @@
         </div>
       </div>
     </div>
-
     <div class="change-flashcard-large">
       <button class="arrow-button" (click)="nextCard()">
         <i class="fas fa-arrow-alt-circle-right"></i>
       </button>
     </div>
-
   </div>
+
 
   <div id="change-flashcard-mobile-section">
     <div class="change-flashcard-mobile">
@@ -66,38 +70,29 @@
     </div>
   </div>
 
-  <div id="social-section" *ngIf="hasFlashcard && hasUser">
-    <div class="social-element" *ngIf="canLike; else cannotLike">
-      <button (click)="addLike()">
-        <i class="fas fa-heart"></i>
-      </button>
-      <p>{{flashcard.likes}}</p>
-    </div>
-    <ng-template #cannotLike>
-      <div class="social-element">
-        <button [ngStyle]="{'border': '5px solid #808080'}">
-          <i class="fas fa-heart" [ngStyle]="{'color': '#808080'}"></i>
-        </button>
-        <p>{{flashcard.likes}}</p>
-      </div>
-    </ng-template>
 
-    <div class="social-element" *ngIf="canDownload; else cannotDownload">
-      <button (click)="download()"><i class="fas fa-file-download"></i></button>
-      <p>{{flashcard.downloads}}</p>
-    </div>
-    <ng-template #cannotDownload>
-      <div class="social-element">
-        <button [ngStyle]="{'border': '5px solid #808080'}">
-          <i class="fas fa-file-download" [ngStyle]="{'color': '#808080'}"></i>
-        </button>
-        <p>{{flashcard.downloads}}</p>
+  <div id="interaction-section" *ngIf="hasUser">
+    <div class="interaction-element">
+      <div class="interaction-bullets" *ngIf="canDownload">
+        <div *ngFor="let deck of user.decks">
+          <input type="radio" name="id" [formControl]="deckID" value="{{deck.id}}" required> {{deck.name}}
+        </div>
       </div>
-    </ng-template>
+      <button (click)="download()" [(disabled)]="!canDownload">
+        <p *ngIf="canDownload">Add to Selected Deck</p>
+        <p *ngIf="!canDownload">In Deck!</p>
+      </button>
+    </div>
+    <div class="interaction-element">
+      <button (click)="like()" [(disabled)]="!canLike">
+        <p *ngIf="canLike">Add a Like</p>
+        <p *ngIf="!canLike">Liked!</p>
+      </button>
+    </div>
   </div>
+    
 
   <div id="creator-section" *ngIf="hasCreator">
-
     <div id="creator-header">
       <div *ngIf="hasUser && creator.active && hasRelation">
         <i class="fas fa-user-friends" style="color: green"></i>
@@ -111,10 +106,8 @@
       <div *ngIf="!creator.active">
         <i class="far fa-user" style="color: red"></i>
       </div>
-
       <h2>Created by {{creator.username}}</h2>
     </div>
-
     <div id="creator-profile">
       <img class="image-blurred-edge" src="{{creator.profile_image_url}}"/>
 
@@ -140,6 +133,7 @@
     </div>
   </div>
 
+
   <div id="definition-section" *ngIf="hasUser && hasDefinitions">
     <div class="definition-element">
       <h3>Primary Definitions</h3>
@@ -159,3 +153,15 @@
     </div>
   </div>
 </div>
+
+
+<!-- <div id="social-section" *ngIf="hasFlashcard && hasUser">
+    <div class="social-element">
+      <i class="fas fa-heart"></i>
+      <p>{{flashcard.likes}}</p>
+    </div>
+    <div class="social-element">
+      <i class="fas fa-file-download"></i>
+      <p>{{flashcard.downloads}}</p>
+    </div>
+  </div> -->
