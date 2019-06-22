@@ -7,7 +7,7 @@ import { SessionService } from '../services/session.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private session: SessionService, private auth: AuthService, private router: Router) { }
+  constructor(public session: SessionService, public auth: AuthService, public router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.auth.redirectUrl = state.url;

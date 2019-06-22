@@ -14,7 +14,7 @@ export class ContactsComponent implements OnInit {
     id: any;
   };
 
-  constructor(private backend: BackendService, private router: Router, private session: SessionService) {
+  constructor(public backend: BackendService, public router: Router, public session: SessionService) {
     this.user = this.session.getSession();
   }
 

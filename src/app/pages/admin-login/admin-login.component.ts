@@ -17,7 +17,7 @@ export class AdminLoginComponent implements OnInit {
     password: '',
   };
 
-  constructor(private auth: AuthService, private router: Router, private backend: BackendService) {}
+  constructor(public auth: AuthService, public router: Router, public backend: BackendService) {}
 
   login() {
     this.auth
