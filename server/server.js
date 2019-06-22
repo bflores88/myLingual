@@ -37,6 +37,7 @@ const searches = require('./routes/searches');
 const languages = require('./routes/languages');
 const dictionary = require('./routes/dictionary');
 const google = require('./routes/google');
+const postMessage = require('./services/websocket-message');
 
 app.use(bodyParser.json());
 app.use(
@@ -126,16 +127,16 @@ passport.use(
             })
               .save()
               .then((result) => {
-                console.log('new result:', result);
+                // console.log('new result:', result);
                 return done(null, result);
               })
               .catch((err) => {
-                console.log('this error is happening', err);
+                // console.log('this error is happening', err);
                 return err;
               });
           } else {
             result = result.toJSON();
-            console.log('1283793871308471329084712394', profile.photos[0].value);
+            // console.log('1283793871308471329084712394', profile.photos[0].value);
             // console.log('*&*&*&*&*&*&*&*&*&*', result);
             return done(null, result);
           }
@@ -181,7 +182,7 @@ passport.deserializeUser(function(user, done) {
     .fetch()
     .then((user) => {
       user = user.toJSON();
-      console.log('user deserialize', user);
+      // console.log('user deserialize', user);
 
       done(null, {
         id: user.id,
@@ -274,12 +275,9 @@ io.on('connect', (socket) => {
   });
 
   socket.on('message', (msg) => {
-    // console.log('server socket message', msg);
-    // knex insert
 
-    // console.log('online users', onlineUsers);
-    // console.log(msg.to);
-    // console.log(msg.id);
+    // uses service to post message to DB
+    postMessage(msg);
 
     const recipient = onlineUsers[msg.id];
     // console.log('recipient', recipient);
