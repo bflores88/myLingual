@@ -45,6 +45,7 @@ export class SocketService {
     const data = {
       room: roomId
     }
+    console.log('joined room', roomId)
     
     return this.socket.emit('subscribe', data)
     

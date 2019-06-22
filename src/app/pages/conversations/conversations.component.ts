@@ -17,9 +17,6 @@ export class ConversationsComponent implements OnInit {
     this.backend.getConversations().then((data: any) => {
       this.conversations = data;
 
-      this.conversations.forEach((conversation) => {
-        return this.socketService.joinRoom(conversation.id);
-      });
     });
   }
 }

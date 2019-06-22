@@ -1,5 +1,5 @@
 <div id="app">
-  <div [hidden]="hideVideo"><video #video id="video" width="100%" autoplay playsinline></video></div>
+  <div [hidden]="hideVideo"><video #video id="video" width="100%" autoplay></video></div>
   <div [hidden]="hideVideo"><button class="small-btn" id="snap" (click)="capture()">Snap Photo</button></div>
 
   <div *ngIf="showPhoto" class="image-box">
