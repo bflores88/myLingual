@@ -59,7 +59,7 @@
             (keyup)="$event.keyCode == 13 ? handleNewMessage() : null"
           />
         </div>
-        <button class="small-btn" (click)="handleNewMessage()">Send</button>
+        <button class="small-btn" (click)="handleNewMessage()" [disabled]="messageBody.length === 0">Send</button>
         <br /><br />
         <button class="small-btn cancel-btn" (click)="cancelSendMessage()">Cancel</button>
       </div>
