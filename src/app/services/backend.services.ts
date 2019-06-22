@@ -75,7 +75,7 @@ export class BackendService {
   }
 
   deleteDeckCard(data) {
-    return this.http.delete(`/api/decks_cards`, data).toPromise();
+    return this.http.put(`/api/decks_cards`, data).toPromise();
   }
 
   getConversations() {

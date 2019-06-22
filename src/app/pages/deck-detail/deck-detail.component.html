@@ -48,16 +48,23 @@
 
     <div class="add-card-to-deck" *ngIf="addCards">
       <div *ngIf="cardsNotInDeck.length > 0">
-        <h1>Add Card To Deck - {{ deck.name }}</h1>
-        <br /><br />
-        <div class="cards-not-in-deck" *ngFor="let card of cardsNotInDeck">
-          <input type="checkbox" class="not-in-deck" value="{{ card.id }}" (click)="addToDeck($event)" />
-          &nbsp;&nbsp; <img *ngIf="card.cards.image_link" src="{{ card.cards.image_link }}" /> &nbsp;&nbsp;
-          {{ card.cards.words.english_word }}
+        <h2>Add Card To Deck - {{ deck.name }}</h2>
+        <br />
+
+        <div class="card-box">
+          <div class="cards-not-in-deck" *ngFor="let card of cardsNotInDeck">
+            <label class="container">
+              <input type="checkbox" class="not-in-deck" value="{{ card.id }}" (click)="addToDeck($event)" />
+              <span class="checkmark"></span>
+            </label>
+            &nbsp;&nbsp; <img *ngIf="card.cards.image_link" src="{{ card.cards.image_link }}" /> &nbsp;&nbsp;
+            {{ card.cards.words.english_word }}
+          </div>
         </div>
-        <div class="test-button-box">
-          <button class="small-btn" (click)="handleSubmit()">Submit</button>
-        </div>
+      </div>
+
+      <div *ngIf="cardsNotInDeck.length > 0" class="test-button-box">
+        <button class="small-btn" (click)="handleSubmit()">Submit</button>
       </div>
 
       <div *ngIf="cardsNotInDeck.length === 0">
@@ -73,7 +80,7 @@
       <h2>Click or Tap To Remove Cards From Deck</h2>
 
       <div class="remove-cards" *ngFor="let card of cards">
-        <button class="small-btn card-remove" value="{{card.id}}" (click)="handleTrashCard($event)">
+        <button class="small-btn card-remove" value="{{ card.users_cards_id }}" (click)="handleTrashCard($event)">
           <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;{{ card.users_cards.cards.words.english_word }}
         </button>
         <div class="card-to-remove"></div>
