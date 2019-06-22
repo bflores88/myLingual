@@ -88,7 +88,6 @@ export class DeckDetailComponent implements OnInit {
           })
         })
 
-        console.log(this.cards);
       });
     });
   }
