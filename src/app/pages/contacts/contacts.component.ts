@@ -45,18 +45,14 @@ export class ContactsComponent implements OnInit {
           this.contacts.push(contactObj);
         }
       });
-      console.log(this.contacts);
     });
   }
 
 
   deleteThisContact(id) {
-    console.log('contact id', id);
     this.backend.deleteContact(id).then((data: any) => {
       this.contacts = [];
       this.backend.getUserContacts().then((data: any) => {
-        // this.contacts = data;
-        console.log(data);
         data.forEach((contact) => {
           if (contact.invitee != this.user.id) {
             let contactObj = {
@@ -116,6 +112,8 @@ export class ContactsComponent implements OnInit {
       userList: this.userList
     }
 
+    console.log(data);
+
     this.backend.postConversation(data).then((result) => {
       this.userList = [];
       this.messageBody = '';
@@ -123,7 +121,6 @@ export class ContactsComponent implements OnInit {
   }
 
   addToConversation(e) {
-    console.log(e);
     if (e.target.checked) {
       this.userList.push(parseInt(e.target.value));
       this.messageTo.push(', ');

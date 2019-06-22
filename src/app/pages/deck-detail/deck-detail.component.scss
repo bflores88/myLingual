@@ -126,8 +126,33 @@
       border-radius: 50%;
     }
 
-    .cancel {
-      background-color: red;
+  }
+
+  .remove-cards-from-deck {
+    width: 100%;
+    text-align: center;
+
+    .remove-cards {
+      width: 100%;
+      margin-bottom: 15px;
+  
+      .card-remove {
+        background-color: var(--accentColor);
+  
+        &:hover {
+          background-color: var(--activeLinkColor);
+        }
+      }
+
+  }
+
+  }
+
+  .cancel {
+    background-color: red;
+
+    &:hover {
+      background-color: darken(red, 25%);
     }
   }
   

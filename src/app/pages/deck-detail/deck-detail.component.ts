@@ -41,7 +41,9 @@ export class DeckDetailComponent implements OnInit {
   cardsNotInDeck = [];
   cardsToAdd = [];
   routeId: any;
+  showMain = true;
   addCards: boolean;
+  removeCards: boolean;
 
   flipCard() {
     // console.log(event.target);
@@ -86,6 +88,7 @@ export class DeckDetailComponent implements OnInit {
           })
         })
 
+        console.log(this.cards);
       });
     });
   }
@@ -93,8 +96,10 @@ export class DeckDetailComponent implements OnInit {
   handleAddCard() {
     if (!this.addCards) {
       this.addCards = true;
+      this.showMain = false;
     } else {
       this.addCards = false;
+      this.showMain = true;
     }
   }
 
@@ -118,6 +123,7 @@ export class DeckDetailComponent implements OnInit {
     return this.backend.postDeckCard(data).then((result) => {
       this.ngOnInit();
       this.addCards = false;
+      this.showMain = true;
       this.cardsToAdd = [];
     })
   }
@@ -125,5 +131,44 @@ export class DeckDetailComponent implements OnInit {
   handleCancel() {
     this.cardsToAdd = [];
     this.addCards = false;
+    this.showMain = true;
+    this.removeCards = false;
+
+    return this.ngOnInit();
   }
+
+  handleRemoveCards() {
+    if (!this.removeCards) {
+      this.removeCards = true;
+      this.showMain = false;
+    } else {
+      this.removeCards = false;
+      this.showMain = true;
+
+      return this.ngOnInit();
+    }
+    
+  }
+
+  handleTrashCard(e) {
+
+    const thisCard = parseInt(e.target.value);
+    
+    const notThisCard = this.cards.filter((card: any) => {
+      return card.id !== thisCard
+    })
+
+    this.cards = notThisCard;
+
+    const data = {
+      delete_card: thisCard,
+      deck_id: parseInt(this.routeId)
+    }
+
+    console.log(data);
+
+    this.backend.deleteDeckCard(data);
+
+  }
+
 }

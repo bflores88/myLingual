@@ -74,6 +74,10 @@ export class BackendService {
     return this.http.post('/api/decks_cards', data, { withCredentials: true }).toPromise();
   }
 
+  deleteDeckCard(data) {
+    return this.http.delete(`/api/decks_cards`, data).toPromise();
+  }
+
   getConversations() {
     return this.http.get('/api/conversations', { withCredentials: true }).toPromise();
   }
@@ -207,5 +211,9 @@ export class BackendService {
 
   getUserCards(id): Promise<object> {
     return this.http.get(`/api/users/${id}/cards`, { withCredentials: true }).toPromise();
+  }
+
+  getUserQuizzes(): Promise<object> {
+    return this.http.get(`/api/grades`, { withCredentials: true }).toPromise();
   }
 }
