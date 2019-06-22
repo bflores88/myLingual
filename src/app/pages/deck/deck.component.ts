@@ -43,7 +43,7 @@ export class DeckComponent implements OnInit {
       }
       let sortedDecks = this.decks.sort(compareValues('updated_at', 'asc'));
       this.decks = sortedDecks;
-      console.log(this.decks);
+      // console.log(this.decks);
     });
   }
 }

@@ -18,24 +18,24 @@
       perspective: 300px;
     }
   }
-  
+
   .test-button-box {
     display: flex;
     justify-content: center;
     width: 100%;
     margin: 1em 0em 1em 0em;
   }
-  
+
   .card-container-is-flipped {
     transform: rotateY(180deg);
   }
-  
+
   .card-image {
     height: 70%;
     width: auto;
     max-width: 60%;
   }
-  
+
   /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
   .flip-card {
     display: inline-block;
@@ -47,7 +47,7 @@
     margin: 1em 2em 1em 0em;
     border-radius: 10px;
   }
-  
+
   /* This container is needed to position the front and back side */
   .flip-card-inner {
     position: relative;
@@ -57,12 +57,12 @@
     transition: transform 0.8s;
     transform-style: preserve-3d;
   }
-  
+
   /* Do an horizontal flip when you move the mouse over the flip box container */
   // .flip-card:hover .flip-card-inner {
   //   transform: rotateY(180deg);
   // }
-  
+
   .flip-card-inner-flipped {
     transform: rotateY(180deg);
     position: relative;
@@ -72,7 +72,7 @@
     transition: transform 0.8s;
     transform-style: preserve-3d;
   }
-  
+
   /* Position the front and back side */
   .flip-card-front,
   .flip-card-back {
@@ -81,7 +81,7 @@
     height: 100%;
     backface-visibility: hidden;
   }
-  
+
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
     background-color: #eee;
@@ -89,7 +89,7 @@
     border-radius: 10px;
     font-size: 1.5em;
   }
-  
+
   /* Style the back side */
   .flip-card-back {
     background-color: #eee;
@@ -104,6 +104,12 @@
     width: 100%;
     text-align: center;
 
+    .card-box {
+      min-height: 200px;
+      max-height: 300px;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
 
     .cards-not-in-deck {
       display: flex;
@@ -116,8 +122,72 @@
       margin-right: auto;
     }
 
-    input {
-      margin-top: 5px;
+    /* Customize the label (the container) */
+    .container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+      background-color: var(--accentColor);
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: '';
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
     }
 
     img {
@@ -125,7 +195,6 @@
       width: 30px;
       border-radius: 50%;
     }
-
   }
 
   .remove-cards-from-deck {
@@ -135,17 +204,15 @@
     .remove-cards {
       width: 100%;
       margin-bottom: 15px;
-  
+
       .card-remove {
         background-color: var(--accentColor);
-  
+
         &:hover {
           background-color: var(--activeLinkColor);
         }
       }
-
-  }
-
+    }
   }
 
   .cancel {
@@ -155,6 +222,4 @@
       background-color: darken(red, 25%);
     }
   }
-  
 }
-

@@ -59,19 +59,26 @@ router
       }
     }
   })
-  .delete(authGuard, (req, res) => {
+  .put(authGuard, (req, res) => {
     console.log(req.body)
-    // new DeckCard({
-    //   users_cards_id: req.body.delete_card,
-    //   deck_id: req.body.deck_id
-    // })
-    //   .destroy()
-    //   .then(() => {
-    //     return res.json({ delete_success: `successfully deleted card` });
-    //   })
-    //   .catch((err) => {
-    //     console.log('error', err);
-    //   });
+    new DeckCard({
+      users_cards_id: req.body.delete_card,
+      deck_id: req.body.deck_id
+    })
+      .fetch()
+      .then((results) => {
+        console.log(results.toJSON());
+        const toJSON = results.toJSON();
+        const id = toJSON.id;
+        return new DeckCard({ id: id })
+        .destroy()
+      })
+      .then(() => {
+        return res.json({ delete_success: `successfully deleted card` });
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
   });
 
 module.exports = router;
