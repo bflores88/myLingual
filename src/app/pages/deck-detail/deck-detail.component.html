@@ -47,7 +47,7 @@
 
     <div class="add-card-to-deck" *ngIf="addCards">
       <div *ngIf="cardsNotInDeck.length > 0">
-        <h1>Add Shit To {{ deck.name }}</h1>
+        <h1>Add Card To Deck - {{ deck.name }}</h1>
         <br /><br />
         <div class="cards-not-in-deck" *ngFor="let card of cardsNotInDeck">
           <input type="checkbox" class="not-in-deck" value="{{ card.id }}" (click)="addToDeck($event)" />
