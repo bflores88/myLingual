@@ -78,6 +78,7 @@ export class ContactsComponent implements OnInit {
   }
 
   handleSendMessage(e) {
+
     this.newConversation = true;
     this.userList.push(parseInt(e.target.value));
     this.messageTo.push(e.target.name);
