@@ -88,6 +88,7 @@ export class DeckDetailComponent implements OnInit {
           })
         })
 
+        console.log(this.cards);
       });
     });
   }
@@ -132,6 +133,8 @@ export class DeckDetailComponent implements OnInit {
     this.addCards = false;
     this.showMain = true;
     this.removeCards = false;
+
+    return this.ngOnInit();
   }
 
   handleRemoveCards() {
@@ -141,7 +144,24 @@ export class DeckDetailComponent implements OnInit {
     } else {
       this.removeCards = false;
       this.showMain = true;
+
+      return this.ngOnInit();
     }
     
   }
+
+  handleTrashCard(e) {
+
+    const thisCard = parseInt(e.target.value);
+    
+    const deleteCard = this.cards.filter((card: any) => {
+      return card.id !== thisCard
+    })
+
+    this.cards = deleteCard;
+
+    this.backend.deleteDeckCard(thisCard);
+
+  }
+
 }

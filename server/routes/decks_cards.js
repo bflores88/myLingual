@@ -58,8 +58,11 @@ router.route('/').post(authGuard, (req, res) => {
     }
   }
 })
+
+router.route('/:id')
   .delete(authGuard, (req, res) => {
-    DeckCard.where({ users_card_id: req.body.usercard_id })
+    DeckCard
+      .where('users_cards_id', parseInt(req.params.id) )
       .destroy()
       .then(() => {
       return res.json({ delete_success: `successfully deleted card`})

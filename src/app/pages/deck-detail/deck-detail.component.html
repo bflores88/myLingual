@@ -70,14 +70,19 @@
     </div>
 
     <div class="remove-cards-from-deck" *ngIf="removeCards">
-      <h1>Remove Shit</h1>
+      <h2>Click or Tap To Remove Cards From Deck</h2>
+
+      <div class="remove-cards" *ngFor="let card of cards">
+        <button class="small-btn card-remove" value="{{card.id}}" (click)="handleTrashCard($event)">
+          <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;{{ card.users_cards.cards.words.english_word }}
+        </button>
+        <div class="card-to-remove"></div>
+      </div>
 
       <div class="test-button-box">
-        <button class="small-btn cancel" (click)="handleCancel()">Cancel</button>
+        <button class="small-btn cancel" (click)="handleCancel()">Back To Deck Detail</button>
       </div>
     </div>
-
-
   </div>
 </div>
 
