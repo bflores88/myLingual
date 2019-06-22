@@ -1,0 +1,38 @@
+@import '../../../styles.scss';
+
+.grades-page {
+  margin: 1em 0em 0em 0em;
+}
+
+.single-deck-box {
+  margin: 1em 0em 1em 0em;
+  // color: red;
+  border-top: 1px solid var(--headerColor);
+}
+
+.quiz-box {
+  // border-top: 1px dotted var(--headerColor);
+  background-color: #eee;
+  margin: 1em;
+  padding: 1em;
+}
+
+.score-box {
+  display: flex;
+}
+.perfect-quiz {
+  margin: 0;
+  color: rgb(0, 180, 0);
+}
+.good-quiz {
+  margin: 0;
+  color: green;
+}
+.meg-quiz {
+  margin: 0;
+  color: orange;
+}
+.bad-quiz {
+  margin: 0;
+  color: rgb(255, 58, 58);
+}
