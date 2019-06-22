@@ -10,11 +10,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class GoogleComponent implements OnInit {
   constructor(
-    private backend: BackendService,
-    private router: Router,
-    private activated: ActivatedRoute,
-    private session: SessionService,
-    private auth: AuthService,
+    public backend: BackendService,
+    public router: Router,
+    public activated: ActivatedRoute,
+    public session: SessionService,
+    public auth: AuthService,
   ) {}
 
   ngOnInit() {

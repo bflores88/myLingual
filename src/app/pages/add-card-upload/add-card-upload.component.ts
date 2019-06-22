@@ -49,10 +49,10 @@ export class AddCardUploadComponent implements OnInit {
   errorMessage = '';
 
   constructor(
-    private backend: BackendService,
-    private session: SessionService,
-    private formBuilder: FormBuilder,
-    private dictionary: DictionaryService,
+    public backend: BackendService,
+    public session: SessionService,
+    public formBuilder: FormBuilder,
+    public dictionary: DictionaryService,
   ) { }
 
   ngOnInit() {

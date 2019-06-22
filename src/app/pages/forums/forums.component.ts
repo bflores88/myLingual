@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./forums.component.scss'],
 })
 export class ForumsComponent implements OnInit {
-  constructor(private backend: BackendService) {}
+  constructor(public backend: BackendService) {}
 
   forum_topics: {
     id: number;

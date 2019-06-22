@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./forum-post.component.scss'],
 })
 export class ForumPostComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute) {}
+  constructor(public backend: BackendService, public activated: ActivatedRoute) {}
 
   post_title: {
     title: string;

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-card.component.scss'],
 })
 export class AddCardComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   ngOnInit() {
     // console.log(navigator.onLine)

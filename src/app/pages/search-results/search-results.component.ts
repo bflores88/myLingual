@@ -26,7 +26,7 @@ export class SearchResultsComponent implements OnInit {
   error_text: string;
   show_error: boolean = false;
 
-  constructor(private backend: BackendService, private route: ActivatedRoute, private router: Router) {
+  constructor(public backend: BackendService, public route: ActivatedRoute, public router: Router) {
     this.search_text = this.route.snapshot.paramMap.get('search_text');
   }
 
