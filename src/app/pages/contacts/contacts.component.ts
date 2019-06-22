@@ -85,7 +85,7 @@ export class ContactsComponent implements OnInit {
     this.notInMessage = [];
 
     this.contacts.forEach((contact) => {
-      if (contact.id !== parseInt(e.target.value)) {
+      if (contact.person.id !== parseInt(e.target.value)) {
         this.notInMessage.push(contact); 
       }
     })
