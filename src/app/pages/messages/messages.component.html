@@ -1,26 +1,3 @@
-<!-- <div class="page">
-  <div *ngFor="let message of messages">
-    <div *ngIf="{{message}}">
-        <p>{{ message.sent_by_username }}</p>
-        <p>{{ message.created_at | date: 'medium' }}</p>
-        <p>{{ message.body }}</p>
-    </div>
-  </div>
-
-  <form>
-    <label for="message"></label>
-    <div>
-      <input
-        type="text"
-        name="message"
-        [(ngModel)]="messageBody"
-        (keyup)="$event.keyCode == 13 ? sendMessage() : null"
-      />
-    </div>
-  </form>
-</div> -->
-
-<!-- <div class="page"> -->
 <div class="conversation-page">
   <div class="messages-container" id="messages-container">
     <div *ngFor="let message of messages">
@@ -52,10 +29,9 @@
           (keyup)="$event.keyCode == 13 ? sendMessage(messageBody) : null"
         />
         <div id="button-container">
-          <!-- <button (click)="sendMessage()" id="submit-message-button">Send</button> -->
         </div>
       </div>
     </form>
   </div>
 </div>
-<!-- </div> -->
+
