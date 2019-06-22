@@ -158,9 +158,12 @@ export class DeckDetailComponent implements OnInit {
       return card.id !== thisCard
     })
 
-    this.cards = deleteCard;
+    const data = {
+      delete_card: thisCard,
+      deck_id: this.routeId
+    }
 
-    this.backend.deleteDeckCard(thisCard);
+    this.backend.deleteDeckCard(data);
 
   }
 
