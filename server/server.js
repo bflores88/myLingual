@@ -13,7 +13,7 @@ const bcrypt = require('bcryptjs');
 const redis = require('connect-redis')(session);
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-console.log('process.env.OAUTH_URL',process.env.OAUTH_URL);
+console.log('process.env.OAUTH_URL', process.env.OAUTH_URL);
 const User = require('./database/models/User');
 
 require('dotenv').config({ path: '../.env' });
@@ -37,6 +37,7 @@ const searches = require('./routes/searches');
 const languages = require('./routes/languages');
 const dictionary = require('./routes/dictionary');
 const google = require('./routes/google');
+const grades = require('./routes/grades');
 const postMessage = require('./services/websocket-message');
 
 app.use(bodyParser.json());
@@ -231,6 +232,7 @@ app.use('/api/contacts', contacts);
 app.use('/api/searches', searches);
 app.use('/api/languages', languages);
 app.use('/api/dictionary', dictionary);
+app.use('/api/grades', grades);
 
 // io.of('/socket.io').on
 let onlineUsers = {};
@@ -275,7 +277,6 @@ io.on('connect', (socket) => {
   });
 
   socket.on('message', (msg) => {
-
     // uses service to post message to DB
     postMessage(msg);
 

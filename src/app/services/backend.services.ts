@@ -208,4 +208,8 @@ export class BackendService {
   getUserCards(id): Promise<object> {
     return this.http.get(`/api/users/${id}/cards`, { withCredentials: true }).toPromise();
   }
+
+  getUserQuizzes(): Promise<object> {
+    return this.http.get(`/api/grades`, { withCredentials: true }).toPromise();
+  }
 }

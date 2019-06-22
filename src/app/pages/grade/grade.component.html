@@ -1,0 +1,29 @@
+<app-profile-nav-mobile></app-profile-nav-mobile>
+
+<div class="page">
+  <div class="grades-page">
+    <h1>Your Grades</h1>
+
+    <div class="decks-box">
+      <div class="single-deck-box" *ngFor="let deck of decks">
+        <h3>Deck: {{ deck.name }}</h3>
+        <div class="quiz-box" *ngFor="let quiz of deck.quizzes">
+          <div>Quiz Date: {{ quiz.created_at }}</div>
+          <h4>{{ quiz.points }} / {{ quiz.total }}</h4>
+          <h4 class="score-box">
+            Score:&nbsp;
+            <h4 class="perfect-quiz" *ngIf="quiz.score == 1">{{ quiz.score * 100 }} %</h4>
+            <h4 class="good-quiz" *ngIf="1 > quiz.score && quiz.score >= 0.8">{{ quiz.score * 100 }} %</h4>
+            <h4 class="meh-quiz" *ngIf="0.8 > quiz.score && quiz.score >= 0.6">{{ quiz.score * 100 }} %</h4>
+            <h4 class="bad-quiz" *ngIf="0.6 > quiz.score">{{ quiz.score * 100 }} %</h4>
+          </h4>
+
+          <!-- {{ quiz.id }} -->
+        </div>
+        <div *ngIf="deck.quizzes.length == 0">
+          No quizzes for this deck.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

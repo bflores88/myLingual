@@ -111,6 +111,12 @@ export class TestComponent implements OnInit {
     this.router.navigateByUrl(`/decks`);
   }
 
+  toGrades() {
+    // let routeId = this.activated.snapshot.paramMap.get('id');
+    // this.router.navigateByUrl(`/test/${routeId}`);
+    this.router.navigateByUrl(`/grades`);
+  }
+
   ngOnInit() {
     this.user = this.session.getSession();
 
