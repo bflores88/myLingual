@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./forum-post.component.scss'],
 })
 export class ForumPostComponent implements OnInit {
-  constructor(private backend: BackendService, private activated: ActivatedRoute) {}
+  constructor(public backend: BackendService, public activated: ActivatedRoute) {}
 
   post_title: {
     title: string;
@@ -47,7 +47,6 @@ export class ForumPostComponent implements OnInit {
   }
 
   postReply() {
-    console.log(this.newReply);
     this.backend
       .addReply(parseInt(this.activated.snapshot.paramMap.get('post_id')), this.newReply.body, this.newReply.sent_by)
       .then(() => {

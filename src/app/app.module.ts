@@ -42,9 +42,12 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { AboutComponent } from './pages/about/about.component';
 import { GoogleComponent } from './pages/google/google.component';
+import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { GradeComponent } from './pages/grade/grade.component';
 
+const CONFIG_URL = environment.url;
 
-const config: SocketIoConfig = { url: 'https://mylingual.me', options: {} };
+const config: SocketIoConfig = { url: CONFIG_URL, options: {} };
 
 @NgModule({
   declarations: [
@@ -83,10 +86,9 @@ const config: SocketIoConfig = { url: 'https://mylingual.me', options: {} };
     InvitesComponent,
     SearchResultsComponent,
     AboutComponent,
-
+    AdminLoginComponent,
     GoogleComponent,
-
-
+    GradeComponent,
   ],
   imports: [
     BrowserModule,

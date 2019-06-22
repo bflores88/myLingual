@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BackendService {
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {}
 
   register(data) {
     return this.http.post('/api/register', data, { withCredentials: true }).toPromise();
@@ -72,6 +72,10 @@ export class BackendService {
 
   postDeckCard(data) {
     return this.http.post('/api/decks_cards', data, { withCredentials: true }).toPromise();
+  }
+
+  deleteDeckCard(data) {
+    return this.http.delete(`/api/decks_cards`, data).toPromise();
   }
 
   getConversations() {
@@ -203,5 +207,13 @@ export class BackendService {
 
   deleteContact(id): Promise<object> {
     return this.http.delete(`/api/contacts/${id}`, { withCredentials: true }).toPromise();
+  }
+
+  getUserCards(id): Promise<object> {
+    return this.http.get(`/api/users/${id}/cards`, { withCredentials: true }).toPromise();
+  }
+
+  getUserQuizzes(): Promise<object> {
+    return this.http.get(`/api/grades`, { withCredentials: true }).toPromise();
   }
 }

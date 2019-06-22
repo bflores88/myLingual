@@ -8,7 +8,8 @@
 .post-info-box {
   margin: 1em;
   padding: 1em;
-  background-color: hsl(197, 56%, 69%);
+  // background-color: hsl(197, 56%, 69%);
+  background-color: var(--buttonBgColor);
   color: hsl(0, 0%, 100%);
   border-radius: 5px;
   // border-bottom: 1px solid black;

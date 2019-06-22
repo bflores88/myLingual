@@ -26,7 +26,8 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
 import { AuthGuard } from './guards/auth-guard.service';
 import { AboutComponent } from './pages/about/about.component';
 import { GoogleComponent } from './pages/google/google.component';
-
+import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { GradeComponent } from './pages/grade/grade.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -39,7 +40,7 @@ const routes: Routes = [
   { path: 'invites', canActivate: [AuthGuard], component: InvitesComponent },
   { path: 'settings', canActivate: [AuthGuard], component: UserSettingsComponent },
   { path: 'decks', canActivate: [AuthGuard], component: DeckComponent },
-  { path: 'decks/:id', canActivate: [AuthGuard],  component: DeckDetailComponent },
+  { path: 'decks/:id', canActivate: [AuthGuard], component: DeckDetailComponent },
   { path: 'card/:id', component: CardComponent },
   { path: 'test/:id', canActivate: [AuthGuard], component: TestComponent },
   { path: 'about', canActivate: [AuthGuard], component: AboutComponent },
@@ -55,6 +56,8 @@ const routes: Routes = [
   { path: 'forums/posts/:post_id', canActivate: [AuthGuard], component: ForumPostComponent },
   { path: 'search/:search_text', canActivate: [AuthGuard], component: SearchResultsComponent },
   { path: 'google', component: GoogleComponent },
+  { path: 'admin', component: AdminLoginComponent },
+  { path: 'grades', component: GradeComponent },
 ];
 
 @NgModule({

@@ -1,9 +1,11 @@
+<app-profile-nav-mobile></app-profile-nav-mobile>
+
 <div>
   <div class="page">
     <div class="settings-container">
       <h2>Your Settings</h2>
 
-      <div class="primary-box">
+      <div *ngIf="current_primary" class="primary-box">
         <h3>Current Primary Language:</h3>
         <img class="primary-img" src="{{ current_primary.languages.flag_link }}" alt="" />
       </div>
@@ -12,13 +14,17 @@
       </h4>
       <!-- add target -->
       <div class="submit-box">
-        <button class="small-btn2" *ngIf="!clicked_add_new && languages_list.length !== 0" (click)="showAddNew()">
+        <button
+          class="small-btn2"
+          *ngIf="!clicked_add_new && languages_list.length !== 0 && !clicked_change_target"
+          (click)="showAddNew()"
+        >
           Add New Language
         </button>
       </div>
 
       <div *ngIf="clicked_add_new" class="change-language-box">
-        <label for="languages">Add a target language</label><br />
+        <label for="languages"> <h3>Add a target language:</h3> </label><br />
 
         <div class="flag-box" *ngFor="let language of languages_list">
           <img class="lang-flag-img" src="{{ language.flag_link }}" (click)="changeAddTarget(language.id)" alt="" />
@@ -32,7 +38,7 @@
       <div class="submit-box">
         <button
           class="small-btn2"
-          *ngIf="!clicked_change_target && languages.length !== 0"
+          *ngIf="!clicked_change_target && languages.length !== 0 && !clicked_add_new"
           (click)="showChangeTarget()"
         >
           Change Target Language
@@ -40,7 +46,8 @@
       </div>
       <!-- change target -->
       <div *ngIf="clicked_change_target" class="change-language-box">
-        <label for="languages">Choose your target language</label><br />
+        <label for="languages">Choose your target language : {{ chosen_language_name }}</label
+        ><br />
         <!-- <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
           <option selected="selected" value="" disabled selected>Select your option</option>
           <option *ngFor="let language of languages" value="{{ language.id }}">{{
@@ -51,7 +58,7 @@
         <div class="flag-box" *ngFor="let language of languages">
           <img
             class="lang-flag-img"
-            (click)="changeNewPrimary(language.id)"
+            (click)="changeNewPrimary(language)"
             src="{{ language.languages.flag_link }}"
             alt=""
           />

@@ -1,32 +1,42 @@
 <div>
-
   <div class="page">
-
     <div class="login-container">
-        <h1>Welcome!</h1>
-        <h2>Log in to continue</h2>
-        <br />
-        <form>
-          <div>
-            <input type="text" name="username" placeholder="username" class="type-word" [(ngModel)]="formData.username" />
-          </div>
-    
-          <div>
-            <input type="password" name="password" placeholder="password" class="type-word" [(ngModel)]="formData.password" />
-          </div>
-    
-          <div>
-            <button class="small-btn" (click)="login()">Login</button>
-          </div>
+      <h1>Welcome!</h1>
+      <!-- <h2>Log in to continue</h2> -->
+      <br />
 
-        </form>
+      <!-- <div id="my-signin2" (click)="googleSignin()">Google Sign In</div> -->
 
-        <!-- <div id="my-signin2" (click)="googleSignin()">Google Sign In</div> -->
-        <a href="/api/auth/google">google</a>
-
+      <div class="google-auth-box">
+        <a id="google-link" href="/api/auth/google">
+          <h3 id="login-text">
+            Log in with:
+            <div id="google-name">
+              <h3 id="g">G</h3>
+              <h3 id="o1">o</h3>
+              <h3 id="o2">o</h3>
+              <h3 id="g">g</h3>
+              <h3 id="l">l</h3>
+              <h3 id="o1">e</h3>
+            </div>
+          </h3></a
+        >
       </div>
+    </div>
 
+    <form>
+        <div>
+          <input type="text" name="username" placeholder="username" class="type-word" [(ngModel)]="formData.username" />
+        </div>
+  
+        <div>
+          <input type="password" name="password" placeholder="password" class="type-word" [(ngModel)]="formData.password" />
+        </div>
+  
+        <div>
+          <button class="small-btn" (click)="login()">Login</button>
+        </div>
 
+      </form>
   </div>
-
 </div>

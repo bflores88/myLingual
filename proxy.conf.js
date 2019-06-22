@@ -5,6 +5,12 @@ const PROXY_CONFIG = [
     secure: false,
     ws: true,
   },
+  {
+    context: ['/api', '/socket.io'],
+    target: 'https://myLingual.me',
+    secure: false,
+    ws: true,
+  },
 ];
 
 module.exports = PROXY_CONFIG;

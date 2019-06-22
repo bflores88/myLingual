@@ -19,16 +19,15 @@ export class DeckDetailComponent implements OnInit {
     target_languages: any;
   };
   constructor(
-    private backend: BackendService,
-    private activated: ActivatedRoute,
-    private router: Router,
-    private session: SessionService,
+    public backend: BackendService,
+    public activated: ActivatedRoute,
+    public router: Router,
+    public session: SessionService,
   ) {
     this.user = this.session.getSession();
   }
 
   cards: any = '';
-
   deck: any = '';
 
   target_translation: string = '';
@@ -37,55 +36,139 @@ export class DeckDetailComponent implements OnInit {
   findTranslatedWord: string = '';
   languages: any = [];
 
+
+  cardsInDeck = [];
+  cardsNotInDeck = [];
+  cardsToAdd = [];
+  routeId: any;
+  showMain = true;
+  addCards: boolean;
+  removeCards: boolean;
+
   flipCard() {
     // console.log(event.target);
   }
 
   createTest() {
-    let routeId = this.activated.snapshot.paramMap.get('id');
+    this.routeId = this.activated.snapshot.paramMap.get('id');
 
-    this.backend.createTestQuiz(routeId).then((data: any) => {
+    this.backend.createTestQuiz(this.routeId).then((data: any) => {
       // console.log(data);
       this.router.navigate([`/test/${data}`]);
     });
   }
 
   ngOnInit() {
-    let routeId = this.activated.snapshot.paramMap.get('id');
+    this.routeId = this.activated.snapshot.paramMap.get('id');
 
     this.session.getSession();
 
     let searchId = parseInt(this.user.id);
 
     this.backend.getUserLanguages().then((data) => {
-      // console.log(data);
       this.languages = data;
       this.languages.map((language) => {
         if (language.language_type == 'target' && language.primary == true) {
           this.target_language = language.languages.english_name;
         }
       });
-      console.log(this.target_language);
-      this.backend.getSpecificDeck(routeId).then((data: any) => {
-        // console.log('data', data);
+
+      this.backend.getSpecificDeck(this.routeId).then((data: any) => {
         this.deck = data[0];
-        this.cards = this.deck.decks_cards;
-        // console.log('cards', this.cards);
-        // console.log('data', this.deck.decks_cards[0].users_cards.cards.words.italian_translations);
-        // console.log(this.cards);
+        this.cards = this.deck.decks_cards.reverse();
+        this.deck.decks_cards.forEach((card) => {
+          this.cardsInDeck.push(card.users_cards.card_id);
+        })
+
+        this.backend.getUserCards(searchId).then((data: any) => {
+          data.forEach((card) => {
+            if (this.cardsInDeck.indexOf(card.card_id) === -1) {
+              this.cardsNotInDeck.push(card);
+            }
+          })
+        })
+
+        console.log(this.cards);
       });
     });
-
-    // this.backend.getUserProfile(searchId).then((data: any) => {
-    //   this.userDetail = data;
-    //   console.log('detail', this.userDetail);
-
-    //   // this.target_language = this.userDetail.target_languages[0];
-
-    //   // COMMENT
-    //   // was unable to use nested interpolation in order to dynamically populate the target translated language. because we will have a set
-    //   // number of languages i think it isnt a huge problem to "hardcode" the languages in with if statements
-    //   // i would like to figure out if its possible with a fully dynamic system
-    // });
   }
+
+  handleAddCard() {
+    if (!this.addCards) {
+      this.addCards = true;
+      this.showMain = false;
+    } else {
+      this.addCards = false;
+      this.showMain = true;
+    }
+  }
+
+  addToDeck(e) {
+    if (e.target.checked) {
+      this.cardsToAdd.push(parseInt(e.target.value));
+
+    } else {
+      const findInCardsToAdd = this.cardsToAdd.indexOf(parseInt(e.target.value));
+      this.cardsToAdd.splice(findInCardsToAdd, 1);
+    }
+
+  }
+
+  handleSubmit() {
+    const data = {
+      new_decks_cards: this.cardsToAdd,
+      deck_id: this.routeId
+    }
+
+    return this.backend.postDeckCard(data).then((result) => {
+      this.ngOnInit();
+      this.addCards = false;
+      this.showMain = true;
+      this.cardsToAdd = [];
+    })
+  }
+
+  handleCancel() {
+    this.cardsToAdd = [];
+    this.addCards = false;
+    this.showMain = true;
+    this.removeCards = false;
+
+    return this.ngOnInit();
+  }
+
+  handleRemoveCards() {
+    if (!this.removeCards) {
+      this.removeCards = true;
+      this.showMain = false;
+    } else {
+      this.removeCards = false;
+      this.showMain = true;
+
+      return this.ngOnInit();
+    }
+    
+  }
+
+  handleTrashCard(e) {
+
+    const thisCard = parseInt(e.target.value);
+    
+    const notThisCard = this.cards.filter((card: any) => {
+      return card.id !== thisCard
+    })
+
+    this.cards = notThisCard;
+
+    const data = {
+      delete_card: thisCard,
+      deck_id: parseInt(this.routeId)
+    }
+
+    console.log(data);
+
+    this.backend.deleteDeckCard(data);
+
+  }
+
 }

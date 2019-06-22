@@ -53,12 +53,12 @@ export class ProfileComponent implements OnInit {
   targetCheck: any = '';
 
   constructor(
-    private backend: BackendService,
-    private router: Router,
-    private activated: ActivatedRoute,
-    private session: SessionService,
-    private auth: AuthService,
-  ) { }
+    public backend: BackendService,
+    public router: Router,
+    public activated: ActivatedRoute,
+    public session: SessionService,
+    public auth: AuthService,
+  ) {}
 
   ngOnInit() {
     this.getUserSession();
@@ -66,41 +66,38 @@ export class ProfileComponent implements OnInit {
     if (this.activated.snapshot.paramMap.get('user_id')) {
       let searchId = parseInt(this.activated.snapshot.paramMap.get('user_id'));
 
+      return this.backend
+        .getUserProfile(searchId)
+        .then((data: UserResponse) => {
+          this.user = data;
+          this.checkUser = this.userID === this.user.id;
+        })
+        .then(() => {
+          return this.backend.getUserContacts().then((data: any) => {
+            const contactArray = [];
 
-      return this.backend.getUserProfile(searchId).then((data: UserResponse) => {
-        this.user = data;
-        this.checkUser = this.userID === this.user.id;
-      }).then(() => {
-        return this.backend.getUserContacts().then((data: any) => {
-          const contactArray = [];
+            data.forEach((contact) => {
+              if (contact.invitee != this.userID) {
+                contactArray.push(contact.invitees.id);
+              } else {
+                this.isNotContact = false;
+              }
+            });
 
-          data.forEach((contact) => {
-
-            if (contact.invitee != this.userID) {
-              contactArray.push(contact.invitees.id);
-
+            if (contactArray.indexOf(searchId) === -1) {
+              this.isNotContact = true;
+            } else if (searchId === this.userID) {
+              this.isNotContact = false;
             } else {
               this.isNotContact = false;
             }
           });
-
-
-          if (contactArray.indexOf(searchId) === -1) {
-            this.isNotContact = true;
-          } else if (searchId === this.userID) {
-            this.isNotContact = false;
-          } else {
-            this.isNotContact = false;
-          }
-
-        })
-      });;
-
+        });
     } else {
       return this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
         this.user = data;
         this.targetCheck = this.user.target_languages;
-        console.log('target check', this.targetCheck);
+        // console.log('target check', this.targetCheck);
         this.checkUser = this.userID === this.user.id;
         this.isNotContact = false;
       });
@@ -123,10 +120,8 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-
     return this.auth.logout().then(() => {
       this.router.navigate(['/']);
     });
-
   }
 }

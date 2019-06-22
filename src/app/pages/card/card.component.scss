@@ -250,17 +250,22 @@ $sectionToHeaderOffset: 100px;
   padding: 10px 10px 0 10px;
 
   .interaction-element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
 
     padding-bottom: 10px; 
-    text-align: center; 
   }
 
   .interaction-bullets {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    padding: 5px 5px 20px 5px;
+    padding: 15px 5px 15px 5px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
 
     input[type="radio"] {
       padding: 5px;
@@ -345,17 +350,24 @@ button:focus {
 }
 
 @media only screen and (max-width: 768px) {
-  #flashcard-page{
-    #flashcard-section{
-      #flip-container-wrapper{
-        .flip-container, .front, .back {
-          width: 500px;
-          height: 400px;
-        }
+  #flashcard-section{
+    #flip-container-wrapper{
+      .flip-container, .front, .back {
+        width: 500px;
+        height: 400px;
       }
     }
   }
-  
+
+  #interaction-section {
+    .interaction-bullets {
+      width: 50%;
+    }
+
+    button {
+      width: 30%;
+    }
+  }
   
   .fa-arrow-alt-circle-left::before {
     font-size: $arrowSizeTablet;
@@ -370,39 +382,41 @@ button:focus {
 @media only screen and (max-width: 425px){
   #flashcard-page{
     margin-top: ($headerHeight + 40px);
+  }
 
-    #flashcard-section{
-      .change-flashcard-large {
-        display: none;
+  #flashcard-section{
+    margin-bottom: $containerSpacing;
+    
+    .change-flashcard-large {
+      display: none;
+    }
+
+    #flip-container-wrapper{
+      .flip-container, .front, .back {
+        width: 400px;
+        height: 266px; 
       }
+    }
+  }
 
-      #flip-container-wrapper{
-        .flip-container, .front, .back {
-          width: 400px;
-          height: 266px; 
-        }
+  #creator-section {
+    #creator-header {
+      img {
+        max-height: 200px;
+        max-width: auto;
       }
     }
 
-    #creator-section {
-      #creator-header {
-        img {
-          max-height: 200px;
-          max-width: auto;
-        }
+    #creator-profile {
+      flex-direction: column;
+
+      img{
+        align-self: center;
+        max-width: none;
       }
-  
-      #creator-profile {
-        flex-direction: column;
 
-        img{
-          align-self: center;
-          max-width: none;
-        }
-
-        .creator-profile-element {
-          width: 100%;
-        }
+      .creator-profile-element {
+        width: 100%;
       }
     }
   }
@@ -411,7 +425,6 @@ button:focus {
     display: flex;
     align-content: center;
     justify-content: space-evenly;
-    margin-top: $containerSpacing;
   }
 
   #interaction-section {

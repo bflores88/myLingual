@@ -3,15 +3,24 @@
     <div>
       <h1>Your Decks</h1>
     </div>
-    <div class="most-recent-deck-container">
+    <div *ngIf="decks.length !== 0" class="most-recent-deck-container">
       <div>
-        <h3 class="recent-title">Most Recent Deck</h3>
+        <h3 class="recent-title">Top Deck</h3>
         <a *ngIf="decks[0]" routerLink="{{ decks[0].id }}">
           <div class="most-recent-deck-box">
             <h3>{{ decks[0].name }}</h3>
           </div>
         </a>
       </div>
+    </div>
+
+    <div *ngIf="decks.length == 0">
+      <h2>You have no decks.</h2>
+      <a routerLink="/add-card">
+        <div class="home-link-box">
+          Click here to get started.
+        </div>
+      </a>
     </div>
 
     <div class="all-decks-container">

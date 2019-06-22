@@ -176,7 +176,6 @@ export class CardComponent implements OnInit {
     return this.backend.likeFlashcardVerify(this.routeID, this.user.session.id)
     .then((response: ResponseData) => {
       this.canLike = response.canLike;
-      console.log(this.canDownload);
     })
     .catch((error) => {
       this.errorMessage = error.errorMessage;

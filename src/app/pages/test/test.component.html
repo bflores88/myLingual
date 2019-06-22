@@ -1,7 +1,7 @@
 <div class="page">
   <div *ngIf="totalCards !== 0" class="forum-container">
     <div *ngIf="totalCards > currentCard">
-      <h2>Que es esto?</h2>
+      <h2>{{ capitalLanguage }} Quiz</h2>
       <h3>Question: {{ currentCard + 1 }} / {{ totalCards }}</h3>
       <div class="message-box">
         <h4 class="wrong-answer-message">{{ wrongMessage }}</h4>
@@ -54,12 +54,13 @@
           <h3>{{ quizPercentage }} %</h3>
         </div>
         <div class="e-grade" *ngIf="60 > quizPercentage">
-          <h3>{{ quizPercentage }} % Dude thats terrible....</h3>
+          <h3>{{ quizPercentage }} % Not great...</h3>
         </div>
       </div>
 
       <div class="after-test-buttons-box">
-        <button (click)="retakeTest()" class="submit-answer-button">To Decks</button>
+        <button (click)="retakeTest()" class="submit-answer-button">To Decks</button> <br />
+        <button (click)="toGrades()" class="submit-answer-button">To Grades</button>
       </div>
     </div>
   </div>

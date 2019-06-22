@@ -10,10 +10,10 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class TestComponent implements OnInit {
   constructor(
-    private backend: BackendService,
-    private activated: ActivatedRoute,
-    private router: Router,
-    private session: SessionService,
+    public backend: BackendService,
+    public activated: ActivatedRoute,
+    public router: Router,
+    public session: SessionService,
   ) {}
 
   // user info
@@ -54,6 +54,8 @@ export class TestComponent implements OnInit {
   quizPercentage: any = '';
 
   languages: any = [];
+
+  capitalLanguage: string = '';
 
   flipCard() {
     console.log(event.target);
@@ -107,6 +109,12 @@ export class TestComponent implements OnInit {
     let routeId = this.activated.snapshot.paramMap.get('id');
     // this.router.navigateByUrl(`/test/${routeId}`);
     this.router.navigateByUrl(`/decks`);
+  }
+
+  toGrades() {
+    // let routeId = this.activated.snapshot.paramMap.get('id');
+    // this.router.navigateByUrl(`/test/${routeId}`);
+    this.router.navigateByUrl(`/grades`);
   }
 
   ngOnInit() {
@@ -179,6 +187,8 @@ export class TestComponent implements OnInit {
 
       this.currentQuizId = this.quiz_contents[this.currentCard].id;
       this.currentQuizContent = this.quiz_contents[this.currentCard];
+
+      this.capitalLanguage = this.target_language.charAt(0).toUpperCase() + this.target_language.slice(1);
       // console.log(this.currentAnswer);
       // console.log(this.currentQuizContent);
     });
