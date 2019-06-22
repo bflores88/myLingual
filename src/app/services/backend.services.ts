@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BackendService {
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {}
 
   register(data) {
     return this.http.post('/api/register', data, { withCredentials: true }).toPromise();

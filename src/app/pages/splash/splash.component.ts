@@ -9,7 +9,7 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['./splash.component.scss'],
 })
 export class SplashComponent implements OnInit {
-  constructor(private router: Router, private session: SessionService) { };
+  constructor(public router: Router, public session: SessionService) { };
 
   ngOnInit() {
     if (this.session.isLoggedIn()) {

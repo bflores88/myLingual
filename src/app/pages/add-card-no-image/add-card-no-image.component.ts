@@ -40,9 +40,9 @@ export class AddCardNoImageComponent implements OnInit {
   };
 
   constructor(
-    private backend: BackendService,
-    private session: SessionService,
-    private dictionary: DictionaryService,
+    public backend: BackendService,
+    public session: SessionService,
+    public dictionary: DictionaryService,
   ) {}
 
   ngOnInit() {

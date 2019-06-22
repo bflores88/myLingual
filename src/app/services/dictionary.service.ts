@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class DictionaryService {
   
-  constructor(private http: HttpClient){}
+  constructor(public http: HttpClient){}
 
   validateWord(word: string) {
     return this.http.get(`/api/dictionary/validate/${word.toLowerCase()}`).toPromise();

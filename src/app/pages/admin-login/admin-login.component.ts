@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.services';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class AdminLoginComponent implements OnInit {
   formData: {
     username: string;
     password: string;
@@ -38,11 +38,8 @@ export class LoginComponent implements OnInit {
   }
 
   googleSignin() {
-    return this.backend.googleLogin()
+    return this.backend.googleLogin();
   }
 
-
-  ngOnInit() { }
-  
-
+  ngOnInit() {}
 }
