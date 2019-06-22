@@ -36,6 +36,8 @@ export class AddCardUploadComponent implements OnInit {
   add_to_deck = '';
   new_deck_name = '';
 
+  image_link = '';
+
   selectImage = true;
   confirm = false;
   loading = false;
@@ -53,7 +55,7 @@ export class AddCardUploadComponent implements OnInit {
     private session: SessionService,
     private formBuilder: FormBuilder,
     private dictionary: DictionaryService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.uploadForm = this.formBuilder.group({
@@ -83,6 +85,7 @@ export class AddCardUploadComponent implements OnInit {
     formData.append('image', this.uploadForm.value.image);
 
     this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
+      this.image_link = data.image_link;
       this.loading = false;
       this.showWordConfirm = true;
       this.results = data.results;
@@ -116,11 +119,10 @@ export class AddCardUploadComponent implements OnInit {
   handleInputOnChange() {
     if (this.add_to_deck === 'new-deck') {
       this.newDeck = true;
-      
+
       this.buttonDisabled = false;
     }
-    
-    console.log(this.add_to_deck)
+
     this.buttonDisabled = false;
   }
 
@@ -131,30 +133,28 @@ export class AddCardUploadComponent implements OnInit {
   handleSubmitWord() {
     const data = {
       english_word: this.english_word,
+      image_link: this.image_link,
     };
 
     return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
       if (!result.isWord) {
-        return this.errorMessage = 'Not a valid word.'
+        return (this.errorMessage = 'Not a valid word.');
       } else {
-
         this.backend.postFlashcard(data).then((data: AddWordResponse) => {
           const newData = {
             usercard_id: data.id,
             deck_id: this.add_to_deck,
             new_deck_name: this.new_deck_name,
+            image_link: this.image_link,
           };
-    
+
           this.showSuccess = true;
           this.showWordConfirm = false;
-    
+
           return this.backend.postDeckCard(newData);
         });
-
       }
     });
-
- 
   }
 
   isInvalid() {

@@ -41,6 +41,7 @@ export class ImageCaptureComponent implements OnInit {
   newDeck = false;
   showSuccess = false;
   buttonDisabled = true;
+  image_link = '';
 
   @ViewChild('video')
   public video: ElementRef;
@@ -150,6 +151,7 @@ export class ImageCaptureComponent implements OnInit {
     formData.append('image', this.uploadForm.value.image);
 
     this.backend.postFlashcardImageUpload(formData).then((data: AddWordResponse) => {
+      this.image_link = data.image_link;
       this.loading = false;
       this.showWordConfirm = true;
       this.results = data.results;
@@ -174,6 +176,7 @@ export class ImageCaptureComponent implements OnInit {
   handleSubmitWord() {
     const data = {
       english_word: this.english_word,
+      image_link: this.image_link
     };
 
     return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
@@ -185,11 +188,12 @@ export class ImageCaptureComponent implements OnInit {
             usercard_id: data.id,
             deck_id: this.add_to_deck,
             new_deck_name: this.new_deck_name,
+            image_link: this.image_link
           };
     
           this.showSuccess = true;
           this.showWordConfirm = false;
-    
+
           return this.backend.postDeckCard(newData);
         });
       }
