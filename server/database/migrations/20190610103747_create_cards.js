@@ -20,7 +20,7 @@ exports.up = function(knex, Promise) {
     table.integer('shares').notNull();
     table.integer('red_flagged').notNull();
     table.integer('downloads').notNull();
-    table.string('image_link', 255).notNull();
+    table.string('image_link', 255);
     table.boolean('approved').notNull();
     table.boolean('public').notNull();
     table.boolean('active').notNull();
