@@ -133,6 +133,8 @@ export class DeckDetailComponent implements OnInit {
     this.addCards = false;
     this.showMain = true;
     this.removeCards = false;
+    this.cardsNotInDeck = [];
+    this.cards = [];
 
     return this.ngOnInit();
   }
@@ -144,6 +146,8 @@ export class DeckDetailComponent implements OnInit {
     } else {
       this.removeCards = false;
       this.showMain = true;
+      this.cardsNotInDeck = [];
+      this.cards = '';
 
       return this.ngOnInit();
     }
@@ -155,17 +159,21 @@ export class DeckDetailComponent implements OnInit {
     const thisCard = parseInt(e.target.value);
     
     const notThisCard = this.cards.filter((card: any) => {
-      return card.id !== thisCard
+      return card.users_cards_id !== thisCard
     })
 
     this.cards = notThisCard;
+
+    const findThisCard = this.cards.filter((card: any) => {
+      return card.users_cards_id === thisCard
+    })
+
+    this.cardsNotInDeck.push(findThisCard);
 
     const data = {
       delete_card: thisCard,
       deck_id: parseInt(this.routeId)
     }
-
-    console.log(data);
 
     this.backend.deleteDeckCard(data);
 
