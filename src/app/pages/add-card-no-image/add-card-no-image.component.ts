@@ -73,10 +73,10 @@ export class AddCardNoImageComponent implements OnInit {
       english_word: this.formData.english_word,
     };
 
-    return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
-      if (!result.isWord) {
-        return this.errorMessage = 'Not a valid word.'
-      } else {
+    // return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
+    //   if (!result.isWord) {
+    //     return this.errorMessage = 'Not a valid word.'
+    //   } else {
         this.backend.postFlashcard(data).then((data: AddWordResponse) => {
           const newData = {
             usercard_id: data.id,
@@ -88,8 +88,8 @@ export class AddCardNoImageComponent implements OnInit {
 
           return this.backend.postDeckCard(newData);
         });
-      }
-    });
+    //   }
+    // });
   }
 
   isInvalid() {
