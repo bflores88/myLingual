@@ -58,6 +58,16 @@
   width: 100%;
   text-align: center;
 
+  .additional-chat, .message-body-div {
+
+    @media only screen and (min-width: 768px) {
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+
   .add-to-message {
     text-align: left;
     font-size: 20px;

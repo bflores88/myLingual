@@ -2,26 +2,14 @@
 <div class="page">
   <div class="forum-container">
     <div *ngIf="!newConversation">
-      <h1>Contacts</h1>
-      <div class="contacts-container">
-        <div class="contact-box" *ngFor="let contact of contacts">
-          <div class="left-side-contact">
-            <a routerLink="/profile/{{ contact.person.id }}">
-              <img class="contact-image" src="{{ contact.person.profile_image_url }}" alt="" />
-              <h3>{{ contact.person.name }}</h3>
-            </a>
-          </div>
-
-          <div class="right-side-contact">
-            <div class="right-side-inner">
-              <button
-                class="send-message-button"
-                name="{{ contact.person.username }}"
-                value="{{ contact.person.id }}"
-                (click)="handleSendMessage($event)"
-              >
-                Send Message
-              </button>
+        <h1>Contacts</h1>
+        <div class="contacts-container">
+          <div class="contact-box" *ngFor="let contact of contacts">
+            <div class="left-side-contact">
+              <a routerLink="/profile/{{ contact.person.id }}">
+                <img class="contact-image" src="{{ contact.person.profile_image_url }}" alt="" />
+                <h3>{{ contact.person.username }}</h3>
+              </a>
             </div>
 
             <div class="right-side-inner">
@@ -47,6 +35,9 @@
             (click)="addToConversation($event)"
           />&nbsp;&nbsp;{{ contact.person.username }}
         </div>
+        <button class="small-btn" (click)="handleNewMessage()" [disabled]="messageBody.length === 0">Send</button>
+        <br /><br />
+        <button class="small-btn cancel-btn" (click)="cancelSendMessage()">Cancel</button>
       </div>
       <div class="message-body-div">
         <input
