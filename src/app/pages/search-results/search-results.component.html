@@ -1,12 +1,16 @@
 <div class="page">
   <app-search-bar></app-search-bar>
   <div class="search-filters">
-    <button [ngClass]="{ 'filter-btn': true, 'filter-on': filterToggle === 1 }"
-      (click)="filterToggle !== 1 ? searchCards() : searchAll()">
+    <button
+      [ngClass]="{ 'filter-btn': true, 'filter-on': filterToggle === 1 }"
+      (click)="filterToggle !== 1 ? searchCards() : searchAll()"
+    >
       cards
     </button>
-    <button [ngClass]="{ 'filter-btn': true, 'filter-on': filterToggle === 2 }"
-      (click)="filterToggle !== 2 ? searchUsers() : searchAll()">
+    <button
+      [ngClass]="{ 'filter-btn': true, 'filter-on': filterToggle === 2 }"
+      (click)="filterToggle !== 2 ? searchUsers() : searchAll()"
+    >
       users
     </button>
   </div>
@@ -17,29 +21,29 @@
         <span class="full-match-image">
           <img src="{{ searchMatch.match_image }}" />
         </span>
-        <span [ngClass]="{
-          'full-match-own': true,
-          fas: searchMatch.match_own > 0,
-          far: searchMatch.match_own === 0,
-          'fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
-          'fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === 0,
-          'fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
-          'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === 0,
-          'fa-2x': true
-        }"></span>
+        <span
+          [ngClass]="{
+            'full-match-own': true,
+            fas: searchMatch.match_own > 0,
+            far: searchMatch.match_own === 0,
+            'fa-layer-group': searchMatch.match_type === 'card' && searchMatch.match_own > 0,
+            'fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === 0,
+            'fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
+            'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === 0,
+            'fa-2x': true
+          }"
+        ></span>
         <div class="full-match-detail">
           <p class="full-match-name">{{ searchMatch.match_name }}</p>
           <div class="full-match-other" *ngIf="searchMatch.match_type === 'card'">
             <img class="full-match-other-image-card" src="{{ searchMatch.match_other_image }}" alt="" />
             <span class="full-match-other-text">created by: </span>
             <p class="full-match-other-text">{{ searchMatch.match_other_text }}</p>
-
           </div>
           <div class="full-match-other" *ngIf="searchMatch.match_type === 'user'">
             <img class="full-match-other-image-user" src="{{ searchMatch.match_other_image }}" alt="" />
             <span class="full-match-other-text">studying: </span>
             <p class="full-match-other-text">{{ searchMatch.match_other_text }}</p>
-
           </div>
         </div>
       </div>

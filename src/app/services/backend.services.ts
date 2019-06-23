@@ -12,7 +12,6 @@ export class BackendService {
   }
 
   login(data) {
-    // console.log('backend', data);
     return this.http.post('/api/login', data, { withCredentials: true }).toPromise();
   }
 
@@ -21,7 +20,6 @@ export class BackendService {
   }
 
   googleLogin() {
-    console.log('gets to googleLogin');
     return this.http.get('/api/google_user', { withCredentials: true }).toPromise();
   }
 
@@ -38,7 +36,6 @@ export class BackendService {
   }
 
   postFlashcard(data) {
-    console.log('sdfkjsjfdskj');
     return this.http.post('/api/cards', data, { withCredentials: true }).toPromise();
   }
 
@@ -108,7 +105,6 @@ export class BackendService {
   }
 
   getSpecificPost(id): Promise<object> {
-    // console.log('get specific');
     return this.http.get(`/api/posts/${id}`, { withCredentials: true }).toPromise();
   }
 
@@ -122,29 +118,21 @@ export class BackendService {
   }
 
   getUserDecks(): Promise<object> {
-    // console.log('get specific');
     return this.http.get(`/api/decks`, { withCredentials: true }).toPromise();
   }
 
   getSpecificDeck(id: string): Promise<object> {
-    // console.log('get specific');
-    // let body = {
-    //   target_language,
-    // };
     return this.http.get(`/api/decks/${id}`, { withCredentials: true }).toPromise();
   }
 
   getSpecificQuiz(id): Promise<object> {
-    // console.log('get specific');
     return this.http.get(`/api/quizzes/${id}`, { withCredentials: true }).toPromise();
   }
   answerQuestion(id, body): Promise<object> {
-    // console.log('get specific');
     return this.http.put(`/api/quiz_contents/${id}`, body, { withCredentials: true }).toPromise();
   }
 
   createTestQuiz(id): Promise<object> {
-    // console.log('get specific');
     let body = {
       type: 'test',
     };
@@ -185,13 +173,6 @@ export class BackendService {
   getAllLanguages(): Promise<object> {
     return this.http.get(`/api/languages/all`, { withCredentials: true }).toPromise();
   }
-
-  // changeTargetLanguage(languageId): Promise<object> {
-  //   let body = {
-  //     language_id: languageId,
-  //   };
-  //   return this.http.put(`/api/languages/target`, body, { withCredentials: true }).toPromise();
-  // }
 
   getUserLanguages(): Promise<object> {
     return this.http.get(`/api/languages`, { withCredentials: true }).toPromise();

@@ -8,9 +8,8 @@ describe('NoPictureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoPictureComponent ]
-    })
-    .compileComponents();
+      declarations: [NoPictureComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

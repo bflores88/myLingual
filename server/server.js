@@ -114,6 +114,7 @@ passport.use(
         .then((result) => {
           if (!result) {
             console.log('need to make new user');
+            console.log();
 
             new User({
               active: true,
@@ -121,7 +122,7 @@ passport.use(
               role_id: 3,
               name: profile.name.givenName,
               email: profile.emails[0].value,
-              username: profile.emails[0].value,
+              username: profile.name.givenName,
               oauth_token: accessToken,
               lingots: 0,
               profile_image_url: profile.photos[0].value,

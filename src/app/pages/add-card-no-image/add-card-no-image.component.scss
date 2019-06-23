@@ -24,7 +24,9 @@
     }
   }
 
-  .deck-select, .new-deck, .submit-word {
+  .deck-select,
+  .new-deck,
+  .submit-word {
     margin-top: 20px;
 
     select {
@@ -37,9 +39,7 @@
         width: 60%;
       }
     }
-
   }
-
 }
 
 .error-message-div {

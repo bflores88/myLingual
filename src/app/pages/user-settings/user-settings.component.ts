@@ -86,10 +86,8 @@ export class UserSettingsComponent implements OnInit {
         });
 
         this.languages_list = data;
-        // console.log('not filtered', this.languages_list);
         this.languages_list = this.languages_list.forEach((lang) => {
           if (!yourLanguageList.includes(lang.id) && lang.id !== 3) {
-            // console.log('its in there');
             nonTargetList.push(lang);
           }
         });
@@ -109,13 +107,10 @@ export class UserSettingsComponent implements OnInit {
 
   changeNewPrimary(language) {
     this.target_language_id = language.id;
-    // console.log(language);
     this.backend.getAllLanguages().then((data) => {
       this.all_languages = data;
       this.all_languages.forEach((element) => {
-        // console.log(element);
         if (element.id == language.languages.id) {
-          // console.log(element);
           this.chosen_language_name = element.english_name.charAt(0).toUpperCase() + element.english_name.slice(1);
         }
       });
@@ -135,27 +130,21 @@ export class UserSettingsComponent implements OnInit {
       this.message = 'Target language added successfully!';
     });
 
-    //
     this.backend.getUserLanguages().then((data) => {
       this.languages = data;
       this.languages.shift();
-      console.log(this.languages);
       this.backend.getAllLanguages().then((data) => {
         let yourLanguageList = [];
         let nonTargetList = [];
         this.languages.forEach((element) => {
           yourLanguageList.push(element.language_id);
         });
-        // console.log(yourLanguageList);
         this.languages_list = data;
-        // console.log('not filtered', this.languages_list);
         this.languages_list = this.languages_list.forEach((lang) => {
           if (!yourLanguageList.includes(lang.id) && lang.id !== 3) {
-            // console.log('its in there');
             nonTargetList.push(lang);
           }
         });
-        // console.log('filtered', nonTargetList);
         this.languages_list = nonTargetList;
 
         this.router.navigateByUrl(`/profile`);

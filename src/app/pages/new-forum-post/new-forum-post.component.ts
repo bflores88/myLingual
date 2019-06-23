@@ -19,23 +19,11 @@ export class NewForumPostComponent implements OnInit {
   };
 
   ngOnInit() {
-    // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
     let routeId = this.activated.snapshot.paramMap.get('post_id');
   }
 
-  // postReply() {
-  //   console.log(this.newReply);
-  //   this.backend.addReply(
-  //     parseInt(this.activated.snapshot.paramMap.get('post_id')),
-  //     this.newReply.body,
-  //     this.newReply.sent_by,
-  //   );
-  //   this.newReply.body = '';
-  // }
-
   createPost() {
     let routeId = parseInt(this.activated.snapshot.paramMap.get('id'));
-    console.log(routeId);
     this.backend.addPost(routeId, this.newPost.body, this.newPost.title);
     this.newPost.body = '';
     this.newPost.title = '';

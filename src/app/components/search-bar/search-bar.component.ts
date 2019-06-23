@@ -22,15 +22,15 @@ export class SearchBarComponent implements OnInit {
   searchText: {
     searchText: string;
   } = {
-      searchText: '',
-    };
+    searchText: '',
+  };
 
   // initialize searchMatches
   searchMatches: SearchMatches[];
 
-  constructor(public backend: BackendService, public router: Router) { }
+  constructor(public backend: BackendService, public router: Router) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   // search while user types
   searchInit() {

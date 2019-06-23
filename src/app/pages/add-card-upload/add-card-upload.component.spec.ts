@@ -8,9 +8,8 @@ describe('AddCardUploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCardUploadComponent ]
-    })
-    .compileComponents();
+      declarations: [AddCardUploadComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
