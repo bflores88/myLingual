@@ -12,10 +12,22 @@
               </a>
             </div>
 
-            <div class="right-side-inner">
-              <button class="delete-contact-button" (click)="deleteThisContact(contact.id)">Delete Contact</button>
+            <div class="right-side-contact">
+              <div class="right-side-inner">
+                <button
+                  class="send-message-button"
+                  name="{{ contact.person.username }}"
+                  value="{{ contact.person.id }}"
+                  (click)="handleSendMessage($event)"
+                >
+                  Send Message
+                </button>
+              </div>
+
+              <div class="right-side-inner">
+                <button class="delete-contact-button" (click)="deleteThisContact(contact.id)">Delete Contact</button>
+              </div>
             </div>
-          </div>
           <div *ngIf="contacts.length === 0">Oh man, sorry no friends found.</div>
         </div>
       </div>
