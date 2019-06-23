@@ -1,7 +1,6 @@
 @import '../../../styles.scss';
 
 .conversation-page {
-  // padding: 1em;
   margin-top: 3em;
 }
 
@@ -38,8 +37,6 @@
     font-size: 1.5em;
     resize: none;
     border: 2px solid var(--accentColor);
-    // padding-top: 10px;
-    // text-align: center;
   }
 
   #button-container {
@@ -47,7 +44,6 @@
   }
 
   #submit-message-button {
-    // width: 100%;
     background-color: var(--buttonBgColor);
     border: none;
     border-radius: 4px;
@@ -72,7 +68,7 @@
   transition-duration: 0.4s;
   min-height: 100px;
   overflow-wrap: break-word;
-  white-space: normal; // overflow: hidden;
+  white-space: normal;
 
   .message-body {
     font-size: 1em;
@@ -80,12 +76,11 @@
 }
 .outer-message-box-user {
   overflow-wrap: break-word;
-  white-space: normal; // overflow: hidden;
+  white-space: normal;
   display: flex;
   justify-content: flex-end;
   width: 100%;
   margin: 1em 0em 1em 0em;
-  // margin: 0;
 }
 .outer-message-box-other {
   display: flex;
@@ -94,7 +89,7 @@
   margin: 1em 0em 1em 0em;
   width: 100%;
   overflow-wrap: break-word;
-  white-space: normal; // overflow: hidden;
+  white-space: normal;
 }
 
 .sent_by {
@@ -106,7 +101,6 @@
 .user-message {
   background-color: rgb(205, 255, 238);
   border-radius: 10px;
-  // padding: 0.5em;
   width: 70%;
   padding: 0.5em;
 }

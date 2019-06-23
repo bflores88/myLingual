@@ -28,7 +28,6 @@
 }
 
 .forum-topic-box {
-  // background-color: hsl(197, 56%, 69%);
   background-color: var(--buttonBgColor);
   color: hsl(0, 0%, 100%);
   border-radius: 10px;
@@ -37,7 +36,6 @@
   display: flex;
   text-align: center;
   justify-content: center;
-  // font-family: var(--textFont);
   font-family: 'B612', sans-serif;
   text-shadow: 2px 2px 4px black;
 }

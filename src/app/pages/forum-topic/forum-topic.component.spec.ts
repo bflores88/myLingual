@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ForumTopicComponent } from './forum-topic.component';
 
 describe('ForumTopicComponent', () => {
