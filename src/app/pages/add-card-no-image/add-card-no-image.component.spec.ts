@@ -8,9 +8,8 @@ describe('AddCardNoImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCardNoImageComponent ]
-    })
-    .compileComponents();
+      declarations: [AddCardNoImageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

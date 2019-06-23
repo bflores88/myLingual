@@ -3,7 +3,6 @@ import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { container } from '@angular/core/src/render3';
 
 interface UserResponse {
   id: number;
@@ -97,7 +96,6 @@ export class ProfileComponent implements OnInit {
       return this.backend.getUserProfile(this.userID).then((data: UserResponse) => {
         this.user = data;
         this.targetCheck = this.user.target_languages;
-        // console.log('target check', this.targetCheck);
         this.checkUser = this.userID === this.user.id;
         this.isNotContact = false;
       });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.services';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-deck',
@@ -16,13 +16,8 @@ export class DeckComponent implements OnInit {
   }[] = [];
 
   ngOnInit() {
-    // console.log('param', this.activated.snapshot.paramMap.get('post_id'));
-    // let routeId = this.activated.snapshot.paramMap.get('post_id');
     this.backend.getUserDecks().then((data: any) => {
-      // console.log(data);
       this.decks = data;
-      // console.log(this.decks);
-      //
       function compareValues(key, order = 'asc') {
         return function(a, b) {
           if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -43,7 +38,6 @@ export class DeckComponent implements OnInit {
       }
       let sortedDecks = this.decks.sort(compareValues('updated_at', 'asc'));
       this.decks = sortedDecks;
-      // console.log(this.decks);
     });
   }
 }

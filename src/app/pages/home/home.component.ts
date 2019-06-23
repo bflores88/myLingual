@@ -8,7 +8,6 @@ import { SocketService } from 'src/app/services/socket.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   constructor() {}
 
   ngOnInit() {}

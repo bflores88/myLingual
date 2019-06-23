@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.services';
-import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { DictionaryService } from 'src/app/services/dictionary.service';
 
@@ -32,18 +31,14 @@ export class AddCardNoImageComponent implements OnInit {
   newDeck = false;
   showSuccess = false;
   buttonDisabled = true;
-  
+
   formData: {
     english_word: string;
   } = {
     english_word: '',
   };
 
-  constructor(
-    public backend: BackendService,
-    public session: SessionService,
-    public dictionary: DictionaryService,
-  ) {}
+  constructor(public backend: BackendService, public session: SessionService, public dictionary: DictionaryService) {}
 
   ngOnInit() {
     this.backend.getUserDecks().then((data: DeckResponse) => {
@@ -64,7 +59,6 @@ export class AddCardNoImageComponent implements OnInit {
       this.buttonDisabled = false;
     }
 
-    console.log(this.add_to_deck);
     this.buttonDisabled = false;
   }
 
@@ -75,7 +69,7 @@ export class AddCardNoImageComponent implements OnInit {
 
     return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
       if (!result.isWord) {
-        return this.errorMessage = 'Not a valid word.'
+        return (this.errorMessage = 'Not a valid word.');
       } else {
         this.backend.postFlashcard(data).then((data: AddWordResponse) => {
           const newData = {

@@ -15,27 +15,23 @@ export class SocketService {
   constructor(public socket: Socket) {}
 
   getMessage() {
-    this.socket.on('message', (msg: any) => {
-  
-    })
-    
+    this.socket.on('message', (msg: any) => {});
+
     return this.socket.fromEvent<any>('message').pipe(map((data) => data.message));
   }
 
   sendMessage(msg: any) {
     this.socket.emit('message', msg);
-
   }
 
   sendIdentity(userId: number) {
     this.socket.emit('identify', userId);
-
   }
 
   createRoom(roomId: number) {
     const data = {
-      room: roomId
-    }
+      room: roomId,
+    };
 
     this.socket.emit('create', data);
     return this.joinRoom(roomId);
@@ -43,11 +39,8 @@ export class SocketService {
 
   joinRoom(roomId: number) {
     const data = {
-      room: roomId
-    }
-    console.log('joined room', roomId)
-    
-    return this.socket.emit('subscribe', data)
-    
+      room: roomId,
+    };
+    return this.socket.emit('subscribe', data);
   }
 }

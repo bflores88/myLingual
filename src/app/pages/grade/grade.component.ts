@@ -3,7 +3,6 @@ import { BackendService } from 'src/app/services/backend.services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { container } from '@angular/core/src/render3';
 
 interface UserResponse {
   id: number;
@@ -65,7 +64,6 @@ export class GradeComponent implements OnInit {
   ngOnInit() {
     this.backend.getUserQuizzes().then((data: UserResponse) => {
       this.decks = data;
-      console.log(this.decks);
 
       this.decks.forEach((deck) => {
         let newDeck = [];
@@ -84,8 +82,6 @@ export class GradeComponent implements OnInit {
 
           quiz.score = score;
         });
-
-        console.log(this.decks);
       });
     });
   }

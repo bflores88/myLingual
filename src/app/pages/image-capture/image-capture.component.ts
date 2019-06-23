@@ -105,7 +105,6 @@ export class ImageCaptureComponent implements OnInit {
     this.selectImage = false;
     this.confirm = true;
     this.showPhoto = true;
-
   }
 
   ngOnDestroy() {
@@ -165,7 +164,7 @@ export class ImageCaptureComponent implements OnInit {
 
       this.buttonDisabled = false;
     }
-    
+
     this.buttonDisabled = false;
   }
 
@@ -176,21 +175,21 @@ export class ImageCaptureComponent implements OnInit {
   handleSubmitWord() {
     const data = {
       english_word: this.english_word,
-      image_link: this.image_link
+      image_link: this.image_link,
     };
 
     return this.dictionary.validateWord(data.english_word).then((result: AddWordResponse) => {
       if (!result.isWord) {
-        return this.errorMessage = 'Not a valid word.'
+        return (this.errorMessage = 'Not a valid word.');
       } else {
         this.backend.postFlashcard(data).then((data: AddWordResponse) => {
           const newData = {
             usercard_id: data.id,
             deck_id: this.add_to_deck,
             new_deck_name: this.new_deck_name,
-            image_link: this.image_link
+            image_link: this.image_link,
           };
-    
+
           this.showSuccess = true;
           this.showWordConfirm = false;
 
@@ -198,7 +197,6 @@ export class ImageCaptureComponent implements OnInit {
         });
       }
     });
-
   }
 
   isInvalid() {
@@ -212,7 +210,7 @@ export class ImageCaptureComponent implements OnInit {
     for (let i = 0; i < byteString.length; i++) {
       int8Array[i] = byteString.charCodeAt(i);
     }
-    const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+    const blob = new Blob([int8Array], { type: 'image/jpeg' });
     return blob;
- }
+  }
 }

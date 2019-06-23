@@ -41,8 +41,11 @@ export class LoginComponent implements OnInit {
     return this.backend.googleLogin()
   }
 
+  versionNumber: string = '';
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.versionNumber = process.env.IMAGE_VERSION;
+   }
   
 
 }

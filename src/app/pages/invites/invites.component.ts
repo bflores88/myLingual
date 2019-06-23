@@ -25,15 +25,10 @@ export class InvitesComponent implements OnInit {
       accepted: true,
     };
 
-    // console.log('accept');
     this.backend.respondToInvite(id, body).then((data: any) => {
-      // console.log('accept', data);
-
       this.invites = [];
 
       this.backend.getUserInvites().then((data: any) => {
-        // this.contacts = data;
-        // console.log('invites', data);
         data.forEach((invites) => {
           let inviteObj = {
             sent_at: '',
@@ -46,7 +41,6 @@ export class InvitesComponent implements OnInit {
 
           this.invites.push(inviteObj);
         });
-        // console.log('invites', this.invites);
       });
     });
   }
@@ -57,13 +51,9 @@ export class InvitesComponent implements OnInit {
     };
 
     this.backend.respondToInvite(id, body).then((data: any) => {
-      // console.log('reject', data);
-
       this.invites = [];
 
       this.backend.getUserInvites().then((data: any) => {
-        // this.contacts = data;
-        // console.log('invites', data);
         data.forEach((invites) => {
           let inviteObj = {
             sent_at: '',
@@ -76,15 +66,12 @@ export class InvitesComponent implements OnInit {
 
           this.invites.push(inviteObj);
         });
-        // console.log('invites', this.invites);
       });
     });
   }
 
   ngOnInit() {
     this.backend.getUserInvites().then((data: any) => {
-      // this.contacts = data;
-      // console.log('invites', data);
       data.forEach((invites) => {
         let inviteObj = {
           sent_at: '',
@@ -97,7 +84,6 @@ export class InvitesComponent implements OnInit {
 
         this.invites.push(inviteObj);
       });
-      // console.log('invites', this.invites);
     });
   }
 }

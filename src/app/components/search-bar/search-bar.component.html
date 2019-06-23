@@ -2,9 +2,15 @@
   <div class="search-bar">
     <form>
       <div class="search-input">
-        <input type="text" placeholder="Search..." name="searchText" [(ngModel)]="searchText.searchText"
-          (ngModelChange)="searchInit()" (keyup)="$event.keyCode == 13 ? searchFull() : null"
-          (blur)="clearDropdown()" />
+        <input
+          type="text"
+          placeholder="Search..."
+          name="searchText"
+          [(ngModel)]="searchText.searchText"
+          (ngModelChange)="searchInit()"
+          (keyup)="$event.keyCode == 13 ? searchFull() : null"
+          (blur)="clearDropdown()"
+        />
       </div>
     </form>
     <div class="search-icon">
@@ -18,7 +24,8 @@
         <span class="match-image">
           <img src="{{ searchMatch.match_image }}" />
         </span>
-        <span [ngClass]="{
+        <span
+          [ngClass]="{
             'match-own': true,
             fas: searchMatch.match_own > 0,
             far: searchMatch.match_own === 0,
@@ -26,7 +33,8 @@
             'fa-square': searchMatch.match_type === 'card' && searchMatch.match_own === 0,
             'fa-user-friends': searchMatch.match_type === 'user' && searchMatch.match_own > 0,
             'fa-user': searchMatch.match_type === 'user' && searchMatch.match_own === 0
-          }"></span>
+          }"
+        ></span>
         <span class="match-name">{{ searchMatch.match_name }}</span>
       </div>
     </div>
