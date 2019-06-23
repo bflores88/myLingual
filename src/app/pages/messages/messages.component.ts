@@ -87,11 +87,11 @@ export class MessagesComponent implements OnInit {
    
   }
 
-  sendMessage(message) {
+  sendMessage() {
     const msg = {
       id: this.userId,
       room: this.roomId,
-      body: message,
+      body: this.messageBody,
       conversation_id: this.conversation_id,
       sent_by: this.userId,
       sent_by_user_id: this.userId,

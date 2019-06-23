@@ -25,13 +25,12 @@
           id="message-input"
           type="text"
           name="message"
-          [(ngModel)]="messageBody"
-          (keyup)="$event.keyCode == 13 ? sendMessage(messageBody) : null"
+          [(ngModel)]="messageBody"    
         /> 
         <button 
         id="submit-message-button"
         [disabled]="messageBody.length === 0" 
-        (click)="sendMessage(messageBody)"
+        (click)="sendMessage()"
         >Send</button>
         <br />
 
