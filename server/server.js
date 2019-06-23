@@ -286,6 +286,11 @@ io.on('connect', (socket) => {
     io.to(`${msg.room}`).emit('message', msg);
   });
 
+  socket.on('error', (error) => {
+    console.log('error', error)
+  });
+  
+
   // list of users
   socket.on('users', () => {
     socket.emit('users', Object.keys(onlineUsers));
