@@ -115,9 +115,11 @@ export class ContactsComponent implements OnInit {
     console.log(data);
 
     this.backend.postConversation(data).then((result) => {
-      this.userList = [];
-      this.messageBody = '';
+
     })
+
+    this.userList = [];
+    this.messageBody = '';
   }
 
   addToConversation(e) {
