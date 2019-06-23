@@ -31,7 +31,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(routeParams => {
+    this.route.params.subscribe((routeParams) => {
       this.search_text = routeParams.search_text;
       this.backend.search(this.search_text).then((data: SearchMatches[]) => {
         if (data.length === 0) {
@@ -43,12 +43,8 @@ export class SearchResultsComponent implements OnInit {
 
         this.searchMatches = data;
       });
-    })
-
+    });
   }
-
-
-
 
   // takes users to detail page when selecting a match from dropdown
   showDetail(matchId, matchType) {
@@ -70,7 +66,6 @@ export class SearchResultsComponent implements OnInit {
 
       this.searchMatches = data;
       this.filterToggle = 0;
-
     });
   }
 

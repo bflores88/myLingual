@@ -16,7 +16,6 @@
             </div>
 
             <div class="flip-card-back">
-              <!-- <h4>{{ card.users_cards.cards.words[findTranslatedWord] }}</h4> -->
               <h4 *ngIf="target_language == 'italian'">
                 {{ card.users_cards.cards.words.italian_translations.italian_word }}
               </h4>
@@ -27,7 +26,6 @@
               <h4 *ngIf="target_language == 'japanese'">
                 {{ card.users_cards.cards.words.japanese_translations.japanese_word }}
               </h4>
-              <!-- <h4>{{ card[findTranslatedWord] }}</h4> -->
             </div>
           </div>
         </div>
@@ -92,5 +90,3 @@
     </div>
   </div>
 </div>
-
-<!-- (click)="status = !status" [ngClass]="status ? 'card-container' : 'card-container-is-flipped'" -->

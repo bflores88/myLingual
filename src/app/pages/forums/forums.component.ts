@@ -18,7 +18,6 @@ export class ForumsComponent implements OnInit {
 
   ngOnInit() {
     this.backend.getForumTopics().then((data: any) => {
-      // console.log(data);
       this.forum_topics = data;
     });
   }

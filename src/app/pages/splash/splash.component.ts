@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 
-
 @Component({
   selector: 'app-splash',
   templateUrl: './splash.component.html',
   styleUrls: ['./splash.component.scss'],
 })
 export class SplashComponent implements OnInit {
-  constructor(public router: Router, public session: SessionService) { };
+  constructor(public router: Router, public session: SessionService) {}
 
   ngOnInit() {
     if (this.session.isLoggedIn()) {

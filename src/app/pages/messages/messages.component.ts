@@ -23,10 +23,10 @@ interface MessageData {
 })
 export class MessagesComponent implements OnInit {
   messages: MessageData[] = [];
-  messageBody: string;
   msg: Observable<any>;
   private msgSub: Subscription;
   newMessages = [];
+  messageBody = '';
 
   userId = 0;
   roomId = 0;
@@ -63,6 +63,7 @@ export class MessagesComponent implements OnInit {
     let user = this.session.getSession();
     this.userId = parseInt(user.id);
     this.username = user.username;
+    
 
     this.socketService.sendIdentity(this.userId);
 
@@ -82,13 +83,15 @@ export class MessagesComponent implements OnInit {
     this.msgSub = this.socketService.msg.subscribe((msg) => {
       this.messages.unshift(msg);
     });
+
+   
   }
 
-  sendMessage(message) {
+  sendMessage() {
     const msg = {
       id: this.userId,
       room: this.roomId,
-      body: message,
+      body: this.messageBody,
       conversation_id: this.conversation_id,
       sent_by: this.userId,
       sent_by_user_id: this.userId,

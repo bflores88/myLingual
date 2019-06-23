@@ -1,37 +1,39 @@
 <div class="page">
-
   <div class="add-no-image">
-
     <div *ngIf="!showSuccess">
-        <h2>Enter a word to translate</h2>
-        <input spellcheck="true" type="text" name="english_word" [(ngModel)]="formData.english_word" placeholder="new word" class="type-word" maxlength="100" />
+      <h2>Enter a word to translate</h2>
+      <input
+        spellcheck="true"
+        type="text"
+        name="english_word"
+        [(ngModel)]="formData.english_word"
+        placeholder="new word"
+        class="type-word"
+        maxlength="100"
+      />
     </div>
-     
-    <div [hidden]="!this.errorMessage" class="error-message-div">{{errorMessage}}</div>
+
+    <div [hidden]="!this.errorMessage" class="error-message-div">{{ errorMessage }}</div>
 
     <div *ngIf="!showSuccess" class="deck-select">
-        <select name="add_to_deck" [(ngModel)]="add_to_deck" (change)="handleInputOnChange()">
-          <option value="">Add Card To Deck</option>
-          <option *ngFor="let deck of decks" value="{{deck.id}}">{{deck.name}}</option>
-          <option value="new-deck">Create New Deck</option>
-        </select>
-      </div>
+      <select name="add_to_deck" [(ngModel)]="add_to_deck" (change)="handleInputOnChange()">
+        <option value="">Add Card To Deck</option>
+        <option *ngFor="let deck of decks" value="{{ deck.id }}">{{ deck.name }}</option>
+        <option value="new-deck">Create New Deck</option>
+      </select>
+    </div>
 
-      <div *ngIf="newDeck" class="new-deck">
-          <input type="text" name="new-deck-name" [(ngModel)]="new_deck_name" placeholder="deck name" class="type-word" />
-      </div>
+    <div *ngIf="newDeck" class="new-deck">
+      <input type="text" name="new-deck-name" [(ngModel)]="new_deck_name" placeholder="deck name" class="type-word" />
+    </div>
 
-      <div *ngIf="!showSuccess" class="submit-word">
-        <button class="small-btn" [disabled]="isInvalid()" (click)="handleSubmitWord()">Submit</button>
-      </div>
+    <div *ngIf="!showSuccess" class="submit-word">
+      <button class="small-btn" [disabled]="isInvalid()" (click)="handleSubmitWord()">Submit</button>
+    </div>
 
-      <div *ngIf="showSuccess" class="success-card-generated">
-          <h1>Success!!!<br /></h1>
-          <h2>Check your decks to start studying!</h2>
-        </div>
-
-
+    <div *ngIf="showSuccess" class="success-card-generated">
+      <h1>Success!!!<br /></h1>
+      <h2>Check your decks to start studying!</h2>
+    </div>
   </div>
-
-
 </div>

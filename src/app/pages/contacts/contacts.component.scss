@@ -15,7 +15,6 @@
 
 .contact-image {
   width: 100px;
-  // height: auto;
   max-height: 100px;
   border-radius: 5px;
 }
@@ -48,8 +47,6 @@
 .right-side-contact {
   width: 50%;
   display: inline-block;
-
-  // justify-content: center;
 }
 .right-side-inner {
   margin: 1em;
@@ -60,6 +57,16 @@
   font-size: 16px;
   width: 100%;
   text-align: center;
+
+  .additional-chat, .message-body-div {
+
+    @media only screen and (min-width: 768px) {
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
 
   .add-to-message {
     text-align: left;
@@ -76,11 +83,9 @@
       width: 100%;
       margin: 15px 0px;
       height: 35px;
-  
     }
-
   }
-  
+
   .cancel-btn {
     background-color: red;
   }
@@ -90,4 +95,3 @@
     color: var(--accentColor);
   }
 }
-

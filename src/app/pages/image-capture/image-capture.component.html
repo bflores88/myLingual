@@ -41,7 +41,7 @@
       <input type="text" spellcheck="true" name="english_word" [(ngModel)]="english_word" class="type-word" />
     </div>
 
-    <div [hidden]="!this.errorMessage" class="error-message-div">{{errorMessage}}</div>
+    <div [hidden]="!this.errorMessage" class="error-message-div">{{ errorMessage }}</div>
 
     <div class="deck-select">
       <select name="add_to_deck" [(ngModel)]="add_to_deck" (change)="handleInputOnChange()">

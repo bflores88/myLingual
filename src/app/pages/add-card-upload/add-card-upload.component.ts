@@ -55,7 +55,7 @@ export class AddCardUploadComponent implements OnInit {
     public session: SessionService,
     public formBuilder: FormBuilder,
     public dictionary: DictionaryService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.uploadForm = this.formBuilder.group({

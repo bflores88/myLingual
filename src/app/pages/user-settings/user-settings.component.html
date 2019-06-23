@@ -48,12 +48,6 @@
       <div *ngIf="clicked_change_target" class="change-language-box">
         <label for="languages">Choose your target language : {{ chosen_language_name }}</label
         ><br />
-        <!-- <select class="language-dropdown" [(ngModel)]="target_language_id" name="languages" id="language-dropdown">
-          <option selected="selected" value="" disabled selected>Select your option</option>
-          <option *ngFor="let language of languages" value="{{ language.id }}">{{
-            language.languages.english_name
-          }}</option>
-        </select> -->
 
         <div class="flag-box" *ngFor="let language of languages">
           <img
@@ -69,7 +63,5 @@
         </div>
       </div>
     </div>
-
-    <!-- <option value="Internet Explorer"> Choose your target language</option> -->
   </div>
 </div>

@@ -13,7 +13,6 @@ export class DeckDetailComponent implements OnInit {
     loggedIn: boolean;
     username: string;
     id: any;
-    // target_languages: any;
   };
   userDetail: {
     target_languages: any;
@@ -36,7 +35,6 @@ export class DeckDetailComponent implements OnInit {
   findTranslatedWord: string = '';
   languages: any = [];
 
-
   cardsInDeck = [];
   cardsNotInDeck = [];
   cardsToAdd = [];
@@ -45,15 +43,12 @@ export class DeckDetailComponent implements OnInit {
   addCards: boolean;
   removeCards: boolean;
 
-  flipCard() {
-    // console.log(event.target);
-  }
+  flipCard() {}
 
   createTest() {
     this.routeId = this.activated.snapshot.paramMap.get('id');
 
     this.backend.createTestQuiz(this.routeId).then((data: any) => {
-      // console.log(data);
       this.router.navigate([`/test/${data}`]);
     });
   }
@@ -78,16 +73,15 @@ export class DeckDetailComponent implements OnInit {
         this.cards = this.deck.decks_cards.reverse();
         this.deck.decks_cards.forEach((card) => {
           this.cardsInDeck.push(card.users_cards.card_id);
-        })
+        });
 
         this.backend.getUserCards(searchId).then((data: any) => {
           data.forEach((card) => {
             if (this.cardsInDeck.indexOf(card.card_id) === -1) {
               this.cardsNotInDeck.push(card);
             }
-          })
-        })
-
+          });
+        });
       });
     });
   }
@@ -105,26 +99,24 @@ export class DeckDetailComponent implements OnInit {
   addToDeck(e) {
     if (e.target.checked) {
       this.cardsToAdd.push(parseInt(e.target.value));
-
     } else {
       const findInCardsToAdd = this.cardsToAdd.indexOf(parseInt(e.target.value));
       this.cardsToAdd.splice(findInCardsToAdd, 1);
     }
-
   }
 
   handleSubmit() {
     const data = {
       new_decks_cards: this.cardsToAdd,
-      deck_id: this.routeId
-    }
+      deck_id: this.routeId,
+    };
 
     return this.backend.postDeckCard(data).then((result) => {
       this.ngOnInit();
       this.addCards = false;
       this.showMain = true;
       this.cardsToAdd = [];
-    })
+    });
   }
 
   handleCancel() {
@@ -150,32 +142,28 @@ export class DeckDetailComponent implements OnInit {
 
       return this.ngOnInit();
     }
-    
   }
 
   handleTrashCard(e) {
-
     const thisCard = parseInt(e.target.value);
-    
+
     const notThisCard = this.cards.filter((card: any) => {
-      return card.users_cards_id !== thisCard
-    })
+      return card.users_cards_id !== thisCard;
+    });
 
     this.cards = notThisCard;
 
     const findThisCard = this.cards.filter((card: any) => {
-      return card.users_cards_id === thisCard
-    })
+      return card.users_cards_id === thisCard;
+    });
 
     this.cardsNotInDeck.push(findThisCard);
 
     const data = {
       delete_card: thisCard,
-      deck_id: parseInt(this.routeId)
-    }
+      deck_id: parseInt(this.routeId),
+    };
 
     this.backend.deleteDeckCard(data);
-
   }
-
 }
