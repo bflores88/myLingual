@@ -80,9 +80,17 @@
 #google-name:hover {
   border-color: #4086f4;
 }
-#versionNum{
+#versionNum {
   display: flex;
   justify-content: flex-end;
   color: #aaa;
   margin-right: 10px;
+}
+
+#admin-button {
+  border: none;
+  background-color: var(--headerColor);
+  color: white;
+  padding: 0.5em;
+  border-radius: 5px;
 }

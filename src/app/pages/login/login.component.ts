@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit {
     return this.backend.googleLogin();
   }
 
+  adminLogin() {
+    this.router.navigateByUrl(`/admin`);
+  }
+
   versionNumber: string = '';
 
   ngOnInit() {}

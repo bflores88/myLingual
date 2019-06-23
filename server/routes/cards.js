@@ -67,7 +67,7 @@ router
                 red_flagged: 0,
                 downloads: 0,
                 approved: true,
-                public: false,
+                public: true,
                 active: true,
               });
             })
