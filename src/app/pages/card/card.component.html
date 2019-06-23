@@ -2,7 +2,7 @@
   <div id="flashcard-section" *ngIf="hasFlashcard">
     <div class="change-flashcard-large">
       <button (click)="previousCard()">
-        <i class="fas fa-arrow-alt-circle-left"></i> 
+        <i class="fas fa-arrow-alt-circle-left"></i>
       </button>
     </div>
     <div id="flip-container-wrapper">
@@ -13,16 +13,16 @@
               <div class="title">
                 <div class="likes">
                   <i class="fas fa-heart"></i>
-                  <p>{{flashcard.likes}}</p>
+                  <p>{{ flashcard.likes }}</p>
                 </div>
-                <h1>{{flashcard.english_word}}</h1>
+                <h1>{{ flashcard.english_word }}</h1>
                 <div class="downloads">
-                  <p>{{flashcard.downloads}}</p>
+                  <p>{{ flashcard.downloads }}</p>
                   <i class="fas fa-file-download"></i>
                 </div>
               </div>
               <div class="body">
-                <img src="{{flashcard.image_link}}"/>
+                <img src="{{ flashcard.image_link }}" />
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
             <div class="flashcard-base">
               <div class="title">
                 <div></div>
-                <h1>{{flashcard.english_word}}</h1>
+                <h1>{{ flashcard.english_word }}</h1>
                 <div></div>
               </div>
               <div class="body">
@@ -38,11 +38,11 @@
                 <div id="translations">
                   <div class="language">
                     <h3 class="label">Spanish</h3>
-                    <h3>{{flashcard.spanish_translations}}</h3>
+                    <h3>{{ flashcard.spanish_translations }}</h3>
                   </div>
                   <div class="language">
                     <h3 class="label">Italian</h3>
-                    <h3>{{flashcard.italian_translations}}</h3>
+                    <h3>{{ flashcard.italian_translations }}</h3>
                   </div>
                 </div>
               </div>
@@ -58,11 +58,10 @@
     </div>
   </div>
 
-
   <div id="change-flashcard-mobile-section">
     <div class="change-flashcard-mobile">
       <button (click)="previousCard()">
-        <i class="fas fa-arrow-alt-circle-left"></i> 
+        <i class="fas fa-arrow-alt-circle-left"></i>
       </button>
     </div>
     <div class="change-flashcard-mobile">
@@ -72,12 +71,11 @@
     </div>
   </div>
 
-
   <div id="interaction-section" *ngIf="hasUser">
     <div class="interaction-element">
       <div class="interaction-bullets" *ngIf="canDownload">
         <div *ngFor="let deck of user.decks">
-          <input type="radio" name="id" [formControl]="deckID" value="{{deck.id}}" required> {{deck.name}}
+          <input type="radio" name="id" [formControl]="deckID" value="{{ deck.id }}" required /> {{ deck.name }}
         </div>
       </div>
       <button (click)="download()" [(disabled)]="!canDownload">
@@ -92,7 +90,6 @@
       </button>
     </div>
   </div>
-    
 
   <div id="creator-section" *ngIf="hasCreator">
     <div id="creator-header">
@@ -108,40 +105,39 @@
       <div *ngIf="!creator.active">
         <i class="far fa-user" style="color: red"></i>
       </div>
-      <h2>Created by {{creator.username}}</h2>
+      <h2>Created by {{ creator.username }}</h2>
     </div>
     <div id="creator-profile">
-      <img class="image-blurred-edge" src="{{creator.profile_image_url}}"/>
+      <img class="image-blurred-edge" src="{{ creator.profile_image_url }}" />
 
       <div class="creator-profile-element">
         <h3>Stats</h3>
-        <p>Cards Created: {{creator.cards_created}}</p>
-        <p>Cards Owned: {{creator.cards_owned}}</p>
+        <p>Cards Created: {{ creator.cards_created }}</p>
+        <p>Cards Owned: {{ creator.cards_owned }}</p>
       </div>
 
       <div class="creator-profile-element">
         <h3>Native Languages</h3>
         <div *ngFor="let language of creator.native_languages">
-          <p>{{language}}</p>
+          <p>{{ language }}</p>
         </div>
       </div>
 
       <div class="creator-profile-element">
         <h3>Target Languages</h3>
         <div *ngFor="let language of creator.target_languages">
-          <p>{{language}}</p>
+          <p>{{ language }}</p>
         </div>
       </div>
     </div>
   </div>
-
 
   <div id="definition-section" *ngIf="hasUser && hasDefinitions">
     <div class="definition-element">
       <h3>Primary Definitions</h3>
       <ul>
         <li *ngFor="let definition of definitions.mainDefinitions">
-          <p>{{definition}}</p>
+          <p>{{ definition }}</p>
         </li>
       </ul>
     </div>
@@ -149,7 +145,7 @@
       <h3>Secondary Definitions</h3>
       <ul>
         <li *ngFor="let definition of definitions.subsenseDefinitions">
-          <p>{{definition}}</p>
+          <p>{{ definition }}</p>
         </li>
       </ul>
     </div>

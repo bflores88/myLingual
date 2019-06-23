@@ -29,7 +29,6 @@
 }
 
 .forum-topic-box {
-  // background-color: hsl(197, 56%, 69%);
   background-color: var(--buttonBgColor);
   color: hsl(0, 0%, 100%);
   border-radius: 10px;
@@ -38,7 +37,6 @@
   display: flex;
   text-align: center;
   justify-content: center;
-  // font-family: var(--textFont);
   font-family: 'B612', sans-serif;
   text-shadow: 2px 2px 4px black;
 }
@@ -49,12 +47,9 @@
 .new-post-btn {
   padding: 10px 15px;
   border-radius: 6px;
-  // width: 100%;
-  // width: 25%;
   font-size: 16px;
   color: var(--buttonFontColor);
   background-color: var(--headerColor);
-  // border: var(--buttonBorder);
   border: none;
   font-size: 1.2em;
   @media only screen and (min-width: 768px) {

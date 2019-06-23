@@ -128,7 +128,6 @@
     }
   }
 
-
   .select-word {
     width: 100%;
     text-align: center;
@@ -152,7 +151,9 @@
       text-align: center;
     }
 
-    .deck-select, .new-deck, .submit-word {
+    .deck-select,
+    .new-deck,
+    .submit-word {
       margin-top: 20px;
 
       select {
@@ -171,7 +172,7 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-  
+
     @media only screen and (min-width: 768px) {
       width: 60%;
     }

@@ -4,10 +4,10 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { SessionService } from '../services/session.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(public session: SessionService, public auth: AuthService, public router: Router) { }
+  constructor(public session: SessionService, public auth: AuthService, public router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.auth.redirectUrl = state.url;

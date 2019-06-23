@@ -8,21 +8,19 @@
           <input #file size="60" type="file" name="image" accept="image/*" (change)="preview(file.files)"
         /></label>
       </div>
-    
 
-    <div *ngIf="showPhoto" class="image-box">
+      <div *ngIf="showPhoto" class="image-box">
         <img [src]="imgURL" height="auto" width="300" *ngIf="imgURL" />
       </div>
 
-    <div *ngIf="confirm" class="confirm-image">
-      <h2>Use This Image?</h2>
-      <div class="confirm-options">
+      <div *ngIf="confirm" class="confirm-image">
+        <h2>Use This Image?</h2>
+        <div class="confirm-options">
           <div class="yes-image option-confirm"><button type="submit">YES</button></div>
-        <div class="no-image option-confirm"><button (click)="cancelSubmit()">NO</button></div>
+          <div class="no-image option-confirm"><button (click)="cancelSubmit()">NO</button></div>
+        </div>
       </div>
-    </div>
-
-  </form>
+    </form>
 
     <div *ngIf="loading" class="loading">
       <div class="loading-container">
@@ -35,7 +33,9 @@
     <div *ngIf="showWordConfirm" class="select-word">
       <h2>Please confirm word</h2>
       <div *ngFor="let result of results" class="word-confirm">
-        <button class="small-btn" name="english_word" (click)="handleWordSelect($event)" value="{{result}}">{{result}}</button>
+        <button class="small-btn" name="english_word" (click)="handleWordSelect($event)" value="{{ result }}">
+          {{ result }}
+        </button>
         <br />
       </div>
 
@@ -44,31 +44,28 @@
         <input type="text" spellcheck="true" name="english_word" [(ngModel)]="english_word" class="type-word" />
       </div>
 
-      <div [hidden]="!this.errorMessage" class="error-message-div">{{errorMessage}}</div>
+      <div [hidden]="!this.errorMessage" class="error-message-div">{{ errorMessage }}</div>
 
       <div class="deck-select">
         <select name="add_to_deck" [(ngModel)]="add_to_deck" (change)="handleInputOnChange()">
           <option value="">Add Card To Deck</option>
-          <option *ngFor="let deck of decks" value="{{deck.id}}">{{deck.name}}</option>
+          <option *ngFor="let deck of decks" value="{{ deck.id }}">{{ deck.name }}</option>
           <option value="new-deck">Create New Deck</option>
         </select>
       </div>
 
       <div *ngIf="newDeck" class="new-deck">
-          <input type="text" name="new-deck-name" [(ngModel)]="new_deck_name" placeholder="deck name" class="type-word" />
+        <input type="text" name="new-deck-name" [(ngModel)]="new_deck_name" placeholder="deck name" class="type-word" />
       </div>
 
       <div class="submit-word">
         <button class="small-btn" [disabled]="isInvalid()" (click)="handleSubmitWord()">Submit</button>
       </div>
-
     </div>
 
     <div *ngIf="showSuccess" class="success-card-generated">
       <h1>Success!!!<br /></h1>
       <h2>Check your decks to start studying!</h2>
     </div>
-
-
   </div>
 </div>

@@ -10,7 +10,6 @@ $headerHeight: 60px;
   background-color: var(--headerColor);
   color: var(--headerFontColor);
   height: $headerHeight;
-  // border-bottom: 1px solid black;
   top: 0;
   position: fixed;
   z-index: 2;
@@ -30,10 +29,6 @@ $headerHeight: 60px;
     left: 0;
     margin-left: 100px;
   }
-
-  // @media only screen and (min-width: 600px) {
-  //   display: none;
-  // }
 }
 
 .header.dark-theme {
@@ -48,8 +43,4 @@ $headerHeight: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  // @media only screen and (max-width: 600px) {
-  //   display: none;
-  // }
 }

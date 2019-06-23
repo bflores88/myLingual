@@ -8,8 +8,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    // margin: 1em;
-    // padding: 1em;
     padding-bottom: 1em;
     border-bottom: 1px dotted var(--accentColor);
   }
@@ -17,7 +15,6 @@
     padding: 1em;
     background-color: var(--accentColor);
     border-radius: 10px;
-    // color: var(--headerFontColor);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     display: block;
     min-width: 300px;
@@ -29,7 +26,6 @@
     }
   }
   .recent-title {
-    // width: 100%;
     width: 90%;
   }
   .deck-box {
@@ -45,32 +41,22 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    // display: flex;
-    // justify-content: center;
-    // color: var(--headerFontColor);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     &:hover {
       background-color: var(--headerColor);
       cursor: pointer;
     }
   }
-  
+
   .deck-box-container {
     display: flex;
     justify-content: center;
     width: 100%;
   }
-  
+
   .all-decks-container {
-    // justify-content: center;
-    // overflow: hidden;
     width: 100%;
     display: block;
     height: 100%;
-    // overflow-wrap: break-word;
   }
-  
-
-
 }
-

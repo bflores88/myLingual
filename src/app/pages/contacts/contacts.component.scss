@@ -15,7 +15,6 @@
 
 .contact-image {
   width: 100px;
-  // height: auto;
   max-height: 100px;
   border-radius: 5px;
 }
@@ -48,8 +47,6 @@
 .right-side-contact {
   width: 50%;
   display: inline-block;
-
-  // justify-content: center;
 }
 .right-side-inner {
   margin: 1em;
@@ -86,11 +83,9 @@
       width: 100%;
       margin: 15px 0px;
       height: 35px;
-  
     }
-
   }
-  
+
   .cancel-btn {
     background-color: red;
   }
@@ -100,4 +95,3 @@
     color: var(--accentColor);
   }
 }
-

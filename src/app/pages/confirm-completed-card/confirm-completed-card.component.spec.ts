@@ -8,9 +8,8 @@ describe('ConfirmCompletedCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfirmCompletedCardComponent ]
-    })
-    .compileComponents();
+      declarations: [ConfirmCompletedCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -18,9 +18,7 @@ export class GoogleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('hits googleLogin ngOnInit');
     this.backend.googleLogin().then((data) => {
-      console.log('user data', data);
       this.session.setSession(data);
       this.router.navigate(['profile']);
     });

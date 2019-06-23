@@ -42,7 +42,6 @@
     background-color: transparent;
     width: 95%;
     height: 250px;
-    // border: 1px solid #f1f1f1;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
     margin: 1em 2em 1em 0em;
     border-radius: 10px;
@@ -57,11 +56,6 @@
     transition: transform 0.8s;
     transform-style: preserve-3d;
   }
-
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  // .flip-card:hover .flip-card-inner {
-  //   transform: rotateY(180deg);
-  // }
 
   .flip-card-inner-flipped {
     transform: rotateY(180deg);

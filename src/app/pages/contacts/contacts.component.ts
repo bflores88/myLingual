@@ -28,8 +28,6 @@ export class ContactsComponent implements OnInit {
 
   ngOnInit() {
     this.backend.getUserContacts().then((data: any) => {
-
-
       data.forEach((contact) => {
         if (contact.invitee != this.user.id) {
           let contactObj = {
@@ -47,7 +45,6 @@ export class ContactsComponent implements OnInit {
       });
     });
   }
-
 
   deleteThisContact(id) {
     this.backend.deleteContact(id).then((data: any) => {
@@ -68,13 +65,11 @@ export class ContactsComponent implements OnInit {
             this.contacts.push(contactObj);
           }
         });
-        // console.log(this.contacts);
       });
     });
   }
 
   handleSendMessage(e) {
-
     this.newConversation = true;
     this.userList.push(parseInt(e.target.value));
     this.messageTo.push(e.target.name);
@@ -82,9 +77,9 @@ export class ContactsComponent implements OnInit {
 
     this.contacts.forEach((contact) => {
       if (contact.person.id !== parseInt(e.target.value)) {
-        this.notInMessage.push(contact); 
+        this.notInMessage.push(contact);
       }
-    })
+    });
   }
 
   cancelSendMessage() {
@@ -97,11 +92,10 @@ export class ContactsComponent implements OnInit {
 
   handleAddMore() {
     if (!this.addOthers) {
-      return this.addOthers = true;
+      return (this.addOthers = true);
     } else {
-      return this.addOthers = false;
+      return (this.addOthers = false);
     }
-    
   }
 
   handleNewMessage() {
@@ -109,17 +103,13 @@ export class ContactsComponent implements OnInit {
 
     const data = {
       body: this.messageBody,
-      userList: this.userList
-    }
-
-    console.log(data);
+      userList: this.userList,
+    };
 
     this.backend.postConversation(data).then((result) => {
-
-    })
-
-    this.userList = [];
-    this.messageBody = '';
+      this.userList = [];
+      this.messageBody = '';
+    });
   }
 
   addToConversation(e) {
@@ -127,16 +117,12 @@ export class ContactsComponent implements OnInit {
       this.userList.push(parseInt(e.target.value));
       this.messageTo.push(', ');
       this.messageTo.push(e.target.name);
-
     } else {
       const findInUserList = this.userList.indexOf(parseInt(e.target.value));
       this.userList.splice(findInUserList, 1);
 
       const findInMessageTo = this.messageTo.indexOf(e.target.name);
-      this.messageTo.splice(findInMessageTo -1, 2);
+      this.messageTo.splice(findInMessageTo - 1, 2);
     }
-
   }
-  
-
 }

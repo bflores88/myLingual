@@ -1,8 +1,5 @@
 @import '../../../styles.scss';
 
-.messages-container {
-}
-
 .message-box {
   background-color: var(--buttonBgColor);
   padding: 0.5em;
@@ -11,6 +8,5 @@
 }
 
 .message-date {
-  // border-top: 1px dotted black;
   margin: 0.25em;
 }
