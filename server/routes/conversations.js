@@ -9,7 +9,8 @@ const authGuard = require('../guards/authGuard');
 
 const knex = require('../database/knex.js');
 
-router.route('/')
+router
+  .route('/')
   .get(authGuard, (req, res) => {
     knex
       .raw(
@@ -53,6 +54,7 @@ router.route('/')
     // TO-DO: ensure req.body.userList is an array of user_id's
     // TO-DO: ensure that recipient list contains only a user's contacts
     // must send a message when starting a conversation
+
     if (!req.body.hasOwnProperty('body')) {
       console.log('Must provide a message when starting a conversation');
       return res.status(400).send('Bad request');
@@ -64,71 +66,103 @@ router.route('/')
       return res.status(400).send('Bad request');
     }
 
-    // fetch all conversations (id) and each userList (array) tied to the user
-    knex
-      .raw(
-        `SELECT conversation_id, array_agg(user_id) AS user_list
-        FROM users_conversations
-        WHERE user_id != ? AND conversation_id IN
-          (SELECT conversation_id
-          FROM users_conversations
-          WHERE user_id = ?)
-        GROUP BY conversation_id
-        ORDER BY conversation_id;`,
-        [req.user.id, req.user.id],
-      )
+    let newConversation = false;
+
+    // retrieve all conversations belonging to user
+    UserConversation.where({ user_id: req.user.id })
+      .fetchAll({ withRelated: ['conversations.users'] })
       .then((result) => {
-        // check for pre-existing
-        let existingConversation = { exists: false };
-        result.rows.forEach((conversation) => {
-          if (conversation.user_list.sort().toString() === req.body.userList.sort().toString()) {
-            existingConversation.exists = true;
-            existingConversation.id = conversation.conversation_id;
+        const spreadConversations = [];
+
+        if (result.length === 0) {
+          return spreadConversations;
+        }
+        const allConversations = result.toJSON();
+
+        allConversations.forEach((conversation) => {
+          const data = { conversation_id: conversation.conversation_id };
+          const participants = [];
+
+          conversation.conversations.users.forEach((user) => {
+            if (user.user_id !== req.user.id) {
+              participants.push(user.user_id);
+            }
+          });
+
+          data.participants = participants;
+
+          if (participants.length > 0) {
+            spreadConversations.push(data);
           }
         });
 
-        // if already a conversation between users in userList
+        return spreadConversations;
+      })
+      .then((result) => {
+
+        // check for pre-existing
+        let existingConversation = { exists: false };
+
+        if (result.length > 0) {
+          result.forEach((conversation) => {
+            if (conversation.participants.sort().toString() === req.body.userList.sort().toString()) {
+              existingConversation.exists = true;
+              existingConversation.id = conversation.conversation_id;
+            }
+          });
+        }
+
+        // if already a conversation between users in userLis
         // then return the existingConversation object
         if (existingConversation.exists) {
-          return existingConversation;
+          return existingConversation.id;
           // otherwise create a new conversation
         } else {
-          return new Conversation().save({});
+          newConversation = true;
+          return new Conversation().save({}).then((results) => {
+            return results.id;
+          });
         }
       })
       .then((result) => {
-        // post messge in the conversation
         return new Message().save({
           body: req.body.body,
-          conversation_id: result.id,
+          conversation_id: result,
           sent_by: req.user.id,
         });
       })
       .then((result) => {
-        // tie sender to the conversation
-        const conversation_id = result.attributes.conversation_id;
-        const users_conversations = [
-          {
-            conversation_id,
-            user_id: req.user.id,
-          },
-        ];
-        // tie recipients to the conversation
-        const userList = req.body.userList;
-        if (userList.length > 0) {
-          userList.forEach((user) => {
-            users_conversations.push({
-              conversation_id,
-              user_id: parseInt(user),
-            });
-          });
-        }
 
-        // post to users_conversations (one entry per recipient)
-        return UserConversation.collection(users_conversations).invokeThen('save');
+        // for new conversations, tie to sender and participants
+        if (newConversation) {
+          // tie sender to the conversation
+          const conversation_id = result.toJSON().conversation_id;
+          const users_conversations = [
+            {
+              conversation_id,
+              user_id: req.user.id,
+            },
+          ];
+          // tie recipients to the conversation
+          const userList = req.body.userList;
+          if (userList.length > 0) {
+            userList.forEach((user) => {
+              users_conversations.push({
+                conversation_id,
+                user_id: parseInt(user),
+              });
+            });
+          }
+
+          // post to users_conversations (one entry per recipient)
+          return UserConversation.collection(users_conversations).invokeThen('save');
+        } else {
+          return;
+        }
       })
       .then(() => {
-        return res.json({ success: 'made new conversation'})
+        newConversation = false;
+        return res.json({ success: 'made new conversation' });
       })
       .catch((err) => {
         console.log(err.message);

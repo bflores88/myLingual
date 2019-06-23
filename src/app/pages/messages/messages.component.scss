@@ -28,7 +28,6 @@
 #form-div {
   align-content: center;
   align-items: center;
-  // margin: 0em 1em 1em 1em;
   text-align: center;
   padding-top: 10px;
   display: flex;
@@ -43,10 +42,7 @@
     font-size: 1.5em;
     resize: none;
     border: 2px solid var(--accentColor);
-    // padding-top: 10px;
-    // text-align: center;
   }
-
 
   #submit-message-button:disabled {
       background-color: lightgray;
@@ -74,8 +70,6 @@
   }
 }
 
-// message css
-
 .message-box {
   border: 1px solid orange;
   margin: 0.5em;
@@ -98,7 +92,6 @@
   justify-content: flex-end;
   width: 100%;
   margin: 1em 0em 1em 0em;
-  // margin: 0;
 }
 .outer-message-box-other {
   display: flex;
@@ -119,7 +112,6 @@
 .user-message {
   background-color: rgb(205, 255, 238);
   border-radius: 10px;
-  // padding: 0.5em;
   width: 70%;
   padding: 0.5em;
 }
