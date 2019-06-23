@@ -26,7 +26,6 @@
   margin-bottom: 5em;
 }
 #input-reply {
-  // width: 60%;
   width: 100%;
   resize: none;
   border: 2px solid hsl(197, 56%, 69%);
@@ -42,11 +41,7 @@
   justify-content: space-around;
   width: 100%;
   margin: 1em 0em 1em 0em;
-  // border-top: 1px dotted var(--headerColor);
   padding: 1em 0em 1em 0em;
-}
-.input-label {
-  // width: 100%;
 }
 
 .new-forum-input {
