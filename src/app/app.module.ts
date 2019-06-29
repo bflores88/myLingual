@@ -47,7 +47,7 @@ import { GradeComponent } from './pages/grade/grade.component';
 
 const CONFIG_URL = environment.url;
 
-const config: SocketIoConfig = { url: CONFIG_URL, options: {} };
+const config: SocketIoConfig = { url: CONFIG_URL, options: { transports: ['websocket']} };
 
 @NgModule({
   declarations: [

@@ -14,9 +14,10 @@ exports.seed = function(knex, Promise) {
           role_id: 1,
           username: 'Admin01',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'Unko Pidgin',
+          name: 'Sally Admin',
           email: 'hobrah@cuzzin.com',
-          profile_image_url: 'https://www.mauiinformationguide.com/img/_maui/hawaiian-pidgin.jpg',
+          profile_image_url:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj3ojtUdc_8iSXycvBIf52zd67Lm16heCEJTyz482ZFdE2sirz',
           lingots: 17000,
         },
         {
@@ -25,10 +26,10 @@ exports.seed = function(knex, Promise) {
           role_id: 1,
           username: 'Admin02',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'Captain Crunch',
+          name: 'Curtis Crunch',
           email: 'crunchetizemyshiz@kellogs.com',
           profile_image_url:
-            'http://296y67419hmo2gej4j232hyf-wpengine.netdna-ssl.com/wp-content/uploads/2013/06/captain-crunch-face.gif',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT841fwGucpbtorsXHJucmUHGipOixZ2Gd6QEutqVwd71RDXaYI',
           lingots: 1000,
         },
         {
@@ -37,9 +38,10 @@ exports.seed = function(knex, Promise) {
           role_id: 2,
           username: 'Moderator01',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'Franklin the Turtle',
+          name: 'Mario',
           email: 'takethings@slow.com',
-          profile_image_url: 'https://i.pinimg.com/originals/c8/5e/8e/c85e8e04a643a6f8d39a215ce866b73f.jpg',
+          profile_image_url:
+            'https://www.pinclipart.com/picdir/middle/5-59080_clipart-cartoon-faces-cartoon-man-face-png-download.png',
           lingots: 243,
         },
         {
@@ -48,10 +50,9 @@ exports.seed = function(knex, Promise) {
           role_id: 2,
           username: 'Moderator02',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'Yakko Warner',
+          name: 'Julio',
           email: 'animaniacs@warnerbros.com',
-          profile_image_url:
-            'https://vignette.wikia.nocookie.net/animaniacs/images/6/68/Yakko_Warner.png/revision/latest?cb=20130118164439',
+          profile_image_url: 'https://thumbs.dreamstime.com/b/ragazzo-sorridente-dell-avatar-grafico-73285335.jpg',
           lingots: 1000,
         },
         {
@@ -60,9 +61,9 @@ exports.seed = function(knex, Promise) {
           role_id: 3,
           username: 'User01',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'Garfield',
+          name: 'Tony Stark',
           email: 'lasagna@mondays.com',
-          profile_image_url: 'https://images.halloweencostumes.com/products/5644/1-1/child-garfield-costume.jpg',
+          profile_image_url: 'https://www.seoclerk.com/pics/319222-1IvI0s1421931178.png',
           lingots: 10,
         },
         {
@@ -71,10 +72,10 @@ exports.seed = function(knex, Promise) {
           role_id: 3,
           username: 'User02',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'One Punch Man',
+          name: 'Miranda',
           email: 'pushups@situps.com',
           profile_image_url:
-            'https://img1.ak.crunchyroll.com/i/spire2/b07e7c6942d8d007fdf3bc2c9838322b1559849807_full.png',
+            'https://cdn2.iconfinder.com/data/icons/cartoon-avatars/128/Avatars_African_American_woman-512.png',
           lingots: 43,
         },
         {
@@ -83,9 +84,10 @@ exports.seed = function(knex, Promise) {
           role_id: 3,
           username: 'User03',
           password: bcrypt.hashSync('password', saltRounds),
-          name: 'Thay nose',
+          name: 'Gerald',
           email: 'thaynosebear@balance.com',
-          profile_image_url: 'https://cdn.mos.cms.futurecdn.net/G7WyGoFb5oBptgkzTxrBFW.jpg',
+          profile_image_url:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLkA4QuCmsYVxsqTdM7ciRkJcooHdeK7wuOqyEEUhZ3e0dq-qwSw',
           lingots: 50,
         },
       ]);
