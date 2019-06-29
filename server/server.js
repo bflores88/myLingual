@@ -39,6 +39,7 @@ const dictionary = require('./routes/dictionary');
 const google = require('./routes/google');
 const grades = require('./routes/grades');
 const postMessage = require('./services/websocket-message');
+const register = require('./routes/register');
 
 app.use(bodyParser.json());
 app.use(
@@ -203,8 +204,8 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
@@ -216,7 +217,7 @@ app.get(
   function(req, res) {
     // Successful authentication, redirect home.
     // console.log('hits***********', req.user);
-    // console.log(req)
+    // console.log(req);
     // res.json(req.user);
     res.redirect(`${process.env.OAUTH_URL}/google`);
   },
@@ -240,6 +241,7 @@ app.use('/api/searches', searches);
 app.use('/api/languages', languages);
 app.use('/api/dictionary', dictionary);
 app.use('/api/grades', grades);
+app.use('/api/register', register);
 
 // io.of('/socket.io').on
 let onlineUsers = {};
@@ -294,9 +296,8 @@ io.on('connect', (socket) => {
   });
 
   socket.on('error', (error) => {
-    console.log('error', error)
+    console.log('error', error);
   });
-  
 
   // list of users
   socket.on('users', () => {

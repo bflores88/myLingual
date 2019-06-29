@@ -8,6 +8,8 @@ export class BackendService {
   constructor(public http: HttpClient) {}
 
   register(data) {
+    console.log('hits backend service');
+    console.log(data);
     return this.http.post('/api/register', data, { withCredentials: true }).toPromise();
   }
 

@@ -19,6 +19,10 @@ export class LoginComponent implements OnInit {
 
   constructor(public auth: AuthService, public router: Router, public backend: BackendService) {}
 
+  toRegister() {
+    this.router.navigateByUrl('/register');
+  }
+
   login() {
     this.auth
       .login(this.formData)
