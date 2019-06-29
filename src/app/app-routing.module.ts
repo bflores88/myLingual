@@ -57,7 +57,7 @@ const routes: Routes = [
   { path: 'search/:search_text', canActivate: [AuthGuard], component: SearchResultsComponent },
   { path: 'google', component: GoogleComponent },
   { path: 'admin', component: AdminLoginComponent },
-  { path: 'grades', component: GradeComponent },
+  { path: 'grades', canActivate: [AuthGuard], component: GradeComponent },
   { path: 'register', component: RegisterComponent },
 ];
 
