@@ -7,7 +7,30 @@
     <h1>Welcome!</h1>
     <br />
 
-    <div class="google-auth-box">
+    <form>
+      <div>
+        <input type="text" name="username" placeholder="username" class="type-word" [(ngModel)]="formData.username" />
+      </div>
+
+      <div>
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          class="type-word"
+          [(ngModel)]="formData.password"
+        />
+      </div>
+
+      <div>
+        <button class="small-btn" (click)="login()">Login</button>
+      </div>
+      <div>
+        <button class="small-btn" (click)="toRegister()">Create a new Account</button>
+      </div>
+    </form>
+
+    <!-- <div class="google-auth-box">
       <a id="google-link" href="/api/auth/google">
         <h3 id="login-text">
           Log in with:
@@ -21,14 +44,12 @@
           </div>
         </h3></a
       >
-    </div>
+    </div> -->
     <br />
     <br />
   </div>
 
   <br />
-  <br />
-
   <br />
   <br />
   <br />
@@ -47,6 +68,6 @@
   <br />
 
   <div id="versionNumBox">
-    <div (click)="adminLogin()" id="versionNum">v. 1.0.0</div>
+    <div (click)="adminLogin()" id="versionNum">v. 2.0.0</div>
   </div>
 </div>

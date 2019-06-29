@@ -1,5 +1,57 @@
 <div>
+  <br />
+  <br />
+  <br />
+
   <div class="register">
-    <h1>This is the register page!</h1>
+    <h1>Register as a new User!</h1>
+    <br />
+
+    <form>
+      <div>
+        <input type="text" name="username" placeholder="username" class="type-word" [(ngModel)]="formData.username" />
+      </div>
+
+      <div>
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          class="type-word"
+          [(ngModel)]="formData.password"
+        />
+      </div>
+
+      <div>
+        <button class="small-btn" (click)="register()">Register</button>
+      </div>
+      <div>
+        <button class="small-btn" (click)="toLogin()">Already have an Account?</button>
+      </div>
+    </form>
+  </div>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+
+  <div id="versionNumBox">
+    <div (click)="adminLogin()" id="versionNum">v. 2.0.0</div>
   </div>
 </div>
