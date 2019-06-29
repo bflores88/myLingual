@@ -41,5 +41,9 @@ export class RegisterComponent implements OnInit {
       });
   }
 
+  adminLogin() {
+    this.router.navigateByUrl(`/admin`);
+  }
+
   ngOnInit() {}
 }
