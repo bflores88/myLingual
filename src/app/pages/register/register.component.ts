@@ -24,19 +24,15 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log('hits register button');
     this.auth
       .register(this.formData)
       .then((response) => {
-        console.log('returns from backend');
         const { redirectUrl } = this.auth;
         if (redirectUrl) {
-          console.log('hits if statement');
           this.router.navigate([redirectUrl]);
           this.auth.redirectUrl = '';
         } else {
           //redirects to the home page
-          console.log('hits else statement');
           this.router.navigate(['/home']);
         }
       })
