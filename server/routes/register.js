@@ -20,8 +20,16 @@ router.post('/', (req, res) => {
         return 500;
       }
       return new User({
+        active: true,
+        private_mode: false,
+        role_id: 3,
         username: req.body.username,
         password: hash,
+        name: req.body.username,
+        email: '',
+        profile_image_url:
+          'https://www.loginradius.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png',
+        lingots: 0,
       })
         .save()
         .then(() => {
