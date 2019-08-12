@@ -1,27 +1,36 @@
 # MyLingual
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+A progressive web application built with Angular that creates user-generated flashcards via text or photo translations into Spanish, Italian, and Japanese.
 
-## Development server
+This is the final project for DevLeague Cohort 28 consisting of [Frank Heggeness](https://github.com/frankheggeness), [Brenda Flores](https://github.com/bflores88), [Luke Fiorio](https://github.com/lukefiorio), [Brett Matsumoto](https://github.com/BrettMatsumoto), and [Ronald Nagata](https://github.com/rnagata).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Technologies Used
 
-## Code scaffolding
+- Angular
+- JavaScript
+- SASS
+- HTML
+- Amazon Web Services
+- Express.js
+- Docker
+- Redis
+- Knex
+- Google Vision API
+- Google Translate API
+- Oxford Dictionary API
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Screenshots
 
-## Build
+![login](./screenshots/login.png 'login')
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![profile](./screenshots/profile.png 'user-profile')
 
-## Running unit tests
+![add-image](./screenshots/add_image.png 'add-card')
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![quiz](./screenshots/quiz.png 'flashcard-quiz')
 
-## Running end-to-end tests
+![grades](./screenshots/grades.png 'grades')
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+![forumes](./screenshots/forums.png 'forums')
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![messaging](./screenshots/messaging.png 'messaging')
