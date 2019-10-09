@@ -3,7 +3,7 @@
 .home-link-box {
   width: 100%;
   background-color: var(--buttonBgColor);
-  margin: 1em 0em 1em 0em;
+  margin: 1em 0em;
   display: flex;
   justify-content: center;
   padding: 1em;
@@ -15,5 +15,9 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media (min-width: 768px) {
+  .home-link-box {
+    margin: 0.5em 0em;
+    padding: 0.5em;
+  }
 }

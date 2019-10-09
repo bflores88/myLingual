@@ -41,10 +41,6 @@ a:hover {
   color: var(--hoverLinkColor);
 }
 
-.page {
-  margin-top: 80px;
-}
-
 .small-btn {
   padding: 10px 15px;
   border-radius: 6px;
@@ -105,7 +101,13 @@ input {
 }
 
 .page {
-  // margin: 1em;
   padding: 1em;
   margin-bottom: 5em;
+  margin-top: 80px;
+
+  @media (min-width: 768px) {
+    width: 60%;
+    max-width: 400px;
+    margin: 100px auto;
+  }
 }
